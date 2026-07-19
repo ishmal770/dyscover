@@ -1,4 +1,4 @@
-import { Bird } from "lucide-react";
+import { Blocks } from "lucide-react";
 import WorldHubOverview from "../components/WorldHubOverview";
 
 const ACTIVITIES = [
@@ -24,7 +24,7 @@ function JungleGames({ onHome, onNext }) {
   return (
     <WorldHubOverview
       worldLabel="WORLD 1: JUNGLE GAMES"
-      badgeIcon={Bird}
+      pinIcon={Blocks}
       title="Jungle Games"
       subtitle="Welcome to the jungle zone! Choose a site to start building words."
       masteryStars={2}

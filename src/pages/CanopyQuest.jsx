@@ -1,4 +1,4 @@
-import { TreePine } from "lucide-react";
+import { Blocks } from "lucide-react";
 import WorldHubOverview from "../components/WorldHubOverview";
 
 const ACTIVITIES = [
@@ -24,7 +24,7 @@ function CanopyQuest({ onHome, onNext }) {
   return (
     <WorldHubOverview
       worldLabel="WORLD 2: CANOPY QUEST"
-      badgeIcon={TreePine}
+      pinIcon={Blocks}
       title="Canopy Quest"
       subtitle="Welcome to the jungle zone! Choose a site to start building words."
       masteryStars={2}

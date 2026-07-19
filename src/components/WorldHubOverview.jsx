@@ -1,4 +1,4 @@
-import { Volume2, Star, Lock, Play } from "lucide-react";
+import { Volume2, Star, Lock, Play, KeyRound } from "lucide-react";
 import TopBar from "./TopBar";
 import AccessibilityToolbar from "./AccessibilityToolbar";
 import GuideBubble from "./GuideBubble";
@@ -10,15 +10,26 @@ function ActivityCard({ activity, onPlay }) {
   return (
     <div className={`hubov-card${locked ? " hubov-card--locked" : ""}`}>
       <div className="hubov-card__top">
-        <span className="hubov-card__title">
-          {name}
-          {locked ? <Lock size={13} /> : <Volume2 size={12} />}
-        </span>
-        <div className="hubov-card__stars">
-          {[0, 1, 2].map((i) => (
-            <Star key={i} size={12} fill={i < stars ? "currentColor" : "none"} />
-          ))}
-        </div>
+        {locked ? (
+          <div className="hubov-card__key">
+            <KeyRound size={15} />
+          </div>
+        ) : (
+          <div className="hubov-card__stars">
+            {[0, 1, 2].map((i) => (
+              <Star key={i} size={14} fill={i < stars ? "currentColor" : "none"} />
+            ))}
+          </div>
+        )}
+        {locked && (
+          <span className="hubov-card__lock-badge">
+            <Lock size={11} />
+          </span>
+        )}
+      </div>
+      <div className="hubov-card__title">
+        {name}
+        <Volume2 size={12} />
       </div>
       <p>{description}</p>
       {locked ? (
@@ -34,7 +45,17 @@ function ActivityCard({ activity, onPlay }) {
   );
 }
 
-function WorldHubOverview({ worldLabel, badgeIcon: BadgeIcon, title, subtitle, masteryStars, masteryTotal, activities, onPlay, onHome }) {
+function WorldHubOverview({
+  worldLabel,
+  pinIcon: PinIcon,
+  title,
+  subtitle,
+  masteryStars,
+  masteryTotal,
+  activities,
+  onPlay,
+  onHome,
+}) {
   return (
     <section className="page hubov">
       <TopBar label={worldLabel} showLogo onLogoClick={onHome} />
@@ -48,16 +69,17 @@ function WorldHubOverview({ worldLabel, badgeIcon: BadgeIcon, title, subtitle, m
           </h1>
           <p className="hubov__subtitle">{subtitle}</p>
         </div>
-        <div className="hubov__mastery-group">
-          <div className="hubov__badge">
-            <BadgeIcon size={22} />
-          </div>
-          <div className="hubov__mastery">
-            <span className="hubov__mastery-label">World Mastery</span>
-            <span className="hubov__mastery-value">
-              <Star size={12} fill="currentColor" /> {masteryStars} / {masteryTotal} Stars
-            </span>
-          </div>
+        <div className="hubov__pin">
+          <PinIcon size={20} />
+        </div>
+        <div className="hubov__mastery">
+          <span className="hubov__mastery-label">World Mastery</span>
+          <span className="hubov__mastery-value">
+            {masteryStars} / {masteryTotal} Stars
+          </span>
+          <span className="hubov__mastery-star">
+            <Star size={13} fill="currentColor" />
+          </span>
         </div>
       </div>
       <div className="hubov__cards">
@@ -66,7 +88,11 @@ function WorldHubOverview({ worldLabel, badgeIcon: BadgeIcon, title, subtitle, m
         ))}
       </div>
       <AccessibilityToolbar />
-      <GuideBubble message="Hi! Need help figuring out where to go next?" />
+      <GuideBubble
+        message="Hi! Need help figuring out where to go next?"
+        avatarIcon={PinIcon}
+        avatarLabel="EXPLORE"
+      />
     </section>
   );
 }
