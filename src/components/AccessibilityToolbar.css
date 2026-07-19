@@ -1,0 +1,32 @@
+.a11y-toolbar {
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+  display: flex;
+  gap: 4px;
+  padding: 8px;
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  z-index: 5;
+}
+
+.a11y-toolbar__btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 12px;
+  border: none;
+  background: none;
+  border-radius: 14px;
+  color: var(--ink-soft);
+  font-size: 0.65rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.a11y-toolbar__btn:hover {
+  background: var(--green-paler);
+  color: var(--green-dark);
+}
