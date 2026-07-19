@@ -1,36 +1,37 @@
-import WorldHub from "../components/WorldHub";
+import { Bird } from "lucide-react";
+import WorldHubOverview from "../components/WorldHubOverview";
 
 const ACTIVITIES = [
   {
     name: "Parrot Pairs",
-    description: "Find matching sounds/patterns.",
+    description: "Find the matching sounds and patterns between words.",
     stars: 0,
   },
   {
     name: "Syllable Safari",
-    description: "Put mixed-up syllables in the correct order.",
+    description: "Put mixed-up syllable blocks in the correct order to form words.",
     stars: 0,
   },
   {
     name: "Elephant Echo",
-    description: "Listen to a word, then write each letter.",
+    description: "Listen to a word, then write each letter by following the sounds.",
     stars: 0,
     locked: true,
-    lockNote: "Requires 2 stars in previous level",
   },
 ];
 
-function JungleGames({ onHome, onMap }) {
+function JungleGames({ onHome, onNext }) {
   return (
-    <WorldHub
+    <WorldHubOverview
       worldLabel="WORLD 1: JUNGLE GAMES"
+      badgeIcon={Bird}
       title="Jungle Games"
-      activities={ACTIVITIES}
-      progressLabel="World 1 Progress"
+      subtitle="Welcome to the jungle zone! Choose a site to start building words."
       masteryStars={2}
       masteryTotal={9}
+      activities={ACTIVITIES}
+      onPlay={onNext}
       onHome={onHome}
-      onMap={onMap}
     />
   );
 }
