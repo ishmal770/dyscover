@@ -1,0 +1,75 @@
+.game-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(43, 43, 43, 0.35);
+  z-index: 10;
+}
+
+.game-modal {
+  position: relative;
+  width: 100%;
+  max-width: 320px;
+  margin: 24px;
+  padding: 40px 28px 28px;
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.game-modal__close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border: none;
+  border-radius: 50%;
+  background: var(--green-pale);
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+
+.game-modal__avatar {
+  position: absolute;
+  top: -24px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--green-pale);
+  border: 3px solid var(--white);
+  box-shadow: var(--shadow-soft);
+}
+
+.game-modal h2 {
+  margin-top: 12px;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.game-modal p {
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+.game-modal__hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  background: var(--green-paler);
+  border-radius: var(--radius-pill);
+  font-size: 0.7rem;
+  color: var(--green-dark);
+}

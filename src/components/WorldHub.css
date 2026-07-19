@@ -1,0 +1,163 @@
+.hub {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--green-pale);
+  overflow-y: auto;
+}
+
+.hub__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 28px 32px 0;
+}
+
+.hub__header h1 {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.6rem;
+  font-weight: 800;
+}
+
+.hub__sound-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: none;
+  background: var(--white);
+  color: var(--green-dark);
+  cursor: pointer;
+}
+
+.hub__subtitle {
+  max-width: 420px;
+  margin-top: 6px;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+
+.hub__mastery-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.hub__badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--green-paler);
+  color: var(--green-dark);
+  border: 3px solid var(--white);
+  box-shadow: var(--shadow-soft);
+  z-index: 1;
+}
+
+.hub__mastery {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-left: -16px;
+  padding: 8px 14px 8px 26px;
+  background: var(--amber-bg);
+  border-radius: var(--radius-pill);
+}
+
+.hub__mastery-label {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+}
+
+.hub__mastery-value {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--amber);
+}
+
+.hub__cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 24px 32px 100px;
+}
+
+.hub-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1 1 200px;
+  min-width: 180px;
+  padding: 18px;
+  background: var(--white);
+  border-radius: 18px;
+  box-shadow: var(--shadow-soft);
+}
+
+.hub-card--locked {
+  opacity: 0.6;
+}
+
+.hub-card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.hub-card__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--green-pale);
+  color: var(--green-dark);
+}
+
+.hub-card__stars {
+  display: flex;
+  gap: 2px;
+  color: var(--green);
+}
+
+.hub-card h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.hub-card p {
+  flex: 1;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: var(--ink-soft);
+}
+
+.btn--locked {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--border);
+  color: var(--ink-soft);
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: not-allowed;
+}
