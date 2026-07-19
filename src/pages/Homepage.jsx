@@ -1,6 +1,6 @@
 import { Play } from "lucide-react";
 import TopBar from "../components/TopBar";
-import SlothMascot from "../components/SlothMascot";
+import logo from "../assets/dyscover-logo.png";
 import "./Homepage.css";
 
 function Homepage({ onNext }) {
@@ -8,11 +8,7 @@ function Homepage({ onNext }) {
     <section className="page homepage">
       <TopBar label="DYSCOVER HOMEPAGE" />
       <div className="homepage__hero">
-        <div className="homepage__wordmark">
-          <span className="homepage__word homepage__word--dys">Dys</span>
-          <span className="homepage__word homepage__word--cover">Cover</span>
-          <SlothMascot className="homepage__sloth" />
-        </div>
+        <img className="homepage__logo" src={logo} alt="DysCover" />
         <button className="btn btn--primary" onClick={onNext}>
           <Play size={14} fill="currentColor" /> Ready Begin
         </button>
