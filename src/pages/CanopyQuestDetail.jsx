@@ -2,13 +2,13 @@ import WorldHub from "../components/WorldHub";
 
 const ACTIVITIES = [
   {
-    name: "Vine Match",
-    description: "Match each word to its picture.",
+    name: "Lion's Letters",
+    description: "Practice tracing and writing letters.",
     stars: 0,
   },
   {
-    name: "Letter Lookouts",
-    description: "Tell apart commonly confused letters.",
+    name: "Lizard Lookouts",
+    description: "Train your eyes to spot tricky letters.",
     stars: 0,
   },
   {
