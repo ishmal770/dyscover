@@ -1,0 +1,28 @@
+body {
+  margin: 0;
+}
+
+.homepage {
+  height: 100vh;
+  background-color: #e9f5e8;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.homepage h1 {
+  font-size: 5rem;
+  color: #5dbb2f;
+}
+
+.homepage button {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 30px;
+  background-color: #5dbb2f;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+}
