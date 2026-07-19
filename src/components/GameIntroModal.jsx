@@ -1,4 +1,4 @@
-import { Search, Play, X } from "lucide-react";
+import { Search, Play, X, Volume2 } from "lucide-react";
 import "./GameIntroModal.css";
 
 function GameIntroModal({ activityName, onStart, onClose }) {
@@ -9,10 +9,13 @@ function GameIntroModal({ activityName, onStart, onClose }) {
           <X size={16} />
         </button>
         <div className="game-modal__avatar" aria-hidden="true" />
+        <button className="game-modal__sound-btn" aria-label="Read aloud">
+          <Volume2 size={14} />
+        </button>
         <h2>Let&rsquo;s Play {activityName}!</h2>
         <p>
           Look closely at the big word on top. Then, find the word below that
-          looks exactly the same!
+          looks <span className="game-modal__highlight">exactly the same</span>!
         </p>
         <div className="game-modal__hint">
           <Search size={14} /> Stuck? Click a magnifying glass for a hint.

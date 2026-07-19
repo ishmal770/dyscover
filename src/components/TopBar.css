@@ -19,13 +19,18 @@
 }
 
 .topbar__logo {
-  font-weight: 800;
-  font-size: 1.05rem;
-  color: var(--brown);
+  display: inline-flex;
+  align-items: center;
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
 }
 
-.topbar__logo span {
-  color: var(--green);
+.topbar__logo img {
+  height: 32px;
+  width: auto;
+  display: block;
 }
 
 .topbar__label {

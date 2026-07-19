@@ -27,16 +27,16 @@ function App() {
         <Login onNext={() => goTo("map")} />
       </div>
       <div ref={(el) => (sectionRefs.current.map = el)} className="scroller__section">
-        <AdventureMap onNext={() => goTo("placement")} />
+        <AdventureMap onNext={() => goTo("placement")} onHome={() => goTo("home")} />
       </div>
       <div ref={(el) => (sectionRefs.current.placement = el)} className="scroller__section">
-        <PlacementMission onNext={() => goTo("jungle")} />
+        <PlacementMission onNext={() => goTo("jungle")} onHome={() => goTo("home")} />
       </div>
       <div ref={(el) => (sectionRefs.current.jungle = el)} className="scroller__section">
-        <JungleGames />
+        <JungleGames onHome={() => goTo("home")} onMap={() => goTo("map")} />
       </div>
       <div ref={(el) => (sectionRefs.current.canopy = el)} className="scroller__section">
-        <CanopyQuest />
+        <CanopyQuest onHome={() => goTo("home")} onMap={() => goTo("map")} />
       </div>
     </div>
   );

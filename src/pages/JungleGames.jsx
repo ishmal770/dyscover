@@ -1,53 +1,37 @@
-import { useState } from "react";
-import { Bird, Headphones, Puzzle, Ear } from "lucide-react";
 import WorldHub from "../components/WorldHub";
-import GameIntroModal from "../components/GameIntroModal";
 
 const ACTIVITIES = [
   {
     name: "Parrot Pairs",
-    description: "Find the matching sounds and patterns between words.",
-    icon: Headphones,
+    description: "Find matching sounds/patterns.",
     stars: 0,
   },
   {
     name: "Syllable Safari",
-    description: "Put mixed-up syllable blocks in the correct order to form words.",
-    icon: Puzzle,
+    description: "Put mixed-up syllables in the correct order.",
     stars: 0,
   },
   {
     name: "Elephant Echo",
-    description: "Listen to a word, then write each letter by following the sounds.",
-    icon: Ear,
+    description: "Listen to a word, then write each letter.",
     stars: 0,
     locked: true,
+    lockNote: "Requires 2 stars in previous level",
   },
 ];
 
-function JungleGames() {
-  const [activeActivity, setActiveActivity] = useState(null);
-
+function JungleGames({ onHome, onMap }) {
   return (
-    <>
-      <WorldHub
-        worldLabel="WORLD 1: JUNGLE GAMES"
-        badgeIcon={Bird}
-        title="Jungle Games"
-        subtitle="Welcome to the jungle zone! Choose a site to start building words."
-        masteryStars={2}
-        masteryTotal={9}
-        activities={ACTIVITIES}
-        onPlay={setActiveActivity}
-      />
-      {activeActivity && (
-        <GameIntroModal
-          activityName={activeActivity.name}
-          onClose={() => setActiveActivity(null)}
-          onStart={() => setActiveActivity(null)}
-        />
-      )}
-    </>
+    <WorldHub
+      worldLabel="WORLD 1: JUNGLE GAMES"
+      title="Jungle Games"
+      activities={ACTIVITIES}
+      progressLabel="World 1 Progress"
+      masteryStars={2}
+      masteryTotal={9}
+      onHome={onHome}
+      onMap={onMap}
+    />
   );
 }
 
