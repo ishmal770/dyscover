@@ -15,29 +15,9 @@
   padding: 0 24px;
 }
 
-.homepage__wordmark {
-  position: relative;
-  display: inline-flex;
-  font-size: clamp(3rem, 9vw, 6rem);
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  line-height: 1;
-}
-
-.homepage__word--dys {
-  color: var(--brown);
-}
-
-.homepage__word--cover {
-  color: var(--green);
-}
-
-.homepage__sloth {
-  position: absolute;
-  width: clamp(90px, 16vw, 150px);
-  top: -46%;
-  left: 52%;
-  transform: translateX(-50%) rotate(-4deg);
+.homepage__logo {
+  width: min(560px, 80vw);
+  height: auto;
 }
 
 .btn {
