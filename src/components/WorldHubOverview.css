@@ -103,21 +103,20 @@
 }
 
 .hubov__cards {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  padding: 24px 32px 100px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  padding: 32px 32px 120px;
 }
 
 .hubov-card {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  flex: 1 1 200px;
-  min-width: 180px;
-  padding: 18px;
+  gap: 16px;
+  min-height: 280px;
+  padding: 28px;
   background: var(--white);
-  border-radius: 18px;
+  border-radius: 22px;
   box-shadow: var(--shadow-soft);
 }
 
@@ -168,8 +167,8 @@
 .hubov-card__title {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  font-size: 0.95rem;
+  gap: 8px;
+  font-size: 1.15rem;
   font-weight: 700;
   color: var(--ink);
 }
@@ -180,8 +179,8 @@
 
 .hubov-card p {
   flex: 1;
-  font-size: 0.75rem;
-  line-height: 1.4;
+  font-size: 0.9rem;
+  line-height: 1.5;
   color: var(--ink-soft);
 }
 
