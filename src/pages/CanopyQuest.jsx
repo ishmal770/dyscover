@@ -3,18 +3,18 @@ import WorldHubOverview from "../components/WorldHubOverview";
 
 const ACTIVITIES = [
   {
-    name: "Vine Match",
-    description: "Match each word to its picture, then trace or draw the word.",
+    name: "Lion's Letters",
+    description: "Practice tracing and writing letters to build strong handwriting.",
     stars: 0,
   },
   {
-    name: "Letter Lookouts",
-    description: "Learn to tell apart commonly confused letters through fun activities.",
+    name: "Lizard Lookouts",
+    description: "Train your eyes to spot tricky letters that like to switch places.",
     stars: 0,
   },
   {
     name: "Cheetah Challenge",
-    description: "Read words quickly before time runs out to build reading fluency.",
+    description: "Read words as quickly as you can before time runs out.",
     stars: 0,
     locked: true,
   },

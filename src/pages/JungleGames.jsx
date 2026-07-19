@@ -4,17 +4,17 @@ import WorldHubOverview from "../components/WorldHubOverview";
 const ACTIVITIES = [
   {
     name: "Parrot Pairs",
-    description: "Find the matching sounds and patterns between words.",
+    description: "Spot the matching letters hidden in two different words.",
     stars: 0,
   },
   {
     name: "Syllable Safari",
-    description: "Put mixed-up syllable blocks in the correct order to form words.",
+    description: "Split the words into syllables and then build the word out of it.",
     stars: 0,
   },
   {
-    name: "Elephant Echo",
-    description: "Listen to a word, then write each letter by following the sounds.",
+    name: "Monkey Mix-Up",
+    description: "Swing the vowel in the correct place to complete each word.",
     stars: 0,
     locked: true,
   },
