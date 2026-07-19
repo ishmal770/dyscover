@@ -1,0 +1,36 @@
+.guide-bubble {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  z-index: 5;
+}
+
+.guide-bubble__message {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 220px;
+  padding: 10px 14px;
+  background: var(--white);
+  border-radius: 16px 16px 4px 16px;
+  box-shadow: var(--shadow-soft);
+  color: var(--ink-soft);
+}
+
+.guide-bubble__message p {
+  font-size: 0.75rem;
+  line-height: 1.3;
+}
+
+.guide-bubble__avatar {
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--green-pale);
+  border: 2px solid var(--white);
+  box-shadow: var(--shadow-soft);
+}
