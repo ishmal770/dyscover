@@ -4,7 +4,7 @@ import AccessibilityToolbar from "../components/AccessibilityToolbar";
 import GuideBubble from "../components/GuideBubble";
 import "./PlacementMission.css";
 
-function PlacementMission() {
+function PlacementMission({ onNext }) {
   return (
     <section className="page placement">
       <TopBar label="PLACEMENT MISSION" showLogo />
@@ -18,7 +18,7 @@ function PlacementMission() {
             We are going to play a few short games to figure out exactly how to
             build your perfect map.
           </p>
-          <button className="btn btn--primary">
+          <button className="btn btn--primary" onClick={onNext}>
             Let&rsquo;s Play! <ArrowRight size={16} />
           </button>
         </div>

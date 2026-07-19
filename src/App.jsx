@@ -4,6 +4,8 @@ import Homepage from "./pages/Homepage";
 import Login from "./pages/Login";
 import AdventureMap from "./pages/AdventureMap";
 import PlacementMission from "./pages/PlacementMission";
+import JungleGames from "./pages/JungleGames";
+import CanopyQuest from "./pages/CanopyQuest";
 
 function App() {
   const sectionRefs = useRef({});
@@ -28,7 +30,13 @@ function App() {
         <AdventureMap onNext={() => goTo("placement")} />
       </div>
       <div ref={(el) => (sectionRefs.current.placement = el)} className="scroller__section">
-        <PlacementMission />
+        <PlacementMission onNext={() => goTo("jungle")} />
+      </div>
+      <div ref={(el) => (sectionRefs.current.jungle = el)} className="scroller__section">
+        <JungleGames />
+      </div>
+      <div ref={(el) => (sectionRefs.current.canopy = el)} className="scroller__section">
+        <CanopyQuest />
       </div>
     </div>
   );

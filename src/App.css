@@ -9,6 +9,7 @@
 }
 
 .scroller__section {
+  position: relative;
   flex: 0 0 100vw;
   width: 100vw;
   height: 100%;
