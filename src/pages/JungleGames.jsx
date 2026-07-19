@@ -16,7 +16,6 @@ const ACTIVITIES = [
     name: "Monkey Mix-Up",
     description: "Swing the vowel in the correct place to complete each word.",
     stars: 0,
-    locked: true,
   },
 ];
 

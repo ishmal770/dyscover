@@ -15,12 +15,10 @@ const ACTIVITIES = [
     name: "Monkey Mix-Up",
     description: "Swing the vowels to complete the word.",
     stars: 0,
-    locked: true,
-    lockNote: "Requires 2 stars in previous level",
   },
 ];
 
-function JungleGamesDetail({ onHome, onMap }) {
+function JungleGamesDetail({ onHome, onMap, onPlayGame }) {
   return (
     <WorldHub
       worldLabel="WORLD 1: JUNGLE GAMES"
@@ -31,6 +29,7 @@ function JungleGamesDetail({ onHome, onMap }) {
       masteryTotal={9}
       onHome={onHome}
       onMap={onMap}
+      onStartGame={onPlayGame}
     />
   );
 }
