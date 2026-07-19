@@ -5,7 +5,9 @@ import Login from "./pages/Login";
 import AdventureMap from "./pages/AdventureMap";
 import PlacementMission from "./pages/PlacementMission";
 import JungleGames from "./pages/JungleGames";
+import JungleGamesDetail from "./pages/JungleGamesDetail";
 import CanopyQuest from "./pages/CanopyQuest";
+import CanopyQuestDetail from "./pages/CanopyQuestDetail";
 
 function App() {
   const sectionRefs = useRef({});
@@ -33,10 +35,16 @@ function App() {
         <PlacementMission onNext={() => goTo("jungle")} onHome={() => goTo("home")} />
       </div>
       <div ref={(el) => (sectionRefs.current.jungle = el)} className="scroller__section">
-        <JungleGames onHome={() => goTo("home")} onMap={() => goTo("map")} />
+        <JungleGames onHome={() => goTo("home")} onNext={() => goTo("jungleDetail")} />
+      </div>
+      <div ref={(el) => (sectionRefs.current.jungleDetail = el)} className="scroller__section">
+        <JungleGamesDetail onHome={() => goTo("home")} onMap={() => goTo("map")} />
       </div>
       <div ref={(el) => (sectionRefs.current.canopy = el)} className="scroller__section">
-        <CanopyQuest onHome={() => goTo("home")} onMap={() => goTo("map")} />
+        <CanopyQuest onHome={() => goTo("home")} onNext={() => goTo("canopyDetail")} />
+      </div>
+      <div ref={(el) => (sectionRefs.current.canopyDetail = el)} className="scroller__section">
+        <CanopyQuestDetail onHome={() => goTo("home")} onMap={() => goTo("map")} />
       </div>
     </div>
   );
