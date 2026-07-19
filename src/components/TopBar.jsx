@@ -1,14 +1,15 @@
 import { Info, Settings, Trophy, Volume2 } from "lucide-react";
+import logo from "../assets/dyscover-logo.png";
 import "./TopBar.css";
 
-function TopBar({ label, showLogo = false }) {
+function TopBar({ label, showLogo = false, onLogoClick }) {
   return (
     <header className="topbar">
       <div className="topbar__side">
         {showLogo && (
-          <div className="topbar__logo">
-            Dys<span>Cover</span>
-          </div>
+          <button className="topbar__logo" onClick={onLogoClick} aria-label="Go to homepage">
+            <img src={logo} alt="DysCover" />
+          </button>
         )}
       </div>
       <div className="topbar__label">{label}</div>

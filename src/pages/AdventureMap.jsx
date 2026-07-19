@@ -14,10 +14,10 @@ function Stars({ filled }) {
   );
 }
 
-function AdventureMap({ onNext }) {
+function AdventureMap({ onNext, onHome }) {
   return (
     <section className="page map">
-      <TopBar label="ADVENTURE MAP" showLogo />
+      <TopBar label="ADVENTURE MAP" showLogo onLogoClick={onHome} />
       <div className="map__hint">
         <Info size={12} /> Scroll horizontally to explore the map
       </div>

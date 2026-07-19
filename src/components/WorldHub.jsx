@@ -1,69 +1,105 @@
-import { Volume2, Star, Lock, Play } from "lucide-react";
+import { useState } from "react";
+import { Search, Volume2, Star, Lock, Info, Trophy, ArrowRight, Play } from "lucide-react";
 import TopBar from "./TopBar";
 import AccessibilityToolbar from "./AccessibilityToolbar";
 import GuideBubble from "./GuideBubble";
+import GameIntroModal from "./GameIntroModal";
 import "./WorldHub.css";
 
-function ActivityCard({ activity, onPlay }) {
-  const { name, description, icon: Icon, stars, locked } = activity;
+function ActivityRow({ activity, isOpen, onSelect }) {
+  const { name, description, stars, locked, lockNote } = activity;
 
   return (
-    <div className={`hub-card${locked ? " hub-card--locked" : ""}`}>
-      <div className="hub-card__top">
-        <div className="hub-card__icon">
-          <Icon size={18} />
-        </div>
-        <div className="hub-card__stars">
+    <button
+      type="button"
+      className={`hub-row${isOpen ? " hub-row--selected" : ""}${locked ? " hub-row--locked" : ""}`}
+      onClick={() => !locked && onSelect(activity)}
+      disabled={locked}
+    >
+      <div className="hub-row__top">
+        <span className="hub-row__title">{name}</span>
+        {locked ? <Lock size={14} /> : <Volume2 size={13} className="hub-row__sound" />}
+        <div className="hub-row__stars">
           {[0, 1, 2].map((i) => (
-            <Star key={i} size={12} fill={i < stars ? "currentColor" : "none"} />
+            <Star key={i} size={11} fill={i < stars ? "currentColor" : "none"} />
           ))}
         </div>
       </div>
-      <h3>{name}</h3>
       <p>{description}</p>
-      {locked ? (
-        <button className="btn btn--locked" disabled>
-          <Lock size={14} /> Locked
-        </button>
-      ) : (
-        <button className="btn btn--primary btn--block" onClick={() => onPlay(activity)}>
-          <Play size={12} fill="currentColor" /> Play Now
-        </button>
+      {locked && lockNote && (
+        <span className="hub-row__note">
+          <Info size={11} /> {lockNote}
+        </span>
       )}
-    </div>
+      {isOpen && (
+        <span className="hub-row__tab">
+          <Play size={11} fill="currentColor" />
+        </span>
+      )}
+    </button>
   );
 }
 
-function WorldHub({ worldLabel, badgeIcon: BadgeIcon, title, subtitle, masteryStars, masteryTotal, activities, onPlay }) {
+function WorldHub({ worldLabel, title, activities, progressLabel, masteryStars, masteryTotal, onHome, onMap }) {
+  const [openActivity, setOpenActivity] = useState(null);
+
   return (
     <section className="page hub">
-      <TopBar label={worldLabel} showLogo />
-      <div className="hub__header">
-        <div>
-          <h1>
-            {title}
+      <TopBar label={worldLabel} showLogo onLogoClick={onHome} />
+      <div className="hub__body">
+        <div className="hub__list-card">
+          <div className="hub__list-header">
+            <div className="hub__list-icon">
+              <Search size={16} />
+            </div>
+            <h2>{title}</h2>
             <button className="hub__sound-btn" aria-label="Read aloud">
-              <Volume2 size={16} />
+              <Volume2 size={13} />
             </button>
-          </h1>
-          <p className="hub__subtitle">{subtitle}</p>
-        </div>
-        <div className="hub__mastery-group">
-          <div className="hub__badge">
-            <BadgeIcon size={22} />
           </div>
-          <div className="hub__mastery">
-            <span className="hub__mastery-label">World Mastery</span>
-            <span className="hub__mastery-value">
-              <Star size={12} fill="currentColor" /> {masteryStars} / {masteryTotal} Stars
-            </span>
+          <div className="hub__list">
+            {activities.map((activity) => (
+              <ActivityRow
+                key={activity.name}
+                activity={activity}
+                isOpen={openActivity?.name === activity.name}
+                onSelect={setOpenActivity}
+              />
+            ))}
+          </div>
+          <div className="hub__footer">
+            <div className="hub__footer-progress">
+              <span className="hub__footer-label">{progressLabel}</span>
+              <span className="hub__footer-value">
+                <Trophy size={13} /> {masteryStars} / {masteryTotal} Stars
+              </span>
+            </div>
+            <button className="hub__map-btn" onClick={onMap}>
+              Map <ArrowRight size={13} />
+            </button>
           </div>
         </div>
-      </div>
-      <div className="hub__cards">
-        {activities.map((activity) => (
-          <ActivityCard key={activity.name} activity={activity} onPlay={onPlay} />
-        ))}
+
+        <div className="hub__preview">
+          <div className="hub__preview-scene">
+            <div className="hub__preview-topline">
+              <span>Game Preview</span>
+              <span className="hub__preview-score">Score: 120</span>
+            </div>
+            <div className="hub__preview-tiles">
+              <div className="hub__preview-tile" />
+              <div className="hub__preview-tile" />
+              <div className="hub__preview-tile" />
+            </div>
+          </div>
+          {openActivity && (
+            <GameIntroModal
+              activityName={openActivity.name}
+              onClose={() => setOpenActivity(null)}
+              onStart={() => setOpenActivity(null)}
+            />
+          )}
+        </div>
       </div>
       <AccessibilityToolbar />
       <GuideBubble message="Hi! Need help figuring out where to go next?" />

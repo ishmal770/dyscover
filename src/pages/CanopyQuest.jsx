@@ -1,53 +1,37 @@
-import { useState } from "react";
-import { TreePine, Image, ScanEye, Zap } from "lucide-react";
 import WorldHub from "../components/WorldHub";
-import GameIntroModal from "../components/GameIntroModal";
 
 const ACTIVITIES = [
   {
     name: "Vine Match",
-    description: "Match each word to its picture, then trace or draw the word.",
-    icon: Image,
+    description: "Match each word to its picture.",
     stars: 0,
   },
   {
     name: "Letter Lookouts",
-    description: "Learn to tell apart commonly confused letters through fun activities.",
-    icon: ScanEye,
+    description: "Tell apart commonly confused letters.",
     stars: 0,
   },
   {
     name: "Cheetah Challenge",
-    description: "Read words quickly before time runs out to build reading fluency.",
-    icon: Zap,
+    description: "Read words quickly to build fluency.",
     stars: 0,
     locked: true,
+    lockNote: "Requires 2 stars in previous level",
   },
 ];
 
-function CanopyQuest() {
-  const [activeActivity, setActiveActivity] = useState(null);
-
+function CanopyQuest({ onHome, onMap }) {
   return (
-    <>
-      <WorldHub
-        worldLabel="WORLD 2: CANOPY QUEST"
-        badgeIcon={TreePine}
-        title="Canopy Quest"
-        subtitle="Welcome to the jungle zone! Choose a site to start building words."
-        masteryStars={2}
-        masteryTotal={9}
-        activities={ACTIVITIES}
-        onPlay={setActiveActivity}
-      />
-      {activeActivity && (
-        <GameIntroModal
-          activityName={activeActivity.name}
-          onClose={() => setActiveActivity(null)}
-          onStart={() => setActiveActivity(null)}
-        />
-      )}
-    </>
+    <WorldHub
+      worldLabel="WORLD 2: CANOPY QUEST"
+      title="Canopy Quest"
+      activities={ACTIVITIES}
+      progressLabel="World 2 Progress"
+      masteryStars={2}
+      masteryTotal={9}
+      onHome={onHome}
+      onMap={onMap}
+    />
   );
 }
 

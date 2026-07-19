@@ -4,10 +4,10 @@ import AccessibilityToolbar from "../components/AccessibilityToolbar";
 import GuideBubble from "../components/GuideBubble";
 import "./PlacementMission.css";
 
-function PlacementMission({ onNext }) {
+function PlacementMission({ onNext, onHome }) {
   return (
     <section className="page placement">
-      <TopBar label="PLACEMENT MISSION" showLogo />
+      <TopBar label="PLACEMENT MISSION" showLogo onLogoClick={onHome} />
       <div className="placement__body">
         <div className="placement__card">
           <div className="placement__icon">

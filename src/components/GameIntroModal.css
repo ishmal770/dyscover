@@ -4,7 +4,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(43, 43, 43, 0.35);
+  background: rgba(30, 46, 26, 0.22);
   z-index: 10;
 }
 
@@ -42,17 +42,31 @@
 
 .game-modal__avatar {
   position: absolute;
-  top: -24px;
-  width: 48px;
-  height: 48px;
+  top: -28px;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
   background: var(--green-pale);
-  border: 3px solid var(--white);
+  border: 3px dashed var(--white);
+  outline: 3px solid var(--green-paler);
   box-shadow: var(--shadow-soft);
 }
 
+.game-modal__sound-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  margin-top: 8px;
+  border: none;
+  border-radius: 50%;
+  background: var(--green-pale);
+  color: var(--green-dark);
+  cursor: pointer;
+}
+
 .game-modal h2 {
-  margin-top: 12px;
   font-size: 1.1rem;
   font-weight: 700;
 }
@@ -63,13 +77,27 @@
   color: var(--ink-soft);
 }
 
+.game-modal__highlight {
+  color: var(--green-dark);
+  font-weight: 700;
+}
+
 .game-modal__hint {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   padding: 8px 12px;
-  background: var(--green-paler);
+  background: #f4f4f2;
   border-radius: var(--radius-pill);
   font-size: 0.7rem;
-  color: var(--green-dark);
+  color: var(--ink);
+}
+
+.game-modal__hint svg {
+  flex: none;
+  padding: 3px;
+  border-radius: 50%;
+  border: 2px solid var(--amber);
+  color: var(--amber);
+  box-sizing: content-box;
 }
