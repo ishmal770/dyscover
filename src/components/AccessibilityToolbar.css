@@ -18,12 +18,22 @@
   gap: 4px;
   padding: 8px 12px;
   border: none;
+  border-right: 1px solid var(--border);
   background: none;
-  border-radius: 14px;
+  border-radius: 0;
   color: var(--ink-soft);
   font-size: 0.65rem;
   font-weight: 600;
   cursor: pointer;
+}
+
+.a11y-toolbar__btn:first-child {
+  border-radius: 14px 0 0 14px;
+}
+
+.a11y-toolbar__btn:last-child {
+  border-right: none;
+  border-radius: 0 14px 14px 0;
 }
 
 .a11y-toolbar__btn:hover {

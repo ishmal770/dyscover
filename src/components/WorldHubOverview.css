@@ -10,8 +10,7 @@
 .hubov__header {
   display: flex;
   align-items: flex-start;
-  justify-content: space-between;
-  gap: 16px;
+  gap: 20px;
   padding: 28px 32px 0;
 }
 
@@ -43,32 +42,32 @@
   color: var(--ink-soft);
 }
 
-.hubov__mastery-group {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.hubov__badge {
+.hubov__pin {
+  flex: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background: var(--green-paler);
-  color: var(--green-dark);
-  border: 3px solid var(--white);
+  width: 52px;
+  height: 52px;
+  margin-top: 4px;
+  border-radius: 50% 50% 50% 4px;
+  transform: rotate(45deg);
+  background: var(--pin-blue);
+  color: var(--white);
   box-shadow: var(--shadow-soft);
-  z-index: 1;
+}
+
+.hubov__pin svg {
+  transform: rotate(-45deg);
 }
 
 .hubov__mastery {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 2px;
-  margin-left: -16px;
-  padding: 8px 14px 8px 26px;
+  margin-left: auto;
+  padding: 8px 26px 8px 16px;
   background: var(--amber-bg);
   border-radius: var(--radius-pill);
 }
@@ -81,12 +80,26 @@
 }
 
 .hubov__mastery-value {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 0.75rem;
+  font-size: 0.85rem;
   font-weight: 700;
-  color: var(--amber);
+  color: var(--ink);
+}
+
+.hubov__mastery-star {
+  position: absolute;
+  top: 50%;
+  right: -6px;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--amber);
+  color: var(--white);
+  border: 2px solid var(--white);
+  box-shadow: var(--shadow-soft);
 }
 
 .hubov__cards {
@@ -109,13 +122,47 @@
 }
 
 .hubov-card--locked {
-  opacity: 0.6;
+  background: var(--green-paler);
+  box-shadow: none;
 }
 
 .hubov-card__top {
+  position: relative;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+}
+
+.hubov-card__stars {
+  display: flex;
+  gap: 3px;
+  color: var(--green);
+}
+
+.hubov-card__key {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--white);
+  color: var(--ink-soft);
+}
+
+.hubov-card__lock-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--white);
+  color: var(--ink-soft);
+  box-shadow: var(--shadow-soft);
 }
 
 .hubov-card__title {
@@ -124,17 +171,11 @@
   gap: 6px;
   font-size: 0.95rem;
   font-weight: 700;
-  color: var(--green-dark);
-}
-
-.hubov-card--locked .hubov-card__title {
   color: var(--ink);
 }
 
-.hubov-card__stars {
-  display: flex;
-  gap: 2px;
-  color: var(--green);
+.hubov-card--locked .hubov-card__title {
+  color: var(--ink-soft);
 }
 
 .hubov-card p {

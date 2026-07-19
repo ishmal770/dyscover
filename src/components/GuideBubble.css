@@ -25,12 +25,46 @@
   line-height: 1.3;
 }
 
+.guide-bubble__avatar-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
 .guide-bubble__avatar {
+  position: relative;
   flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 40px;
   height: 40px;
   border-radius: 50%;
   background: var(--green-pale);
+  color: var(--green-dark);
   border: 2px solid var(--white);
   box-shadow: var(--shadow-soft);
+}
+
+.guide-bubble__avatar-sound {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--green);
+  color: var(--white);
+  border: 2px solid var(--white);
+}
+
+.guide-bubble__avatar-label {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
 }
