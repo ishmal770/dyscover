@@ -1,0 +1,73 @@
+.gametopbar {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 24px;
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+}
+
+.gametopbar__logo {
+  display: inline-flex;
+  align-items: center;
+  justify-self: start;
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.gametopbar__logo img {
+  height: 28px;
+  width: auto;
+  display: block;
+}
+
+.gametopbar__breadcrumb {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+}
+
+.gametopbar__breadcrumb button {
+  border: none;
+  background: none;
+  padding: 0;
+  font-size: inherit;
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+
+.gametopbar__breadcrumb-current {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.gametopbar__icons {
+  display: flex;
+  align-items: center;
+  justify-self: end;
+  gap: 8px;
+}
+
+.gametopbar__icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--white);
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+
+.gametopbar__icon-btn--avatar {
+  background: var(--green);
+  border-color: var(--green);
+  color: var(--white);
+}

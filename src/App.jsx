@@ -8,6 +8,15 @@ import JungleGames from "./pages/JungleGames";
 import JungleGamesDetail from "./pages/JungleGamesDetail";
 import CanopyQuest from "./pages/CanopyQuest";
 import CanopyQuestDetail from "./pages/CanopyQuestDetail";
+import ParrotPairsGame from "./pages/ParrotPairsGame";
+import SyllableSafariGame from "./pages/SyllableSafariGame";
+import MonkeyMixUpGame from "./pages/MonkeyMixUpGame";
+
+const GAME_ROUTES = {
+  "Parrot Pairs": "parrotPairsGame",
+  "Syllable Safari": "syllableSafariGame",
+  "Monkey Mix-Up": "monkeyMixUpGame",
+};
 
 function App() {
   const sectionRefs = useRef({});
@@ -18,6 +27,11 @@ function App() {
       inline: "start",
       block: "nearest",
     });
+  };
+
+  const playGame = (activity) => {
+    const key = GAME_ROUTES[activity.name];
+    if (key) goTo(key);
   };
 
   return (
@@ -38,7 +52,16 @@ function App() {
         <JungleGames onHome={() => goTo("home")} onNext={() => goTo("jungleDetail")} />
       </div>
       <div ref={(el) => (sectionRefs.current.jungleDetail = el)} className="scroller__section">
-        <JungleGamesDetail onHome={() => goTo("home")} onMap={() => goTo("map")} />
+        <JungleGamesDetail onHome={() => goTo("home")} onMap={() => goTo("map")} onPlayGame={playGame} />
+      </div>
+      <div ref={(el) => (sectionRefs.current.parrotPairsGame = el)} className="scroller__section">
+        <ParrotPairsGame onHome={() => goTo("home")} onBack={() => goTo("jungleDetail")} />
+      </div>
+      <div ref={(el) => (sectionRefs.current.syllableSafariGame = el)} className="scroller__section">
+        <SyllableSafariGame onHome={() => goTo("home")} onBack={() => goTo("jungleDetail")} />
+      </div>
+      <div ref={(el) => (sectionRefs.current.monkeyMixUpGame = el)} className="scroller__section">
+        <MonkeyMixUpGame onHome={() => goTo("home")} onBack={() => goTo("jungleDetail")} />
       </div>
       <div ref={(el) => (sectionRefs.current.canopy = el)} className="scroller__section">
         <CanopyQuest onHome={() => goTo("home")} onNext={() => goTo("canopyDetail")} />

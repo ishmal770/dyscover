@@ -40,7 +40,7 @@ function ActivityRow({ activity, isOpen, onSelect }) {
   );
 }
 
-function WorldHub({ worldLabel, title, activities, progressLabel, masteryStars, masteryTotal, onHome, onMap }) {
+function WorldHub({ worldLabel, title, activities, progressLabel, masteryStars, masteryTotal, onHome, onMap, onStartGame }) {
   const [openActivity, setOpenActivity] = useState(null);
 
   return (
@@ -96,7 +96,7 @@ function WorldHub({ worldLabel, title, activities, progressLabel, masteryStars, 
             <GameIntroModal
               activityName={openActivity.name}
               onClose={() => setOpenActivity(null)}
-              onStart={() => setOpenActivity(null)}
+              onStart={() => (onStartGame ? onStartGame(openActivity) : setOpenActivity(null))}
             />
           )}
         </div>

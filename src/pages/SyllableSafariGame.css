@@ -1,0 +1,194 @@
+.syllable-game {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--white);
+  overflow-y: auto;
+  padding-bottom: 100px;
+}
+
+.syllable-game__progress {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 20px 32px 0;
+}
+
+.syllable-game__progress-bar {
+  flex: 1;
+  height: 8px;
+  border-radius: var(--radius-pill);
+  background: var(--border);
+  overflow: hidden;
+}
+
+.syllable-game__progress-fill {
+  height: 100%;
+  background: var(--green);
+  transition: width 0.3s ease;
+}
+
+.syllable-game__stars {
+  display: flex;
+  gap: 4px;
+  color: var(--amber);
+}
+
+.syllable-game__title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 28px;
+  padding: 0 24px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.syllable-game__speaker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: none;
+  background: var(--green-pale);
+  color: var(--green-dark);
+  cursor: pointer;
+}
+
+.syllable-game__word-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 24px auto 0;
+  max-width: 560px;
+  width: 100%;
+  padding: 36px 24px;
+  background: var(--green-paler);
+  border-radius: 20px;
+}
+
+.syllable-game__word-row {
+  display: flex;
+  align-items: center;
+}
+
+.syllable-game__letter-group {
+  display: flex;
+  align-items: center;
+}
+
+.syllable-game__letter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 56px;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--ink);
+  background: var(--white);
+  border-radius: 10px;
+  box-shadow: var(--shadow-soft);
+}
+
+.syllable-game__gap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 56px;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.syllable-game__divider {
+  width: 4px;
+  height: 64px;
+  border-radius: var(--radius-pill);
+  background: var(--green);
+}
+
+.syllable-game__hint-text {
+  margin-top: 14px;
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--ink-soft);
+}
+
+.syllable-game__slots {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 28px;
+}
+
+.syllable-game__slot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 120px;
+  height: 64px;
+  padding: 0 20px;
+  border: 2px dashed var(--border);
+  border-radius: 14px;
+  background: var(--green-paler);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+
+.syllable-game__slot--filled {
+  border-style: solid;
+  border-color: var(--green);
+  background: var(--white);
+  color: var(--ink);
+}
+
+.syllable-game__tray {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 24px;
+  flex-wrap: wrap;
+  padding: 0 24px;
+}
+
+.syllable-game__chunk {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 20px;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  background: var(--white);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.syllable-game__chunk--selected {
+  border-color: var(--pin-blue);
+  background: #eaf1ff;
+}
+
+.syllable-game__feedback {
+  margin-top: 18px;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  min-height: 1.2em;
+}
+
+.syllable-game__controls {
+  display: flex;
+  justify-content: center;
+  margin-top: 6px;
+}

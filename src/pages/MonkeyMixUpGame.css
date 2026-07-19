@@ -1,0 +1,279 @@
+.monkey-game {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--white);
+  overflow-y: auto;
+}
+
+.monkey-game__body {
+  flex: 1;
+  display: flex;
+  gap: 20px;
+  padding: 24px 32px 100px;
+  min-height: 0;
+}
+
+.monkey-game__main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.monkey-game__topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.monkey-game__level {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: var(--radius-pill);
+  background: var(--green-pale);
+  color: var(--green-dark);
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.monkey-game__stars {
+  display: flex;
+  gap: 4px;
+  color: var(--amber);
+}
+
+.monkey-game__title {
+  margin-top: 10px;
+  font-size: 1.3rem;
+  font-weight: 800;
+}
+
+.monkey-game__sloth-box {
+  position: relative;
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+  padding: 14px 40px 14px 14px;
+  background: var(--green-paler);
+  border-left: 4px solid var(--green);
+  border-radius: 12px;
+}
+
+.monkey-game__sloth-icon {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--white);
+  color: var(--green-dark);
+}
+
+.monkey-game__sloth-box strong {
+  display: block;
+  font-size: 0.8rem;
+  margin-bottom: 2px;
+}
+
+.monkey-game__sloth-box p {
+  font-size: 0.78rem;
+  line-height: 1.4;
+  color: var(--ink-soft);
+}
+
+.monkey-game__speaker {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: none;
+  background: var(--white);
+  color: var(--green-dark);
+  cursor: pointer;
+}
+
+.monkey-game__puzzle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 24px;
+  padding: 40px 24px;
+  background: var(--green-paler);
+  border-radius: 20px;
+}
+
+.monkey-game__tile {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 72px;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--ink);
+  background: var(--white);
+  border-radius: 14px;
+  box-shadow: var(--shadow-soft);
+}
+
+.monkey-game__tile--blank {
+  border: 3px dashed var(--border);
+  background: transparent;
+  box-shadow: none;
+  color: var(--green-dark);
+}
+
+.monkey-game__tile--solved {
+  border-style: solid;
+  border-color: var(--green);
+  background: var(--green);
+  color: var(--white);
+}
+
+.monkey-game__tile--wrong {
+  border-color: #e05555;
+}
+
+.monkey-game__tile-speaker {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.3);
+  color: var(--white);
+  cursor: pointer;
+}
+
+.monkey-game__rack {
+  margin-top: 24px;
+}
+
+.monkey-game__rack-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+}
+
+.monkey-game__rack-tiles {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.monkey-game__vowel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 64px;
+  height: 64px;
+  border: none;
+  border-radius: 14px;
+  background: var(--green);
+  color: var(--white);
+  font-size: 1.3rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.monkey-game__vowel:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.monkey-game__next {
+  margin-top: 28px;
+  align-self: flex-start;
+}
+
+.monkey-game__next:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.monkey-game__sidebar {
+  flex: none;
+  width: 280px;
+  padding: 20px;
+  background: var(--green-paler);
+  border-radius: 20px;
+}
+
+.monkey-game__sidebar h2 {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.monkey-game__sidebar > p {
+  margin-top: 6px;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: var(--ink-soft);
+}
+
+.monkey-game__sidebar ul {
+  list-style: none;
+  margin: 16px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.monkey-game__sidebar li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: var(--white);
+  border-radius: 12px;
+}
+
+.monkey-game__word-icon {
+  flex: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: var(--green-pale);
+}
+
+.monkey-game__word-name {
+  flex: 1;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.monkey-game__sidebar li button {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--green-pale);
+  color: var(--green-dark);
+  font-size: 0.65rem;
+  font-weight: 700;
+  cursor: pointer;
+}

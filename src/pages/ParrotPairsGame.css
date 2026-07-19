@@ -1,0 +1,208 @@
+.parrot-game {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--white);
+  overflow-y: auto;
+}
+
+.parrot-game__scorebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px 32px 0;
+  padding: 10px 20px;
+  background: var(--green-paler);
+  border-radius: var(--radius-pill);
+}
+
+.parrot-game__score {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--green-dark);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.parrot-game__score strong {
+  color: var(--ink);
+  font-size: 0.9rem;
+}
+
+.parrot-game__stars {
+  display: flex;
+  gap: 6px;
+  color: var(--amber);
+}
+
+.parrot-game__hint-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--amber-bg);
+  color: var(--amber);
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.parrot-game__title {
+  margin-top: 24px;
+  font-size: 1.3rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.parrot-game__subtitle {
+  margin-top: 4px;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  text-align: center;
+}
+
+.parrot-game__board {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: 16px;
+  margin: 28px auto 0;
+  max-width: 700px;
+  width: 100%;
+  padding: 0 24px;
+}
+
+.parrot-game__word-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 18px 20px;
+  background: var(--green-paler);
+  border-radius: 20px;
+}
+
+.parrot-game__word-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+}
+
+.parrot-game__speaker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+  background: var(--green);
+  color: var(--white);
+  cursor: pointer;
+}
+
+.parrot-game__letters {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.parrot-game__letter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 52px;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  background: var(--white);
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.parrot-game__letter--selected {
+  border-color: var(--pin-blue);
+  background: #eaf1ff;
+}
+
+.parrot-game__letter--matched {
+  border-color: var(--green);
+  background: var(--green-pale);
+  color: var(--green-dark);
+}
+
+.parrot-game__letter--wrong {
+  border-color: #e05555;
+  background: #fdecec;
+}
+
+.parrot-game__clue-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  align-self: center;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: var(--amber);
+}
+
+.parrot-game__clue-btn svg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 10px;
+  border-radius: 50%;
+  background: var(--amber-bg);
+  box-shadow: var(--shadow-soft);
+}
+
+.parrot-game__clue-btn span {
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+
+.parrot-game__message {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  min-height: 1.2em;
+}
+
+.parrot-game__controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.parrot-game__reset {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--white);
+  color: var(--ink-soft);
+  cursor: pointer;
+}
