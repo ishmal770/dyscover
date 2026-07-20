@@ -16,7 +16,6 @@ const ACTIVITIES = [
     name: "Cheetah Challenge",
     description: "Read words as quickly as you can before time runs out.",
     stars: 0,
-    locked: true,
   },
 ];
 

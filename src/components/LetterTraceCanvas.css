@@ -1,0 +1,85 @@
+.trace-canvas {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.trace-canvas__paper {
+  position: relative;
+  width: 100%;
+  background: var(--white);
+  border-radius: 14px;
+  overflow: hidden;
+  touch-action: none;
+}
+
+.trace-canvas__guide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(2.5rem, 12vw, 5rem);
+  font-weight: 800;
+  color: var(--green-pale);
+  user-select: none;
+  pointer-events: none;
+}
+
+.trace-canvas__line {
+  position: absolute;
+  left: 6%;
+  right: 6%;
+  border-top: 1px solid var(--border);
+}
+
+.trace-canvas__line--top {
+  top: 22%;
+}
+
+.trace-canvas__line--mid {
+  top: 50%;
+  border-top-style: dashed;
+}
+
+.trace-canvas__line--bottom {
+  top: 78%;
+}
+
+.trace-canvas__canvas {
+  position: absolute;
+  inset: 0;
+  cursor: crosshair;
+}
+
+.trace-canvas__controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.trace-canvas__swatch {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+}
+
+.trace-canvas__swatch--active {
+  border-color: var(--ink-soft);
+}
+
+.trace-canvas__clear {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  margin-left: auto;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--white);
+  color: var(--ink-soft);
+  cursor: pointer;
+}

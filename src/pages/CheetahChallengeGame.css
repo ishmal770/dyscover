@@ -1,0 +1,180 @@
+.cheetah-game {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  background: var(--white);
+  overflow-y: auto;
+}
+
+.cheetah-game__scorebar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  max-width: 900px;
+  margin-top: 20px;
+  padding: 0 32px;
+}
+
+.cheetah-game__score {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 16px;
+  border-radius: var(--radius-pill);
+  background: var(--green-paler);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--green-dark);
+}
+
+.cheetah-game__score strong {
+  color: var(--ink);
+  font-size: 0.9rem;
+}
+
+.cheetah-game__stars {
+  display: flex;
+  gap: 4px;
+  color: var(--amber);
+}
+
+.cheetah-game__timer {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--ink-soft);
+}
+
+.cheetah-game__timer-bar {
+  flex: 1;
+  height: 8px;
+  border-radius: var(--radius-pill);
+  background: var(--border);
+  overflow: hidden;
+}
+
+.cheetah-game__timer-fill {
+  height: 100%;
+  background: var(--green);
+  transition: width 0.1s linear;
+}
+
+.cheetah-game__streak {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 16px;
+  border-radius: var(--radius-pill);
+  background: var(--amber-bg);
+  color: var(--amber);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.cheetah-game__restart {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--white);
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+
+.cheetah-game__card {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  max-width: 420px;
+  margin-top: 48px;
+  padding: 20px 24px 40px;
+  border: none;
+  border-radius: 24px;
+  background: var(--white);
+  box-shadow: var(--shadow-card);
+  cursor: pointer;
+}
+
+.cheetah-game__card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--green-dark);
+}
+
+.cheetah-game__card-top span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.cheetah-game__card-speaker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: none;
+  background: var(--green-pale);
+  color: var(--green-dark);
+  cursor: pointer;
+}
+
+.cheetah-game__word {
+  padding: 40px 0;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  text-align: center;
+  font-size: 2.3rem;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.cheetah-game__hint-text {
+  margin-top: 16px;
+  font-size: 0.75rem;
+  color: var(--ink-soft);
+}
+
+.cheetah-game__big-speaker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  margin-top: 20px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--white);
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+
+.cheetah-game__finished {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-top: 100px;
+  text-align: center;
+}
+
+.cheetah-game__finished h1 {
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.cheetah-game__finished p {
+  color: var(--ink-soft);
+}

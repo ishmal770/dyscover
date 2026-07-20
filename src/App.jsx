@@ -11,11 +11,17 @@ import CanopyQuestDetail from "./pages/CanopyQuestDetail";
 import ParrotPairsGame from "./pages/ParrotPairsGame";
 import SyllableSafariGame from "./pages/SyllableSafariGame";
 import MonkeyMixUpGame from "./pages/MonkeyMixUpGame";
+import LionsLettersGame from "./pages/LionsLettersGame";
+import CheetahChallengeGame from "./pages/CheetahChallengeGame";
+import LizardLookoutsGame from "./pages/LizardLookoutsGame";
 
 const GAME_ROUTES = {
   "Parrot Pairs": "parrotPairsGame",
   "Syllable Safari": "syllableSafariGame",
   "Monkey Mix-Up": "monkeyMixUpGame",
+  "Lion's Letters": "lionsLettersGame",
+  "Lizard Lookouts": "lizardLookoutsGame",
+  "Cheetah Challenge": "cheetahChallengeGame",
 };
 
 function App() {
@@ -67,7 +73,16 @@ function App() {
         <CanopyQuest onHome={() => goTo("home")} onNext={() => goTo("canopyDetail")} />
       </div>
       <div ref={(el) => (sectionRefs.current.canopyDetail = el)} className="scroller__section">
-        <CanopyQuestDetail onHome={() => goTo("home")} onMap={() => goTo("map")} />
+        <CanopyQuestDetail onHome={() => goTo("home")} onMap={() => goTo("map")} onPlayGame={playGame} />
+      </div>
+      <div ref={(el) => (sectionRefs.current.lionsLettersGame = el)} className="scroller__section">
+        <LionsLettersGame onHome={() => goTo("home")} onBack={() => goTo("canopyDetail")} />
+      </div>
+      <div ref={(el) => (sectionRefs.current.lizardLookoutsGame = el)} className="scroller__section">
+        <LizardLookoutsGame onHome={() => goTo("home")} onBack={() => goTo("canopyDetail")} />
+      </div>
+      <div ref={(el) => (sectionRefs.current.cheetahChallengeGame = el)} className="scroller__section">
+        <CheetahChallengeGame onHome={() => goTo("home")} onBack={() => goTo("canopyDetail")} />
       </div>
     </div>
   );
