@@ -15,12 +15,10 @@ const ACTIVITIES = [
     name: "Cheetah Challenge",
     description: "Read words quickly to build fluency.",
     stars: 0,
-    locked: true,
-    lockNote: "Requires 2 stars in previous level",
   },
 ];
 
-function CanopyQuestDetail({ onHome, onMap }) {
+function CanopyQuestDetail({ onHome, onMap, onPlayGame }) {
   return (
     <WorldHub
       worldLabel="WORLD 2: CANOPY QUEST"
@@ -31,6 +29,7 @@ function CanopyQuestDetail({ onHome, onMap }) {
       masteryTotal={9}
       onHome={onHome}
       onMap={onMap}
+      onStartGame={onPlayGame}
     />
   );
 }
