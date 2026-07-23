@@ -6,113 +6,88 @@ import GameHintBubble, { speak } from "../components/GameHintBubble";
 import "./ParrotPairsGame.css";
 
 const ROUNDS = [
-  { word1: "SMILE", word2: "SLIME" },
-  { word1: "STOP", word2: "SPOT" },
-  { word1: "EARTH", word2: "HEART" },
+  { word1: "ANGLE", word2: "ANGEL" },
+  { word1: "FORM", word2: "FROM" },
+  { word1: "CALM", word2: "CLAM" },
 ];
 
-function letterKey(word, index) {
-  return `${word}-${index}`;
+function getDiffRange(word1, word2) {
+  let start = 0;
+  while (start < word1.length && word1[start].toLowerCase() === word2[start].toLowerCase()) {
+    start++;
+  }
+  let end = word1.length;
+  while (end > start && word1[end - 1].toLowerCase() === word2[end - 1].toLowerCase()) {
+    end--;
+  }
+  return { start, end };
+}
+
+function sameSet(a, b) {
+  if (a.size !== b.size) return false;
+  for (const item of a) {
+    if (!b.has(item)) return false;
+  }
+  return true;
 }
 
 function ParrotPairsGame({ onHome, onBack }) {
   const [roundIndex, setRoundIndex] = useState(0);
-  const [matched, setMatched] = useState(() => new Set());
-  const [selected, setSelected] = useState(null);
-  const [wrongPair, setWrongPair] = useState(null);
+  const [selected1, setSelected1] = useState(() => new Set());
+  const [selected2, setSelected2] = useState(() => new Set());
+  const [wrongFlash, setWrongFlash] = useState(false);
   const [score, setScore] = useState(0);
   const [hintsUsed, setHintsUsed] = useState(0);
-  const [message, setMessage] = useState("Tap a letter in each word to find a match!");
+  const [message, setMessage] = useState("Tap the letters that got mixed up in each word!");
   const [solved, setSolved] = useState(false);
 
   const round = ROUNDS[roundIndex];
   const stars = Math.max(0, 3 - hintsUsed);
+  const { start, end } = getDiffRange(round.word1, round.word2);
+  const expected = new Set(Array.from({ length: end - start }, (_, i) => start + i));
 
-  const totalLetters = round.word1.length;
-  const allMatched = matched.size === totalLetters * 2;
-
-  function handleTileClick(word, index) {
+  function toggle(setSelected, selected, index) {
     if (solved) return;
-    const letters = word === "word1" ? round.word1 : round.word2;
-    const key = letterKey(word, index);
-    if (matched.has(key)) return;
+    const next = new Set(selected);
+    if (next.has(index)) next.delete(index);
+    else next.add(index);
+    setSelected(next);
+  }
 
-    if (!selected) {
-      setSelected({ word, index, letter: letters[index] });
-      return;
-    }
-
-    if (selected.word === word) {
-      setSelected({ word, index, letter: letters[index] });
-      return;
-    }
-
-    const otherLetters = selected.word === "word1" ? round.word1 : round.word2;
-    const otherLetter = otherLetters[selected.index];
-    const thisLetter = letters[index];
-
-    if (otherLetter.toLowerCase() === thisLetter.toLowerCase()) {
-      const next = new Set(matched);
-      next.add(letterKey(selected.word, selected.index));
-      next.add(key);
-      setMatched(next);
-      setScore((s) => s + 50);
-      setSelected(null);
-      setMessage("Nice match!");
-      if (next.size === totalLetters * 2) {
-        setMessage("All matched! Hit Check Answer.");
-      }
+  function handleCheckAnswer() {
+    const correct = sameSet(selected1, expected) && sameSet(selected2, expected);
+    if (correct) {
+      setSolved(true);
+      setScore((s) => s + 100);
+      setMessage("Great job! Those are the letters that got mixed up.");
     } else {
-      setWrongPair([letterKey(selected.word, selected.index), key]);
       setMessage("Not quite - try again!");
-      setTimeout(() => setWrongPair(null), 500);
-      setSelected(null);
+      setWrongFlash(true);
+      setTimeout(() => setWrongFlash(false), 500);
     }
   }
 
   function handleHint() {
-    if (solved || allMatched) return;
-    const unmatchedIndex = [...round.word1].findIndex((_, i) => !matched.has(letterKey("word1", i)));
-    if (unmatchedIndex === -1) return;
-    const letter = round.word1[unmatchedIndex];
-    const targetIndex = [...round.word2].findIndex(
-      (l, i) => l.toLowerCase() === letter.toLowerCase() && !matched.has(letterKey("word2", i))
-    );
-    if (targetIndex === -1) return;
-    const next = new Set(matched);
-    next.add(letterKey("word1", unmatchedIndex));
-    next.add(letterKey("word2", targetIndex));
-    setMatched(next);
+    if (solved) return;
+    setSelected1(new Set(expected));
+    setSelected2(new Set(expected));
     setHintsUsed((h) => h + 1);
-    setSelected(null);
-    setMessage("Here's a hint - one pair matched for you.");
+    setMessage("Here's a hint - the mixed-up letters are highlighted.");
   }
 
   function handleReset() {
-    setMatched(new Set());
-    setSelected(null);
-    setScore(0);
-    setHintsUsed(0);
-    setSolved(false);
-    setMessage("Tap a letter in each word to find a match!");
-  }
-
-  function handleCheckAnswer() {
-    if (allMatched) {
-      setSolved(true);
-      setMessage("Great job! You found every matching letter.");
-    } else {
-      setMessage("Keep going - not all letters are matched yet.");
-    }
+    setSelected1(new Set());
+    setSelected2(new Set());
+    setMessage("Tap the letters that got mixed up in each word!");
   }
 
   function handleNextWord() {
     const next = (roundIndex + 1) % ROUNDS.length;
     setRoundIndex(next);
-    setMatched(new Set());
-    setSelected(null);
+    setSelected1(new Set());
+    setSelected2(new Set());
     setSolved(false);
-    setMessage("Tap a letter in each word to find a match!");
+    setMessage("Tap the letters that got mixed up in each word!");
   }
 
   return (
@@ -134,8 +109,8 @@ function ParrotPairsGame({ onHome, onBack }) {
         </button>
       </div>
 
-      <h1 className="parrot-game__title">Spot the matching letters!</h1>
-      <p className="parrot-game__subtitle">Tap the letters that are exactly the same in both words.</p>
+      <h1 className="parrot-game__title">Find the mixed-up letters!</h1>
+      <p className="parrot-game__subtitle">Tap the letters in each word that got swapped around.</p>
 
       <div className="parrot-game__board">
         <div className="parrot-game__word-card">
@@ -146,20 +121,19 @@ function ParrotPairsGame({ onHome, onBack }) {
             </button>
           </div>
           <div className="parrot-game__letters">
-            {[...round.word1].map((letter, i) => {
-              const key = letterKey("word1", i);
-              return (
-                <button
-                  key={key}
-                  className={`parrot-game__letter${matched.has(key) ? " parrot-game__letter--matched" : ""}${
-                    selected?.word === "word1" && selected.index === i ? " parrot-game__letter--selected" : ""
-                  }${wrongPair?.includes(key) ? " parrot-game__letter--wrong" : ""}`}
-                  onClick={() => handleTileClick("word1", i)}
-                >
-                  {letter}
-                </button>
-              );
-            })}
+            {[...round.word1].map((letter, i) => (
+              <button
+                key={i}
+                className={`parrot-game__letter${
+                  solved && expected.has(i) ? " parrot-game__letter--matched" : ""
+                }${!solved && selected1.has(i) ? " parrot-game__letter--selected" : ""}${
+                  wrongFlash && selected1.has(i) ? " parrot-game__letter--wrong" : ""
+                }`}
+                onClick={() => toggle(setSelected1, selected1, i)}
+              >
+                {letter}
+              </button>
+            ))}
           </div>
         </div>
 
@@ -176,20 +150,19 @@ function ParrotPairsGame({ onHome, onBack }) {
             </button>
           </div>
           <div className="parrot-game__letters">
-            {[...round.word2].map((letter, i) => {
-              const key = letterKey("word2", i);
-              return (
-                <button
-                  key={key}
-                  className={`parrot-game__letter${matched.has(key) ? " parrot-game__letter--matched" : ""}${
-                    selected?.word === "word2" && selected.index === i ? " parrot-game__letter--selected" : ""
-                  }${wrongPair?.includes(key) ? " parrot-game__letter--wrong" : ""}`}
-                  onClick={() => handleTileClick("word2", i)}
-                >
-                  {letter}
-                </button>
-              );
-            })}
+            {[...round.word2].map((letter, i) => (
+              <button
+                key={i}
+                className={`parrot-game__letter${
+                  solved && expected.has(i) ? " parrot-game__letter--matched" : ""
+                }${!solved && selected2.has(i) ? " parrot-game__letter--selected" : ""}${
+                  wrongFlash && selected2.has(i) ? " parrot-game__letter--wrong" : ""
+                }`}
+                onClick={() => toggle(setSelected2, selected2, i)}
+              >
+                {letter}
+              </button>
+            ))}
           </div>
         </div>
       </div>
@@ -213,7 +186,7 @@ function ParrotPairsGame({ onHome, onBack }) {
 
       <AccessibilityToolbar />
       <GameHintBubble
-        message="Can you find the matching letters? Tap the speaker to hear the word!"
+        message="Can you find the letters that got mixed up? Tap the speaker to hear the word!"
         speakText={round.word1}
       />
     </section>
