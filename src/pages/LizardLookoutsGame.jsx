@@ -13,30 +13,30 @@ const ROUNDS = [
     sentence: "The big bear bit a ripe apple by the barn.",
     paragraph:
       "Ben bounced his big blue ball beside the barn. A brown bunny bounded by, and Ben laughed as the ball bumped along the bumpy path back to his backpack.",
-    reminder: "The belly comes before the ball when drawing a 'b'.",
+    reminder: "The bat comes before the ball when drawing a 'b'.",
   },
   {
     pairLabel: "b vs d",
     letter: "d",
-    sentence: "The old duck did a silly dance today.",
+    sentence: "The dark deer drowned in a deep ditch.",
     paragraph:
-      "Daisy the duck waddled down a dusty dirt road. She discovered a shiny dime near a dandelion and carried it back to her den before dinner.",
-    reminder: "The ball comes before the belly when drawing a 'd'.",
+      "Daisy the friendly duck danced down a dusty dirt path. She discovered a tiny dragonfly on a dandelion. Daisy slipped it into the dirty pond and found a dark stone. She carried it back to her den before dinner.",
+    reminder: "The ball comes before the bat when drawing a 'd'.",
   },
   {
     pairLabel: "p vs q",
     letter: "p",
-    sentence: "Paul packed a pink pepper for the picnic.",
+    sentence: "The pig put a pepper by the pandit.",
     paragraph:
-      "Paul and his playful puppy walked to the park on a pleasant morning. They passed pretty purple flowers and tall pine trees near the pond.",
-    reminder: "Draw the stick first, then the loop on the right side, for a 'p'.",
+      "Paul and his playful puppy walked to the park on a pleasant morning. They passed pretty purple flowers and tall pine trees. Paul tossed a pink ball to his puppy and he picked it up.",
+    reminder: "It's like half a lollipop. Draw the stick, then the lollipop on the right side.",
   },
   {
     pairLabel: "p vs q",
     letter: "q",
-    sentence: "The quiet queen packed a quick quilt.",
+    sentence: "The queen of Qatar quit.",
     paragraph:
-      "Quinn the queen packed a quilt and a quick snack. She found a duck quacking by the quiet pond and watched it happily.",
+      "Quinn, the quiet queen packed a quilt and a quick snack. She walked to a garden where she found a duck quacking and a quail hiding. The queen smiled and watched the quail quietly walk and the duck quack.",
     reminder: "Take your time! A 'q' has a circle first, then a tail pointing down.",
   },
 ];
