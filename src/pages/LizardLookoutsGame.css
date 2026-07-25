@@ -105,16 +105,30 @@
   min-width: 1.4em;
   border: none;
   border-radius: 6px;
-  background: var(--amber-bg);
+  background: none;
   color: var(--ink);
   font: inherit;
-  font-weight: 800;
+  font-weight: 700;
   cursor: pointer;
   padding: 0 2px;
 }
 
+.lizard-game__hunt-letter:hover {
+  background: var(--border);
+}
+
 .lizard-game__hunt-letter--found {
   background: var(--green);
+  color: var(--white);
+  font-weight: 800;
+}
+
+.lizard-game__hunt-letter--found:hover {
+  background: var(--green);
+}
+
+.lizard-game__hunt-letter--wrong {
+  background: #e05555;
   color: var(--white);
 }
 
@@ -180,4 +194,10 @@
 
 .lizard-game__finished p {
   color: var(--ink-soft);
+}
+
+.lizard-game__finished-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
 }

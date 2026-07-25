@@ -52,13 +52,6 @@
   box-shadow: var(--shadow-soft);
 }
 
-.map__node-circle--done {
-  width: 56px;
-  height: 56px;
-  color: var(--green);
-  border: 3px solid var(--green);
-}
-
 .map__node-circle--active {
   width: 96px;
   height: 96px;
@@ -85,4 +78,14 @@
   display: flex;
   gap: 2px;
   color: var(--green);
+}
+
+.map__node-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--ink);
+  background: var(--white);
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-soft);
 }

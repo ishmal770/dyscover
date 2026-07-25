@@ -192,3 +192,27 @@
   justify-content: center;
   margin-top: 6px;
 }
+
+.syllable-game__complete {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 120px;
+  text-align: center;
+}
+
+.syllable-game__complete h1 {
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.syllable-game__complete p {
+  color: var(--ink-soft);
+}
+
+.syllable-game__complete-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+}

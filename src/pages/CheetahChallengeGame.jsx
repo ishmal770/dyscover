@@ -1,13 +1,16 @@
 import { useState, useEffect, useRef } from "react";
-import { Trophy, Star, Clock, Flame, Volume2, Play, RotateCcw } from "lucide-react";
+import { Trophy, Star, Clock, Flame, Volume2, Play, RotateCcw, Mic, Home } from "lucide-react";
 import GameTopBar from "../components/GameTopBar";
 import AccessibilityToolbar from "../components/AccessibilityToolbar";
 import GameHintBubble, { speak } from "../components/GameHintBubble";
 import "./CheetahChallengeGame.css";
 
-const WORDS = ["FOX", "DOG", "CAT", "SUN", "TREE", "BIRD", "FISH"];
-const ROUND_MS = 5000;
+const WORDS = ["FOX", "DOG", "CAT", "SUN", "TREE", "BIRD", "FISH", "FROG", "DUCK", "LION", "BEAR", "STAR"];
+const ROUND_MS = 6000;
 const TICK_MS = 100;
+
+const SpeechRecognitionApi =
+  typeof window !== "undefined" && (window.SpeechRecognition || window.webkitSpeechRecognition);
 
 function CheetahChallengeGame({ onHome, onBack }) {
   const [roundIndex, setRoundIndex] = useState(0);
@@ -16,9 +19,12 @@ function CheetahChallengeGame({ onHome, onBack }) {
   const [timeLeft, setTimeLeft] = useState(100);
   const [finished, setFinished] = useState(false);
   const [isActive, setIsActive] = useState(false);
+  const [listening, setListening] = useState(false);
+  const [micFeedback, setMicFeedback] = useState("");
   const advancingRef = useRef(false);
   const remainingRef = useRef(ROUND_MS);
   const sectionRef = useRef(null);
+  const recognitionRef = useRef(null);
 
   const stars = Math.min(3, Math.floor(streak / 3));
   const word = WORDS[roundIndex];
@@ -34,9 +40,23 @@ function CheetahChallengeGame({ onHome, onBack }) {
   }, []);
 
   useEffect(() => {
+    if (!SpeechRecognitionApi) return;
+    const recognition = new SpeechRecognitionApi();
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    recognition.lang = "en-US";
+    recognitionRef.current = recognition;
+    return () => recognition.abort();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
     advancingRef.current = false;
     remainingRef.current = ROUND_MS;
     setTimeLeft(100);
+    setMicFeedback("");
+    setListening(false);
+    recognitionRef.current?.abort();
   }, [roundIndex]);
 
   useEffect(() => {
@@ -48,6 +68,7 @@ function CheetahChallengeGame({ onHome, onBack }) {
       if (remainingRef.current <= 0 && !advancingRef.current) {
         advancingRef.current = true;
         setStreak(0);
+        recognitionRef.current?.abort();
         advanceRound();
       }
     }, TICK_MS);
@@ -74,6 +95,34 @@ function CheetahChallengeGame({ onHome, onBack }) {
     advanceRound();
   }
 
+  function handleMicClick() {
+    const recognition = recognitionRef.current;
+    if (!recognition || listening || advancingRef.current) return;
+    setMicFeedback("");
+    setListening(true);
+
+    recognition.onresult = (event) => {
+      const transcript = event.results[0][0].transcript.trim().toLowerCase();
+      setListening(false);
+      if (transcript === word.toLowerCase()) {
+        handleGotIt();
+      } else {
+        setMicFeedback(`Heard "${transcript}" - try again!`);
+      }
+    };
+    recognition.onerror = () => {
+      setListening(false);
+      setMicFeedback("Couldn't hear you - try again or tap the card.");
+    };
+    recognition.onend = () => setListening(false);
+
+    try {
+      recognition.start();
+    } catch {
+      setListening(false);
+    }
+  }
+
   function handleRestart() {
     setRoundIndex(0);
     setScore(0);
@@ -82,6 +131,8 @@ function CheetahChallengeGame({ onHome, onBack }) {
     advancingRef.current = false;
     remainingRef.current = ROUND_MS;
     setTimeLeft(100);
+    setMicFeedback("");
+    setListening(false);
   }
 
   return (
@@ -94,6 +145,9 @@ function CheetahChallengeGame({ onHome, onBack }) {
           <span>SCORE</span>
           <strong>{score.toLocaleString()}</strong>
         </div>
+        <span className="cheetah-game__round-count">
+          {roundIndex + 1} / {WORDS.length}
+        </span>
         <div className="cheetah-game__stars">
           {[0, 1, 2].map((i) => (
             <Star key={i} size={16} fill={i < stars ? "currentColor" : "none"} />
@@ -115,11 +169,16 @@ function CheetahChallengeGame({ onHome, onBack }) {
 
       {finished ? (
         <div className="cheetah-game__finished">
-          <h1>Great job!</h1>
+          <h1>Game Session Completed!</h1>
           <p>Final score: {score.toLocaleString()}</p>
-          <button className="btn btn--primary" onClick={handleRestart}>
-            <Play size={14} fill="currentColor" /> Play Again
-          </button>
+          <div className="cheetah-game__finished-actions">
+            <button className="btn btn--outline" onClick={handleRestart}>
+              <Play size={14} fill="currentColor" /> Play Again
+            </button>
+            <button className="btn btn--primary" onClick={onBack}>
+              <Home size={14} /> Back to World
+            </button>
+          </div>
         </div>
       ) : (
         <>
@@ -146,7 +205,24 @@ function CheetahChallengeGame({ onHome, onBack }) {
             </div>
             <div className="cheetah-game__word">{word}</div>
           </div>
-          <p className="cheetah-game__hint-text">Tap the card once you've read it!</p>
+
+          {SpeechRecognitionApi ? (
+            <>
+              <button
+                className={`cheetah-game__mic-btn${listening ? " cheetah-game__mic-btn--listening" : ""}`}
+                onClick={handleMicClick}
+                disabled={listening}
+              >
+                <Mic size={18} /> {listening ? "Listening..." : "Tap and say the word!"}
+              </button>
+              <p className="cheetah-game__hint-text">
+                {micFeedback || "Or tap the card once you've read it."}
+              </p>
+            </>
+          ) : (
+            <p className="cheetah-game__hint-text">Tap the card once you've read it!</p>
+          )}
+
           <button
             className="cheetah-game__big-speaker"
             onClick={() => speak(word)}
@@ -158,7 +234,7 @@ function CheetahChallengeGame({ onHome, onBack }) {
       )}
 
       <AccessibilityToolbar />
-      <GameHintBubble message="Ready, set, go! Name what you see as fast as you can." speakText={word} />
+      <GameHintBubble message="Ready, set, go! Say the word out loud as fast as you can." speakText={word} />
     </section>
   );
 }

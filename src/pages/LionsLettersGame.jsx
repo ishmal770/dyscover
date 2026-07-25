@@ -1,61 +1,74 @@
 import { useState } from "react";
-import { Star, Volume2 } from "lucide-react";
+import { Volume2, ArrowRight, RotateCcw, Home } from "lucide-react";
 import GameTopBar from "../components/GameTopBar";
 import AccessibilityToolbar from "../components/AccessibilityToolbar";
 import GameHintBubble, { speak } from "../components/GameHintBubble";
 import LetterTraceCanvas from "../components/LetterTraceCanvas";
 import "./LionsLettersGame.css";
 
-const WORD = "CAT";
+const LETTERS = ["C", "D", "M", "T", "G", "R"];
+const WORDS = ["BOX", "CAT", "SUN", "DOG", "MAP", "PEN"];
 
-function shuffle(items) {
-  const arr = [...items];
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
-  return arr;
-}
-
-function buildCards() {
-  const letters = [...WORD, ...WORD];
-  return shuffle(letters);
-}
+const ROUNDS = LETTERS.flatMap((letter, i) => [
+  { type: "letter", value: letter },
+  { type: "word", value: WORDS[i] },
+]);
 
 function LionsLettersGame({ onHome, onBack }) {
-  const [cards] = useState(buildCards);
-  const [revealed, setRevealed] = useState([]);
-  const [matched, setMatched] = useState(() => new Set());
-  const [busy, setBusy] = useState(false);
-  const [stars, setStars] = useState(3);
+  const [roundIndex, setRoundIndex] = useState(0);
+  const [heardSound, setHeardSound] = useState(false);
+  const [revealed, setRevealed] = useState(() => new Set());
+  const [wordPhase, setWordPhase] = useState("letters");
+  const [sessionComplete, setSessionComplete] = useState(false);
 
-  const pairCount = WORD.length;
-  const matchedPairs = matched.size / 2;
-  const phase = matchedPairs === pairCount ? "trace" : "match";
+  const round = ROUNDS[roundIndex];
+  const isLastRound = roundIndex + 1 >= ROUNDS.length;
 
-  function handleCardClick(index) {
-    if (busy || matched.has(index) || revealed.includes(index)) return;
-    speak(cards[index]);
+  function resetRoundState() {
+    setHeardSound(false);
+    setRevealed(new Set());
+    setWordPhase("letters");
+  }
 
-    if (revealed.length === 0) {
-      setRevealed([index]);
+  function handleContinue() {
+    if (isLastRound) {
+      setSessionComplete(true);
       return;
     }
+    setRoundIndex((i) => i + 1);
+    resetRoundState();
+  }
 
-    const first = revealed[0];
-    const newRevealed = [first, index];
-    setRevealed(newRevealed);
-    setBusy(true);
+  function handlePlayAgain() {
+    setRoundIndex(0);
+    resetRoundState();
+    setSessionComplete(false);
+  }
 
-    setTimeout(() => {
-      if (cards[first] === cards[index]) {
-        setMatched((m) => new Set([...m, first, index]));
-      } else {
-        setStars((s) => Math.max(0, s - 1));
-      }
-      setRevealed([]);
-      setBusy(false);
-    }, 700);
+  function handleLetterHeard(letter, index) {
+    speak(letter);
+    setRevealed((prev) => new Set([...prev, index]));
+  }
+
+  if (sessionComplete) {
+    return (
+      <section className="page lions-game">
+        <GameTopBar gameName="Letter Match" onHome={onHome} onBack={onBack} />
+        <div className="lions-game__complete">
+          <h1>Game Session Completed!</h1>
+          <p>You practiced {LETTERS.length} letters and {WORDS.length} words.</p>
+          <div className="lions-game__complete-actions">
+            <button className="btn btn--outline" onClick={handlePlayAgain}>
+              <RotateCcw size={14} /> Play Again
+            </button>
+            <button className="btn btn--primary" onClick={onBack}>
+              <Home size={14} /> Back to World
+            </button>
+          </div>
+        </div>
+        <AccessibilityToolbar />
+      </section>
+    );
   }
 
   return (
@@ -63,65 +76,72 @@ function LionsLettersGame({ onHome, onBack }) {
       <GameTopBar gameName="Letter Match" onHome={onHome} onBack={onBack} />
 
       <div className="lions-game__topline">
-        <div className="lions-game__stars">
-          {[0, 1, 2].map((i) => (
-            <Star key={i} size={16} fill={i < stars ? "currentColor" : "none"} />
-          ))}
-        </div>
-        <span className="lions-game__progress-pill">{matchedPairs} / {pairCount} Matched</span>
+        <span className="lions-game__progress-pill">
+          {roundIndex + 1} / {ROUNDS.length}
+        </span>
       </div>
 
-      <div className="lions-game__body">
-        <div className="lions-game__panel">
-          <div className="lions-game__panel-header">
-            <h2>Find the Matches</h2>
-            <Volume2 size={14} />
-          </div>
-          <div className="lions-game__grid">
-            {cards.map((letter, i) => {
-              const isMatched = matched.has(i);
-              const isRevealed = revealed.includes(i);
-              return (
-                <button
-                  key={i}
-                  className={`lions-game__card${isRevealed ? " lions-game__card--selected" : ""}${
-                    isMatched ? " lions-game__card--matched" : ""
-                  }`}
-                  onClick={() => handleCardClick(i)}
-                >
-                  <span>Letter {i + 1}</span>
-                  <Volume2 size={13} />
-                </button>
-              );
-            })}
-          </div>
+      {round.type === "letter" ? (
+        <div className="lions-game__round-card">
+          <h1>Listen, then trace the letter</h1>
+          <button
+            className="lions-game__sound-box"
+            onClick={() => {
+              speak(round.value);
+              setHeardSound(true);
+            }}
+          >
+            <Volume2 size={28} />
+            <span>Tap to hear the letter</span>
+          </button>
+          <LetterTraceCanvas guideText={round.value} />
+          <button className="btn btn--primary" onClick={handleContinue} disabled={!heardSound}>
+            {isLastRound ? "Finish" : "Continue"} <ArrowRight size={16} />
+          </button>
         </div>
-
-        <div className={`lions-game__panel${phase === "trace" ? "" : " lions-game__panel--locked"}`}>
-          <div className="lions-game__panel-header">
-            <h2>Trace the letter</h2>
-            {phase === "trace" && (
-              <button className="lions-game__sounds-btn" onClick={() => speak(WORD)}>
-                <Volume2 size={12} /> Letter Sounds
+      ) : (
+        <div className="lions-game__round-card">
+          {wordPhase === "letters" ? (
+            <>
+              <h1>Spell it out: listen to each letter</h1>
+              <div className="lions-game__letter-slots">
+                {[...round.value].map((letter, i) => (
+                  <div key={i} className="lions-game__letter-slot">
+                    <button className="lions-game__number-btn" onClick={() => handleLetterHeard(letter, i)}>
+                      {i + 1}
+                    </button>
+                    {revealed.has(i) ? (
+                      <LetterTraceCanvas guideText={letter} height={110} />
+                    ) : (
+                      <div className="lions-game__slot-placeholder">Tap to hear</div>
+                    )}
+                  </div>
+                ))}
+              </div>
+              <button
+                className="btn btn--primary"
+                onClick={() => setWordPhase("fullword")}
+                disabled={revealed.size < round.value.length}
+              >
+                Continue to full word <ArrowRight size={16} />
               </button>
-            )}
-          </div>
-          {phase === "trace" ? (
-            <LetterTraceCanvas guideText={WORD} />
+            </>
           ) : (
-            <p className="lions-game__locked-text">Find all the matches first!</p>
+            <>
+              <h1>Now write the whole word!</h1>
+              <LetterTraceCanvas guideText={round.value} />
+              <button className="btn btn--primary" onClick={handleContinue}>
+                {isLastRound ? "Finish" : "Continue"} <ArrowRight size={16} />
+              </button>
+            </>
           )}
         </div>
-      </div>
+      )}
 
       <AccessibilityToolbar />
       <GameHintBubble
-        message={
-          phase === "trace"
-            ? `Great match! Now let's practice writing '${WORD}'. Follow the lines!`
-            : "Tap the cards to hear the letters and find a pair!"
-        }
-        speakText={WORD}
+        message="Tap the sound box to hear the letters, then trace them!"
+        speakText={round.value}
       />
     </section>
   );
