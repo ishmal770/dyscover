@@ -41,6 +41,15 @@
   background: var(--green-dark);
 }
 
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn:disabled:hover {
+  background: var(--green);
+}
+
 .homepage__ground {
   position: relative;
   height: 130px;

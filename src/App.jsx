@@ -49,7 +49,11 @@ function App() {
         <Login onNext={() => goTo("map")} />
       </div>
       <div ref={(el) => (sectionRefs.current.map = el)} className="scroller__section">
-        <AdventureMap onNext={() => goTo("placement")} onHome={() => goTo("home")} />
+        <AdventureMap
+          onNext={() => goTo("placement")}
+          onStartCanopy={() => goTo("canopy")}
+          onHome={() => goTo("home")}
+        />
       </div>
       <div ref={(el) => (sectionRefs.current.placement = el)} className="scroller__section">
         <PlacementMission onNext={() => goTo("jungle")} onHome={() => goTo("home")} />

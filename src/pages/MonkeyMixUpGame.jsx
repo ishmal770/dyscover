@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Star, Zap, Lightbulb, Volume2, Play, ArrowRight } from "lucide-react";
+import { Star, Zap, Lightbulb, Volume2, Play, ArrowRight, RotateCcw, Home } from "lucide-react";
 import GameTopBar from "../components/GameTopBar";
 import AccessibilityToolbar from "../components/AccessibilityToolbar";
 import GameHintBubble, { speak } from "../components/GameHintBubble";
@@ -11,6 +11,15 @@ const ROUNDS = [
   { template: ["S", null, "N"], answer: "U", sound: "uh" },
   { template: ["C", null, "T"], answer: "A", sound: "aa" },
   { template: ["P", null, "G"], answer: "I", sound: "ih" },
+  { template: ["D", null, "G"], answer: "O", sound: "aw" },
+  { template: ["B", null, "D"], answer: "E", sound: "eh" },
+  { template: ["C", null, "P"], answer: "U", sound: "uh" },
+  { template: ["H", null, "T"], answer: "A", sound: "aa" },
+  { template: ["W", null, "N"], answer: "I", sound: "ih" },
+  { template: ["T", null, "P"], answer: "O", sound: "aw" },
+  { template: ["P", null, "N"], answer: "E", sound: "eh" },
+  { template: ["R", null, "N"], answer: "U", sound: "uh" },
+  { template: ["M", null, "P"], answer: "A", sound: "aa" },
 ];
 
 const BONUS_WORDS = ["Sun", "Bug", "Cup", "Rays", "Roach"];
@@ -21,10 +30,12 @@ function MonkeyMixUpGame({ onHome, onBack }) {
   const [wrong, setWrong] = useState(false);
   const [stars, setStars] = useState(3);
   const [level] = useState(4);
+  const [sessionComplete, setSessionComplete] = useState(false);
 
   const round = ROUNDS[roundIndex];
   const solved = filled === round.answer;
   const word = round.template.map((c) => c ?? round.answer).join("");
+  const isLastRound = roundIndex + 1 >= ROUNDS.length;
 
   function handleVowelClick(letter) {
     if (solved) return;
@@ -39,10 +50,42 @@ function MonkeyMixUpGame({ onHome, onBack }) {
 
   function handleNext() {
     if (!solved) return;
-    const next = (roundIndex + 1) % ROUNDS.length;
-    setRoundIndex(next);
+    if (isLastRound) {
+      setSessionComplete(true);
+      return;
+    }
+    setRoundIndex((i) => i + 1);
     setFilled(null);
     setWrong(false);
+  }
+
+  function handlePlayAgain() {
+    setRoundIndex(0);
+    setFilled(null);
+    setWrong(false);
+    setStars(3);
+    setSessionComplete(false);
+  }
+
+  if (sessionComplete) {
+    return (
+      <section className="page monkey-game">
+        <GameTopBar gameName="Monkey Mix-Up" onHome={onHome} onBack={onBack} />
+        <div className="monkey-game__complete">
+          <h1>Game Session Completed!</h1>
+          <p>You built {ROUNDS.length} words.</p>
+          <div className="monkey-game__complete-actions">
+            <button className="btn btn--outline" onClick={handlePlayAgain}>
+              <RotateCcw size={14} /> Play Again
+            </button>
+            <button className="btn btn--primary" onClick={onBack}>
+              <Home size={14} /> Back to World
+            </button>
+          </div>
+        </div>
+        <AccessibilityToolbar />
+      </section>
+    );
   }
 
   return (
@@ -53,6 +96,9 @@ function MonkeyMixUpGame({ onHome, onBack }) {
           <div className="monkey-game__topline">
             <span className="monkey-game__level">
               <Zap size={12} fill="currentColor" /> Level {level}
+            </span>
+            <span className="monkey-game__round-count">
+              {roundIndex + 1} / {ROUNDS.length}
             </span>
             <div className="monkey-game__stars">
               {[0, 1, 2].map((i) => (
@@ -126,7 +172,7 @@ function MonkeyMixUpGame({ onHome, onBack }) {
           </div>
 
           <button className="btn btn--primary btn--block monkey-game__next" onClick={handleNext} disabled={!solved}>
-            Next <ArrowRight size={16} />
+            {isLastRound ? "Finish" : "Next"} <ArrowRight size={16} />
           </button>
         </div>
 

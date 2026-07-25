@@ -5,20 +5,13 @@
   height: 100%;
   background: var(--white);
   overflow-y: auto;
+  padding-bottom: 100px;
 }
 
 .lions-game__topline {
   display: flex;
-  align-items: center;
   justify-content: center;
-  gap: 12px;
-  margin-top: 24px;
-}
-
-.lions-game__stars {
-  display: flex;
-  gap: 4px;
-  color: var(--amber);
+  margin-top: 20px;
 }
 
 .lions-game__progress-pill {
@@ -30,91 +23,106 @@
   color: var(--ink);
 }
 
-.lions-game__body {
-  flex: 1;
-  display: flex;
-  gap: 20px;
-  padding: 24px 32px 100px;
-  min-height: 0;
-}
-
-.lions-game__panel {
-  flex: 1;
+.lions-game__round-card {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  padding: 20px;
+  align-items: center;
+  gap: 18px;
+  width: 100%;
+  max-width: 560px;
+  margin: 24px auto 0;
+  padding: 28px;
   background: var(--green-paler);
   border-radius: 20px;
 }
 
-.lions-game__panel--locked {
-  opacity: 0.6;
-}
-
-.lions-game__panel-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.lions-game__panel-header h2 {
-  font-size: 1rem;
+.lions-game__round-card h1 {
+  font-size: 1.1rem;
   font-weight: 700;
+  text-align: center;
 }
 
-.lions-game__sounds-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 12px;
-  border: none;
-  border-radius: var(--radius-pill);
-  background: var(--green-pale);
-  color: var(--green-dark);
-  font-size: 0.7rem;
-  font-weight: 700;
-  cursor: pointer;
+.lions-game__round-card > .trace-canvas {
+  width: 100%;
 }
 
-.lions-game__grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-}
-
-.lions-game__card {
+.lions-game__sound-box {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 8px;
-  padding: 20px 12px;
-  border: 2px solid var(--border);
-  border-radius: 14px;
-  background: var(--white);
-  font-size: 0.85rem;
+  padding: 24px 40px;
+  border: none;
+  border-radius: 18px;
+  background: var(--green);
+  color: var(--white);
+  font-size: 0.8rem;
   font-weight: 700;
-  color: var(--ink);
   cursor: pointer;
 }
 
-.lions-game__card--selected {
-  border-color: var(--green);
-  background: var(--green-pale);
+.lions-game__letter-slots {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  width: 100%;
 }
 
-.lions-game__card--matched {
-  border-color: var(--green);
-  background: var(--green);
-  color: var(--white);
+.lions-game__letter-slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 }
 
-.lions-game__locked-text {
-  flex: 1;
+.lions-game__number-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.85rem;
+  width: 48px;
+  height: 48px;
+  border: none;
+  border-radius: 50%;
+  background: var(--green);
+  color: var(--white);
+  font-size: 1.1rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.lions-game__slot-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 110px;
+  border: 2px dashed var(--border);
+  border-radius: 12px;
+  font-size: 0.7rem;
   color: var(--ink-soft);
   text-align: center;
+}
+
+.lions-game__complete {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 120px;
+  text-align: center;
+}
+
+.lions-game__complete h1 {
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.lions-game__complete p {
+  color: var(--ink-soft);
+}
+
+.lions-game__complete-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
 }

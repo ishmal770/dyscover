@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { Star, FlipHorizontal, RotateCw, Info, ArrowRight } from "lucide-react";
+import { Star, FlipHorizontal, RotateCw, Info, ArrowRight, RotateCcw, Home } from "lucide-react";
 import GameTopBar from "../components/GameTopBar";
 import AccessibilityToolbar from "../components/AccessibilityToolbar";
 import GameHintBubble, { speak } from "../components/GameHintBubble";
@@ -43,19 +43,32 @@ const ROUNDS = [
 
 const STEPS = ["find", "shape", "trace", "paragraph"];
 
-function LetterHunt({ text, letter, found, onFound }) {
+function LetterHunt({ text, letter, found, onFound, onWrong }) {
+  const [wrongIndex, setWrongIndex] = useState(null);
   const chars = [...text];
   return (
     <p className="lizard-game__hunt-text">
       {chars.map((char, i) => {
+        if (!/[a-zA-Z]/.test(char)) return <span key={i}>{char}</span>;
         const isTarget = char.toLowerCase() === letter.toLowerCase();
-        if (!isTarget) return <span key={i}>{char}</span>;
-        const isFound = found.has(i);
+        const isFound = isTarget && found.has(i);
+        const isWrong = wrongIndex === i;
         return (
           <button
             key={i}
-            className={`lizard-game__hunt-letter${isFound ? " lizard-game__hunt-letter--found" : ""}`}
-            onClick={() => !isFound && onFound(i)}
+            className={`lizard-game__hunt-letter${isFound ? " lizard-game__hunt-letter--found" : ""}${
+              isWrong ? " lizard-game__hunt-letter--wrong" : ""
+            }`}
+            onClick={() => {
+              if (isFound) return;
+              if (isTarget) {
+                onFound(i);
+              } else {
+                setWrongIndex(i);
+                onWrong?.();
+                setTimeout(() => setWrongIndex(null), 400);
+              }
+            }}
           >
             {char}
           </button>
@@ -89,6 +102,20 @@ function LizardLookoutsGame({ onHome, onBack }) {
   function goToStep(nextStep) {
     const idx = STEPS.indexOf(nextStep);
     setStepIndex(idx);
+  }
+
+  function handleWrongClick() {
+    setStars((s) => Math.max(0, s - 1));
+  }
+
+  function handlePlayAgain() {
+    setRoundIndex(0);
+    setStepIndex(0);
+    setFoundSentence(new Set());
+    setFoundParagraph(new Set());
+    setFlipped(false);
+    setRotation(0);
+    setStars(0);
   }
 
   function handleSentenceFound(i) {
@@ -145,8 +172,16 @@ function LizardLookoutsGame({ onHome, onBack }) {
 
       {isComplete ? (
         <div className="lizard-game__finished">
-          <h2>Great work spotting tricky letters!</h2>
+          <h2>Game Session Completed!</h2>
           <p>You practiced b, d, p, and q.</p>
+          <div className="lizard-game__finished-actions">
+            <button className="btn btn--outline" onClick={handlePlayAgain}>
+              <RotateCcw size={14} /> Play Again
+            </button>
+            <button className="btn btn--primary" onClick={onBack}>
+              <Home size={14} /> Back to World
+            </button>
+          </div>
         </div>
       ) : (
         <div className="lizard-game__steps">
@@ -164,6 +199,7 @@ function LizardLookoutsGame({ onHome, onBack }) {
                 letter={round.letter}
                 found={foundSentence}
                 onFound={handleSentenceFound}
+                onWrong={handleWrongClick}
               />
               <p className="lizard-game__found-count">
                 Found {foundSentence.size} / {sentenceTotal}
@@ -215,6 +251,7 @@ function LizardLookoutsGame({ onHome, onBack }) {
                 letter={round.letter}
                 found={foundParagraph}
                 onFound={handleParagraphFound}
+                onWrong={handleWrongClick}
               />
               <p className="lizard-game__found-count">
                 Found {foundParagraph.size} / {paragraphTotal}

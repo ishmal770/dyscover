@@ -4,7 +4,10 @@ import "./GameHintBubble.css";
 function speak(text) {
   if (!("speechSynthesis" in window)) return;
   window.speechSynthesis.cancel();
-  const utterance = new SpeechSynthesisUtterance(text);
+  // All-caps short strings get read as spelled-out acronyms by most TTS
+  // voices ("SUN" -> "S U N"), so normalize to title case for real words.
+  const normalized = text === text.toUpperCase() ? text[0] + text.slice(1).toLowerCase() : text;
+  const utterance = new SpeechSynthesisUtterance(normalized);
   utterance.rate = 0.9;
   window.speechSynthesis.speak(utterance);
 }

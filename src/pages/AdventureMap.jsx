@@ -1,4 +1,4 @@
-import { Info, Play, Check, Star } from "lucide-react";
+import { Info, Play, Star } from "lucide-react";
 import TopBar from "../components/TopBar";
 import AccessibilityToolbar from "../components/AccessibilityToolbar";
 import GuideBubble from "../components/GuideBubble";
@@ -14,7 +14,7 @@ function Stars({ filled }) {
   );
 }
 
-function AdventureMap({ onNext, onHome }) {
+function AdventureMap({ onNext, onStartCanopy, onHome }) {
   return (
     <section className="page map">
       <TopBar label="ADVENTURE MAP" showLogo onLogoClick={onHome} />
@@ -32,19 +32,22 @@ function AdventureMap({ onNext, onHome }) {
           />
         </svg>
 
-        <div className="map__node map__node--done" style={{ left: "18%", top: "72%" }}>
-          <div className="map__node-circle map__node-circle--done">
-            <Check size={20} />
-          </div>
-          <Stars filled={3} />
-        </div>
-
-        <div className="map__node map__node--active" style={{ left: "55%", top: "22%" }}>
+        <div className="map__node map__node--active" style={{ left: "18%", top: "72%" }}>
           <button className="map__start" onClick={onNext}>
             <Play size={10} fill="currentColor" /> Start
           </button>
           <div className="map__node-circle map__node-circle--active" />
           <Stars filled={0} />
+          <span className="map__node-label">Jungle Games</span>
+        </div>
+
+        <div className="map__node map__node--active" style={{ left: "55%", top: "22%" }}>
+          <button className="map__start" onClick={onStartCanopy}>
+            <Play size={10} fill="currentColor" /> Start
+          </button>
+          <div className="map__node-circle map__node-circle--active" />
+          <Stars filled={0} />
+          <span className="map__node-label">Canopy Quest</span>
         </div>
       </div>
       <AccessibilityToolbar />

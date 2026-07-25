@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Star, Volume2, Check } from "lucide-react";
+import { Star, Volume2, Check, RotateCcw, Home } from "lucide-react";
 import GameTopBar from "../components/GameTopBar";
 import AccessibilityToolbar from "../components/AccessibilityToolbar";
 import GameHintBubble, { speak } from "../components/GameHintBubble";
@@ -9,6 +9,15 @@ const ROUNDS = [
   { word: "TIGER", syllables: ["TI", "GER"] },
   { word: "RABBIT", syllables: ["RAB", "BIT"] },
   { word: "MUSIC", syllables: ["MU", "SIC"] },
+  { word: "HAPPY", syllables: ["HAP", "PY"] },
+  { word: "GARDEN", syllables: ["GAR", "DEN"] },
+  { word: "PENCIL", syllables: ["PEN", "CIL"] },
+  { word: "MONKEY", syllables: ["MON", "KEY"] },
+  { word: "WINTER", syllables: ["WIN", "TER"] },
+  { word: "PICNIC", syllables: ["PIC", "NIC"] },
+  { word: "CANDLE", syllables: ["CAN", "DLE"] },
+  { word: "NAPKIN", syllables: ["NAP", "KIN"] },
+  { word: "SEVEN", syllables: ["SEV", "EN"] },
 ];
 
 function shuffle(items) {
@@ -30,9 +39,11 @@ function SyllableSafariGame({ onHome, onBack }) {
   const [selectedChunk, setSelectedChunk] = useState(null);
   const [stars, setStars] = useState(3);
   const [solved, setSolved] = useState(false);
+  const [sessionComplete, setSessionComplete] = useState(false);
 
   const round = ROUNDS[roundIndex];
   const correctSplit = round.syllables[0].length;
+  const isLastRound = roundIndex + 1 >= ROUNDS.length;
 
   function handleGapClick(gapIndex) {
     if (gapIndex === correctSplit) {
@@ -82,7 +93,11 @@ function SyllableSafariGame({ onHome, onBack }) {
   }
 
   function nextRound() {
-    const next = (roundIndex + 1) % ROUNDS.length;
+    if (isLastRound) {
+      setSessionComplete(true);
+      return;
+    }
+    const next = roundIndex + 1;
     setRoundIndex(next);
     setPhase("split");
     setDividerAt(null);
@@ -91,6 +106,40 @@ function SyllableSafariGame({ onHome, onBack }) {
     setSelectedChunk(null);
     setSolved(false);
     setFeedback("");
+  }
+
+  function handlePlayAgain() {
+    setRoundIndex(0);
+    setPhase("split");
+    setDividerAt(null);
+    setTray(shuffle(ROUNDS[0].syllables));
+    setSlots(Array(ROUNDS[0].syllables.length).fill(null));
+    setSelectedChunk(null);
+    setSolved(false);
+    setFeedback("");
+    setStars(3);
+    setSessionComplete(false);
+  }
+
+  if (sessionComplete) {
+    return (
+      <section className="page syllable-game">
+        <GameTopBar gameName="Syllable Safari" onHome={onHome} onBack={onBack} />
+        <div className="syllable-game__complete">
+          <h1>Game Session Completed!</h1>
+          <p>You built {ROUNDS.length} words.</p>
+          <div className="syllable-game__complete-actions">
+            <button className="btn btn--outline" onClick={handlePlayAgain}>
+              <RotateCcw size={14} /> Play Again
+            </button>
+            <button className="btn btn--primary" onClick={onBack}>
+              <Home size={14} /> Back to World
+            </button>
+          </div>
+        </div>
+        <AccessibilityToolbar />
+      </section>
+    );
   }
 
   return (
@@ -174,7 +223,7 @@ function SyllableSafariGame({ onHome, onBack }) {
         <div className="syllable-game__controls">
           {solved ? (
             <button className="btn btn--primary" onClick={nextRound}>
-              Next Word <Check size={16} />
+              {isLastRound ? "Finish" : "Next Word"} <Check size={16} />
             </button>
           ) : (
             <button className="btn btn--primary" onClick={checkBuild}>

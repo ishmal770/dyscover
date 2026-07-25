@@ -147,6 +147,52 @@
   color: var(--ink-soft);
 }
 
+.cheetah-game__round-count {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+
+.cheetah-game__mic-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+  padding: 14px 28px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--green);
+  color: var(--white);
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.cheetah-game__mic-btn--listening {
+  background: #e05555;
+  animation: cheetah-pulse 1s ease-in-out infinite;
+}
+
+@keyframes cheetah-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.cheetah-game__mic-btn:disabled {
+  cursor: not-allowed;
+}
+
+.cheetah-game__finished-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+}
+
 .cheetah-game__big-speaker {
   display: inline-flex;
   align-items: center;

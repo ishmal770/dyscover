@@ -40,6 +40,36 @@
   font-weight: 700;
 }
 
+.monkey-game__round-count {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+
+.monkey-game__complete {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 120px;
+  text-align: center;
+}
+
+.monkey-game__complete h1 {
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.monkey-game__complete p {
+  color: var(--ink-soft);
+}
+
+.monkey-game__complete-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+}
+
 .monkey-game__stars {
   display: flex;
   gap: 4px;
