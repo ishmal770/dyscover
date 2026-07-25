@@ -87,9 +87,29 @@
   text-align: center;
 }
 
+.lizard-game__instructions-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .lizard-game__instructions {
   font-size: 0.95rem;
   font-weight: 700;
+}
+
+.lizard-game__inline-speaker {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: none;
+  background: var(--white);
+  color: var(--green-dark);
+  cursor: pointer;
 }
 
 .lizard-game__hunt-text {
@@ -141,15 +161,37 @@
   gap: 20px;
 }
 
-.lizard-game__big-letter {
-  font-size: 6rem;
-  font-weight: 800;
-  color: var(--green-dark);
-  transition: transform 0.3s ease;
+.lizard-game__anatomy-svg {
+  width: 140px;
+  height: 196px;
+}
+
+.lizard-game__anatomy-stick,
+.lizard-game__anatomy-bowl {
+  stroke: var(--ink);
+  transition: stroke 0.2s ease, fill 0.2s ease, opacity 0.2s ease;
+}
+
+.lizard-game__anatomy-bowl {
+  fill: none;
+  stroke-width: 10;
+}
+
+.lizard-game__anatomy-stick.is-active,
+.lizard-game__anatomy-bowl.is-active {
+  stroke: var(--green);
+}
+
+.lizard-game__anatomy-stick.is-muted,
+.lizard-game__anatomy-bowl.is-muted {
+  stroke: var(--border);
+  opacity: 0.6;
 }
 
 .lizard-game__shape-controls {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 12px;
 }
 
@@ -165,6 +207,12 @@
   font-size: 0.75rem;
   font-weight: 700;
   cursor: pointer;
+}
+
+.lizard-game__shape-controls button.is-active {
+  border-color: var(--green);
+  background: var(--green-pale);
+  color: var(--green-dark);
 }
 
 .lizard-game__reminder {
