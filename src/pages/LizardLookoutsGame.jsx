@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { Star, FlipHorizontal, RotateCw, Info, ArrowRight, RotateCcw, Home } from "lucide-react";
+import { Star, Info, ArrowRight, RotateCcw, Home, Volume2, Minus, Circle } from "lucide-react";
 import GameTopBar from "../components/GameTopBar";
 import AccessibilityToolbar from "../components/AccessibilityToolbar";
 import GameHintBubble, { speak } from "../components/GameHintBubble";
@@ -43,6 +43,40 @@ const ROUNDS = [
 
 const STEPS = ["find", "shape", "trace", "paragraph"];
 
+const LETTER_ANATOMY = {
+  b: { stickX: 32, stickY1: 12, stickY2: 118, bowlCx: 60, bowlCy: 92 },
+  d: { stickX: 68, stickY1: 12, stickY2: 118, bowlCx: 40, bowlCy: 92 },
+  p: { stickX: 32, stickY1: 50, stickY2: 132, bowlCx: 60, bowlCy: 78 },
+  q: { stickX: 68, stickY1: 50, stickY2: 132, bowlCx: 40, bowlCy: 78 },
+};
+
+function LetterAnatomy({ letter, highlightPart }) {
+  const s = LETTER_ANATOMY[letter];
+  return (
+    <svg viewBox="0 0 100 140" className="lizard-game__anatomy-svg" aria-hidden="true">
+      <circle
+        cx={s.bowlCx}
+        cy={s.bowlCy}
+        r="25"
+        className={`lizard-game__anatomy-bowl${highlightPart === "bowl" ? " is-active" : ""}${
+          highlightPart === "stick" ? " is-muted" : ""
+        }`}
+      />
+      <line
+        x1={s.stickX}
+        y1={s.stickY1}
+        x2={s.stickX}
+        y2={s.stickY2}
+        strokeWidth="10"
+        strokeLinecap="round"
+        className={`lizard-game__anatomy-stick${highlightPart === "stick" ? " is-active" : ""}${
+          highlightPart === "bowl" ? " is-muted" : ""
+        }`}
+      />
+    </svg>
+  );
+}
+
 function LetterHunt({ text, letter, found, onFound, onWrong }) {
   const [wrongIndex, setWrongIndex] = useState(null);
   const chars = [...text];
@@ -83,8 +117,7 @@ function LizardLookoutsGame({ onHome, onBack }) {
   const [stepIndex, setStepIndex] = useState(0);
   const [foundSentence, setFoundSentence] = useState(() => new Set());
   const [foundParagraph, setFoundParagraph] = useState(() => new Set());
-  const [flipped, setFlipped] = useState(false);
-  const [rotation, setRotation] = useState(0);
+  const [highlightPart, setHighlightPart] = useState(null);
   const [stars, setStars] = useState(0);
 
   const round = ROUNDS[roundIndex];
@@ -113,8 +146,7 @@ function LizardLookoutsGame({ onHome, onBack }) {
     setStepIndex(0);
     setFoundSentence(new Set());
     setFoundParagraph(new Set());
-    setFlipped(false);
-    setRotation(0);
+    setHighlightPart(null);
     setStars(0);
   }
 
@@ -142,8 +174,7 @@ function LizardLookoutsGame({ onHome, onBack }) {
           setStepIndex(0);
           setFoundSentence(new Set());
           setFoundParagraph(new Set());
-          setFlipped(false);
-          setRotation(0);
+          setHighlightPart(null);
         }
       }, 700);
     }
@@ -193,7 +224,18 @@ function LizardLookoutsGame({ onHome, onBack }) {
 
           {step === "find" && (
             <div className="lizard-game__card">
-              <p className="lizard-game__instructions">Tap all the letter &lsquo;{round.letter}&rsquo;s hiding in this sentence!</p>
+              <div className="lizard-game__instructions-row">
+                <p className="lizard-game__instructions">
+                  Tap all the letter &lsquo;{round.letter}&rsquo;s hiding in this sentence!
+                </p>
+                <button
+                  className="lizard-game__inline-speaker"
+                  onClick={() => speak(`Tap all the letter ${round.letter}'s hiding in this sentence!`)}
+                  aria-label="Read instructions aloud"
+                >
+                  <Volume2 size={13} />
+                </button>
+              </div>
               <LetterHunt
                 text={round.sentence}
                 letter={round.letter}
@@ -209,18 +251,22 @@ function LizardLookoutsGame({ onHome, onBack }) {
 
           {step === "shape" && (
             <div className="lizard-game__card lizard-game__card--shape">
-              <div
-                className="lizard-game__big-letter"
-                style={{ transform: `scaleX(${flipped ? -1 : 1}) rotate(${rotation}deg)` }}
-              >
-                {round.letter}
-              </div>
+              <LetterAnatomy letter={round.letter} highlightPart={highlightPart} />
               <div className="lizard-game__shape-controls">
-                <button onClick={() => setFlipped((f) => !f)}>
-                  <FlipHorizontal size={14} /> Flip
+                <button
+                  className={highlightPart === "stick" ? "is-active" : ""}
+                  onClick={() => setHighlightPart(highlightPart === "stick" ? null : "stick")}
+                >
+                  <Minus size={14} /> Show the Stick
                 </button>
-                <button onClick={() => setRotation((r) => (r + 90) % 360)}>
-                  <RotateCw size={14} /> Rotate
+                <button
+                  className={highlightPart === "bowl" ? "is-active" : ""}
+                  onClick={() => setHighlightPart(highlightPart === "bowl" ? null : "bowl")}
+                >
+                  <Circle size={14} /> Show the Circle
+                </button>
+                <button onClick={() => speak(round.letter)}>
+                  <Volume2 size={14} /> Hear It
                 </button>
               </div>
               <button className="btn btn--primary" onClick={() => goToStep("trace")}>
@@ -231,6 +277,16 @@ function LizardLookoutsGame({ onHome, onBack }) {
 
           {step === "trace" && (
             <div className="lizard-game__card">
+              <div className="lizard-game__instructions-row">
+                <p className="lizard-game__instructions">Trace the letter &lsquo;{round.letter}&rsquo;</p>
+                <button
+                  className="lizard-game__inline-speaker"
+                  onClick={() => speak(round.letter)}
+                  aria-label="Hear the letter"
+                >
+                  <Volume2 size={13} />
+                </button>
+              </div>
               <LetterTraceCanvas guideText={round.letter} height={180} />
               <p className="lizard-game__reminder">
                 <Info size={12} /> Remember: {round.reminder}
@@ -243,9 +299,18 @@ function LizardLookoutsGame({ onHome, onBack }) {
 
           {step === "paragraph" && (
             <div className="lizard-game__card">
-              <p className="lizard-game__instructions">
-                Click all the {round.letter.toUpperCase()}s in this paragraph
-              </p>
+              <div className="lizard-game__instructions-row">
+                <p className="lizard-game__instructions">
+                  Click all the {round.letter.toUpperCase()}s in this paragraph
+                </p>
+                <button
+                  className="lizard-game__inline-speaker"
+                  onClick={() => speak(`Click all the ${round.letter}s in this paragraph`)}
+                  aria-label="Read instructions aloud"
+                >
+                  <Volume2 size={13} />
+                </button>
+              </div>
               <LetterHunt
                 text={round.paragraph}
                 letter={round.letter}

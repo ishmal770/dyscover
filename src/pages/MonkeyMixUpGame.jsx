@@ -38,6 +38,7 @@ function MonkeyMixUpGame({ onHome, onBack }) {
   const isLastRound = roundIndex + 1 >= ROUNDS.length;
 
   function handleVowelClick(letter) {
+    speak(letter);
     if (solved) return;
     if (letter === round.answer) {
       setFilled(letter);
@@ -115,11 +116,22 @@ function MonkeyMixUpGame({ onHome, onBack }) {
             <div>
               <strong>Sloth says:</strong>
               <p>
-                Find the vowel that makes the &lsquo;{round.sound}&rsquo; sound to complete the word! Tap a
-                vowel from the tray to complete the word.
+                Find the vowel that makes the{" "}
+                <button className="monkey-game__sound-chip" onClick={() => speak(round.sound)}>
+                  &lsquo;{round.sound}&rsquo; <Volume2 size={10} />
+                </button>{" "}
+                sound to complete the word! Tap a vowel from the tray to complete the word.
               </p>
             </div>
-            <button className="monkey-game__speaker" onClick={() => speak(word)}>
+            <button
+              className="monkey-game__speaker"
+              onClick={() =>
+                speak(
+                  `Find the vowel that makes the ${round.sound} sound to complete the word! Tap a vowel from the tray to complete the word.`
+                )
+              }
+              aria-label="Read instructions aloud"
+            >
               <Volume2 size={13} />
             </button>
           </div>

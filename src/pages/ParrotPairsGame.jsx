@@ -57,6 +57,14 @@ function sameSet(a, b) {
   return true;
 }
 
+function getTileMetrics(maxLen) {
+  if (maxLen <= 5) return { size: 44, font: "1.3rem", gap: 8 };
+  if (maxLen <= 7) return { size: 38, font: "1.1rem", gap: 6 };
+  if (maxLen <= 9) return { size: 30, font: "0.95rem", gap: 5 };
+  if (maxLen <= 11) return { size: 25, font: "0.8rem", gap: 4 };
+  return { size: 21, font: "0.7rem", gap: 3 };
+}
+
 function ParrotPairsGame({ onHome, onBack }) {
   const [roundIndex, setRoundIndex] = useState(0);
   const [selected1, setSelected1] = useState(() => new Set());
@@ -73,6 +81,12 @@ function ParrotPairsGame({ onHome, onBack }) {
   const { range1, range2 } = getDiffRanges(round.word1, round.word2);
   const expected1 = rangeToSet(range1);
   const expected2 = rangeToSet(range2);
+  const metrics = getTileMetrics(Math.max(round.word1.length, round.word2.length));
+  const tileStyle = {
+    "--tile-size": `${metrics.size}px`,
+    "--tile-font": metrics.font,
+    "--tile-gap": `${metrics.gap}px`,
+  };
 
   function toggle(setSelected, selected, index) {
     if (solved) return;
@@ -187,7 +201,7 @@ function ParrotPairsGame({ onHome, onBack }) {
               <Volume2 size={14} />
             </button>
           </div>
-          <div className="parrot-game__letters">
+          <div className="parrot-game__letters" style={tileStyle}>
             {[...round.word1].map((letter, i) => (
               <button
                 key={i}
@@ -216,7 +230,7 @@ function ParrotPairsGame({ onHome, onBack }) {
               <Volume2 size={14} />
             </button>
           </div>
-          <div className="parrot-game__letters">
+          <div className="parrot-game__letters" style={tileStyle}>
             {[...round.word2].map((letter, i) => (
               <button
                 key={i}

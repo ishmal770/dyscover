@@ -6,7 +6,14 @@ function speak(text) {
   window.speechSynthesis.cancel();
   // All-caps short strings get read as spelled-out acronyms by most TTS
   // voices ("SUN" -> "S U N"), so normalize to title case for real words.
-  const normalized = text === text.toUpperCase() ? text[0] + text.slice(1).toLowerCase() : text;
+  // Single letters are lowercased outright so no voice has a chance to
+  // announce case ("capital C") instead of just the letter itself.
+  const normalized =
+    text.length === 1
+      ? text.toLowerCase()
+      : text === text.toUpperCase()
+      ? text[0] + text.slice(1).toLowerCase()
+      : text;
   const utterance = new SpeechSynthesisUtterance(normalized);
   utterance.rate = 0.9;
   window.speechSynthesis.speak(utterance);
