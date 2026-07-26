@@ -1,8 +1,10 @@
+import { useNavigate } from "react-router-dom";
 import { Info, Settings, Trophy, Volume2 } from "lucide-react";
 import logo from "../assets/dyscover-logo.png";
 import "./GameTopBar.css";
 
 function GameTopBar({ gameName, onHome, onBack }) {
+  const navigate = useNavigate();
   return (
     <header className="gametopbar">
       <button className="gametopbar__logo" onClick={onHome} aria-label="Go to homepage">
@@ -20,7 +22,7 @@ function GameTopBar({ gameName, onHome, onBack }) {
         <button className="gametopbar__icon-btn" aria-label="Settings">
           <Settings size={16} />
         </button>
-        <button className="gametopbar__icon-btn" aria-label="Achievements">
+        <button className="gametopbar__icon-btn" aria-label="Achievements" onClick={() => navigate("/trophy-room")}>
           <Trophy size={16} />
         </button>
         <button className="gametopbar__icon-btn gametopbar__icon-btn--avatar" aria-label="Sound">
