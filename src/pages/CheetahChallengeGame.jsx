@@ -137,7 +137,7 @@ function CheetahChallengeGame({ onHome, onBack }) {
 
   return (
     <section className="page cheetah-game" ref={sectionRef}>
-      <GameTopBar gameName="Quick Speed" onHome={onHome} onBack={onBack} />
+      <GameTopBar gameName="Cheetah Challenge" onHome={onHome} onBack={onBack} />
 
       <div className="cheetah-game__scorebar">
         <div className="cheetah-game__score">

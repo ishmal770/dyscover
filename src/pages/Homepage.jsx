@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Play } from "lucide-react";
 import TopBar from "../components/TopBar";
 import logo from "../assets/dyscover-logo.png";
@@ -12,6 +13,12 @@ function Homepage({ onNext }) {
         <button className="btn btn--primary" onClick={onNext}>
           <Play size={14} fill="currentColor" /> Ready Begin
         </button>
+        <div className="homepage__adult-links">
+          <span>For parents &amp; educators:</span>
+          <Link to="/clinical">Clinical Overview</Link>
+          <span aria-hidden="true">&middot;</span>
+          <Link to="/expert">Expert Dashboard</Link>
+        </div>
       </div>
       <div className="homepage__ground">
         <div className="homepage__tree homepage__tree--left" />
