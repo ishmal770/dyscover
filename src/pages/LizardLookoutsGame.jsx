@@ -4,8 +4,6 @@ import GameTopBar from "../components/GameTopBar";
 import AccessibilityToolbar from "../components/AccessibilityToolbar";
 import GameHintBubble, { speak } from "../components/GameHintBubble";
 import LetterTraceCanvas from "../components/LetterTraceCanvas";
-import "@fontsource/opendyslexic/400.css";
-import "@fontsource/opendyslexic/700.css";
 import "./LizardLookoutsGame.css";
 
 const ROUNDS = [
@@ -190,7 +188,12 @@ function LizardLookoutsGame({ onHome, onBack }) {
 
       <div className="lizard-game__topline">
         <div>
-          <h1>Practice: {round.pairLabel}</h1>
+          <h1>
+            Practice: {round.pairLabel}
+            <span className="lizard-game__round-pill">
+              Letter {roundIndex + 1} of {ROUNDS.length}
+            </span>
+          </h1>
           <p>Let&rsquo;s learn how to tell these tricky letters apart!</p>
         </div>
         <div className="lizard-game__progress">
@@ -222,6 +225,7 @@ function LizardLookoutsGame({ onHome, onBack }) {
             <span className={stepIndex === 0 ? "active" : ""}>1 Find the &lsquo;{round.letter}&rsquo;s</span>
             <span className={stepIndex === 1 ? "active" : ""}>2 Explore the Shape</span>
             <span className={stepIndex === 2 ? "active" : ""}>3 Trace It</span>
+            <span className={stepIndex === 3 ? "active" : ""}>4 Find It Again</span>
           </div>
 
           {step === "find" && (
