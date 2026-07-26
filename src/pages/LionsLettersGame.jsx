@@ -53,7 +53,7 @@ function LionsLettersGame({ onHome, onBack }) {
   if (sessionComplete) {
     return (
       <section className="page lions-game">
-        <GameTopBar gameName="Letter Match" onHome={onHome} onBack={onBack} />
+        <GameTopBar gameName="Lion's Letters" onHome={onHome} onBack={onBack} />
         <div className="lions-game__complete">
           <h1>Game Session Completed!</h1>
           <p>You practiced {LETTERS.length} letters and {WORDS.length} words.</p>
@@ -73,7 +73,7 @@ function LionsLettersGame({ onHome, onBack }) {
 
   return (
     <section className="page lions-game">
-      <GameTopBar gameName="Letter Match" onHome={onHome} onBack={onBack} />
+      <GameTopBar gameName="Lion's Letters" onHome={onHome} onBack={onBack} />
 
       <div className="lions-game__topline">
         <span className="lions-game__progress-pill">

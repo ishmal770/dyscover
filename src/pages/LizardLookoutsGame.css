@@ -6,6 +6,8 @@
   background: var(--white);
   overflow-y: auto;
   padding-bottom: 100px;
+  font-family: "OpenDyslexic", var(--sans);
+  letter-spacing: 0.02em;
 }
 
 .lizard-game__topline {
@@ -113,8 +115,9 @@
 }
 
 .lizard-game__hunt-text {
-  font-size: 1.05rem;
-  line-height: 2.2;
+  font-size: 1.15rem;
+  line-height: 2.4;
+  letter-spacing: 0.04em;
   color: var(--ink);
 }
 
@@ -122,7 +125,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 1.4em;
+  min-width: 1.6em;
   border: none;
   border-radius: 6px;
   background: none;
@@ -130,7 +133,7 @@
   font: inherit;
   font-weight: 700;
   cursor: pointer;
-  padding: 0 2px;
+  padding: 0 3px;
 }
 
 .lizard-game__hunt-letter:hover {

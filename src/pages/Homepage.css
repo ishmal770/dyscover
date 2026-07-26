@@ -50,6 +50,24 @@
   background: var(--green);
 }
 
+.homepage__adult-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+}
+
+.homepage__adult-links a {
+  color: var(--green-dark);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.homepage__adult-links a:hover {
+  text-decoration: underline;
+}
+
 .homepage__ground {
   position: relative;
   height: 130px;

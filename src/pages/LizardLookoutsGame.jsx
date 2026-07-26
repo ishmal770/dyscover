@@ -4,6 +4,8 @@ import GameTopBar from "../components/GameTopBar";
 import AccessibilityToolbar from "../components/AccessibilityToolbar";
 import GameHintBubble, { speak } from "../components/GameHintBubble";
 import LetterTraceCanvas from "../components/LetterTraceCanvas";
+import "@fontsource/opendyslexic/400.css";
+import "@fontsource/opendyslexic/700.css";
 import "./LizardLookoutsGame.css";
 
 const ROUNDS = [
@@ -184,7 +186,7 @@ function LizardLookoutsGame({ onHome, onBack }) {
 
   return (
     <section className="page lizard-game">
-      <GameTopBar gameName="Often-Switched Letters" onHome={onHome} onBack={onBack} />
+      <GameTopBar gameName="Lizard Lookouts" onHome={onHome} onBack={onBack} />
 
       <div className="lizard-game__topline">
         <div>
