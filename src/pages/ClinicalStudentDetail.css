@@ -1,0 +1,199 @@
+.clinical-detail {
+  min-height: 100vh;
+  background: #f7f8f7;
+  padding: 24px 32px 80px;
+}
+
+.clinical-detail__header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.clinical-detail__back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--white);
+  color: var(--ink);
+  cursor: pointer;
+  flex: none;
+}
+
+.clinical-detail__header > div {
+  flex: 1;
+}
+
+.clinical-detail__header h1 {
+  font-size: 1.3rem;
+  font-weight: 800;
+}
+
+.clinical-detail__header p {
+  margin-top: 2px;
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+}
+
+.clinical-detail__grid {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 16px;
+  align-items: start;
+}
+
+.clinical-detail__main {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.clinical-detail__sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.clinical-detail__card {
+  padding: 18px;
+  background: var(--white);
+  border-radius: 16px;
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.clinical-detail__card h2 {
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.clinical-detail__progress-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.clinical-detail__progress-row {
+  display: grid;
+  grid-template-columns: 110px 1fr 40px;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.8rem;
+}
+
+.clinical-detail__progress-bar {
+  height: 8px;
+  border-radius: var(--radius-pill);
+  background: var(--border);
+  overflow: hidden;
+}
+
+.clinical-detail__progress-fill {
+  height: 100%;
+  background: var(--green);
+}
+
+.clinical-detail__progress-pct {
+  text-align: right;
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+
+.clinical-detail__card textarea {
+  min-height: 80px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font: inherit;
+  font-size: 0.82rem;
+  resize: vertical;
+}
+
+.clinical-detail__card > .btn {
+  align-self: flex-start;
+}
+
+.clinical-detail__saved-note {
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  background: var(--green-pale);
+  padding: 8px 12px;
+  border-radius: 10px;
+}
+
+.clinical-detail__logs-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.clinical-detail__export-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+
+.clinical-detail__card table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.78rem;
+}
+
+.clinical-detail__card th {
+  text-align: left;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.clinical-detail__card td {
+  padding: 8px 6px 8px 0;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+
+.clinical-detail__card .btn--outline.btn--block {
+  justify-content: flex-start;
+  margin-top: 4px;
+}
+
+.clinical-detail__notice {
+  font-size: 0.75rem;
+  color: var(--amber);
+  background: var(--amber-bg);
+  padding: 8px 12px;
+  border-radius: 10px;
+}
+
+.clinical-detail__ai-note {
+  padding: 16px;
+  background: var(--green-pale);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: var(--green-dark);
+}
+
+.clinical-detail__ai-note p {
+  font-size: 0.8rem;
+  color: var(--ink);
+}
+
+@media (max-width: 900px) {
+  .clinical-detail__grid {
+    grid-template-columns: 1fr;
+  }
+}

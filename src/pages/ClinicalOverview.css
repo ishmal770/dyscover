@@ -1,0 +1,210 @@
+.clinical {
+  min-height: 100vh;
+  background: #f7f8f7;
+  padding: 24px 32px 80px;
+  font-family: var(--sans);
+}
+
+.clinical__header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.clinical__back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--white);
+  color: var(--ink);
+  cursor: pointer;
+  flex: none;
+}
+
+.clinical__header h1 {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.clinical__header p {
+  margin-top: 2px;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+}
+
+.clinical__header > div {
+  flex: 1;
+}
+
+.clinical__metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.clinical__metric-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 18px;
+  background: var(--white);
+  border-radius: 16px;
+  box-shadow: var(--shadow-soft);
+  color: var(--green-dark);
+}
+
+.clinical__metric-value {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.clinical__metric-label {
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+  font-weight: 700;
+}
+
+.clinical__charts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.clinical__chart-card,
+.clinical__activity-card,
+.clinical__table-card {
+  padding: 18px;
+  background: var(--white);
+  border-radius: 16px;
+  box-shadow: var(--shadow-soft);
+}
+
+.clinical__chart-card h2,
+.clinical__activity-card h2,
+.clinical__table-card h2 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.clinical__lower {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 16px;
+}
+
+.clinical__activity-card ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.clinical__activity-card li {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.clinical__activity-dot {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  margin-top: 5px;
+  border-radius: 50%;
+  background: var(--green);
+}
+
+.clinical__activity-dot--struggled {
+  background: #e05555;
+}
+
+.clinical__activity-dot--mastered {
+  background: var(--amber);
+}
+
+.clinical__activity-card p {
+  font-size: 0.82rem;
+  color: var(--ink);
+}
+
+.clinical__activity-card li span {
+  font-size: 0.7rem;
+  color: var(--ink-soft);
+}
+
+.clinical__table-card table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+
+.clinical__table-card th {
+  text-align: left;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.clinical__table-card td {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.clinical__student-link {
+  color: var(--green-dark);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.clinical__student-link:hover {
+  text-decoration: underline;
+}
+
+.clinical__progress-bar {
+  width: 100px;
+  height: 6px;
+  border-radius: var(--radius-pill);
+  background: var(--border);
+  overflow: hidden;
+}
+
+.clinical__progress-fill {
+  height: 100%;
+  background: var(--green);
+}
+
+.clinical__status {
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+
+.clinical__status--excellent {
+  background: var(--green-pale);
+  color: var(--green-dark);
+}
+
+.clinical__status--on-track {
+  background: var(--amber-bg);
+  color: var(--amber);
+}
+
+.clinical__status--at-risk {
+  background: #fdecec;
+  color: #e05555;
+}
