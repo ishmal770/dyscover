@@ -134,6 +134,11 @@
   color: var(--ink);
 }
 
+.lizard-game__hunt-word {
+  display: inline-block;
+  white-space: nowrap;
+}
+
 .lizard-game__hunt-letter {
   display: inline;
   border: none;
