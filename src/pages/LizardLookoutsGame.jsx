@@ -80,34 +80,58 @@ function LetterAnatomy({ letter, highlightPart }) {
 function LetterHunt({ text, letter, found, onFound, onWrong }) {
   const [wrongIndex, setWrongIndex] = useState(null);
   const chars = [...text];
+
+  const tokens = [];
+  chars.forEach((char, i) => {
+    if (/[a-zA-Z]/.test(char)) {
+      const last = tokens[tokens.length - 1];
+      if (last && last.type === "word") {
+        last.items.push({ char, i });
+      } else {
+        tokens.push({ type: "word", items: [{ char, i }] });
+      }
+    } else {
+      tokens.push({ type: "other", char, i });
+    }
+  });
+
+  function renderLetterButton({ char, i }) {
+    const isTarget = char.toLowerCase() === letter.toLowerCase();
+    const isFound = isTarget && found.has(i);
+    const isWrong = wrongIndex === i;
+    return (
+      <button
+        key={i}
+        className={`lizard-game__hunt-letter${isFound ? " lizard-game__hunt-letter--found" : ""}${
+          isWrong ? " lizard-game__hunt-letter--wrong" : ""
+        }`}
+        onClick={() => {
+          if (isFound) return;
+          if (isTarget) {
+            onFound(i);
+          } else {
+            setWrongIndex(i);
+            onWrong?.();
+            setTimeout(() => setWrongIndex(null), 400);
+          }
+        }}
+      >
+        {char}
+      </button>
+    );
+  }
+
   return (
     <p className="lizard-game__hunt-text">
-      {chars.map((char, i) => {
-        if (!/[a-zA-Z]/.test(char)) return <span key={i}>{char}</span>;
-        const isTarget = char.toLowerCase() === letter.toLowerCase();
-        const isFound = isTarget && found.has(i);
-        const isWrong = wrongIndex === i;
-        return (
-          <button
-            key={i}
-            className={`lizard-game__hunt-letter${isFound ? " lizard-game__hunt-letter--found" : ""}${
-              isWrong ? " lizard-game__hunt-letter--wrong" : ""
-            }`}
-            onClick={() => {
-              if (isFound) return;
-              if (isTarget) {
-                onFound(i);
-              } else {
-                setWrongIndex(i);
-                onWrong?.();
-                setTimeout(() => setWrongIndex(null), 400);
-              }
-            }}
-          >
-            {char}
-          </button>
-        );
-      })}
+      {tokens.map((token, idx) =>
+        token.type === "word" ? (
+          <span key={idx} className="lizard-game__hunt-word">
+            {token.items.map(renderLetterButton)}
+          </span>
+        ) : (
+          <span key={idx}>{token.char}</span>
+        )
+      )}
     </p>
   );
 }
