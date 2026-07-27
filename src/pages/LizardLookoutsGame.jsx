@@ -77,11 +77,11 @@ function LetterAnatomy({ letter, highlightPart }) {
   );
 }
 
-function LetterHunt({ text, letter, found, onFound, onWrong }) {
+function LetterHunt({ text, letter, found, onFound, onWrong, breakWords = false }) {
   const [wrongIndex, setWrongIndex] = useState(null);
   const chars = [...text];
   return (
-    <p className="lizard-game__hunt-text">
+    <p className={`lizard-game__hunt-text${breakWords ? " lizard-game__hunt-text--break" : ""}`}>
       {chars.map((char, i) => {
         if (!/[a-zA-Z]/.test(char)) return <span key={i}>{char}</span>;
         const isTarget = char.toLowerCase() === letter.toLowerCase();
@@ -323,6 +323,7 @@ function LizardLookoutsGame({ onHome, onBack }) {
                 found={foundParagraph}
                 onFound={handleParagraphFound}
                 onWrong={handleWrongClick}
+                breakWords
               />
               <p className="lizard-game__found-count">
                 Found {foundParagraph.size} / {paragraphTotal}
