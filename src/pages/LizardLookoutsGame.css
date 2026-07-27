@@ -127,43 +127,48 @@
 }
 
 .lizard-game__hunt-text {
+  max-width: 460px;
   font-size: 1.05rem;
-  line-height: 2.2;
+  line-height: 1.9;
+  text-align: center;
   color: var(--ink);
 }
 
 .lizard-game__hunt-letter {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 1.4em;
+  display: inline;
   border: none;
-  border-radius: 6px;
   background: none;
   color: var(--ink);
   font: inherit;
-  font-weight: 700;
   cursor: pointer;
-  padding: 0 2px;
+  padding: 0;
+  margin: 0;
+  text-decoration: underline;
+  text-decoration-color: var(--border);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  transition: color 0.15s, text-decoration-color 0.15s;
 }
 
 .lizard-game__hunt-letter:hover {
-  background: var(--border);
+  color: var(--green-dark);
+  text-decoration-color: var(--green);
 }
 
 .lizard-game__hunt-letter--found {
-  background: var(--green);
-  color: var(--white);
+  color: var(--green-dark);
   font-weight: 800;
+  text-decoration-color: var(--green);
 }
 
 .lizard-game__hunt-letter--found:hover {
-  background: var(--green);
+  color: var(--green-dark);
+  text-decoration-color: var(--green);
 }
 
 .lizard-game__hunt-letter--wrong {
-  background: #e05555;
-  color: var(--white);
+  color: #e05555;
+  text-decoration-color: #e05555;
 }
 
 .lizard-game__found-count {
