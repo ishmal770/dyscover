@@ -1,3 +1,4 @@
+/* Styles for WorldHubOverview.jsx - "Sound Builder" style 3-card grid overview */
 .hubov {
   position: relative;
   display: flex;
@@ -104,7 +105,10 @@
 
 .hubov__cards {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  /* auto-fit + minmax lets cards wrap to fewer columns (down to 1 on a
+     phone) instead of a fixed 3-column grid squeezing every card too
+     narrow to hold its content */
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 24px;
   padding: 32px 32px 120px;
 }
@@ -197,4 +201,20 @@
   font-size: 0.8rem;
   font-weight: 700;
   cursor: not-allowed;
+}
+
+@media (max-width: 480px) {
+  .hubov__header {
+    flex-wrap: wrap;
+    padding: 20px 16px 0;
+  }
+
+  .hubov__mastery {
+    margin-left: 0;
+  }
+
+  .hubov__cards {
+    padding: 20px 16px 120px;
+    gap: 16px;
+  }
 }

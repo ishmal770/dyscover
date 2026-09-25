@@ -1,6 +1,10 @@
+/* Styles for GameTopBar.jsx - the header shown inside every mini-game */
 .gametopbar {
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  /* auto/auto let the logo and icon row take only the space they need, so
+     the breadcrumb (1fr) is what shrinks first on narrow screens instead of
+     the icons getting squeezed off-screen */
+  grid-template-columns: auto 1fr auto;
   align-items: center;
   gap: 12px;
   padding: 12px 24px;
@@ -28,8 +32,10 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  min-width: 0; /* lets this flex/grid item shrink below its content width */
   font-size: 0.8rem;
   color: var(--ink-soft);
+  overflow: hidden;
 }
 
 .gametopbar__breadcrumb button {
@@ -39,11 +45,15 @@
   font-size: inherit;
   color: var(--ink-soft);
   cursor: pointer;
+  flex: none; /* never shrink the "Games" crumb itself */
 }
 
 .gametopbar__breadcrumb-current {
   color: var(--ink);
   font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .gametopbar__icons {
@@ -70,4 +80,24 @@
   background: var(--green);
   border-color: var(--green);
   color: var(--white);
+}
+
+@media (max-width: 480px) {
+  .gametopbar {
+    padding: 10px 12px;
+    gap: 8px;
+  }
+
+  .gametopbar__icons {
+    gap: 5px;
+  }
+
+  .gametopbar__icon-btn {
+    width: 26px;
+    height: 26px;
+  }
+
+  .gametopbar__breadcrumb {
+    font-size: 0.7rem;
+  }
 }

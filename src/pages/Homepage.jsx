@@ -1,3 +1,6 @@
+// First slide in the kid app: logo splash + "Ready Begin" button that
+// scrolls to Login. Also the only entry point to the adult-facing
+// Clinical Overview / Expert Dashboard pages.
 import { Link } from "react-router-dom";
 import { Play } from "lucide-react";
 import TopBar from "../components/TopBar";
@@ -13,6 +16,8 @@ function Homepage({ onNext }) {
         <button className="btn btn--primary" onClick={onNext}>
           <Play size={14} fill="currentColor" /> Ready Begin
         </button>
+        {/* Only way to reach the parent/clinician/expert dashboards - they
+            have no other link from inside the kid app */}
         <div className="homepage__adult-links">
           <span>For parents &amp; educators:</span>
           <Link to="/clinical">Clinical Overview</Link>

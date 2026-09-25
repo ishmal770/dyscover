@@ -1,3 +1,6 @@
+// Parrot Pairs: the player is shown two visually-similar words (e.g.
+// "angel"/"angle") and must tap the specific letters that got swapped
+// between them, rather than just spotting that the words differ.
 import { useState } from "react";
 import { Star, Search, Volume2, RotateCcw, Check, Home } from "lucide-react";
 import GameTopBar from "../components/GameTopBar";
@@ -5,6 +8,8 @@ import AccessibilityToolbar from "../components/AccessibilityToolbar";
 import GameHintBubble, { speak } from "../components/GameHintBubble";
 import "./ParrotPairsGame.css";
 
+// 12 near-identical word pairs, each differing by a small run of
+// transposed/substituted letters somewhere in the middle
 const ROUNDS = [
   { word1: "EXPECTATIONS", word2: "EXPLANATIONS" },
   { word1: "EXCEPTIONS", word2: "EXPRESSIONS" },

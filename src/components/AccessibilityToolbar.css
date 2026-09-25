@@ -1,3 +1,4 @@
+/* Styles for AccessibilityToolbar.jsx - floating bottom-left toolbar on game pages */
 .a11y-toolbar {
   position: absolute;
   left: 20px;
@@ -39,4 +40,32 @@
 .a11y-toolbar__btn:hover {
   background: var(--green-paler);
   color: var(--green-dark);
+}
+
+.a11y-toolbar__btn--active {
+  background: var(--green-pale);
+  color: var(--green-dark);
+}
+
+/* On narrow screens this floating pill and GameHintBubble's floating card
+   (both bottom-anchored, one left one right) run out of horizontal room and
+   overlap. Dock the toolbar to the bottom edge and shrink it to icon-only
+   so it stays out of the hint bubble's way. */
+@media (max-width: 480px) {
+  .a11y-toolbar {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    justify-content: center;
+    border-radius: 0;
+    padding: 4px;
+  }
+
+  .a11y-toolbar__btn {
+    padding: 6px 10px;
+  }
+
+  .a11y-toolbar__btn span {
+    display: none;
+  }
 }

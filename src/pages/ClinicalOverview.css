@@ -44,7 +44,7 @@
 
 .clinical__metrics {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
   gap: 16px;
   margin-bottom: 20px;
 }
@@ -207,4 +207,19 @@
 .clinical__status--at-risk {
   background: #fdecec;
   color: #e05555;
+}
+
+@media (max-width: 820px) {
+  .clinical {
+    padding: 20px 16px 80px;
+  }
+
+  .clinical__charts,
+  .clinical__lower {
+    grid-template-columns: 1fr;
+  }
+
+  .clinical__table-card {
+    overflow-x: auto;
+  }
 }

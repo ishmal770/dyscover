@@ -1,3 +1,4 @@
+/* Styles for GameIntroModal.jsx - the "let's play" popup shown from WorldHub */
 .game-modal-backdrop {
   position: absolute;
   inset: 0;

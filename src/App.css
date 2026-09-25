@@ -1,13 +1,16 @@
+/* Horizontal filmstrip that holds every page/game as a full-width slide;
+   KidGameApp scrolls this container instead of swapping routes. */
 .scroller {
   display: flex;
   width: 100vw;
   height: 100svh;
   overflow-x: auto;
   overflow-y: hidden;
-  scroll-snap-type: x mandatory;
+  scroll-snap-type: x mandatory; /* each slide snaps neatly into place */
   scroll-behavior: smooth;
 }
 
+/* One full-viewport-width slide in the filmstrip */
 .scroller__section {
   position: relative;
   flex: 0 0 100vw;
@@ -16,6 +19,7 @@
   scroll-snap-align: start;
 }
 
+/* Shared base class applied to every page/game's root element */
 .page {
   width: 100%;
   height: 100%;

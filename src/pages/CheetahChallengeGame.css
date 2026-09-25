@@ -11,6 +11,8 @@
 .cheetah-game__scorebar {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
+  row-gap: 10px;
   gap: 16px;
   width: 100%;
   max-width: 900px;

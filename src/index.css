@@ -1,3 +1,5 @@
+/* App-wide design tokens (colors, shadows, radii, base font) used by every
+   page and component's CSS file via var(--token-name). */
 :root {
   --green: #5dbb2f;
   --green-dark: #4a9524;
@@ -27,6 +29,7 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Reset box-sizing everywhere so padding/border never blow out widths */
 *,
 *::before,
 *::after {
@@ -41,16 +44,43 @@ body {
   min-height: 100svh;
 }
 
+/* Remove default browser margins so components control their own spacing */
 h1,
 h2,
 p {
   margin: 0;
 }
 
+/* Buttons don't inherit font by default in most browsers - force it so
+   they match surrounding text instead of the OS UI font */
 button {
   font: inherit;
 }
 
 input {
   font: inherit;
+}
+
+/* Accessibility modes toggled by AccessibilityContext (via the toolbar or
+   the Settings panel). Scoped to :root so they cascade through every
+   component automatically - most component CSS uses rem font sizes and the
+   --ink/--ink-soft/--border tokens, so a single override here reaches the
+   whole app without touching individual page files. */
+:root.a11y-size-lg {
+  font-size: 18px;
+}
+
+:root.a11y-size-xl {
+  font-size: 20px;
+}
+
+:root.a11y-readable body {
+  letter-spacing: 0.02em;
+  word-spacing: 0.06em;
+}
+
+:root.a11y-contrast {
+  --ink: #000000;
+  --ink-soft: #262626;
+  --border: #000000;
 }

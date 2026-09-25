@@ -1,3 +1,5 @@
+// World 2 top-level hub ("Sound Builder" 3-card overview), mirroring
+// JungleGames.jsx but for the Canopy Quest games.
 import { Blocks } from "lucide-react";
 import WorldHubOverview from "../components/WorldHubOverview";
 

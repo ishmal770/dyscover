@@ -34,7 +34,7 @@ const ROUNDS = [
   {
     pairLabel: "p vs q",
     letter: "q",
-    sentence: "The queen of Qatar quit.",
+    sentence: "The quiet queen quit quickly.",
     paragraph:
       "Quinn, the quiet queen packed a quilt and a quick snack. She walked to a garden where she found a duck quacking and a quail hiding. The queen smiled and watched the quail quietly walk and the duck quack.",
     reminder: "Take your time! A 'q' has a circle first, then a tail pointing down.",

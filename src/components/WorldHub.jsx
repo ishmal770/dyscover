@@ -1,11 +1,17 @@
+// "Detective Eye" style world hub: a two-panel layout with a clickable list
+// of games on the left and a game preview/intro-modal on the right. Used by
+// JungleGamesDetail and CanopyQuestDetail (the per-world game-list pages).
 import { useState } from "react";
 import { Search, Volume2, Star, Lock, Info, Trophy, ArrowRight, Play } from "lucide-react";
 import TopBar from "./TopBar";
 import AccessibilityToolbar from "./AccessibilityToolbar";
 import GuideBubble from "./GuideBubble";
 import GameIntroModal from "./GameIntroModal";
+import { speak } from "./GameHintBubble";
 import "./WorldHub.css";
 
+// One row in the game list: shows name, stars earned, and a lock note if
+// the activity isn't unlocked yet. Clicking an unlocked row opens its intro modal.
 function ActivityRow({ activity, isOpen, onSelect }) {
   const { name, description, stars, locked, lockNote } = activity;
 
@@ -41,6 +47,7 @@ function ActivityRow({ activity, isOpen, onSelect }) {
 }
 
 function WorldHub({ worldLabel, title, activities, progressLabel, masteryStars, masteryTotal, onHome, onMap, onStartGame }) {
+  // Which activity's intro modal is currently open, if any
   const [openActivity, setOpenActivity] = useState(null);
 
   return (
@@ -53,7 +60,7 @@ function WorldHub({ worldLabel, title, activities, progressLabel, masteryStars, 
               <Search size={16} />
             </div>
             <h2>{title}</h2>
-            <button className="hub__sound-btn" aria-label="Read aloud">
+            <button className="hub__sound-btn" aria-label="Read aloud" onClick={() => speak(title)}>
               <Volume2 size={13} />
             </button>
           </div>
@@ -81,6 +88,7 @@ function WorldHub({ worldLabel, title, activities, progressLabel, masteryStars, 
         </div>
 
         <div className="hub__preview">
+          {/* Static decorative preview scene - not tied to real game state */}
           <div className="hub__preview-scene">
             <div className="hub__preview-topline">
               <span>Game Preview</span>

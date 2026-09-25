@@ -1,8 +1,10 @@
+// Onboarding login slide. There's no real auth backend - submitting the
+// form (with any or no input) just advances to the next slide.
 import "./Login.css";
 
 function Login({ onNext }) {
   const handleSubmit = (event) => {
-    event.preventDefault();
+    event.preventDefault(); // stop the browser's native form submit/reload
     onNext();
   };
 
@@ -22,7 +24,9 @@ function Login({ onNext }) {
         <button type="submit" className="btn btn--primary btn--block">
           Log In
         </button>
-        <button type="button" className="btn btn--outline btn--block">
+        {/* No real accounts exist yet, so this just continues into the app
+            like Log In does - it's no longer a dead click either way. */}
+        <button type="button" className="btn btn--outline btn--block" onClick={onNext}>
           Create Account
         </button>
       </form>

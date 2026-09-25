@@ -1,3 +1,4 @@
+/* Styles for GameHintBubble.jsx - floating mascot hint bubble on game pages */
 .game-hint-bubble {
   position: absolute;
   right: 20px;
@@ -58,4 +59,18 @@
   background: var(--green-pale);
   border: 2px solid var(--white);
   box-shadow: var(--shadow-soft);
+}
+
+/* Shrink and lift above the now bottom-docked AccessibilityToolbar so the
+   two floating widgets don't overlap on narrow screens */
+@media (max-width: 480px) {
+  .game-hint-bubble {
+    right: 10px;
+    bottom: 50px;
+  }
+
+  .game-hint-bubble__card {
+    max-width: 180px;
+    padding: 10px 12px;
+  }
 }

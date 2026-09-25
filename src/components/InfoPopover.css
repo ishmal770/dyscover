@@ -1,0 +1,63 @@
+/* Styles for InfoPopover.jsx - dropdown opened from the info icon */
+.info-popover__backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+}
+
+.info-popover {
+  position: absolute;
+  top: 64px;
+  right: 24px;
+  width: 260px;
+  padding: 16px;
+  background: var(--white);
+  border-radius: 18px;
+  box-shadow: var(--shadow-card);
+}
+
+.info-popover__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.info-popover__header h2 {
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.info-popover__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: none;
+  background: var(--green-paler);
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+
+.info-popover p {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+.info-popover__listen {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+  padding: 8px 14px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--green-pale);
+  color: var(--green-dark);
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+}

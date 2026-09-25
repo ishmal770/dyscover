@@ -1,5 +1,10 @@
+// Popup shown by WorldHub (the "Detective Eye" style hub page) when a game
+// card is tapped, explaining the rules before the player continues in.
 import { Search, Play, X, Volume2 } from "lucide-react";
+import { speak } from "./GameHintBubble";
 import "./GameIntroModal.css";
+
+const INTRO_TEXT = "Look closely at the big word on top. Then, find the word below that looks exactly the same!";
 
 function GameIntroModal({ activityName, onStart, onClose }) {
   return (
@@ -9,7 +14,7 @@ function GameIntroModal({ activityName, onStart, onClose }) {
           <X size={16} />
         </button>
         <div className="game-modal__avatar" aria-hidden="true" />
-        <button className="game-modal__sound-btn" aria-label="Read aloud">
+        <button className="game-modal__sound-btn" aria-label="Read aloud" onClick={() => speak(`Let's play ${activityName}! ${INTRO_TEXT}`)}>
           <Volume2 size={14} />
         </button>
         <h2>Let&rsquo;s Play {activityName}!</h2>
