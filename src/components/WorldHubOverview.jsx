@@ -1,9 +1,16 @@
+// "Sound Builder" style world hub: a simple 3-card grid overview of a
+// world's games, each with a Play Now button. Used by JungleGames and
+// CanopyQuest (the top-level world-hub pages, before drilling into the
+// game list).
 import { Volume2, Star, Lock, Play, KeyRound } from "lucide-react";
 import TopBar from "./TopBar";
 import AccessibilityToolbar from "./AccessibilityToolbar";
 import GuideBubble from "./GuideBubble";
+import { speak } from "./GameHintBubble";
 import "./WorldHubOverview.css";
 
+// One game's card: stars earned, or a key icon + "Locked" button if the
+// game isn't unlocked yet.
 function ActivityCard({ activity, onPlay }) {
   const { name, description, stars, locked } = activity;
 
@@ -63,7 +70,7 @@ function WorldHubOverview({
         <div>
           <h1>
             {title}
-            <button className="hubov__sound-btn" aria-label="Read aloud">
+            <button className="hubov__sound-btn" aria-label="Read aloud" onClick={() => speak(`${title}. ${subtitle}`)}>
               <Volume2 size={16} />
             </button>
           </h1>

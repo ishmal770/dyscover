@@ -1,3 +1,5 @@
+// Final onboarding slide, shown after the world map and before Jungle
+// Games - just an informational card, no actual placement quiz runs here yet.
 import { Sparkles, ArrowRight } from "lucide-react";
 import TopBar from "../components/TopBar";
 import AccessibilityToolbar from "../components/AccessibilityToolbar";

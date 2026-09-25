@@ -1,3 +1,6 @@
+// Floating mascot chat bubble used on the onboarding/hub pages (the game
+// equivalent is GameHintBubble). Purely presentational - message is static
+// text passed in by the parent page.
 import { Volume2 } from "lucide-react";
 import "./GuideBubble.css";
 

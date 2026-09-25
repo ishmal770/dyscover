@@ -1,3 +1,4 @@
+/* Styles for GuideBubble.jsx - mascot chat bubble on onboarding/hub pages */
 .guide-bubble {
   position: absolute;
   right: 20px;
@@ -67,4 +68,18 @@
   font-weight: 700;
   letter-spacing: 0.04em;
   color: var(--ink-soft);
+}
+
+/* Shrink and lift above the bottom-docked AccessibilityToolbar so the two
+   floating widgets don't overlap on narrow screens */
+@media (max-width: 480px) {
+  .guide-bubble {
+    right: 10px;
+    bottom: 50px;
+  }
+
+  .guide-bubble__message {
+    max-width: 170px;
+    padding: 8px 12px;
+  }
 }

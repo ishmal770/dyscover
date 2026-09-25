@@ -321,3 +321,17 @@
   font-weight: 700;
   cursor: pointer;
 }
+
+/* Below this width the fixed 280px sidebar leaves too little room for the
+   main puzzle column, whose content then overflows and visually overlaps
+   the sidebar. Stack them instead. */
+@media (max-width: 760px) {
+  .monkey-game__body {
+    flex-direction: column;
+    overflow-y: auto;
+  }
+
+  .monkey-game__sidebar {
+    width: 100%;
+  }
+}

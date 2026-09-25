@@ -1,3 +1,5 @@
+// World 2's "Detective Eye" style game list page, mirroring
+// JungleGamesDetail.jsx but for the Canopy Quest games.
 import WorldHub from "../components/WorldHub";
 
 const ACTIVITIES = [

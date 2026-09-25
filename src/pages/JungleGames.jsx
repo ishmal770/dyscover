@@ -1,3 +1,5 @@
+// World 1 top-level hub ("Sound Builder" 3-card overview). Static list of
+// the 3 Jungle Games mini-games with their descriptions.
 import { Blocks } from "lucide-react";
 import WorldHubOverview from "../components/WorldHubOverview";
 
@@ -29,6 +31,8 @@ function JungleGames({ onHome, onNext }) {
       masteryStars={2}
       masteryTotal={9}
       activities={ACTIVITIES}
+      // Any card's "Play Now" just advances to the JungleGamesDetail list
+      // page (the specific activity clicked isn't used to pick a game here)
       onPlay={onNext}
       onHome={onHome}
     />

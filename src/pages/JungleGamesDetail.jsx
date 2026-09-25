@@ -1,3 +1,6 @@
+// World 1's "Detective Eye" style game list page. onPlayGame (passed down
+// as onStartGame) is what actually launches a specific mini-game when its
+// intro modal's Start button is clicked.
 import WorldHub from "../components/WorldHub";
 
 const ACTIVITIES = [

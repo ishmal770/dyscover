@@ -1,6 +1,9 @@
+/* Styles for TopBar.jsx - the header on onboarding/hub pages */
 .topbar {
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  /* auto/auto so the logo and icon row only take the space they need,
+     instead of being squeezed into an equal 1fr share and overflowing */
+  grid-template-columns: auto 1fr auto;
   align-items: center;
   gap: 12px;
   padding: 14px 24px;
@@ -35,6 +38,7 @@
 
 .topbar__label {
   justify-self: center;
+  min-width: 0;
   padding: 6px 16px;
   background: var(--green-pale);
   color: var(--ink);
@@ -43,6 +47,8 @@
   letter-spacing: 0.06em;
   border-radius: var(--radius-pill);
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .topbar__icon-btn {
@@ -62,4 +68,25 @@
   background: var(--green);
   border-color: var(--green);
   color: var(--white);
+}
+
+@media (max-width: 480px) {
+  .topbar {
+    padding: 10px 12px;
+    gap: 8px;
+  }
+
+  .topbar__side--end {
+    gap: 5px;
+  }
+
+  .topbar__icon-btn {
+    width: 26px;
+    height: 26px;
+  }
+
+  .topbar__label {
+    font-size: 0.62rem;
+    padding: 5px 10px;
+  }
 }

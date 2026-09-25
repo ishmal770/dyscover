@@ -94,6 +94,17 @@
   color: var(--green-dark);
 }
 
+@media (max-width: 480px) {
+  .trophy-room__header {
+    flex-wrap: wrap;
+    padding: 16px 20px;
+  }
+
+  .trophy-room__share {
+    margin-left: 50px; /* line up under the heading, past back+badge */
+  }
+}
+
 .trophy-room__filters {
   display: flex;
   align-items: center;

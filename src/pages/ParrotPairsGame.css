@@ -117,6 +117,11 @@
   gap: var(--tile-gap, 8px);
   justify-content: center;
   flex-wrap: nowrap;
+  /* Safety net: if a word is still too wide for its card even at the
+     smallest tile size, let it scroll instead of clipping unreachable
+     letters off the edge */
+  overflow-x: auto;
+  padding-bottom: 2px;
 }
 
 .parrot-game__letter {
@@ -214,6 +219,21 @@
   font-size: 0.75rem;
   font-weight: 700;
   color: var(--ink-soft);
+}
+
+/* Below this width, two side-by-side word cards can't both fit next to the
+   clue button without clipping their letters - stack them instead so each
+   word gets the full card width to itself. */
+@media (max-width: 640px) {
+  .parrot-game__board {
+    flex-direction: column;
+    align-items: center;
+    padding: 0 16px;
+  }
+
+  .parrot-game__word-card {
+    width: 100%;
+  }
 }
 
 .parrot-game__complete {

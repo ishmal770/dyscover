@@ -1,0 +1,78 @@
+/* Styles for SettingsPopover.jsx - dropdown opened from the gear icon */
+.settings-popover__backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+}
+
+.settings-popover {
+  position: absolute;
+  top: 64px;
+  right: 24px;
+  width: 260px;
+  padding: 16px;
+  background: var(--white);
+  border-radius: 18px;
+  box-shadow: var(--shadow-card);
+}
+
+.settings-popover__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.settings-popover__header h2 {
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.settings-popover__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: none;
+  background: var(--green-paler);
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+
+.settings-popover__row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 12px;
+  background: none;
+  color: var(--ink);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+
+.settings-popover__row:hover {
+  background: var(--green-paler);
+}
+
+.settings-popover__row.is-active {
+  background: var(--green-pale);
+  color: var(--green-dark);
+}
+
+.settings-popover__state {
+  margin-left: auto;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+
+.settings-popover__row.is-active .settings-popover__state {
+  color: var(--green-dark);
+}
