@@ -4,6 +4,7 @@
 import { Link } from "react-router-dom";
 import { Play } from "lucide-react";
 import TopBar from "../components/TopBar";
+import GuideBubble from "../components/GuideBubble";
 import logo from "../assets/dyscover-logo.png";
 import "./Homepage.css";
 
@@ -25,6 +26,10 @@ function Homepage({ onNext }) {
           <Link to="/expert">Expert Dashboard</Link>
         </div>
       </div>
+      <GuideBubble
+        fixedCharacter="sloth"
+        message="Welcome to DysCover! Press Ready Begin to start your jungle adventure."
+      />
       <div className="homepage__ground">
         <div className="homepage__tree homepage__tree--left" />
         <div className="homepage__tree homepage__tree--right" />

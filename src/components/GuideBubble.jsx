@@ -6,12 +6,16 @@ import { Volume2, X } from "lucide-react";
 import GuideArt from "./GuideArt";
 import { speak, cancelSpeech } from "./GameHintBubble";
 import { useGuide } from "../context/GuideContext";
+import { SLOTH } from "../data/guides";
 import "./GuideBubble.css";
 
 const WELCOME_MS = 4500;
 
-function GuideBubble({ message }) {
-  const { guide, guides, chooseGuide } = useGuide();
+// `fixedCharacter="sloth"` pins a specific host (home page) and turns off the chooser.
+function GuideBubble({ message, fixedCharacter }) {
+  const { guide: chosen, guides, chooseGuide } = useGuide();
+  const guide = fixedCharacter === "sloth" ? SLOTH : chosen;
+  const canChoose = !fixedCharacter;
   const rootRef = useRef(null);
   const [welcoming, setWelcoming] = useState(false);
   const [pickerOpen, setPickerOpen] = useState(false);
@@ -45,6 +49,12 @@ function GuideBubble({ message }) {
     };
   }, [message, guideName]);
 
+  function replay() {
+    setWelcoming(true);
+    speak(`Hi, I'm ${guideName}! ${message}`);
+    setTimeout(() => setWelcoming(false), WELCOME_MS);
+  }
+
   function pick(id) {
     chooseGuide(id);
     setPickerOpen(false);
@@ -55,7 +65,7 @@ function GuideBubble({ message }) {
 
   return (
     <div ref={rootRef} className={`guide-bubble${welcoming ? " guide-bubble--welcome" : ""}`}>
-      {pickerOpen && (
+      {canChoose && pickerOpen && (
         <div className="guide-bubble__picker" role="dialog" aria-label="Choose your jungle guide">
           <div className="guide-bubble__picker-header">
             <strong>Pick your guide</strong>
@@ -86,8 +96,8 @@ function GuideBubble({ message }) {
       </div>
       <button
         className="guide-bubble__avatar"
-        onClick={() => setPickerOpen((open) => !open)}
-        aria-label={`${guide.label} - tap to change your guide`}
+        onClick={canChoose ? () => setPickerOpen((open) => !open) : replay}
+        aria-label={canChoose ? `${guide.label} - tap to change your guide` : `${guide.label} - tap to hear the welcome again`}
       >
         <GuideArt character={guide.id} waving={welcoming} size={70} />
       </button>

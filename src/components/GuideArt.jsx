@@ -2,9 +2,11 @@
 // a gentle idle bob, plus a hop-and-wiggle when `waving` (the welcome).
 // The swinging monkey sways from his vine instead of bobbing.
 import { GUIDES, DEFAULT_GUIDE } from "../data/guides";
+import SlothArt from "./SlothArt";
 import "./GuideArt.css";
 
 function GuideArt({ character = DEFAULT_GUIDE, waving = false, size = 72 }) {
+  if (character === "sloth") return <SlothArt waving={waving} size={size} />;
   const guide = GUIDES[character] || GUIDES[DEFAULT_GUIDE];
   return (
     <img

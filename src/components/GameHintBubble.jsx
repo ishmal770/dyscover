@@ -41,7 +41,9 @@ function speak(text) {
   window.speechSynthesis.speak(utterance);
 }
 
-function GameHintBubble({ message, speakText }) {
+// `character` pins this game's own mascot (e.g. the lion in Lion's Letters);
+// otherwise the child's chosen guide is shown.
+function GameHintBubble({ message, speakText, character }) {
   const { guide } = useGuide();
   return (
     <div className="game-hint-bubble">
@@ -59,7 +61,7 @@ function GameHintBubble({ message, speakText }) {
         </div>
       </div>
       <div className="game-hint-bubble__avatar">
-        <GuideArt character={guide.id} size={64} />
+        <GuideArt character={character || guide.id} size={64} />
       </div>
     </div>
   );
