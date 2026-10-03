@@ -126,7 +126,7 @@ function GuideBubble({ message, fixedCharacter, onAdvance, advanceHint, centered
         onClick={onAdvance ? advance : canChoose && !needsTap ? () => setPickerOpen((open) => !open) : replay}
         aria-label={onAdvance ? `${guide.label} - tap to continue` : canChoose ? `${guide.label} - tap to change your guide` : `${guide.label} - tap to hear the welcome again`}
       >
-        <GuideArt character={guide.id} waving={welcoming} size={fixedCharacter === "sloth" ? 170 : 130} />
+        <GuideArt character={guide.id} waving={welcoming} size={fixedCharacter === "sloth" ? 150 : 130} />
         {(advanceHint || needsTap) && <span className="guide-bubble__tap-hint">{advanceHint || "Tap me to hear!"}</span>}
       </button>
     </div>
