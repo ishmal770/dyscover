@@ -216,6 +216,7 @@ function MonkeyMixUpGame({ onHome, onBack }) {
 
       <AccessibilityToolbar />
       <GameHintBubble
+        instructions="A vowel is missing from the word. Listen to the sound in the clue. Then tap the vowel from the tray that makes that sound. When you get it right, press Next."
         message={
           solved
             ? "Amazing! You found the sound. Can you find another one?"

@@ -38,7 +38,7 @@ INDEX = ROOT / "scripts" / "audio-index.json"  # hash -> {key, say}, used as a c
 #   speed pre-compensated so the final pace is still sentence/word below.
 VOICES = {
     "default":  dict(voice="af_sky",    lang="en-us", pitch=1.00, sentence=0.76, word=0.85),
-    "sloth":    dict(voice="af_nicole", lang="en-us", pitch=0.96, sentence=0.68, word=0.78),
+    "sloth":    dict(voice="af_heart",  lang="en-us", pitch=1.00, sentence=0.74, word=0.82),
     "monkey":   dict(voice="am_puck",   lang="en-us", pitch=1.08, sentence=0.80, word=0.85),
     "mimi":     dict(voice="bf_lily",   lang="en-gb", pitch=1.20, sentence=0.78, word=0.85),
     "lion":     dict(voice="am_onyx",   lang="en-us", pitch=0.90, sentence=0.72, word=0.80),
@@ -116,6 +116,17 @@ HINT_SOURCES = {
     "pages/MonkeyMixUpGame.jsx": "Amazing! You found the sound. Can you find another one?",
 }
 MONKEY_TRY = "Tap a vowel to try filling in the word!"
+
+# How-to-play text for each game (read by the guide only when the child asks).
+INSTRUCTIONS = {
+    "pages/ParrotPairsGame.jsx": "Look at the two words. A few letters got mixed up between them. Tap the letters that are different in each word. Then press Check Answer. You can tap a speaker to hear a word, or tap Hint if you need help.",
+    "pages/SyllableSafariGame.jsx": "First, listen to the word. Tap in between the letters where the word splits into parts. Next, tap a piece to hear it, then tap a box to put it in. Put the pieces in order to build the word. Then press Check Word.",
+    "pages/MonkeyMixUpGame.jsx": "A vowel is missing from the word. Listen to the sound in the clue. Then tap the vowel from the tray that makes that sound. When you get it right, press Next.",
+    "pages/LionsLettersGame.jsx": "Tap the sound box to hear the letter. Then trace the letter with your finger on the lines. For words, tap each number to hear a letter and trace it. Then write the whole word.",
+    "pages/LizardLookoutsGame.jsx": "Look for the tricky letter hiding in the words. Tap every one you find. Then look closely at the letter's shape, trace it, and find it again in the paragraph.",
+    "pages/CheetahChallengeGame.jsx": "A word will show up. Read it out loud as fast as you can before the time runs out. Tap the microphone and say the word, or tap the card when you have read it.",
+}
+PINNED_GAMES = {"pages/LionsLettersGame.jsx": "lion", "pages/CheetahChallengeGame.jsx": "cheetah"}
 CHEETAH_ONLY = HINT_SOURCES["pages/CheetahChallengeGame.jsx"]
 LION_ONLY = HINT_SOURCES["pages/LionsLettersGame.jsx"]
 
@@ -178,6 +189,9 @@ def collect() -> None:
             add(f"Hi, I'm {name}! {msg}", voice=gid)
         for msg in hint_messages(gid):
             add(msg, say=hint_say(msg), voice=gid)
+        for rel, text in INSTRUCTIONS.items():
+            if rel not in PINNED_GAMES:
+                add(text, voice=gid)
 
     # ---- page titles and info popups -------------------------------------
     games = re.findall(r'"(Parrot Pairs|Syllable Safari|Monkey Mix-Up|Lion\'s Letters|Lizard Lookouts|Cheetah Challenge)"', read("data/mockData.js"))
@@ -233,6 +247,11 @@ def collect() -> None:
     # ---- game instructions and hint-bubble messages ------------------------
     for sound_word in sound_words:
         add(f'Find the vowel that sounds like the one in "{sound_word}" to complete the word! Tap a vowel from the tray to complete the word.')
+    for rel, text in INSTRUCTIONS.items():
+        require_in_source(rel, text)
+        add(text)  # neutral fallback
+        if rel in PINNED_GAMES:
+            add(text, voice=PINNED_GAMES[rel])
     for rel, msg in HINT_SOURCES.items():
         require_in_source(rel, msg)
     for msg in all_hint_messages():

@@ -272,6 +272,7 @@ function ParrotPairsGame({ onHome, onBack }) {
 
       <AccessibilityToolbar />
       <GameHintBubble
+        instructions="Look at the two words. A few letters got mixed up between them. Tap the letters that are different in each word. Then press Check Answer. You can tap a speaker to hear a word, or tap Hint if you need help."
         message="Can you find the letters that got mixed up? Tap the speaker to hear the word!"
       />
     </section>
