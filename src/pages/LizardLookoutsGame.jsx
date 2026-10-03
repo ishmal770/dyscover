@@ -358,6 +358,7 @@ function LizardLookoutsGame({ onHome, onBack }) {
 
       <AccessibilityToolbar />
       <GameHintBubble
+        instructions="Look for the tricky letter hiding in the words. Tap every one you find. Then look closely at the letter's shape, trace it, and find it again in the paragraph."
         message={`Take your time! A '${round.letter}' can be tricky to spot.`}
       />
     </section>

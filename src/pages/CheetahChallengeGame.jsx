@@ -234,7 +234,11 @@ function CheetahChallengeGame({ onHome, onBack }) {
       )}
 
       <AccessibilityToolbar />
-      <GameHintBubble character="cheetah" message="Ready, set, go! Say the word out loud as fast as you can." />
+      <GameHintBubble
+        character="cheetah"
+        message="Ready, set, go! Say the word out loud as fast as you can."
+        instructions="A word will show up. Read it out loud as fast as you can before the time runs out. Tap the microphone and say the word, or tap the card when you have read it."
+      />
     </section>
   );
 }

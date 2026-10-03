@@ -1,0 +1,144 @@
+/* Jungle theme for the kid-facing app. Loaded after every page/component
+   stylesheet (see main.jsx) so these rules win ties. Artwork lives in
+   src/assets/jungle. */
+
+:root {
+  --wood: #8a5a32;
+  --wood-dark: #6b4226;
+  --cream: #fff8e6;
+  --leaf: #4aa82a;
+  --leaf-dark: #2f7d1f;
+}
+
+/* ---- Page backdrop: soft canopy gradient + faint leaf pattern, with vines
+   hanging from the top corners and bushes in the bottom corners. These are
+   all background layers of the page itself, so cards and text always paint
+   on top of them. ---- */
+.scroller__section > .page,
+.trophy-room {
+  background:
+    url("./assets/jungle/bush-left.svg") left bottom / auto 130px no-repeat,
+    url("./assets/jungle/bush-right.svg") right bottom / auto 130px no-repeat,
+    url("./assets/jungle/vine-left.svg") left top / auto 200px no-repeat,
+    url("./assets/jungle/vine-right.svg") right top / auto 200px no-repeat,
+    url("./assets/jungle/leaves.svg") 0 0 / 240px 240px repeat,
+    linear-gradient(180deg, #e2f5d3 0%, #cbe9b2 55%, #b4dd94 100%);
+}
+
+/* The home page has its own jungle floor instead of corner bushes */
+.scroller__section > .homepage {
+  background:
+    url("./assets/jungle/vine-left.svg") left top / auto 200px no-repeat,
+    url("./assets/jungle/vine-right.svg") right top / auto 200px no-repeat,
+    url("./assets/jungle/leaves.svg") 0 0 / 240px 240px repeat,
+    linear-gradient(180deg, #e2f5d3 0%, #cbe9b2 60%, #b4dd94 100%);
+}
+
+@media (max-width: 480px) {
+  .scroller__section > .page,
+  .trophy-room {
+    background-size: auto 90px, auto 90px, auto 130px, auto 130px, 200px 200px, auto;
+  }
+}
+
+/* ---- Top bars: leafy fringe hanging below, and the page title as a wooden sign ---- */
+.topbar,
+.gametopbar {
+  position: relative;
+  z-index: 4;
+}
+
+.topbar::after,
+.gametopbar::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -11px;
+  height: 11px;
+  background: radial-gradient(circle at 12px 0, var(--leaf) 10px, transparent 11px) 0 0 / 24px 11px repeat-x;
+  pointer-events: none;
+}
+
+.topbar__label {
+  background: linear-gradient(#a06a3b, var(--wood));
+  color: var(--cream);
+  box-shadow: 0 3px 0 var(--wood-dark);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+}
+
+.gametopbar__breadcrumb-current {
+  color: var(--wood-dark);
+}
+
+/* ---- Chunky leaf-green buttons that press down ---- */
+.btn--primary {
+  background: linear-gradient(#7bd64c, var(--leaf));
+  color: var(--white);
+  box-shadow: 0 4px 0 var(--leaf-dark), 0 8px 14px rgba(47, 125, 31, 0.22);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.18);
+  transition: transform 0.08s, box-shadow 0.08s;
+}
+
+.btn--primary:hover {
+  background: linear-gradient(#6ccb3e, #3f9a22);
+}
+
+.btn--primary:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 var(--leaf-dark);
+}
+
+.btn--primary:disabled,
+.btn--primary:disabled:hover {
+  background: linear-gradient(#a5dd86, #90cb70);
+  box-shadow: none;
+  transform: none;
+}
+
+/* ---- Home page: a real jungle floor with bushes growing out of it ---- */
+.homepage__ground {
+  overflow: visible;
+  background: linear-gradient(#4aa82a, #2f7d1f);
+}
+
+.homepage__ground::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -11px;
+  height: 11px;
+  background: radial-gradient(circle at 12px 100%, var(--leaf) 10px, transparent 11px) 0 0 / 24px 11px repeat-x;
+}
+
+.homepage__tree {
+  bottom: 0;
+  width: min(260px, 36vw);
+  height: min(190px, 26vw);
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: contain;
+}
+
+.homepage__tree::before,
+.homepage__tree::after {
+  display: none;
+}
+
+.homepage__tree--left {
+  left: 1%;
+  background-image: url("./assets/jungle/bush-left.svg");
+}
+
+.homepage__tree--right {
+  right: 1%;
+  background-image: url("./assets/jungle/bush-right.svg");
+}
+
+@media (prefers-contrast: more) {
+  .scroller__section > .page,
+  .trophy-room {
+    background: var(--white);
+  }
+}

@@ -270,6 +270,7 @@ function SyllableSafariGame({ onHome, onBack }) {
 
       <AccessibilityToolbar />
       <GameHintBubble
+        instructions="First, listen to the word. Tap in between the letters where the word splits into parts. Next, tap a piece to hear it, then tap a box to put it in. Put the pieces in order to build the word. Then press Check Word."
         message="Tap the pieces to hear them, then build the word in order!"
       />
     </section>

@@ -14,10 +14,20 @@
   "say": "butterfly",
   "speed": "0.76/0.85"
  },
+ "04c65e89": {
+  "key": "gorilla|look for the tricky letter hiding in the words. tap every one you find. then look closely at the letter's shape, trace it, and find it again in the paragraph.",
+  "say": "Look for the tricky letter hiding in the words. Tap every one you find. Then look closely at the letter's shape, trace it, and find it again in the paragraph.",
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 0.84, \"sentence\": 0.68, \"voice\": \"am_fenrir\", \"word\": 0.78}"
+ },
  "04cb7b28": {
   "key": "cheetah|hi, i'm chase! welcome to the jungle games! tap a game to see how to play, then press start.",
   "say": "Hi, I'm Chase! Welcome to the Jungle Games! Tap a game to see how to play, then press Start.",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 1.06, \"sentence\": 0.84, \"voice\": \"am_liam\", \"word\": 0.88}"
+ },
+ "05410b9d": {
+  "key": "mimi|look for the tricky letter hiding in the words. tap every one you find. then look closely at the letter's shape, trace it, and find it again in the paragraph.",
+  "say": "Look for the tricky letter hiding in the words. Tap every one you find. Then look closely at the letter's shape, trace it, and find it again in the paragraph.",
+  "speed": "{\"lang\": \"en-gb\", \"pitch\": 1.2, \"sentence\": 0.78, \"voice\": \"bf_lily\", \"word\": 0.85}"
  },
  "056b8da2": {
   "key": "syl:a",
@@ -27,12 +37,17 @@
  "06253b00": {
   "key": "sloth|tell me your explorer name and secret code, then tap log in. new here? tap create account!",
   "say": "Tell me your explorer name and secret code, then tap Log In. New here? Tap Create Account!",
-  "speed": "{\"lang\": \"en-us\", \"pitch\": 0.96, \"sentence\": 0.68, \"voice\": \"af_nicole\", \"word\": 0.78}"
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.0, \"sentence\": 0.74, \"voice\": \"af_heart\", \"word\": 0.82}"
  },
  "06745c07": {
   "key": "cat",
   "say": "cat",
   "speed": "0.76/0.85"
+ },
+ "0706ab45": {
+  "key": "lion|tap the sound box to hear the letter. then trace the letter with your finger on the lines. for words, tap each number to hear a letter and trace it. then write the whole word.",
+  "say": "Tap the sound box to hear the letter. Then trace the letter with your finger on the lines. For words, tap each number to hear a letter and trace it. Then write the whole word.",
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"am_onyx\", \"word\": 0.8}"
  },
  "0749acf9": {
   "key": "cheetah|tap the pieces to hear them, then build the word in order!",
@@ -48,6 +63,11 @@
   "key": "elephant|welcome to the jungle games! tap a game to see how to play, then press start.",
   "say": "Welcome to the Jungle Games! Tap a game to see how to play, then press Start.",
   "speed": "{\"lang\": \"en-gb\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"bf_emma\", \"word\": 0.8}"
+ },
+ "081b9dfa": {
+  "key": "gorilla|look at the two words. a few letters got mixed up between them. tap the letters that are different in each word. then press check answer. you can tap a speaker to hear a word, or tap hint if you need help.",
+  "say": "Look at the two words. A few letters got mixed up between them. Tap the letters that are different in each word. Then press Check Answer. You can tap a speaker to hear a word, or tap Hint if you need help.",
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 0.84, \"sentence\": 0.68, \"voice\": \"am_fenrir\", \"word\": 0.78}"
  },
  "08bdcc1f": {
   "key": "lion|take your time! a 'q' can be tricky to spot.",
@@ -83,6 +103,11 @@
   "key": "explain",
   "say": "explain",
   "speed": "0.76/0.85"
+ },
+ "1391cf16": {
+  "key": "cheetah|look at the two words. a few letters got mixed up between them. tap the letters that are different in each word. then press check answer. you can tap a speaker to hear a word, or tap hint if you need help.",
+  "say": "Look at the two words. A few letters got mixed up between them. Tap the letters that are different in each word. Then press Check Answer. You can tap a speaker to hear a word, or tap Hint if you need help.",
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.06, \"sentence\": 0.84, \"voice\": \"am_liam\", \"word\": 0.88}"
  },
  "1426fc36": {
   "key": "tap a vowel to try filling in the word!",
@@ -209,6 +234,11 @@
   "say": "explanations",
   "speed": "0.76/0.85"
  },
+ "35fb6839": {
+  "key": "elephant|first, listen to the word. tap in between the letters where the word splits into parts. next, tap a piece to hear it, then tap a box to put it in. put the pieces in order to build the word. then press check word.",
+  "say": "First, listen to the word. Tap in between the letters where the word splits into parts. Next, tap a piece to hear it, then tap a box to put it in. Put the pieces in order to build the word. Then press Check Word.",
+  "speed": "{\"lang\": \"en-gb\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"bf_emma\", \"word\": 0.8}"
+ },
  "36ac8180": {
   "key": "let's play a few quick games so i can build your perfect map. tap me when you are ready!",
   "say": "Let's play a few quick games so I can build your perfect map. Tap me when you are ready!",
@@ -234,9 +264,19 @@
   "say": "Take your time! The letter dee can be tricky to spot.",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 1.08, \"sentence\": 0.8, \"voice\": \"am_puck\", \"word\": 0.85}"
  },
+ "3aa96082": {
+  "key": "elephant|look for the tricky letter hiding in the words. tap every one you find. then look closely at the letter's shape, trace it, and find it again in the paragraph.",
+  "say": "Look for the tricky letter hiding in the words. Tap every one you find. Then look closely at the letter's shape, trace it, and find it again in the paragraph.",
+  "speed": "{\"lang\": \"en-gb\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"bf_emma\", \"word\": 0.8}"
+ },
  "3ae9cf31": {
   "key": "monkey|tap a vowel to try filling in the word!",
   "say": "Tap a vowel to try filling in the word!",
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.08, \"sentence\": 0.8, \"voice\": \"am_puck\", \"word\": 0.85}"
+ },
+ "3c134a23": {
+  "key": "monkey|a vowel is missing from the word. listen to the sound in the clue. then tap the vowel from the tray that makes that sound. when you get it right, press next.",
+  "say": "A vowel is missing from the word. Listen to the sound in the clue. Then tap the vowel from the tray that makes that sound. When you get it right, press Next.",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 1.08, \"sentence\": 0.8, \"voice\": \"am_puck\", \"word\": 0.85}"
  },
  "3c5561e2": {
@@ -257,7 +297,12 @@
  "4219938d": {
   "key": "sloth|welcome to discover! tap me and i'll take you on a jungle adventure.",
   "say": "Welcome to DysCover! Tap me and I'll take you on a jungle adventure.",
-  "speed": "{\"lang\": \"en-us\", \"pitch\": 0.96, \"sentence\": 0.68, \"voice\": \"af_nicole\", \"word\": 0.78}"
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.0, \"sentence\": 0.74, \"voice\": \"af_heart\", \"word\": 0.82}"
+ },
+ "4225e622": {
+  "key": "gorilla|a vowel is missing from the word. listen to the sound in the clue. then tap the vowel from the tray that makes that sound. when you get it right, press next.",
+  "say": "A vowel is missing from the word. Listen to the sound in the clue. Then tap the vowel from the tray that makes that sound. When you get it right, press Next.",
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 0.84, \"sentence\": 0.68, \"voice\": \"am_fenrir\", \"word\": 0.78}"
  },
  "45850c0f": {
   "key": "elephant|take your time! a 'b' can be tricky to spot.",
@@ -272,7 +317,7 @@
  "460d2b4b": {
   "key": "sloth|hi, i'm sunny! welcome to discover! tap me and i'll take you on a jungle adventure.",
   "say": "Hi, I'm Sunny! Welcome to DysCover! Tap me and I'll take you on a jungle adventure.",
-  "speed": "{\"lang\": \"en-us\", \"pitch\": 0.96, \"sentence\": 0.68, \"voice\": \"af_nicole\", \"word\": 0.78}"
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.0, \"sentence\": 0.74, \"voice\": \"af_heart\", \"word\": 0.82}"
  },
  "48c23de0": {
   "key": "tell me your explorer name and secret code, then tap log in. new here? tap create account!",
@@ -283,6 +328,11 @@
   "key": "take your time! a 'b' can be tricky to spot.",
   "say": "Take your time! The letter bee can be tricky to spot.",
   "speed": "0.76/0.85"
+ },
+ "49ae8ea3": {
+  "key": "monkey|look at the two words. a few letters got mixed up between them. tap the letters that are different in each word. then press check answer. you can tap a speaker to hear a word, or tap hint if you need help.",
+  "say": "Look at the two words. A few letters got mixed up between them. Tap the letters that are different in each word. Then press Check Answer. You can tap a speaker to hear a word, or tap Hint if you need help.",
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.08, \"sentence\": 0.8, \"voice\": \"am_puck\", \"word\": 0.85}"
  },
  "4a105369": {
   "key": "cheetah|take your time! a 'q' can be tricky to spot.",
@@ -298,6 +348,11 @@
   "key": "monkey|tap the pieces to hear them, then build the word in order!",
   "say": "Tap the pieces to hear them, then build the word in order!",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 1.08, \"sentence\": 0.8, \"voice\": \"am_puck\", \"word\": 0.85}"
+ },
+ "4db3e5a6": {
+  "key": "mimi|look at the two words. a few letters got mixed up between them. tap the letters that are different in each word. then press check answer. you can tap a speaker to hear a word, or tap hint if you need help.",
+  "say": "Look at the two words. A few letters got mixed up between them. Tap the letters that are different in each word. Then press Check Answer. You can tap a speaker to hear a word, or tap Hint if you need help.",
+  "speed": "{\"lang\": \"en-gb\", \"pitch\": 1.2, \"sentence\": 0.78, \"voice\": \"bf_lily\", \"word\": 0.85}"
  },
  "4e502eb2": {
   "key": "syl:ad",
@@ -359,10 +414,25 @@
   "say": "pew",
   "speed": "0.76/0.85"
  },
+ "603bd8a4": {
+  "key": "a vowel is missing from the word. listen to the sound in the clue. then tap the vowel from the tray that makes that sound. when you get it right, press next.",
+  "say": "A vowel is missing from the word. Listen to the sound in the clue. Then tap the vowel from the tray that makes that sound. When you get it right, press Next.",
+  "speed": "0.76/0.85"
+ },
+ "60554ed8": {
+  "key": "lion|a vowel is missing from the word. listen to the sound in the clue. then tap the vowel from the tray that makes that sound. when you get it right, press next.",
+  "say": "A vowel is missing from the word. Listen to the sound in the clue. Then tap the vowel from the tray that makes that sound. When you get it right, press Next.",
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"am_onyx\", \"word\": 0.8}"
+ },
  "62764959": {
   "key": "mimi|can you find the letters that got mixed up? tap the speaker to hear the word!",
   "say": "Can you find the letters that got mixed up? Tap the speaker to hear the word!",
   "speed": "{\"lang\": \"en-gb\", \"pitch\": 1.2, \"sentence\": 0.78, \"voice\": \"bf_lily\", \"word\": 0.85}"
+ },
+ "629c5910": {
+  "key": "lion|first, listen to the word. tap in between the letters where the word splits into parts. next, tap a piece to hear it, then tap a box to put it in. put the pieces in order to build the word. then press check word.",
+  "say": "First, listen to the word. Tap in between the letters where the word splits into parts. Next, tap a piece to hear it, then tap a box to put it in. Put the pieces in order to build the word. Then press Check Word.",
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"am_onyx\", \"word\": 0.8}"
  },
  "634e112a": {
   "key": "syl:ba",
@@ -372,7 +442,7 @@
  "648f81a9": {
   "key": "sloth|let's go!",
   "say": "Let's go!",
-  "speed": "{\"lang\": \"en-us\", \"pitch\": 0.96, \"sentence\": 0.68, \"voice\": \"af_nicole\", \"word\": 0.78}"
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.0, \"sentence\": 0.74, \"voice\": \"af_heart\", \"word\": 0.82}"
  },
  "64bdd1a5": {
   "key": "elephant|take your time! a 'p' can be tricky to spot.",
@@ -394,6 +464,11 @@
   "say": "You're playing Cheetah Challenge! Tap any speaker icon to hear words read aloud, and use the buttons on screen to answer.",
   "speed": "0.76/0.85"
  },
+ "667076b1": {
+  "key": "cheetah|a word will show up. read it out loud as fast as you can before the time runs out. tap the microphone and say the word, or tap the card when you have read it.",
+  "say": "A word will show up. Read it out loud as fast as you can before the time runs out. Tap the microphone and say the word, or tap the card when you have read it.",
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.06, \"sentence\": 0.84, \"voice\": \"am_liam\", \"word\": 0.88}"
+ },
  "672b8534": {
   "key": "syl:py",
   "say": "pee",
@@ -412,12 +487,17 @@
  "6a51722c": {
   "key": "sloth|hi, i'm sunny! welcome to the jungle, explorer! tap start on a world to begin your adventure.",
   "say": "Hi, I'm Sunny! Welcome to the jungle, explorer! Tap Start on a world to begin your adventure.",
-  "speed": "{\"lang\": \"en-us\", \"pitch\": 0.96, \"sentence\": 0.68, \"voice\": \"af_nicole\", \"word\": 0.78}"
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.0, \"sentence\": 0.74, \"voice\": \"af_heart\", \"word\": 0.82}"
  },
  "6b9bbf93": {
   "key": "elephant|welcome to canopy quest, high up in the trees! tap a game to see how to play, then press start.",
   "say": "Welcome to Canopy Quest, high up in the trees! Tap a game to see how to play, then press Start.",
   "speed": "{\"lang\": \"en-gb\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"bf_emma\", \"word\": 0.8}"
+ },
+ "6cc8b9a6": {
+  "key": "mimi|a vowel is missing from the word. listen to the sound in the clue. then tap the vowel from the tray that makes that sound. when you get it right, press next.",
+  "say": "A vowel is missing from the word. Listen to the sound in the clue. Then tap the vowel from the tray that makes that sound. When you get it right, press Next.",
+  "speed": "{\"lang\": \"en-gb\", \"pitch\": 1.2, \"sentence\": 0.78, \"voice\": \"bf_lily\", \"word\": 0.85}"
  },
  "6d8755a2": {
   "key": "expectations",
@@ -494,6 +574,11 @@
   "say": "Syllable Safari",
   "speed": "0.76/0.85"
  },
+ "76ce1740": {
+  "key": "lion|look at the two words. a few letters got mixed up between them. tap the letters that are different in each word. then press check answer. you can tap a speaker to hear a word, or tap hint if you need help.",
+  "say": "Look at the two words. A few letters got mixed up between them. Tap the letters that are different in each word. Then press Check Answer. You can tap a speaker to hear a word, or tap Hint if you need help.",
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"am_onyx\", \"word\": 0.8}"
+ },
  "774a915a": {
   "key": "dinosaur",
   "say": "dinosaur",
@@ -523,6 +608,11 @@
   "key": "let's play lizard lookouts! look closely at the big word on top. then, find the word below that looks exactly the same!",
   "say": "Let's play Lizard Lookouts! Look closely at the big word on top. Then, find the word below that looks exactly the same!",
   "speed": "0.76/0.85"
+ },
+ "7fba28c3": {
+  "key": "lion|look for the tricky letter hiding in the words. tap every one you find. then look closely at the letter's shape, trace it, and find it again in the paragraph.",
+  "say": "Look for the tricky letter hiding in the words. Tap every one you find. Then look closely at the letter's shape, trace it, and find it again in the paragraph.",
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"am_onyx\", \"word\": 0.8}"
  },
  "806fe784": {
   "key": "cheetah challenge",
@@ -567,7 +657,7 @@
  "8c0369a0": {
   "key": "sloth|let's play a few quick games so i can build your perfect map. tap me when you are ready!",
   "say": "Let's play a few quick games so I can build your perfect map. Tap me when you are ready!",
-  "speed": "{\"lang\": \"en-us\", \"pitch\": 0.96, \"sentence\": 0.68, \"voice\": \"af_nicole\", \"word\": 0.78}"
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.0, \"sentence\": 0.74, \"voice\": \"af_heart\", \"word\": 0.82}"
  },
  "8c345779": {
   "key": "find the vowel that sounds like the one in \"dog\" to complete the word! tap a vowel from the tray to complete the word.",
@@ -577,6 +667,11 @@
  "8f4971c1": {
   "key": "cheetah|welcome to the jungle games! tap a game to see how to play, then press start.",
   "say": "Welcome to the Jungle Games! Tap a game to see how to play, then press Start.",
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.06, \"sentence\": 0.84, \"voice\": \"am_liam\", \"word\": 0.88}"
+ },
+ "8ff52bba": {
+  "key": "cheetah|first, listen to the word. tap in between the letters where the word splits into parts. next, tap a piece to hear it, then tap a box to put it in. put the pieces in order to build the word. then press check word.",
+  "say": "First, listen to the word. Tap in between the letters where the word splits into parts. Next, tap a piece to hear it, then tap a box to put it in. Put the pieces in order to build the word. Then press Check Word.",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 1.06, \"sentence\": 0.84, \"voice\": \"am_liam\", \"word\": 0.88}"
  },
  "906c67c6": {
@@ -644,6 +739,11 @@
   "say": "frog",
   "speed": "0.76/0.85"
  },
+ "9eb5f5d7": {
+  "key": "elephant|look at the two words. a few letters got mixed up between them. tap the letters that are different in each word. then press check answer. you can tap a speaker to hear a word, or tap hint if you need help.",
+  "say": "Look at the two words. A few letters got mixed up between them. Tap the letters that are different in each word. Then press Check Answer. You can tap a speaker to hear a word, or tap Hint if you need help.",
+  "speed": "{\"lang\": \"en-gb\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"bf_emma\", \"word\": 0.8}"
+ },
  "9f9c4fd4": {
   "key": "music",
   "say": "music",
@@ -652,7 +752,7 @@
  "9fe9cd9a": {
   "key": "sloth|welcome to the jungle, explorer! tap start on a world to begin your adventure.",
   "say": "Welcome to the jungle, explorer! Tap Start on a world to begin your adventure.",
-  "speed": "{\"lang\": \"en-us\", \"pitch\": 0.96, \"sentence\": 0.68, \"voice\": \"af_nicole\", \"word\": 0.78}"
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.0, \"sentence\": 0.74, \"voice\": \"af_heart\", \"word\": 0.82}"
  },
  "a1d062c4": {
   "key": "cheetah|tap a vowel to try filling in the word!",
@@ -734,6 +834,11 @@
   "say": "computer",
   "speed": "0.76/0.85"
  },
+ "b1e0962f": {
+  "key": "elephant|a vowel is missing from the word. listen to the sound in the clue. then tap the vowel from the tray that makes that sound. when you get it right, press next.",
+  "say": "A vowel is missing from the word. Listen to the sound in the clue. Then tap the vowel from the tray that makes that sound. When you get it right, press Next.",
+  "speed": "{\"lang\": \"en-gb\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"bf_emma\", \"word\": 0.8}"
+ },
  "b2036c0e": {
   "key": "syl:but",
   "say": "but",
@@ -764,6 +869,11 @@
   "say": "dessert",
   "speed": "0.76/0.85"
  },
+ "b8ea5143": {
+  "key": "a word will show up. read it out loud as fast as you can before the time runs out. tap the microphone and say the word, or tap the card when you have read it.",
+  "say": "A word will show up. Read it out loud as fast as you can before the time runs out. Tap the microphone and say the word, or tap the card when you have read it.",
+  "speed": "0.76/0.85"
+ },
  "b9c1e002": {
   "key": "cheetah|take your time! a 'd' can be tricky to spot.",
   "say": "Take your time! The letter dee can be tricky to spot.",
@@ -779,6 +889,11 @@
   "say": "duck",
   "speed": "0.76/0.85"
  },
+ "bba9f82d": {
+  "key": "cheetah|look for the tricky letter hiding in the words. tap every one you find. then look closely at the letter's shape, trace it, and find it again in the paragraph.",
+  "say": "Look for the tricky letter hiding in the words. Tap every one you find. Then look closely at the letter's shape, trace it, and find it again in the paragraph.",
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.06, \"sentence\": 0.84, \"voice\": \"am_liam\", \"word\": 0.88}"
+ },
  "bc452bbe": {
   "key": "syl:den",
   "say": "den",
@@ -792,7 +907,7 @@
  "bd20262e": {
   "key": "sloth|hi, i'm sunny! let's play a few quick games so i can build your perfect map. tap me when you are ready!",
   "say": "Hi, I'm Sunny! Let's play a few quick games so I can build your perfect map. Tap me when you are ready!",
-  "speed": "{\"lang\": \"en-us\", \"pitch\": 0.96, \"sentence\": 0.68, \"voice\": \"af_nicole\", \"word\": 0.78}"
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.0, \"sentence\": 0.74, \"voice\": \"af_heart\", \"word\": 0.82}"
  },
  "bd45942c": {
   "key": "cheetah|ready, set, go! say the word out loud as fast as you can.",
@@ -807,7 +922,7 @@
  "bdffa002": {
   "key": "sloth|hi, i'm sunny! tell me your explorer name and secret code, then tap log in. new here? tap create account!",
   "say": "Hi, I'm Sunny! Tell me your explorer name and secret code, then tap Log In. New here? Tap Create Account!",
-  "speed": "{\"lang\": \"en-us\", \"pitch\": 0.96, \"sentence\": 0.68, \"voice\": \"af_nicole\", \"word\": 0.78}"
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.0, \"sentence\": 0.74, \"voice\": \"af_heart\", \"word\": 0.82}"
  },
  "be11f331": {
   "key": "mimi|welcome to the jungle games! tap a game to see how to play, then press start.",
@@ -929,6 +1044,11 @@
   "say": "Find the vowel that sounds like the one in \"cat\" to complete the word! Tap a vowel from the tray to complete the word.",
   "speed": "0.76/0.85"
  },
+ "dda03751": {
+  "key": "tap the sound box to hear the letter. then trace the letter with your finger on the lines. for words, tap each number to hear a letter and trace it. then write the whole word.",
+  "say": "Tap the sound box to hear the letter. Then trace the letter with your finger on the lines. For words, tap each number to hear a letter and trace it. Then write the whole word.",
+  "speed": "0.76/0.85"
+ },
  "dfa2efb1": {
   "key": "map",
   "say": "map",
@@ -944,10 +1064,25 @@
   "say": "sun",
   "speed": "0.76/0.85"
  },
+ "e089fc8f": {
+  "key": "look for the tricky letter hiding in the words. tap every one you find. then look closely at the letter's shape, trace it, and find it again in the paragraph.",
+  "say": "Look for the tricky letter hiding in the words. Tap every one you find. Then look closely at the letter's shape, trace it, and find it again in the paragraph.",
+  "speed": "0.76/0.85"
+ },
+ "e0de87d4": {
+  "key": "first, listen to the word. tap in between the letters where the word splits into parts. next, tap a piece to hear it, then tap a box to put it in. put the pieces in order to build the word. then press check word.",
+  "say": "First, listen to the word. Tap in between the letters where the word splits into parts. Next, tap a piece to hear it, then tap a box to put it in. Put the pieces in order to build the word. Then press Check Word.",
+  "speed": "0.76/0.85"
+ },
  "e10c2473": {
   "key": "d",
   "say": "dee",
   "speed": "0.76/0.85"
+ },
+ "e131d62a": {
+  "key": "mimi|first, listen to the word. tap in between the letters where the word splits into parts. next, tap a piece to hear it, then tap a box to put it in. put the pieces in order to build the word. then press check word.",
+  "say": "First, listen to the word. Tap in between the letters where the word splits into parts. Next, tap a piece to hear it, then tap a box to put it in. Put the pieces in order to build the word. Then press Check Word.",
+  "speed": "{\"lang\": \"en-gb\", \"pitch\": 1.2, \"sentence\": 0.78, \"voice\": \"bf_lily\", \"word\": 0.85}"
  },
  "e1aab85c": {
   "key": "syl:hap",
@@ -994,6 +1129,11 @@
   "say": "DysCover is a reading adventure game. Explore the map, play games in each world, and collect stars!",
   "speed": "0.76/0.85"
  },
+ "e6d430b6": {
+  "key": "cheetah|a vowel is missing from the word. listen to the sound in the clue. then tap the vowel from the tray that makes that sound. when you get it right, press next.",
+  "say": "A vowel is missing from the word. Listen to the sound in the clue. Then tap the vowel from the tray that makes that sound. When you get it right, press Next.",
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.06, \"sentence\": 0.84, \"voice\": \"am_liam\", \"word\": 0.88}"
+ },
  "e70c2de5": {
   "key": "b",
   "say": "bee",
@@ -1008,6 +1148,11 @@
   "key": "m",
   "say": "em",
   "speed": "0.76/0.85"
+ },
+ "e88aa1d6": {
+  "key": "monkey|look for the tricky letter hiding in the words. tap every one you find. then look closely at the letter's shape, trace it, and find it again in the paragraph.",
+  "say": "Look for the tricky letter hiding in the words. Tap every one you find. Then look closely at the letter's shape, trace it, and find it again in the paragraph.",
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.08, \"sentence\": 0.8, \"voice\": \"am_puck\", \"word\": 0.85}"
  },
  "e9659a0d": {
   "key": "lizard lookouts",
@@ -1027,6 +1172,11 @@
  "ea353217": {
   "key": "quiet",
   "say": "quiet",
+  "speed": "0.76/0.85"
+ },
+ "ea693a54": {
+  "key": "look at the two words. a few letters got mixed up between them. tap the letters that are different in each word. then press check answer. you can tap a speaker to hear a word, or tap hint if you need help.",
+  "say": "Look at the two words. A few letters got mixed up between them. Tap the letters that are different in each word. Then press Check Answer. You can tap a speaker to hear a word, or tap Hint if you need help.",
   "speed": "0.76/0.85"
  },
  "eae17daa": {
@@ -1053,6 +1203,11 @@
   "key": "find the vowel that sounds like the one in \"cup\" to complete the word! tap a vowel from the tray to complete the word.",
   "say": "Find the vowel that sounds like the one in \"cup\" to complete the word! Tap a vowel from the tray to complete the word.",
   "speed": "0.76/0.85"
+ },
+ "ed2f1805": {
+  "key": "monkey|first, listen to the word. tap in between the letters where the word splits into parts. next, tap a piece to hear it, then tap a box to put it in. put the pieces in order to build the word. then press check word.",
+  "say": "First, listen to the word. Tap in between the letters where the word splits into parts. Next, tap a piece to hear it, then tap a box to put it in. Put the pieces in order to build the word. Then press Check Word.",
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.08, \"sentence\": 0.8, \"voice\": \"am_puck\", \"word\": 0.85}"
  },
  "ed5a07a9": {
   "key": "quite",
@@ -1128,6 +1283,11 @@
   "key": "q",
   "say": "cue",
   "speed": "0.76/0.85"
+ },
+ "f485f2ee": {
+  "key": "gorilla|first, listen to the word. tap in between the letters where the word splits into parts. next, tap a piece to hear it, then tap a box to put it in. put the pieces in order to build the word. then press check word.",
+  "say": "First, listen to the word. Tap in between the letters where the word splits into parts. Next, tap a piece to hear it, then tap a box to put it in. Put the pieces in order to build the word. Then press Check Word.",
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 0.84, \"sentence\": 0.68, \"voice\": \"am_fenrir\", \"word\": 0.78}"
  },
  "f50c43ef": {
   "key": "p",
