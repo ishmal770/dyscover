@@ -32,6 +32,7 @@ function CanopyQuestDetail({ onHome, onMap, onPlayGame }) {
       onHome={onHome}
       onMap={onMap}
       onStartGame={onPlayGame}
+      guideMessage="Welcome to Canopy Quest, high up in the trees! Tap a game to see how to play, then press Start."
     />
   );
 }

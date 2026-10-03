@@ -53,12 +53,7 @@
 
 .game-hint-bubble__avatar {
   flex: none;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: var(--green-pale);
-  border: 2px solid var(--white);
-  box-shadow: var(--shadow-soft);
+  filter: drop-shadow(0 6px 8px rgba(43, 43, 43, 0.18));
 }
 
 /* Shrink and lift above the now bottom-docked AccessibilityToolbar so the

@@ -1,6 +1,8 @@
 // Shared text-to-speech helper (speak) and the floating mascot hint bubble
 // that every game uses to give spoken instructions/encouragement.
 import { Play, Mic } from "lucide-react";
+import GuideArt from "./GuideArt";
+import { useGuide } from "../context/GuideContext";
 import "./GameHintBubble.css";
 
 // speak() is a plain function imported all over the app (not a component),
@@ -11,6 +13,11 @@ let muted = false;
 function setSpeechMuted(value) {
   muted = value;
   if (value) window.speechSynthesis?.cancel();
+}
+
+// Stops any speech in progress (used when a page scrolls out of view).
+function cancelSpeech() {
+  window.speechSynthesis?.cancel();
 }
 
 // Reads text aloud via the browser's Web Speech API, normalized to avoid
@@ -35,6 +42,7 @@ function speak(text) {
 }
 
 function GameHintBubble({ message, speakText }) {
+  const { guide } = useGuide();
   return (
     <div className="game-hint-bubble">
       <div className="game-hint-bubble__card">
@@ -50,10 +58,12 @@ function GameHintBubble({ message, speakText }) {
           </button>
         </div>
       </div>
-      <div className="game-hint-bubble__avatar" aria-hidden="true" />
+      <div className="game-hint-bubble__avatar">
+        <GuideArt character={guide.id} size={64} />
+      </div>
     </div>
   );
 }
 
 export default GameHintBubble;
-export { speak, setSpeechMuted };
+export { speak, setSpeechMuted, cancelSpeech };

@@ -2,6 +2,7 @@
 // Trophy Room / Clinical / Expert dashboard pages.
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AccessibilityProvider } from "./context/AccessibilityContext";
+import { GuideProvider } from "./context/GuideContext";
 import KidGameApp from "./KidGameApp"; // the horizontal-scroll game experience
 import TrophyRoom from "./pages/TrophyRoom";
 import ClinicalOverview from "./pages/ClinicalOverview";
@@ -11,6 +12,7 @@ import ExpertDashboard from "./pages/ExpertDashboard";
 function App() {
   return (
     <AccessibilityProvider>
+      <GuideProvider>
       <BrowserRouter>
         <Routes>
           {/* Main kid app: onboarding, worlds, and all mini-games */}
@@ -25,6 +27,7 @@ function App() {
           <Route path="/expert" element={<ExpertDashboard />} />
         </Routes>
       </BrowserRouter>
+      </GuideProvider>
     </AccessibilityProvider>
   );
 }
