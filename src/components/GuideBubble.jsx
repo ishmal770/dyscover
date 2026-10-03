@@ -4,21 +4,36 @@
 import { useEffect, useRef, useState } from "react";
 import { Volume2, X } from "lucide-react";
 import GuideArt from "./GuideArt";
-import { speak, cancelSpeech } from "./GameHintBubble";
+import { speak, cancelSpeech, audioUnlocked } from "./GameHintBubble";
 import { useGuide } from "../context/GuideContext";
 import { SLOTH } from "../data/guides";
 import "./GuideBubble.css";
 
 const WELCOME_MS = 4500;
 
-// `fixedCharacter="sloth"` pins a specific host (home page) and turns off the chooser.
-function GuideBubble({ message, fixedCharacter }) {
+// Each guide introduces themselves by name only the first time they speak
+// (per visit), so pages after the first just say what's on that page.
+const introduced = new Set();
+function spokenLine(guide, message, forceIntro = false) {
+  if (!forceIntro && introduced.has(guide.id)) return message;
+  introduced.add(guide.id);
+  return `Hi, I'm ${guide.name}! ${message}`;
+}
+
+// `fixedCharacter="sloth"` pins a specific host (onboarding pages) and turns off the chooser.
+// `onAdvance` makes the guide the "next" button: tapping him says a cheer and
+// moves the child on, with `advanceHint` shown as a pulsing label.
+// `centered` places him in the page flow instead of the bottom-right corner.
+function GuideBubble({ message, fixedCharacter, onAdvance, advanceHint, centered }) {
   const { guide: chosen, guides, chooseGuide } = useGuide();
   const guide = fixedCharacter === "sloth" ? SLOTH : chosen;
   const canChoose = !fixedCharacter;
   const rootRef = useRef(null);
   const [welcoming, setWelcoming] = useState(false);
   const [pickerOpen, setPickerOpen] = useState(false);
+  // True when the browser blocked the automatic welcome (no click yet) so we
+  // show a "tap me to hear" prompt instead of staying silently mute.
+  const [needsTap, setNeedsTap] = useState(false);
   const guideName = guide.name;
 
   // All pages stay mounted in the horizontal strip, so "arriving" means this
@@ -31,7 +46,12 @@ function GuideBubble({ message, fixedCharacter }) {
       ([entry]) => {
         if (entry.isIntersecting) {
           setWelcoming(true);
-          speak(`Hi, I'm ${guideName}! ${message}`);
+          if (audioUnlocked()) {
+            setNeedsTap(false);
+            speak(spokenLine(guide, message));
+          } else {
+            setNeedsTap(true);
+          }
           timer = setTimeout(() => setWelcoming(false), WELCOME_MS);
         } else {
           clearTimeout(timer);
@@ -49,9 +69,16 @@ function GuideBubble({ message, fixedCharacter }) {
     };
   }, [message, guideName]);
 
-  function replay() {
+  function advance() {
     setWelcoming(true);
-    speak(`Hi, I'm ${guideName}! ${message}`);
+    speak("Let's go!");
+    setTimeout(onAdvance, 900);
+  }
+
+  function replay() {
+    setNeedsTap(false);
+    setWelcoming(true);
+    speak(spokenLine(guide, message));
     setTimeout(() => setWelcoming(false), WELCOME_MS);
   }
 
@@ -59,12 +86,12 @@ function GuideBubble({ message, fixedCharacter }) {
     chooseGuide(id);
     setPickerOpen(false);
     setWelcoming(true);
-    speak(`Hi, I'm ${guides[id].name}! ${message}`);
+    speak(spokenLine(guides[id], message, true));
     setTimeout(() => setWelcoming(false), WELCOME_MS);
   }
 
   return (
-    <div ref={rootRef} className={`guide-bubble${welcoming ? " guide-bubble--welcome" : ""}`}>
+    <div ref={rootRef} className={`guide-bubble${welcoming ? " guide-bubble--welcome" : ""}${fixedCharacter ? " guide-bubble--stacked" : ""}${centered ? " guide-bubble--centered" : ""}`}>
       {canChoose && pickerOpen && (
         <div className="guide-bubble__picker" role="dialog" aria-label="Choose your jungle guide">
           <div className="guide-bubble__picker-header">
@@ -95,11 +122,12 @@ function GuideBubble({ message, fixedCharacter }) {
         </button>
       </div>
       <button
-        className="guide-bubble__avatar"
-        onClick={canChoose ? () => setPickerOpen((open) => !open) : replay}
-        aria-label={canChoose ? `${guide.label} - tap to change your guide` : `${guide.label} - tap to hear the welcome again`}
+        className={`guide-bubble__avatar${needsTap ? " guide-bubble__avatar--needs-tap" : ""}`}
+        onClick={onAdvance ? advance : canChoose && !needsTap ? () => setPickerOpen((open) => !open) : replay}
+        aria-label={onAdvance ? `${guide.label} - tap to continue` : canChoose ? `${guide.label} - tap to change your guide` : `${guide.label} - tap to hear the welcome again`}
       >
-        <GuideArt character={guide.id} waving={welcoming} size={70} />
+        <GuideArt character={guide.id} waving={welcoming} size={fixedCharacter === "sloth" ? 170 : 130} />
+        {(advanceHint || needsTap) && <span className="guide-bubble__tap-hint">{advanceHint || "Tap me to hear!"}</span>}
       </button>
     </div>
   );

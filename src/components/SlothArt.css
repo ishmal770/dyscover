@@ -1,49 +1,30 @@
-/* Styles for SlothArt.jsx - idle bob, blink, and wave */
+/* Styles for SlothArt.jsx - slow breathing and a welcome wiggle */
 .sloth-art {
   display: block;
-  overflow: visible;
+  height: auto;
+  user-select: none;
+  transform-origin: 50% 100%;
+  animation: sloth-breathe 4s ease-in-out infinite;
 }
 
-.sloth-art__bob {
-  animation: sloth-bob 3.2s ease-in-out infinite;
-  transform-box: view-box;
-  transform-origin: 60px 124px;
+.sloth-art--waving {
+  animation: sloth-wiggle 0.7s ease-in-out 4;
 }
 
-.sloth-art__eye {
-  animation: sloth-blink 4.6s infinite;
-  transform-box: fill-box;
-  transform-origin: center;
+@keyframes sloth-breathe {
+  0%, 100% { transform: scale(1, 1); }
+  50% { transform: scale(1.01, 1.035); }
 }
 
-.sloth-art__arm {
-  transform-box: view-box;
-  transform-origin: 90px 92px;
-}
-
-.sloth-art--waving .sloth-art__arm {
-  animation: sloth-wave 0.7s ease-in-out infinite;
-}
-
-@keyframes sloth-bob {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-2.5px) rotate(1.2deg); }
-}
-
-@keyframes sloth-blink {
-  0%, 92%, 100% { transform: scaleY(1); }
-  95% { transform: scaleY(0.1); }
-}
-
-@keyframes sloth-wave {
-  0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(-28deg); }
+@keyframes sloth-wiggle {
+  0%, 100% { transform: rotate(0deg) translateY(0); }
+  25% { transform: rotate(-3deg) translateY(-8px); }
+  75% { transform: rotate(3deg) translateY(-8px); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .sloth-art__bob,
-  .sloth-art__eye,
-  .sloth-art--waving .sloth-art__arm {
+  .sloth-art,
+  .sloth-art--waving {
     animation: none;
   }
 }

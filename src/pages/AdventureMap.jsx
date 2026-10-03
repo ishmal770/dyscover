@@ -59,7 +59,7 @@ function AdventureMap({ onNext, onStartCanopy, onHome }) {
         </div>
       </div>
       <AccessibilityToolbar />
-      <GuideBubble message="Welcome to the jungle, explorer! Pick a world to start your adventure." />
+      <GuideBubble fixedCharacter="sloth" message="Welcome to the jungle, explorer! Tap Start on a world to begin your adventure." />
     </section>
   );
 }

@@ -1,56 +1,25 @@
-// Shared text-to-speech helper (speak) and the floating mascot hint bubble
-// that every game uses to give spoken instructions/encouragement.
+// The floating guide hint bubble that every game uses to give spoken
+// instructions/encouragement. (The speech functions live in src/audio/speech.js
+// and are re-exported here because most of the app imports them from this file.)
 import { Play, Mic } from "lucide-react";
 import GuideArt from "./GuideArt";
 import { useGuide } from "../context/GuideContext";
+import { speak } from "../audio/speech";
 import "./GameHintBubble.css";
 
-// speak() is a plain function imported all over the app (not a component),
-// so the mute toggle can't reach it through React context/props - this
-// module-level flag is the simplest way for AccessibilityContext to turn
-// audio on/off everywhere at once.
-let muted = false;
-function setSpeechMuted(value) {
-  muted = value;
-  if (value) window.speechSynthesis?.cancel();
-}
-
-// Stops any speech in progress (used when a page scrolls out of view).
-function cancelSpeech() {
-  window.speechSynthesis?.cancel();
-}
-
-// Reads text aloud via the browser's Web Speech API, normalized to avoid
-// confusing dyslexia-unfriendly TTS quirks (see comments below).
-function speak(text) {
-  if (muted) return;
-  if (!("speechSynthesis" in window)) return;
-  window.speechSynthesis.cancel();
-  // All-caps short strings get read as spelled-out acronyms by most TTS
-  // voices ("SUN" -> "S U N"), so normalize to title case for real words.
-  // Single letters are lowercased outright so no voice has a chance to
-  // announce case ("capital C") instead of just the letter itself.
-  const normalized =
-    text.length === 1
-      ? text.toLowerCase()
-      : text === text.toUpperCase()
-      ? text[0] + text.slice(1).toLowerCase()
-      : text;
-  const utterance = new SpeechSynthesisUtterance(normalized);
-  utterance.rate = 0.9;
-  window.speechSynthesis.speak(utterance);
-}
+export { speak, setSpeechMuted, cancelSpeech, audioUnlocked } from "../audio/speech";
 
 // `character` pins this game's own mascot (e.g. the lion in Lion's Letters);
 // otherwise the child's chosen guide is shown.
-function GameHintBubble({ message, speakText, character }) {
+function GameHintBubble({ message, character }) {
   const { guide } = useGuide();
   return (
     <div className="game-hint-bubble">
       <div className="game-hint-bubble__card">
         <p>{message}</p>
         <div className="game-hint-bubble__actions">
-          <button className="game-hint-bubble__btn" onClick={() => speak(speakText || message)}>
+          {/* Listen reads exactly what is written in the bubble */}
+          <button className="game-hint-bubble__btn" onClick={() => speak(message)}>
             <Play size={11} fill="currentColor" /> Listen
           </button>
           {/* Speak (voice input) is disabled here - only Cheetah Challenge
@@ -61,11 +30,10 @@ function GameHintBubble({ message, speakText, character }) {
         </div>
       </div>
       <div className="game-hint-bubble__avatar">
-        <GuideArt character={character || guide.id} size={64} />
+        <GuideArt character={character || guide.id} size={84} />
       </div>
     </div>
   );
 }
 
 export default GameHintBubble;
-export { speak, setSpeechMuted, cancelSpeech };

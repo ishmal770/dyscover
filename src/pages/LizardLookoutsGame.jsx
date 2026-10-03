@@ -359,7 +359,6 @@ function LizardLookoutsGame({ onHome, onBack }) {
       <AccessibilityToolbar />
       <GameHintBubble
         message={`Take your time! A '${round.letter}' can be tricky to spot.`}
-        speakText={round.letter}
       />
     </section>
   );

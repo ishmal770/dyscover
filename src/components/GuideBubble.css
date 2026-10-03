@@ -1,7 +1,7 @@
 /* Styles for GuideBubble.jsx - the animated jungle guide + speech bubble */
 .guide-bubble {
   position: absolute;
-  right: 20px;
+  right: 24px;
   bottom: 14px;
   display: flex;
   align-items: flex-end;
@@ -13,9 +13,9 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  max-width: 260px;
-  margin-bottom: 18px;
-  padding: 12px 14px;
+  max-width: 320px;
+  margin-bottom: 30px;
+  padding: 16px 18px;
   background: var(--white);
   border-radius: 18px 18px 4px 18px;
   box-shadow: var(--shadow-soft);
@@ -23,7 +23,7 @@
 }
 
 .guide-bubble__message p {
-  font-size: 0.85rem;
+  font-size: 1.05rem;
   line-height: 1.4;
 }
 
@@ -32,8 +32,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 30px;
-  height: 30px;
+  width: 38px;
+  height: 38px;
   border: none;
   border-radius: 50%;
   background: var(--green-pale);
@@ -42,6 +42,7 @@
 }
 
 .guide-bubble__avatar {
+  position: relative;
   flex: none;
   padding: 0;
   border: none;
@@ -73,6 +74,36 @@
 @keyframes guide-bubble-in {
   from { transform: scale(0.6); opacity: 0; transform-origin: bottom right; }
   to { transform: scale(1); opacity: 1; transform-origin: bottom right; }
+}
+
+/* Wide hosts (the home-page sloth) put the speech bubble above them */
+.guide-bubble--stacked {
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0;
+}
+
+.guide-bubble--stacked .guide-bubble__message {
+  margin-bottom: 8px;
+  border-radius: 18px 18px 4px 18px;
+}
+
+/* Centered host (home page): sits in the page flow, bigger speech */
+.guide-bubble--centered {
+  position: relative;
+  right: auto;
+  bottom: auto;
+  align-items: center;
+}
+
+.guide-bubble--centered .guide-bubble__message {
+  max-width: min(420px, 86vw);
+  border-radius: 18px;
+  margin-bottom: 10px;
+}
+
+.guide-bubble--centered .guide-bubble__avatar .sloth-art {
+  width: min(380px, 80vw) !important;
 }
 
 /* Chooser */
@@ -142,21 +173,34 @@
   }
 
   .guide-bubble__message {
-    max-width: 190px;
-    margin-bottom: 14px;
-    padding: 9px 11px;
+    max-width: 180px;
+    margin-bottom: 18px;
+    padding: 10px 12px;
   }
 
   .guide-bubble__message p {
-    font-size: 0.78rem;
+    font-size: 0.85rem;
   }
 
   .guide-bubble__avatar .guide-art {
-    width: 92px !important;
+    width: 120px !important;
+  }
+
+  .guide-bubble__avatar .sloth-art {
+    width: 210px !important;
   }
 
   .guide-bubble__picker {
     width: min(300px, calc(100vw - 24px));
+  }
+}
+
+/* keep the centered host in the page flow on phones too (the rule above docks
+   other guides to the corner) */
+@media (max-width: 480px) {
+  .guide-bubble--centered {
+    right: auto;
+    bottom: auto;
   }
 }
 
@@ -165,4 +209,26 @@
   .guide-bubble--welcome .guide-bubble__message {
     animation: none;
   }
+}
+
+/* Label under the guide: "Tap me to start!" (or "Tap me to hear!" when the
+   browser blocked the automatic welcome) */
+.guide-bubble__tap-hint {
+  display: block;
+  margin: 8px auto 0;
+  padding: 7px 16px;
+  width: max-content;
+  border-radius: var(--radius-pill);
+  background: var(--green);
+  color: var(--white);
+  font-size: 0.95rem;
+  font-weight: 800;
+  white-space: nowrap;
+  box-shadow: var(--shadow-soft);
+  animation: guide-tap-pulse 1.1s ease-in-out infinite;
+}
+
+@keyframes guide-tap-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
 }
