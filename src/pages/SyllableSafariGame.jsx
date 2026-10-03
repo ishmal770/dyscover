@@ -90,7 +90,7 @@ function SyllableSafariGame({ onHome, onBack }) {
   }
 
   function handleChunkTap(chunk) {
-    speak(chunk);
+    speak(chunk, { clip: `syl:${chunk.toLowerCase()}` });
     setSelectedChunk(chunk === selectedChunk ? null : chunk);
   }
 
@@ -271,7 +271,6 @@ function SyllableSafariGame({ onHome, onBack }) {
       <AccessibilityToolbar />
       <GameHintBubble
         message="Tap the pieces to hear them, then build the word in order!"
-        speakText={round.word}
       />
     </section>
   );

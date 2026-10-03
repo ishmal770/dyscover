@@ -167,7 +167,6 @@ function LionsLettersGame({ onHome, onBack }) {
       <GameHintBubble
         character="lion"
         message="Tap the sound box to hear the letters, then trace them!"
-        speakText={round.value}
       />
     </section>
   );

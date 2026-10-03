@@ -1,8 +1,7 @@
-// First slide in the kid app: logo splash + "Ready Begin" button that
-// scrolls to Login. Also the only entry point to the adult-facing
-// Clinical Overview / Expert Dashboard pages.
+// First slide in the kid app: logo splash hosted by the sloth - tapping him
+// starts the adventure (scrolls to Login). Also the only entry point to the
+// adult-facing Clinical Overview / Expert Dashboard pages.
 import { Link } from "react-router-dom";
-import { Play } from "lucide-react";
 import TopBar from "../components/TopBar";
 import GuideBubble from "../components/GuideBubble";
 import logo from "../assets/dyscover-logo.png";
@@ -14,9 +13,14 @@ function Homepage({ onNext }) {
       <TopBar label="DYSCOVER HOMEPAGE" />
       <div className="homepage__hero">
         <img className="homepage__logo" src={logo} alt="DysCover" />
-        <button className="btn btn--primary" onClick={onNext}>
-          <Play size={14} fill="currentColor" /> Ready Begin
-        </button>
+        {/* No start button: the sloth is the way in. Tapping him begins the adventure. */}
+        <GuideBubble
+          fixedCharacter="sloth"
+          centered
+          onAdvance={onNext}
+          advanceHint="Tap me to start!"
+          message="Welcome to DysCover! Tap me and I'll take you on a jungle adventure."
+        />
         {/* Only way to reach the parent/clinician/expert dashboards - they
             have no other link from inside the kid app */}
         <div className="homepage__adult-links">
@@ -26,10 +30,6 @@ function Homepage({ onNext }) {
           <Link to="/expert">Expert Dashboard</Link>
         </div>
       </div>
-      <GuideBubble
-        fixedCharacter="sloth"
-        message="Welcome to DysCover! Press Ready Begin to start your jungle adventure."
-      />
       <div className="homepage__ground">
         <div className="homepage__tree homepage__tree--left" />
         <div className="homepage__tree homepage__tree--right" />

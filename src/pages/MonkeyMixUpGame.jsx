@@ -221,7 +221,6 @@ function MonkeyMixUpGame({ onHome, onBack }) {
             ? "Amazing! You found the sound. Can you find another one?"
             : "Tap a vowel to try filling in the word!"
         }
-        speakText={word}
       />
     </section>
   );

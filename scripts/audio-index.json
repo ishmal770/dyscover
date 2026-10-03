@@ -1,0 +1,872 @@
+{
+ "016b8756": {
+  "key": "syl:e",
+  "say": "eh",
+  "speed": "0.76/0.85"
+ },
+ "03d5b964": {
+  "key": "butterfly",
+  "say": "butterfly",
+  "speed": "0.76/0.85"
+ },
+ "056b8da2": {
+  "key": "syl:a",
+  "say": "uh",
+  "speed": "0.76/0.85"
+ },
+ "06745c07": {
+  "key": "cat",
+  "say": "cat",
+  "speed": "0.76/0.85"
+ },
+ "0b93f671": {
+  "key": "world 2: canopy quest",
+  "say": "World 2: Canopy Quest",
+  "speed": "0.76/0.85"
+ },
+ "0b9ebc4b": {
+  "key": "can you find the letters that got mixed up? tap the speaker to hear the word!",
+  "say": "Can you find the letters that got mixed up? Tap the speaker to hear the word!",
+  "speed": "0.76/0.85"
+ },
+ "0bf7cb59": {
+  "key": "win",
+  "say": "win",
+  "speed": "0.76/0.85"
+ },
+ "0d03b3e2": {
+  "key": "hi, i'm sunny! tell me your explorer name and secret code, then tap log in. new here? tap create account!",
+  "say": "Hi, I'm Sunny! Tell me your explorer name and secret code, then tap Log In. New here? Tap Create Account!",
+  "speed": "0.76/0.85"
+ },
+ "0f68be05": {
+  "key": "syl:ture",
+  "say": "cher",
+  "speed": "0.76/0.85"
+ },
+ "1271ab5c": {
+  "key": "explain",
+  "say": "explain",
+  "speed": "0.76/0.85"
+ },
+ "1426fc36": {
+  "key": "tap a vowel to try filling in the word!",
+  "say": "Tap a vowel to try filling in the word!",
+  "speed": "0.76/0.85"
+ },
+ "146d5d5d": {
+  "key": "you're playing syllable safari! tap any speaker icon to hear words read aloud, and use the buttons on screen to answer.",
+  "say": "You're playing Syllable Safari! Tap any speaker icon to hear words read aloud, and use the buttons on screen to answer.",
+  "speed": "0.76/0.85"
+ },
+ "15e8ca44": {
+  "key": "syl:ven",
+  "say": "ven",
+  "speed": "0.76/0.85"
+ },
+ "1779f563": {
+  "key": "welcome to the jungle games! tap a game to see how to play, then press start.",
+  "say": "Welcome to the Jungle Games! Tap a game to see how to play, then press Start.",
+  "speed": "0.76/0.85"
+ },
+ "235d9fc7": {
+  "key": "breath",
+  "say": "breath",
+  "speed": "0.76/0.85"
+ },
+ "2685d587": {
+  "key": "excitement",
+  "say": "excitement",
+  "speed": "0.76/0.85"
+ },
+ "280e10cc": {
+  "key": "syl:com",
+  "say": "kom",
+  "speed": "0.76/0.85"
+ },
+ "2a1ad856": {
+  "key": "roach",
+  "say": "roach",
+  "speed": "0.76/0.85"
+ },
+ "2abfb49b": {
+  "key": "canopy quest",
+  "say": "Canopy Quest",
+  "speed": "0.76/0.85"
+ },
+ "2acd4eca": {
+  "key": "run",
+  "say": "run",
+  "speed": "0.76/0.85"
+ },
+ "2cb41ebc": {
+  "key": "desert",
+  "say": "desert",
+  "speed": "0.76/0.85"
+ },
+ "2d1428d9": {
+  "key": "syl:cil",
+  "say": "sill",
+  "speed": "0.76/0.85"
+ },
+ "2d9f5c04": {
+  "key": "hi, i'm leo! welcome to the jungle games! tap a game to see how to play, then press start.",
+  "say": "Hi, I'm Leo! Welcome to the Jungle Games! Tap a game to see how to play, then press Start.",
+  "speed": "0.76/0.85"
+ },
+ "2de7c081": {
+  "key": "tap the sound box to hear the letters, then trace them!",
+  "say": "Tap the sound box to hear the letters, then trace them!",
+  "speed": "0.76/0.85"
+ },
+ "325a3189": {
+  "key": "let's go!",
+  "say": "Let's go!",
+  "speed": "0.76/0.85"
+ },
+ "32b1f694": {
+  "key": "parrot pairs",
+  "say": "Parrot Pairs",
+  "speed": "0.76/0.85"
+ },
+ "343f6722": {
+  "key": "amazing! you found the sound. can you find another one?",
+  "say": "Amazing! You found the sound. Can you find another one?",
+  "speed": "0.76/0.85"
+ },
+ "35876859": {
+  "key": "explanations",
+  "say": "explanations",
+  "speed": "0.76/0.85"
+ },
+ "36ac8180": {
+  "key": "let's play a few quick games so i can build your perfect map. tap me when you are ready!",
+  "say": "Let's play a few quick games so I can build your perfect map. Tap me when you are ready!",
+  "speed": "0.76/0.85"
+ },
+ "37f68278": {
+  "key": "you're playing monkey mix-up! tap any speaker icon to hear words read aloud, and use the buttons on screen to answer.",
+  "say": "You're playing Monkey Mix-Up! Tap any speaker icon to hear words read aloud, and use the buttons on screen to answer.",
+  "speed": "0.76/0.85"
+ },
+ "39699490": {
+  "key": "syl:phant",
+  "say": "fant",
+  "speed": "0.76/0.85"
+ },
+ "39fb4f5c": {
+  "key": "take your time! a 'd' can be tricky to spot.",
+  "say": "Take your time! The letter dee can be tricky to spot.",
+  "speed": "0.76/0.85"
+ },
+ "3c5561e2": {
+  "key": "you're playing parrot pairs! tap any speaker icon to hear words read aloud, and use the buttons on screen to answer.",
+  "say": "You're playing Parrot Pairs! Tap any speaker icon to hear words read aloud, and use the buttons on screen to answer.",
+  "speed": "0.76/0.85"
+ },
+ "3d02a4fc": {
+  "key": "tap all the letter b's hiding in this sentence!",
+  "say": "Tap every letter bee hiding in this sentence!",
+  "speed": "0.76/0.85"
+ },
+ "4058c747": {
+  "key": "form",
+  "say": "form",
+  "speed": "0.76/0.85"
+ },
+ "45afe178": {
+  "key": "affect",
+  "say": "affect",
+  "speed": "0.76/0.85"
+ },
+ "48c23de0": {
+  "key": "tell me your explorer name and secret code, then tap log in. new here? tap create account!",
+  "say": "Tell me your explorer name and secret code, then tap Log In. New here? Tap Create Account!",
+  "speed": "0.76/0.85"
+ },
+ "48d80f3e": {
+  "key": "take your time! a 'b' can be tricky to spot.",
+  "say": "Take your time! The letter bee can be tricky to spot.",
+  "speed": "0.76/0.85"
+ },
+ "4a425560": {
+  "key": "syl:nan",
+  "say": "nan",
+  "speed": "0.76/0.85"
+ },
+ "4d9f13c9": {
+  "key": "hi, i'm mimi! welcome to canopy quest, high up in the trees! tap a game to see how to play, then press start.",
+  "say": "Hi, I'm Mimi! Welcome to Canopy Quest, high up in the trees! Tap a game to see how to play, then press Start.",
+  "speed": "0.76/0.85"
+ },
+ "4e502eb2": {
+  "key": "syl:ad",
+  "say": "ad",
+  "speed": "0.76/0.85"
+ },
+ "4e624c06": {
+  "key": "breathe",
+  "say": "breathe",
+  "speed": "0.76/0.85"
+ },
+ "4f47e180": {
+  "key": "syl:di",
+  "say": "dye",
+  "speed": "0.76/0.85"
+ },
+ "50ae46ec": {
+  "key": "bed",
+  "say": "bed",
+  "speed": "0.76/0.85"
+ },
+ "5505928f": {
+  "key": "smile",
+  "say": "smile",
+  "speed": "0.76/0.85"
+ },
+ "55760b38": {
+  "key": "take your time! a 'p' can be tricky to spot.",
+  "say": "Take your time! The letter pee can be tricky to spot.",
+  "speed": "0.76/0.85"
+ },
+ "57931627": {
+  "key": "click all the ds in this paragraph",
+  "say": "Click every letter dee in this paragraph!",
+  "speed": "0.76/0.85"
+ },
+ "5a46c338": {
+  "key": "welcome to canopy quest, high up in the trees! tap a game to see how to play, then press start.",
+  "say": "Welcome to Canopy Quest, high up in the trees! Tap a game to see how to play, then press Start.",
+  "speed": "0.76/0.85"
+ },
+ "5af77379": {
+  "key": "let's play parrot pairs! look closely at the big word on top. then, find the word below that looks exactly the same!",
+  "say": "Let's play Parrot Pairs! Look closely at the big word on top. Then, find the word below that looks exactly the same!",
+  "speed": "0.76/0.85"
+ },
+ "5b2b7250": {
+  "key": "syl:pu",
+  "say": "pew",
+  "speed": "0.76/0.85"
+ },
+ "634e112a": {
+  "key": "syl:ba",
+  "say": "buh",
+  "speed": "0.76/0.85"
+ },
+ "662afeff": {
+  "key": "let's play cheetah challenge! look closely at the big word on top. then, find the word below that looks exactly the same!",
+  "say": "Let's play Cheetah Challenge! Look closely at the big word on top. Then, find the word below that looks exactly the same!",
+  "speed": "0.76/0.85"
+ },
+ "662fb70c": {
+  "key": "you're playing cheetah challenge! tap any speaker icon to hear words read aloud, and use the buttons on screen to answer.",
+  "say": "You're playing Cheetah Challenge! Tap any speaker icon to hear words read aloud, and use the buttons on screen to answer.",
+  "speed": "0.76/0.85"
+ },
+ "672b8534": {
+  "key": "syl:py",
+  "say": "pee",
+  "speed": "0.76/0.85"
+ },
+ "6840fb8f": {
+  "key": "pig",
+  "say": "pig",
+  "speed": "0.76/0.85"
+ },
+ "6acb3755": {
+  "key": "hi, i'm momo! welcome to canopy quest, high up in the trees! tap a game to see how to play, then press start.",
+  "say": "Hi, I'm Momo! Welcome to Canopy Quest, high up in the trees! Tap a game to see how to play, then press Start.",
+  "speed": "0.76/0.85"
+ },
+ "6d8755a2": {
+  "key": "expectations",
+  "say": "expectations",
+  "speed": "0.76/0.85"
+ },
+ "6d8b34d5": {
+  "key": "tree",
+  "say": "tree",
+  "speed": "0.76/0.85"
+ },
+ "6e6e8d54": {
+  "key": "effect",
+  "say": "effect",
+  "speed": "0.76/0.85"
+ },
+ "6f210470": {
+  "key": "syl:ti",
+  "say": "tie",
+  "speed": "0.76/0.85"
+ },
+ "6f4b93f0": {
+  "key": "pen",
+  "say": "pen",
+  "speed": "0.76/0.85"
+ },
+ "6f595d01": {
+  "key": "syl:mu",
+  "say": "mew",
+  "speed": "0.76/0.85"
+ },
+ "70539f2b": {
+  "key": "hi, i'm sunny! welcome to discover! tap me and i'll take you on a jungle adventure.",
+  "say": "Hi, I'm Sunny! Welcome to DysCover! Tap me and I'll take you on a jungle adventure.",
+  "speed": "0.76/0.85"
+ },
+ "70c67e32": {
+  "key": "box",
+  "say": "box",
+  "speed": "0.76/0.85"
+ },
+ "71e75846": {
+  "key": "my trophy room",
+  "say": "My Trophy Room",
+  "speed": "0.76/0.85"
+ },
+ "73d58d75": {
+  "key": "bug",
+  "say": "bug",
+  "speed": "0.76/0.85"
+ },
+ "747c6a1d": {
+  "key": "click all the bs in this paragraph",
+  "say": "Click every letter bee in this paragraph!",
+  "speed": "0.76/0.85"
+ },
+ "755727dc": {
+  "key": "syl:no",
+  "say": "no",
+  "speed": "0.76/0.85"
+ },
+ "7645e04e": {
+  "key": "syl:el",
+  "say": "el",
+  "speed": "0.76/0.85"
+ },
+ "76556943": {
+  "key": "trail",
+  "say": "trail",
+  "speed": "0.76/0.85"
+ },
+ "76a43f73": {
+  "key": "syllable safari",
+  "say": "Syllable Safari",
+  "speed": "0.76/0.85"
+ },
+ "774a915a": {
+  "key": "dinosaur",
+  "say": "dinosaur",
+  "speed": "0.76/0.85"
+ },
+ "775718f4": {
+  "key": "garden",
+  "say": "garden",
+  "speed": "0.76/0.85"
+ },
+ "77874ade": {
+  "key": "click all the qs in this paragraph",
+  "say": "Click every letter cue in this paragraph!",
+  "speed": "0.76/0.85"
+ },
+ "78627a04": {
+  "key": "pencil",
+  "say": "pencil",
+  "speed": "0.76/0.85"
+ },
+ "7cca8c63": {
+  "key": "syl:gar",
+  "say": "gar",
+  "speed": "0.76/0.85"
+ },
+ "7d831e68": {
+  "key": "let's play lizard lookouts! look closely at the big word on top. then, find the word below that looks exactly the same!",
+  "say": "Let's play Lizard Lookouts! Look closely at the big word on top. Then, find the word below that looks exactly the same!",
+  "speed": "0.76/0.85"
+ },
+ "806fe784": {
+  "key": "cheetah challenge",
+  "say": "Cheetah Challenge",
+  "speed": "0.76/0.85"
+ },
+ "819a1d27": {
+  "key": "hi, i'm gus! welcome to the jungle games! tap a game to see how to play, then press start.",
+  "say": "Hi, I'm Gus! Welcome to the Jungle Games! Tap a game to see how to play, then press Start.",
+  "speed": "0.76/0.85"
+ },
+ "837ad1db": {
+  "key": "slime",
+  "say": "slime",
+  "speed": "0.76/0.85"
+ },
+ "884737d4": {
+  "key": "syl:sic",
+  "say": "sick",
+  "speed": "0.76/0.85"
+ },
+ "8a524c53": {
+  "key": "bear",
+  "say": "bear",
+  "speed": "0.76/0.85"
+ },
+ "8c345779": {
+  "key": "find the vowel that sounds like the one in \"dog\" to complete the word! tap a vowel from the tray to complete the word.",
+  "say": "Find the vowel that sounds like the one in \"dog\" to complete the word! Tap a vowel from the tray to complete the word.",
+  "speed": "0.76/0.85"
+ },
+ "8c5dc230": {
+  "key": "hi, i'm ellie! welcome to canopy quest, high up in the trees! tap a game to see how to play, then press start.",
+  "say": "Hi, I'm Ellie! Welcome to Canopy Quest, high up in the trees! Tap a game to see how to play, then press Start.",
+  "speed": "0.76/0.85"
+ },
+ "931aecc2": {
+  "key": "hi, i'm mimi! welcome to the jungle games! tap a game to see how to play, then press start.",
+  "say": "Hi, I'm Mimi! Welcome to the Jungle Games! Tap a game to see how to play, then press Start.",
+  "speed": "0.76/0.85"
+ },
+ "932dbf2b": {
+  "key": "hi, i'm ellie! welcome to the jungle games! tap a game to see how to play, then press start.",
+  "say": "Hi, I'm Ellie! Welcome to the Jungle Games! Tap a game to see how to play, then press Start.",
+  "speed": "0.76/0.85"
+ },
+ "9463de1f": {
+  "key": "exceptions",
+  "say": "exceptions",
+  "speed": "0.76/0.85"
+ },
+ "9487f49c": {
+  "key": "syl:saur",
+  "say": "sore",
+  "speed": "0.76/0.85"
+ },
+ "94d3ac87": {
+  "key": "syl:ger",
+  "say": "gur",
+  "speed": "0.76/0.85"
+ },
+ "95cd8075": {
+  "key": "from",
+  "say": "from",
+  "speed": "0.76/0.85"
+ },
+ "97236c48": {
+  "key": "expressions",
+  "say": "expressions",
+  "speed": "0.76/0.85"
+ },
+ "977128b2": {
+  "key": "bird",
+  "say": "bird",
+  "speed": "0.76/0.85"
+ },
+ "98b38bdc": {
+  "key": "hi, i'm gus! welcome to canopy quest, high up in the trees! tap a game to see how to play, then press start.",
+  "say": "Hi, I'm Gus! Welcome to Canopy Quest, high up in the trees! Tap a game to see how to play, then press Start.",
+  "speed": "0.76/0.85"
+ },
+ "99863551": {
+  "key": "happy",
+  "say": "happy",
+  "speed": "0.76/0.85"
+ },
+ "9bcd89e7": {
+  "key": "frog",
+  "say": "frog",
+  "speed": "0.76/0.85"
+ },
+ "9f9c4fd4": {
+  "key": "music",
+  "say": "music",
+  "speed": "0.76/0.85"
+ },
+ "a1d1b612": {
+  "key": "syl:bit",
+  "say": "bit",
+  "speed": "0.76/0.85"
+ },
+ "a33d95ca": {
+  "key": "syl:pen",
+  "say": "pen",
+  "speed": "0.76/0.85"
+ },
+ "a3ccd347": {
+  "key": "hi, i'm leo! welcome to canopy quest, high up in the trees! tap a game to see how to play, then press start.",
+  "say": "Hi, I'm Leo! Welcome to Canopy Quest, high up in the trees! Tap a game to see how to play, then press Start.",
+  "speed": "0.76/0.85"
+ },
+ "a47b3de4": {
+  "key": "rays",
+  "say": "rays",
+  "speed": "0.76/0.85"
+ },
+ "a5625552": {
+  "key": "experiment",
+  "say": "experiment",
+  "speed": "0.76/0.85"
+ },
+ "a710dc3c": {
+  "key": "top",
+  "say": "top",
+  "speed": "0.76/0.85"
+ },
+ "a82458d6": {
+  "key": "ready, set, go! say the word out loud as fast as you can.",
+  "say": "Ready, set, go! Say the word out loud as fast as you can.",
+  "speed": "0.76/0.85"
+ },
+ "a83e75ea": {
+  "key": "angel",
+  "say": "angel",
+  "speed": "0.76/0.85"
+ },
+ "ab42b7a1": {
+  "key": "hi, i'm chase! welcome to canopy quest, high up in the trees! tap a game to see how to play, then press start.",
+  "say": "Hi, I'm Chase! Welcome to Canopy Quest, high up in the trees! Tap a game to see how to play, then press Start.",
+  "speed": "0.76/0.85"
+ },
+ "ab74e516": {
+  "key": "let's play syllable safari! look closely at the big word on top. then, find the word below that looks exactly the same!",
+  "say": "Let's play Syllable Safari! Look closely at the big word on top. Then, find the word below that looks exactly the same!",
+  "speed": "0.76/0.85"
+ },
+ "acd357f3": {
+  "key": "take your time! a 'q' can be tricky to spot.",
+  "say": "Take your time! The letter cue can be tricky to spot.",
+  "speed": "0.76/0.85"
+ },
+ "ad4227c2": {
+  "key": "tap all the letter d's hiding in this sentence!",
+  "say": "Tap every letter dee hiding in this sentence!",
+  "speed": "0.76/0.85"
+ },
+ "ad544418": {
+  "key": "angle",
+  "say": "angle",
+  "speed": "0.76/0.85"
+ },
+ "afad8963": {
+  "key": "fish",
+  "say": "fish",
+  "speed": "0.76/0.85"
+ },
+ "b0c1a067": {
+  "key": "tap all the letter q's hiding in this sentence!",
+  "say": "Tap every letter cue hiding in this sentence!",
+  "speed": "0.76/0.85"
+ },
+ "b1514998": {
+  "key": "computer",
+  "say": "computer",
+  "speed": "0.76/0.85"
+ },
+ "b2036c0e": {
+  "key": "syl:but",
+  "say": "but",
+  "speed": "0.76/0.85"
+ },
+ "b53f4f1f": {
+  "key": "find the vowel that sounds like the one in \"pig\" to complete the word! tap a vowel from the tray to complete the word.",
+  "say": "Find the vowel that sounds like the one in \"pig\" to complete the word! Tap a vowel from the tray to complete the word.",
+  "speed": "0.76/0.85"
+ },
+ "b55b4cee": {
+  "key": "hi, i'm momo! welcome to the jungle games! tap a game to see how to play, then press start.",
+  "say": "Hi, I'm Momo! Welcome to the Jungle Games! Tap a game to see how to play, then press Start.",
+  "speed": "0.76/0.85"
+ },
+ "b680409e": {
+  "key": "you're playing lion's letters! tap any speaker icon to hear words read aloud, and use the buttons on screen to answer.",
+  "say": "You're playing Lion's Letters! Tap any speaker icon to hear words read aloud, and use the buttons on screen to answer.",
+  "speed": "0.76/0.85"
+ },
+ "b6f3934e": {
+  "key": "fox",
+  "say": "fox",
+  "speed": "0.76/0.85"
+ },
+ "b75b8129": {
+  "key": "dessert",
+  "say": "dessert",
+  "speed": "0.76/0.85"
+ },
+ "bb323378": {
+  "key": "duck",
+  "say": "duck",
+  "speed": "0.76/0.85"
+ },
+ "bc452bbe": {
+  "key": "syl:den",
+  "say": "den",
+  "speed": "0.76/0.85"
+ },
+ "bd77f9d3": {
+  "key": "trial",
+  "say": "trial",
+  "speed": "0.76/0.85"
+ },
+ "bf01c58e": {
+  "key": "hi, i'm sunny! let's play a few quick games so i can build your perfect map. tap me when you are ready!",
+  "say": "Hi, I'm Sunny! Let's play a few quick games so I can build your perfect map. Tap me when you are ready!",
+  "speed": "0.76/0.85"
+ },
+ "c50fe1cb": {
+  "key": "adventure",
+  "say": "adventure",
+  "speed": "0.76/0.85"
+ },
+ "c6fdde3c": {
+  "key": "explore",
+  "say": "explore",
+  "speed": "0.76/0.85"
+ },
+ "cb619ce5": {
+  "key": "rabbit",
+  "say": "rabbit",
+  "speed": "0.76/0.85"
+ },
+ "cc80b89b": {
+  "key": "let's play monkey mix-up! look closely at the big word on top. then, find the word below that looks exactly the same!",
+  "say": "Let's play Monkey Mix-Up! Look closely at the big word on top. Then, find the word below that looks exactly the same!",
+  "speed": "0.76/0.85"
+ },
+ "ce80b56a": {
+  "key": "hi, i'm chase! welcome to the jungle games! tap a game to see how to play, then press start.",
+  "say": "Hi, I'm Chase! Welcome to the Jungle Games! Tap a game to see how to play, then press Start.",
+  "speed": "0.76/0.85"
+ },
+ "d0b0370f": {
+  "key": "jungle games",
+  "say": "Jungle Games",
+  "speed": "0.76/0.85"
+ },
+ "d11f4bcb": {
+  "key": "you're playing lizard lookouts! tap any speaker icon to hear words read aloud, and use the buttons on screen to answer.",
+  "say": "You're playing Lizard Lookouts! Tap any speaker icon to hear words read aloud, and use the buttons on screen to answer.",
+  "speed": "0.76/0.85"
+ },
+ "d13b2f71": {
+  "key": "star",
+  "say": "star",
+  "speed": "0.76/0.85"
+ },
+ "d6fa9b6c": {
+  "key": "world 1: jungle games",
+  "say": "World 1: Jungle Games",
+  "speed": "0.76/0.85"
+ },
+ "d8e2964e": {
+  "key": "hi, i'm sunny! welcome to canopy quest, high up in the trees! tap a game to see how to play, then press start.",
+  "say": "Hi, I'm Sunny! Welcome to Canopy Quest, high up in the trees! Tap a game to see how to play, then press Start.",
+  "speed": "0.76/0.85"
+ },
+ "d92bb9de": {
+  "key": "find the vowel that sounds like the one in \"bed\" to complete the word! tap a vowel from the tray to complete the word.",
+  "say": "Find the vowel that sounds like the one in \"bed\" to complete the word! Tap a vowel from the tray to complete the word.",
+  "speed": "0.76/0.85"
+ },
+ "d9889f50": {
+  "key": "banana",
+  "say": "banana",
+  "speed": "0.76/0.85"
+ },
+ "dc7cdf97": {
+  "key": "find the vowel that sounds like the one in \"cat\" to complete the word! tap a vowel from the tray to complete the word.",
+  "say": "Find the vowel that sounds like the one in \"cat\" to complete the word! Tap a vowel from the tray to complete the word.",
+  "speed": "0.76/0.85"
+ },
+ "dfa2efb1": {
+  "key": "map",
+  "say": "map",
+  "speed": "0.76/0.85"
+ },
+ "e00c22e0": {
+  "key": "e",
+  "say": "ee",
+  "speed": "0.76/0.85"
+ },
+ "e04e3f61": {
+  "key": "sun",
+  "say": "sun",
+  "speed": "0.76/0.85"
+ },
+ "e10c2473": {
+  "key": "d",
+  "say": "dee",
+  "speed": "0.76/0.85"
+ },
+ "e1aab85c": {
+  "key": "syl:hap",
+  "say": "hap",
+  "speed": "0.76/0.85"
+ },
+ "e20c2606": {
+  "key": "g",
+  "say": "gee",
+  "speed": "0.76/0.85"
+ },
+ "e40c292c": {
+  "key": "a",
+  "say": "ay",
+  "speed": "0.76/0.85"
+ },
+ "e5f12404": {
+  "key": "elephant",
+  "say": "elephant",
+  "speed": "0.76/0.85"
+ },
+ "e60c2c52": {
+  "key": "c",
+  "say": "see",
+  "speed": "0.76/0.85"
+ },
+ "e668bd09": {
+  "key": "dog",
+  "say": "dog",
+  "speed": "0.76/0.85"
+ },
+ "e6a4e1e3": {
+  "key": "discover is a reading adventure game. explore the map, play games in each world, and collect stars!",
+  "say": "DysCover is a reading adventure game. Explore the map, play games in each world, and collect stars!",
+  "speed": "0.76/0.85"
+ },
+ "e70c2de5": {
+  "key": "b",
+  "say": "bee",
+  "speed": "0.76/0.85"
+ },
+ "e80c2f78": {
+  "key": "m",
+  "say": "em",
+  "speed": "0.76/0.85"
+ },
+ "e9659a0d": {
+  "key": "lizard lookouts",
+  "say": "Lizard Lookouts",
+  "speed": "0.76/0.85"
+ },
+ "ea0c329e": {
+  "key": "o",
+  "say": "oh",
+  "speed": "0.76/0.85"
+ },
+ "ea353217": {
+  "key": "quiet",
+  "say": "quiet",
+  "speed": "0.76/0.85"
+ },
+ "ec0c35c4": {
+  "key": "i",
+  "say": "eye",
+  "speed": "0.76/0.85"
+ },
+ "ec3d2fe8": {
+  "key": "syl:rab",
+  "say": "rab",
+  "speed": "0.76/0.85"
+ },
+ "ec8cef17": {
+  "key": "find the vowel that sounds like the one in \"cup\" to complete the word! tap a vowel from the tray to complete the word.",
+  "say": "Find the vowel that sounds like the one in \"cup\" to complete the word! Tap a vowel from the tray to complete the word.",
+  "speed": "0.76/0.85"
+ },
+ "ed5a07a9": {
+  "key": "quite",
+  "say": "quite",
+  "speed": "0.76/0.85"
+ },
+ "eed3277a": {
+  "key": "welcome to the jungle, explorer! tap start on a world to begin your adventure.",
+  "say": "Welcome to the jungle, explorer! Tap Start on a world to begin your adventure.",
+  "speed": "0.76/0.85"
+ },
+ "f00c3c10": {
+  "key": "u",
+  "say": "you",
+  "speed": "0.76/0.85"
+ },
+ "f10c3da3": {
+  "key": "t",
+  "say": "tee",
+  "speed": "0.76/0.85"
+ },
+ "f270b0b8": {
+  "key": "tiger",
+  "say": "tiger",
+  "speed": "0.76/0.85"
+ },
+ "f2bf17c2": {
+  "key": "hat",
+  "say": "hat",
+  "speed": "0.76/0.85"
+ },
+ "f2dead7f": {
+  "key": "lion",
+  "say": "lion",
+  "speed": "0.76/0.85"
+ },
+ "f317cf6d": {
+  "key": "let's play lion's letters! look closely at the big word on top. then, find the word below that looks exactly the same!",
+  "say": "Let's play Lion's Letters! Look closely at the big word on top. Then, find the word below that looks exactly the same!",
+  "speed": "0.76/0.85"
+ },
+ "f40c425c": {
+  "key": "q",
+  "say": "cue",
+  "speed": "0.76/0.85"
+ },
+ "f50c43ef": {
+  "key": "p",
+  "say": "pee",
+  "speed": "0.76/0.85"
+ },
+ "f582008c": {
+  "key": "hi, i'm sunny! welcome to the jungle, explorer! tap start on a world to begin your adventure.",
+  "say": "Hi, I'm Sunny! Welcome to the jungle, explorer! Tap Start on a world to begin your adventure.",
+  "speed": "0.76/0.85"
+ },
+ "f6038ae3": {
+  "key": "click all the ps in this paragraph",
+  "say": "Click every letter pee in this paragraph!",
+  "speed": "0.76/0.85"
+ },
+ "f62c7c4c": {
+  "key": "syl:fly",
+  "say": "fly",
+  "speed": "0.76/0.85"
+ },
+ "f70c4715": {
+  "key": "r",
+  "say": "are",
+  "speed": "0.76/0.85"
+ },
+ "fa49e1ed": {
+  "key": "welcome to discover! tap me and i'll take you on a jungle adventure.",
+  "say": "Welcome to DysCover! Tap me and I'll take you on a jungle adventure.",
+  "speed": "0.76/0.85"
+ },
+ "fa56340f": {
+  "key": "cup",
+  "say": "cup",
+  "speed": "0.76/0.85"
+ },
+ "fb1770d2": {
+  "key": "syl:ter",
+  "say": "tur",
+  "speed": "0.76/0.85"
+ },
+ "fdc2cd7b": {
+  "key": "tap the pieces to hear them, then build the word in order!",
+  "say": "Tap the pieces to hear them, then build the word in order!",
+  "speed": "0.76/0.85"
+ },
+ "ff3d13bd": {
+  "key": "hi, i'm sunny! welcome to the jungle games! tap a game to see how to play, then press start.",
+  "say": "Hi, I'm Sunny! Welcome to the Jungle Games! Tap a game to see how to play, then press Start.",
+  "speed": "0.76/0.85"
+ },
+ "ffc15236": {
+  "key": "tap all the letter p's hiding in this sentence!",
+  "say": "Tap every letter pee hiding in this sentence!",
+  "speed": "0.76/0.85"
+ }
+}

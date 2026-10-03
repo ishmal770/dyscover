@@ -1,5 +1,6 @@
 // Onboarding login slide. There's no real auth backend - submitting the
 // form (with any or no input) just advances to the next slide.
+import GuideBubble from "../components/GuideBubble";
 import "./Login.css";
 
 function Login({ onNext }) {
@@ -30,6 +31,10 @@ function Login({ onNext }) {
           Create Account
         </button>
       </form>
+      <GuideBubble
+        fixedCharacter="sloth"
+        message="Tell me your explorer name and secret code, then tap Log In. New here? Tap Create Account!"
+      />
     </section>
   );
 }

@@ -273,7 +273,6 @@ function ParrotPairsGame({ onHome, onBack }) {
       <AccessibilityToolbar />
       <GameHintBubble
         message="Can you find the letters that got mixed up? Tap the speaker to hear the word!"
-        speakText={round.word1}
       />
     </section>
   );
