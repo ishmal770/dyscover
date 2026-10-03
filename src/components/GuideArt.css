@@ -1,49 +1,50 @@
-/* Styles for GuideArt.jsx - idle bob, blink, and wave animations */
+/* Styles for GuideArt.jsx - idle bob and welcome hop/wiggle */
 .guide-art {
   display: block;
-  overflow: visible;
+  height: auto;
+  user-select: none;
+  transform-origin: 50% 100%;
+  animation: guide-bob 3.4s ease-in-out infinite;
 }
 
-.guide-art__bob {
-  animation: guide-bob 3.2s ease-in-out infinite;
-  transform-box: view-box;
-  transform-origin: 60px 124px;
+/* The swinging monkey hangs from the top of his image, so pivot there */
+.guide-art--monkey {
+  transform-origin: 50% 4%;
+  animation: guide-swing 2.8s ease-in-out infinite;
 }
 
-.guide-art__eye {
-  animation: guide-blink 4.6s infinite;
-  transform-box: fill-box;
-  transform-origin: center;
+.guide-art--waving {
+  animation: guide-hop 0.6s ease-in-out 4;
 }
 
-.guide-art__arm {
-  transform-box: view-box;
-  transform-origin: 90px 92px;
-}
-
-.guide-art--waving .guide-art__arm {
-  animation: guide-wave 0.7s ease-in-out infinite;
+.guide-art--monkey.guide-art--waving {
+  animation: guide-swing-big 0.9s ease-in-out 3;
 }
 
 @keyframes guide-bob {
   0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-2.5px) rotate(1.2deg); }
+  50% { transform: translateY(-3px) rotate(0.8deg); }
 }
 
-@keyframes guide-blink {
-  0%, 92%, 100% { transform: scaleY(1); }
-  95% { transform: scaleY(0.1); }
+@keyframes guide-swing {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
 }
 
-@keyframes guide-wave {
-  0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(-28deg); }
+@keyframes guide-hop {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-14px) rotate(-5deg); }
+  75% { transform: translateY(-14px) rotate(5deg); }
+}
+
+@keyframes guide-swing-big {
+  0%, 100% { transform: rotate(-9deg); }
+  50% { transform: rotate(9deg); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .guide-art__bob,
-  .guide-art__eye,
-  .guide-art--waving .guide-art__arm {
+  .guide-art,
+  .guide-art--waving {
     animation: none;
   }
 }
