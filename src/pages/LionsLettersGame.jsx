@@ -6,8 +6,9 @@ import GameHintBubble, { speak } from "../components/GameHintBubble";
 import LetterTraceCanvas from "../components/LetterTraceCanvas";
 import "./LionsLettersGame.css";
 
-const LETTERS = ["C", "D", "M", "T", "G", "R"];
-const WORDS = ["BOX", "CAT", "SUN", "DOG", "MAP", "PEN"];
+const LETTERS = ["c", "d", "m", "t", "g", "r"];
+const WORDS = ["box", "cat", "sun", "dog", "map", "pen"];
+const STYLE_KEY = "dyscover-handwriting";
 
 const ROUNDS = LETTERS.flatMap((letter, i) => [
   { type: "letter", value: letter },
@@ -20,6 +21,22 @@ function LionsLettersGame({ onHome, onBack }) {
   const [revealed, setRevealed] = useState(() => new Set());
   const [wordPhase, setWordPhase] = useState("letters");
   const [sessionComplete, setSessionComplete] = useState(false);
+  const [cursive, setCursive] = useState(() => {
+    try {
+      return localStorage.getItem(STYLE_KEY) === "cursive";
+    } catch {
+      return false;
+    }
+  });
+
+  function chooseStyle(isCursive) {
+    setCursive(isCursive);
+    try {
+      localStorage.setItem(STYLE_KEY, isCursive ? "cursive" : "print");
+    } catch {
+      // storage unavailable - choice just won't persist
+    }
+  }
 
   const round = ROUNDS[roundIndex];
   const isLastRound = roundIndex + 1 >= ROUNDS.length;
@@ -79,6 +96,14 @@ function LionsLettersGame({ onHome, onBack }) {
         <span className="lions-game__progress-pill">
           {roundIndex + 1} / {ROUNDS.length}
         </span>
+        <div className="lions-game__style-toggle" role="group" aria-label="Handwriting style">
+          <button className={!cursive ? "is-active" : ""} onClick={() => chooseStyle(false)} aria-pressed={!cursive}>
+            Print
+          </button>
+          <button className={cursive ? "is-active" : ""} onClick={() => chooseStyle(true)} aria-pressed={cursive}>
+            <span className="lions-game__cursive-sample">Cursive</span>
+          </button>
+        </div>
       </div>
 
       {round.type === "letter" ? (
@@ -94,7 +119,7 @@ function LionsLettersGame({ onHome, onBack }) {
             <Volume2 size={28} />
             <span>Tap to hear the letter</span>
           </button>
-          <LetterTraceCanvas guideText={round.value} />
+          <LetterTraceCanvas guideText={round.value} cursive={cursive} />
           <button className="btn btn--primary" onClick={handleContinue} disabled={!heardSound}>
             {isLastRound ? "Finish" : "Continue"} <ArrowRight size={16} />
           </button>
@@ -111,7 +136,7 @@ function LionsLettersGame({ onHome, onBack }) {
                       {i + 1}
                     </button>
                     {revealed.has(i) ? (
-                      <LetterTraceCanvas guideText={letter} height={110} />
+                      <LetterTraceCanvas guideText={letter} height={110} cursive={cursive} />
                     ) : (
                       <div className="lions-game__slot-placeholder">Tap to hear</div>
                     )}
@@ -129,7 +154,7 @@ function LionsLettersGame({ onHome, onBack }) {
           ) : (
             <>
               <h1>Now write the whole word!</h1>
-              <LetterTraceCanvas guideText={round.value} />
+              <LetterTraceCanvas guideText={round.value} cursive={cursive} />
               <button className="btn btn--primary" onClick={handleContinue}>
                 {isLastRound ? "Finish" : "Continue"} <ArrowRight size={16} />
               </button>

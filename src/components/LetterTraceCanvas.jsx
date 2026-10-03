@@ -3,12 +3,24 @@
 // (like handwriting paper) behind whatever the child draws.
 import { useRef, useState, useEffect } from "react";
 import { RotateCcw } from "lucide-react";
+import "@fontsource-variable/playwrite-us-trad";
 import "./LetterTraceCanvas.css";
+
+// Writing-line positions as a fraction of the paper height; must match the
+// .trace-canvas__line--mid/bottom rules in LetterTraceCanvas.css.
+const MID_LINE = 0.5;
+const BASE_LINE = 0.78;
+
+const FONTS = {
+  print: "system-ui, 'Segoe UI', Roboto, sans-serif",
+  cursive: "'Playwrite US Trad Variable', cursive",
+};
 
 const COLORS = ["#2b2b2b", "#5dbb2f", "#e05555"]; // pencil color choices
 
-function LetterTraceCanvas({ guideText, height = 220 }) {
+function LetterTraceCanvas({ guideText, height = 220, cursive = false }) {
   const canvasRef = useRef(null);
+  const guideRef = useRef(null);
   const wrapRef = useRef(null);
   const drawing = useRef(false); // tracks pointer-down state without triggering re-renders
   const [color, setColor] = useState(COLORS[1]);
@@ -30,6 +42,54 @@ function LetterTraceCanvas({ guideText, height = 220 }) {
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
   }, [height, guideText]);
+
+  // Draws the faint guide letter on its own canvas layer so its baseline
+  // sits exactly on the bottom writing line (like binder paper), sized so
+  // the letter body fills the space between the dashed and bottom lines.
+  useEffect(() => {
+    let cancelled = false;
+    const family = cursive ? FONTS.cursive : FONTS.print;
+    const weight = cursive ? 500 : 700;
+
+    function draw() {
+      if (cancelled) return;
+      const canvas = guideRef.current;
+      const wrap = wrapRef.current;
+      if (!canvas || !wrap) return;
+      const ratio = window.devicePixelRatio || 1;
+      const width = wrap.clientWidth;
+      canvas.width = width * ratio;
+      canvas.height = height * ratio;
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      const ctx = canvas.getContext("2d");
+      ctx.scale(ratio, ratio);
+      ctx.textBaseline = "alphabetic";
+      ctx.textAlign = "center";
+      ctx.fillStyle = "#cfe7c4";
+
+      const bodyHeight = (BASE_LINE - MID_LINE) * height;
+      ctx.font = `${weight} 100px ${family}`;
+      const xHeight = ctx.measureText("x").actualBoundingBoxAscent || 52;
+      let size = (bodyHeight / xHeight) * 100;
+      ctx.font = `${weight} ${size}px ${family}`;
+      const maxWidth = width * 0.88;
+      const textWidth = ctx.measureText(guideText).width;
+      if (textWidth > maxWidth) {
+        size *= maxWidth / textWidth;
+        ctx.font = `${weight} ${size}px ${family}`;
+      }
+      ctx.fillText(guideText, width / 2, BASE_LINE * height);
+    }
+
+    // Wait for the web font so the first paint isn't in a fallback face
+    document.fonts.load(`${weight} 40px ${family}`, guideText).then(draw, draw);
+    window.addEventListener("resize", draw);
+    return () => {
+      cancelled = true;
+      window.removeEventListener("resize", draw);
+    };
+  }, [guideText, height, cursive]);
 
   // Converts a mouse or touch event into canvas-local x/y coordinates
   function getPoint(e) {
@@ -74,7 +134,7 @@ function LetterTraceCanvas({ guideText, height = 220 }) {
   return (
     <div className="trace-canvas">
       <div className="trace-canvas__paper" ref={wrapRef} style={{ height }}>
-        <span className="trace-canvas__guide">{guideText}</span>
+        <canvas ref={guideRef} className="trace-canvas__guide" aria-hidden="true" />
         <div className="trace-canvas__line trace-canvas__line--top" />
         <div className="trace-canvas__line trace-canvas__line--mid" />
         <div className="trace-canvas__line trace-canvas__line--bottom" />

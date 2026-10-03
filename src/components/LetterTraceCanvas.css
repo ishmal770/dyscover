@@ -17,12 +17,6 @@
 .trace-canvas__guide {
   position: absolute;
   inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: clamp(2.5rem, 12vw, 5rem);
-  font-weight: 800;
-  color: var(--green-pale);
   user-select: none;
   pointer-events: none;
 }

@@ -10,8 +10,39 @@
 
 .lions-game__topline {
   display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   justify-content: center;
+  gap: 12px;
   margin-top: 20px;
+}
+
+.lions-game__style-toggle {
+  display: inline-flex;
+  padding: 3px;
+  border-radius: var(--radius-pill);
+  background: var(--green-paler);
+}
+
+.lions-game__style-toggle button {
+  padding: 6px 16px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: none;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+
+.lions-game__style-toggle button.is-active {
+  background: var(--green);
+  color: var(--white);
+}
+
+.lions-game__cursive-sample {
+  font-family: 'Playwrite US Trad Variable', cursive;
+  font-weight: 500;
 }
 
 .lions-game__progress-pill {
