@@ -112,14 +112,18 @@ function speakWithBrowserVoice(text) {
 
 // ---- Public API -------------------------------------------------------------
 
-// speak("some text")            - plays that line's clip
+// speak("some text")               - plays that line's clip (the neutral voice)
+// speak(text, { voice: "lion" })   - plays the line in that guide's own voice
+//                                    if recorded, else the neutral voice
 // speak(chunk, { clip: "syl:ti" }) - looks the clip up under a different key
 //                                    (for pieces that sound different alone)
 function speak(text, options = {}) {
   if (muted || !text) return;
   cancelSpeech();
 
-  const key = options.clip || clipKey(text);
+  const plainKey = options.clip || clipKey(text);
+  const voicedKey = options.voice ? `${options.voice}|${plainKey}` : null;
+  const key = voicedKey && clips.has(hashKey(voicedKey)) ? voicedKey : plainKey;
   const id = hashKey(key);
   if (!clips.has(id)) {
     if (import.meta.env.DEV) console.warn(`[audio] no recorded clip for "${key}" - using browser voice`);
