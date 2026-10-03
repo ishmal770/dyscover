@@ -117,14 +117,54 @@ HINT_SOURCES = {
 }
 MONKEY_TRY = "Tap a vowel to try filling in the word!"
 
-# How-to-play text for each game (read by the guide only when the child asks).
-INSTRUCTIONS = {
-    "pages/ParrotPairsGame.jsx": "Look at the two words. A few letters got mixed up between them. Tap the letters that are different in each word. Then press Check Answer. You can tap a speaker to hear a word, or tap Hint if you need help.",
-    "pages/SyllableSafariGame.jsx": "First, listen to the word. Tap in between the letters where the word splits into parts. Next, tap a piece to hear it, then tap a box to put it in. Put the pieces in order to build the word. Then press Check Word.",
-    "pages/MonkeyMixUpGame.jsx": "A vowel is missing from the word. Listen to the sound in the clue. Then tap the vowel from the tray that makes that sound. When you get it right, press Next.",
-    "pages/LionsLettersGame.jsx": "Tap the sound box to hear the letter. Then trace the letter with your finger on the lines. For words, tap each number to hear a letter and trace it. Then write the whole word.",
-    "pages/LizardLookoutsGame.jsx": "Look for the tricky letter hiding in the words. Tap every one you find. Then look closely at the letter's shape, trace it, and find it again in the paragraph.",
-    "pages/CheetahChallengeGame.jsx": "A word will show up. Read it out loud as fast as you can before the time runs out. Tap the microphone and say the word, or tap the card when you have read it.",
+# How-to-play text (read by a guide only when the child asks). A game can have
+# several, one per step; the game picks the right one for where you are.
+GAME_HELP = {
+    "pages/ParrotPairsGame.jsx": [
+        "Look at the two words. A few letters got mixed up between them. Tap the letters that are different in each word. Then press Check Answer. You can tap a speaker to hear a word, or tap Hint if you need help.",
+    ],
+    "pages/SyllableSafariGame.jsx": [
+        "Listen to the word. Then tap in between the letters where the word splits into parts.",
+        "Now tap a piece to hear it, then tap a box to put it in. Put the pieces in order to build the word. Then press Check Word.",
+    ],
+    "pages/MonkeyMixUpGame.jsx": [
+        "A vowel is missing from the word. Listen to the sound in the clue. Then tap the vowel from the tray that makes that sound. When you get it right, press Next.",
+    ],
+    "pages/LionsLettersGame.jsx": [
+        "Tap the sound box to hear the letter. Then trace the letter with your finger on the lines. Then press Continue.",
+        "Tap each number to hear a letter. Then trace that letter. When every letter is done, press Continue.",
+        "Now write the whole word with your finger on the lines. Then press Continue.",
+    ],
+    "pages/LizardLookoutsGame.jsx": [
+        "Look for the tricky letter hiding in the sentence. Tap every one you can find.",
+        "Look closely at the letter. Tap Show the Stick and Show the Circle to see its parts. Then press Continue.",
+        "Trace the letter with your finger on the lines. Then press Continue.",
+        "Now find the same letter again in the paragraph. Tap every one you can find.",
+    ],
+    "pages/CheetahChallengeGame.jsx": [
+        "A word will show up. Read it out loud as fast as you can before the time runs out. Tap the microphone and say the word, or tap the card when you have read it.",
+    ],
+}
+
+# How-to-use text for each page. Onboarding pages are hosted by the sloth; the
+# world pages and Trophy Room by whichever animal the child picked; the adult
+# dashboards have no guide (neutral voice).
+PAGE_HELP_SLOTH = {
+    "pages/Homepage.jsx": "Tap me to start your adventure. Tap the speaker to hear me again. Grown-ups can use the links at the bottom of the page.",
+    "pages/Login.jsx": "Type your explorer name and your secret code. Then tap Log In. If you are new, tap Create Account.",
+    "pages/AdventureMap.jsx": "This is the jungle map. Each place is a world full of games. Tap the green Start button on a world to go there.",
+    "pages/PlacementMission.jsx": "We will play a few short games so I can build your perfect map. Tap me when you are ready to begin.",
+}
+PAGE_HELP_ANIMALS = {
+    "pages/JungleGamesDetail.jsx": "These are the Jungle Games. Tap a game to read about it. Then press Start Playing. Tap Map to go back to the map.",
+    "pages/CanopyQuestDetail.jsx": "These are the Canopy Quest games. Tap a game to read about it. Then press Start Playing. Tap Map to go back to the map.",
+    "pages/TrophyRoom.jsx": "This is your trophy room. Each card is a game you have played, and the stars show how well you did. Tap Play Again to try a game once more. Tap a skill at the top to see only those games.",
+}
+TROPHY_MESSAGE = "Look at all the trophies you have won! Tap Play Again to play a game once more."
+DASHBOARD_HELP = {
+    "pages/ClinicalOverview.jsx": "This page shows how all students are doing. The cards at the top give totals. The charts show accuracy over time and each skill's strength. Tap a student's name in the table to see their full report.",
+    "pages/ClinicalStudentDetail.jsx": "This is one student's full report. The chart shows their skills, and the bars show progress in each game. Write notes in the box, and use the buttons to export the report or download their data.",
+    "pages/ExpertDashboard.jsx": "This is the expert view. Pick a student on the left. Use the tabs to switch between progress, raw data, and practice suggestions.",
 }
 PINNED_GAMES = {"pages/LionsLettersGame.jsx": "lion", "pages/CheetahChallengeGame.jsx": "cheetah"}
 CHEETAH_ONLY = HINT_SOURCES["pages/CheetahChallengeGame.jsx"]
@@ -183,15 +223,23 @@ def collect() -> None:
         add(f"Hi, I'm {sloth_name}! {msg}", voice="sloth")
     add("Let's go!", voice="sloth")
     add("Let's go!")
+    for text in PAGE_HELP_SLOTH.values():
+        add(text, voice="sloth")
+        add(text)
     for gid, name in animals.items():
         for msg in world_messages.values():
             add(msg, voice=gid)
             add(f"Hi, I'm {name}! {msg}", voice=gid)
         for msg in hint_messages(gid):
             add(msg, say=hint_say(msg), voice=gid)
-        for rel, text in INSTRUCTIONS.items():
+        for rel, texts in GAME_HELP.items():
             if rel not in PINNED_GAMES:
-                add(text, voice=gid)
+                for text in texts:
+                    add(text, voice=gid)
+        for text in PAGE_HELP_ANIMALS.values():
+            add(text, voice=gid)
+        add(TROPHY_MESSAGE, voice=gid)
+        add(f"Hi, I'm {name}! {TROPHY_MESSAGE}", voice=gid)
 
     # ---- page titles and info popups -------------------------------------
     games = re.findall(r'"(Parrot Pairs|Syllable Safari|Monkey Mix-Up|Lion\'s Letters|Lizard Lookouts|Cheetah Challenge)"', read("data/mockData.js"))
@@ -247,11 +295,18 @@ def collect() -> None:
     # ---- game instructions and hint-bubble messages ------------------------
     for sound_word in sound_words:
         add(f'Find the vowel that sounds like the one in "{sound_word}" to complete the word! Tap a vowel from the tray to complete the word.')
-    for rel, text in INSTRUCTIONS.items():
-        require_in_source(rel, text)
-        add(text)  # neutral fallback
-        if rel in PINNED_GAMES:
-            add(text, voice=PINNED_GAMES[rel])
+    for rel, texts in GAME_HELP.items():
+        for text in texts:
+            require_in_source(rel, text)
+            add(text)  # neutral fallback
+            if rel in PINNED_GAMES:
+                add(text, voice=PINNED_GAMES[rel])
+    for table in (PAGE_HELP_SLOTH, PAGE_HELP_ANIMALS, DASHBOARD_HELP):
+        for rel, text in table.items():
+            require_in_source(rel, text)
+            add(text)  # neutral voice / fallback (dashboards use only this)
+    require_in_source("pages/TrophyRoom.jsx", TROPHY_MESSAGE)
+    add(TROPHY_MESSAGE)
     for rel, msg in HINT_SOURCES.items():
         require_in_source(rel, msg)
     for msg in all_hint_messages():

@@ -136,6 +136,14 @@ function LetterHunt({ text, letter, found, onFound, onWrong }) {
   );
 }
 
+// What the guide reads when asked for help, for each step of a round.
+const HELP = {
+  find: "Look for the tricky letter hiding in the sentence. Tap every one you can find.",
+  shape: "Look closely at the letter. Tap Show the Stick and Show the Circle to see its parts. Then press Continue.",
+  trace: "Trace the letter with your finger on the lines. Then press Continue.",
+  paragraph: "Now find the same letter again in the paragraph. Tap every one you can find.",
+};
+
 function LizardLookoutsGame({ onHome, onBack }) {
   const [roundIndex, setRoundIndex] = useState(0);
   const [stepIndex, setStepIndex] = useState(0);
@@ -358,7 +366,7 @@ function LizardLookoutsGame({ onHome, onBack }) {
 
       <AccessibilityToolbar />
       <GameHintBubble
-        instructions="Look for the tricky letter hiding in the words. Tap every one you find. Then look closely at the letter's shape, trace it, and find it again in the paragraph."
+        instructions={HELP[step] || HELP.find}
         message={`Take your time! A '${round.letter}' can be tricky to spot.`}
       />
     </section>

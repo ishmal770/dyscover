@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Cell, LineChart, Line } from "recharts";
 import { ArrowLeft, ShieldAlert, Search, Play } from "lucide-react";
 import { STUDENTS, GAME_TROPHIES } from "../data/mockData";
+import HelpButton from "../components/HelpButton";
 import "./ExpertDashboard.css";
 
 const TABS = ["Overview & Progress", "Diagnostics & Raw Data", "Settings & Practice"];
@@ -39,6 +40,7 @@ function ExpertDashboard() {
         </button>
         <h1>Expert Dashboard</h1>
         <span className="expert-dash__restricted">Restricted View</span>
+        <HelpButton text="This is the expert view. Pick a student on the left. Use the tabs to switch between progress, raw data, and practice suggestions." />
       </header>
 
       <div className="expert-dash__body">

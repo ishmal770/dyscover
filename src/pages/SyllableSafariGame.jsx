@@ -45,6 +45,12 @@ function getSplitPoints(syllables) {
   return points;
 }
 
+// What the guide reads when asked for help, for each part of a round.
+const HELP = {
+  split: "Listen to the word. Then tap in between the letters where the word splits into parts.",
+  build: "Now tap a piece to hear it, then tap a box to put it in. Put the pieces in order to build the word. Then press Check Word.",
+};
+
 function SyllableSafariGame({ onHome, onBack }) {
   const [roundIndex, setRoundIndex] = useState(0);
   const [phase, setPhase] = useState("split");
@@ -270,7 +276,7 @@ function SyllableSafariGame({ onHome, onBack }) {
 
       <AccessibilityToolbar />
       <GameHintBubble
-        instructions="First, listen to the word. Tap in between the letters where the word splits into parts. Next, tap a piece to hear it, then tap a box to put it in. Put the pieces in order to build the word. Then press Check Word."
+        instructions={HELP[phase]}
         message="Tap the pieces to hear them, then build the word in order!"
       />
     </section>

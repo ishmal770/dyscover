@@ -59,7 +59,10 @@ function AdventureMap({ onNext, onStartCanopy, onHome }) {
         </div>
       </div>
       <AccessibilityToolbar />
-      <GuideBubble fixedCharacter="sloth" message="Welcome to the jungle, explorer! Tap Start on a world to begin your adventure." />
+      <GuideBubble
+        fixedCharacter="sloth"
+        instructions="This is the jungle map. Each place is a world full of games. Tap the green Start button on a world to go there."
+        message="Welcome to the jungle, explorer! Tap Start on a world to begin your adventure." />
     </section>
   );
 }

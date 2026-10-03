@@ -15,6 +15,7 @@ import {
 } from "recharts";
 import { ArrowLeft, Users, Target, Clock, Award, Download } from "lucide-react";
 import { STUDENTS, getAggregateMetrics, getAggregateAccuracyTrend, getAggregateSkillBreakdown } from "../data/mockData";
+import HelpButton from "../components/HelpButton";
 import "./ClinicalOverview.css";
 
 function statusFor(mastery) {
@@ -59,6 +60,7 @@ function ClinicalOverview() {
           <h1>Clinical Overview</h1>
           <p>Real-time performance metrics and student progress tracking.</p>
         </div>
+        <HelpButton text="This page shows how all students are doing. The cards at the top give totals. The charts show accuracy over time and each skill's strength. Tap a student's name in the table to see their full report." />
         <button className="btn btn--outline" onClick={handleExport}>
           <Download size={14} /> Export Report
         </button>
