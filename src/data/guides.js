@@ -16,3 +16,6 @@ export const GUIDES = {
 };
 
 export const DEFAULT_GUIDE = "monkey";
+
+// The home-page host. Fixed (not in the chooser) and drawn in SlothArt.jsx.
+export const SLOTH = { id: "sloth", name: "Sunny", label: "Sunny the Sloth" };
