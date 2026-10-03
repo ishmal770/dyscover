@@ -9,9 +9,7 @@ import Homepage from "./pages/Homepage";
 import Login from "./pages/Login";
 import AdventureMap from "./pages/AdventureMap";
 import PlacementMission from "./pages/PlacementMission";
-import JungleGames from "./pages/JungleGames";
 import JungleGamesDetail from "./pages/JungleGamesDetail";
-import CanopyQuest from "./pages/CanopyQuest";
 import CanopyQuestDetail from "./pages/CanopyQuestDetail";
 import ParrotPairsGame from "./pages/ParrotPairsGame";
 import SyllableSafariGame from "./pages/SyllableSafariGame";
@@ -75,18 +73,15 @@ function KidGameApp() {
       <div ref={(el) => (sectionRefs.current.map = el)} className="scroller__section">
         <AdventureMap
           onNext={() => goTo("placement")}
-          onStartCanopy={() => goTo("canopy")}
+          onStartCanopy={() => goTo("canopyDetail")}
           onHome={() => goTo("home")}
         />
       </div>
       <div ref={(el) => (sectionRefs.current.placement = el)} className="scroller__section">
-        <PlacementMission onNext={() => goTo("jungle")} onHome={() => goTo("home")} />
+        <PlacementMission onNext={() => goTo("jungleDetail")} onHome={() => goTo("home")} />
       </div>
 
-      {/* World 1: Jungle Games - hub, its game list, then the 3 games themselves */}
-      <div ref={(el) => (sectionRefs.current.jungle = el)} className="scroller__section">
-        <JungleGames onHome={() => goTo("home")} onNext={() => goTo("jungleDetail")} />
-      </div>
+      {/* World 1: Jungle Games - game list, then the 3 games themselves */}
       <div ref={(el) => (sectionRefs.current.jungleDetail = el)} className="scroller__section">
         <JungleGamesDetail onHome={() => goTo("home")} onMap={() => goTo("map")} onPlayGame={playGame} />
       </div>
@@ -100,10 +95,7 @@ function KidGameApp() {
         <MonkeyMixUpGame onHome={() => goTo("home")} onBack={() => goTo("jungleDetail")} />
       </div>
 
-      {/* World 2: Canopy Quest - hub, its game list, then the 3 games themselves */}
-      <div ref={(el) => (sectionRefs.current.canopy = el)} className="scroller__section">
-        <CanopyQuest onHome={() => goTo("home")} onNext={() => goTo("canopyDetail")} />
-      </div>
+      {/* World 2: Canopy Quest - game list, then the 3 games themselves */}
       <div ref={(el) => (sectionRefs.current.canopyDetail = el)} className="scroller__section">
         <CanopyQuestDetail onHome={() => goTo("home")} onMap={() => goTo("map")} onPlayGame={playGame} />
       </div>

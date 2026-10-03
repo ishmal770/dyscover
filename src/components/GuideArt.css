@@ -1,0 +1,49 @@
+/* Styles for GuideArt.jsx - idle bob, blink, and wave animations */
+.guide-art {
+  display: block;
+  overflow: visible;
+}
+
+.guide-art__bob {
+  animation: guide-bob 3.2s ease-in-out infinite;
+  transform-box: view-box;
+  transform-origin: 60px 124px;
+}
+
+.guide-art__eye {
+  animation: guide-blink 4.6s infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.guide-art__arm {
+  transform-box: view-box;
+  transform-origin: 90px 92px;
+}
+
+.guide-art--waving .guide-art__arm {
+  animation: guide-wave 0.7s ease-in-out infinite;
+}
+
+@keyframes guide-bob {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-2.5px) rotate(1.2deg); }
+}
+
+@keyframes guide-blink {
+  0%, 92%, 100% { transform: scaleY(1); }
+  95% { transform: scaleY(0.1); }
+}
+
+@keyframes guide-wave {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-28deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .guide-art__bob,
+  .guide-art__eye,
+  .guide-art--waving .guide-art__arm {
+    animation: none;
+  }
+}
