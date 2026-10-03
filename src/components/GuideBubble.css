@@ -76,7 +76,7 @@
   to { transform: scale(1); opacity: 1; transform-origin: bottom right; }
 }
 
-/* Wide hosts (the home-page sloth) put the speech bubble above them */
+/* The sloth host puts his speech bubble above him */
 .guide-bubble--stacked {
   flex-direction: column;
   align-items: flex-end;
@@ -103,7 +103,7 @@
 }
 
 .guide-bubble--centered .guide-bubble__avatar .sloth-art {
-  width: min(380px, 80vw) !important;
+  width: min(135px, 36vw) !important;
 }
 
 /* Chooser */
@@ -187,7 +187,7 @@
   }
 
   .guide-bubble__avatar .sloth-art {
-    width: 210px !important;
+    width: 100px !important;
   }
 
   .guide-bubble__picker {
