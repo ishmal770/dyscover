@@ -1,11 +1,9 @@
-// Which jungle guide the child has chosen (sloth or monkey). Shared so every
+// Which jungle guide the child has chosen (one of the six animals). Shared so every
 // page's guide shows the same character, and remembered across visits.
 import { createContext, useContext, useState } from "react";
 
-const GUIDES = {
-  sloth: { id: "sloth", name: "Sunny", label: "Sunny the Sloth" },
-  monkey: { id: "monkey", name: "Momo", label: "Momo the Monkey" },
-};
+import { GUIDES, DEFAULT_GUIDE } from "../data/guides";
+
 const STORAGE_KEY = "dyscover-guide";
 
 const GuideContext = createContext(null);
@@ -18,7 +16,7 @@ function GuideProvider({ children }) {
     } catch {
       // storage unavailable - fall back to the default guide
     }
-    return "sloth";
+    return DEFAULT_GUIDE;
   });
 
   function chooseGuide(id) {

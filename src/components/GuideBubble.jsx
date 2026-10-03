@@ -1,6 +1,6 @@
-// The jungle guide (sloth or monkey) shown on onboarding/hub pages. When its
+// The jungle guide (one of six jungle animals) shown on onboarding/hub pages. When its
 // page scrolls into view it pops in, waves, and reads `message` aloud - that
-// is the "welcome". Tapping the guide opens a chooser to swap characters.
+// is the "welcome". Tapping the guide opens a chooser to swap animals.
 import { useEffect, useRef, useState } from "react";
 import { Volume2, X } from "lucide-react";
 import GuideArt from "./GuideArt";
@@ -71,7 +71,7 @@ function GuideBubble({ message }) {
                 onClick={() => pick(g.id)}
                 aria-pressed={g.id === guide.id}
               >
-                <GuideArt character={g.id} size={64} />
+                <GuideArt character={g.id} size={44} />
                 <span>{g.label}</span>
               </button>
             ))}
@@ -89,7 +89,7 @@ function GuideBubble({ message }) {
         onClick={() => setPickerOpen((open) => !open)}
         aria-label={`${guide.label} - tap to change your guide`}
       >
-        <GuideArt character={guide.id} waving={welcoming} size={84} />
+        <GuideArt character={guide.id} waving={welcoming} size={70} />
       </button>
     </div>
   );
