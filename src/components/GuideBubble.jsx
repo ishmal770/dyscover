@@ -48,7 +48,7 @@ function GuideBubble({ message, fixedCharacter, onAdvance, advanceHint, centered
           setWelcoming(true);
           if (audioUnlocked()) {
             setNeedsTap(false);
-            speak(spokenLine(guide, message));
+            speak(spokenLine(guide, message), { voice: guide.id });
           } else {
             setNeedsTap(true);
           }
@@ -71,14 +71,14 @@ function GuideBubble({ message, fixedCharacter, onAdvance, advanceHint, centered
 
   function advance() {
     setWelcoming(true);
-    speak("Let's go!");
+    speak("Let's go!", { voice: guide.id });
     setTimeout(onAdvance, 900);
   }
 
   function replay() {
     setNeedsTap(false);
     setWelcoming(true);
-    speak(spokenLine(guide, message));
+    speak(spokenLine(guide, message), { voice: guide.id });
     setTimeout(() => setWelcoming(false), WELCOME_MS);
   }
 
@@ -86,7 +86,7 @@ function GuideBubble({ message, fixedCharacter, onAdvance, advanceHint, centered
     chooseGuide(id);
     setPickerOpen(false);
     setWelcoming(true);
-    speak(spokenLine(guides[id], message, true));
+    speak(spokenLine(guides[id], message, true), { voice: id });
     setTimeout(() => setWelcoming(false), WELCOME_MS);
   }
 
@@ -117,7 +117,7 @@ function GuideBubble({ message, fixedCharacter, onAdvance, advanceHint, centered
       )}
       <div className="guide-bubble__message">
         <p>{message}</p>
-        <button className="guide-bubble__listen" onClick={() => speak(message)} aria-label="Hear the guide again">
+        <button className="guide-bubble__listen" onClick={() => speak(message, { voice: guide.id })} aria-label="Hear the guide again">
           <Volume2 size={14} />
         </button>
       </div>

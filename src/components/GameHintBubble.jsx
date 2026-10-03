@@ -19,7 +19,7 @@ function GameHintBubble({ message, character }) {
         <p>{message}</p>
         <div className="game-hint-bubble__actions">
           {/* Listen reads exactly what is written in the bubble */}
-          <button className="game-hint-bubble__btn" onClick={() => speak(message)}>
+          <button className="game-hint-bubble__btn" onClick={() => speak(message, { voice: character || guide.id })}>
             <Play size={11} fill="currentColor" /> Listen
           </button>
           {/* Speak (voice input) is disabled here - only Cheetah Challenge

@@ -29,10 +29,23 @@ OUT = ROOT / "public" / "audio"
 MANIFEST = SRC / "data" / "audioManifest.json"
 INDEX = ROOT / "scripts" / "audio-index.json"  # hash -> {key, say}, used as a cache
 
-VOICE = "af_sky"
-# Slow and clear for young readers: sentences slower than single words/letters.
-SENTENCE_SPEED = 0.76
-WORD_SPEED = 0.85
+# Voices. "default" reads words, letters, instructions and popups. Each guide
+# also has its own character voice for the lines it speaks itself (welcomes,
+# "Let's go!", hint-bubble messages). Everything is slow and clear for young
+# readers: sentences slower than single words/letters.
+#   pitch > 1 = higher and smaller, < 1 = deeper and bigger. It is applied by
+#   resampling (so the voice gets a bigger/smaller "body"), with the Kokoro
+#   speed pre-compensated so the final pace is still sentence/word below.
+VOICES = {
+    "default":  dict(voice="af_sky",    lang="en-us", pitch=1.00, sentence=0.76, word=0.85),
+    "sloth":    dict(voice="af_nicole", lang="en-us", pitch=0.96, sentence=0.68, word=0.78),
+    "monkey":   dict(voice="am_puck",   lang="en-us", pitch=1.08, sentence=0.80, word=0.85),
+    "mimi":     dict(voice="bf_lily",   lang="en-gb", pitch=1.20, sentence=0.78, word=0.85),
+    "lion":     dict(voice="am_onyx",   lang="en-us", pitch=0.90, sentence=0.72, word=0.80),
+    "cheetah":  dict(voice="am_liam",   lang="en-us", pitch=1.06, sentence=0.84, word=0.88),
+    "elephant": dict(voice="bf_emma",   lang="en-gb", pitch=0.90, sentence=0.72, word=0.80),
+    "gorilla":  dict(voice="am_fenrir", lang="en-us", pitch=0.84, sentence=0.68, word=0.78),
+}
 
 # How to say things that TTS gets wrong. Must match src/audio/speech.js clipKey().
 LETTER_NAMES = {
@@ -76,12 +89,59 @@ def require_in_source(rel: str, snippet: str) -> None:
         raise SystemExit(f"Spoken line no longer found in src/{rel}:\n  {snippet}\nUpdate scripts/build_audio.py.")
 
 
-SPEED_SIG = f"{SENTENCE_SPEED}/{WORD_SPEED}"
-lines: dict[str, str] = {}  # clip key -> what to actually say
+def voice_sig(name: str) -> str:
+    """Cache signature: re-record a clip when its voice settings change."""
+    v = VOICES[name]
+    if name == "default":
+        return f"{v['sentence']}/{v['word']}"  # unchanged from before voices existed
+    return json.dumps(v, sort_keys=True)
 
 
-def add(text: str, say: str | None = None, key: str | None = None) -> None:
-    lines.setdefault(key or clip_key(text), say or text)
+lines: dict[str, tuple[str, str]] = {}  # clip key -> (what to say, voice name)
+
+
+def add(text: str, say: str | None = None, key: str | None = None, voice: str = "default") -> None:
+    key = key or clip_key(text)
+    if voice != "default":
+        key = f"{voice}|{key}"  # same format speak(text, {voice}) looks up in speech.js
+    lines.setdefault(key, (say or text, voice))
+
+
+# Hint-bubble messages (what each game's guide says when you tap Listen).
+HINT_SOURCES = {
+    "pages/CheetahChallengeGame.jsx": "Ready, set, go! Say the word out loud as fast as you can.",
+    "pages/LionsLettersGame.jsx": "Tap the sound box to hear the letters, then trace them!",
+    "pages/ParrotPairsGame.jsx": "Can you find the letters that got mixed up? Tap the speaker to hear the word!",
+    "pages/SyllableSafariGame.jsx": "Tap the pieces to hear them, then build the word in order!",
+    "pages/MonkeyMixUpGame.jsx": "Amazing! You found the sound. Can you find another one?",
+}
+MONKEY_TRY = "Tap a vowel to try filling in the word!"
+CHEETAH_ONLY = HINT_SOURCES["pages/CheetahChallengeGame.jsx"]
+LION_ONLY = HINT_SOURCES["pages/LionsLettersGame.jsx"]
+
+
+def lizard_hints() -> list[str]:
+    return [f"Take your time! A '{l}' can be tricky to spot." for l in "bdpq"]
+
+
+def hint_say(msg: str) -> str:
+    m = re.fullmatch(r"Take your time! A '(\w)' can be tricky to spot\.", msg)
+    return f"Take your time! The letter {LETTER_NAMES[m.group(1)]} can be tricky to spot." if m else msg
+
+
+def all_hint_messages() -> list[str]:
+    return [*HINT_SOURCES.values(), MONKEY_TRY, *lizard_hints()]
+
+
+def hint_messages(guide_id: str) -> list[str]:
+    """Hint messages a given guide can be seen saying. Lion and cheetah are
+    pinned to their own game (and also appear as a chosen guide elsewhere)."""
+    shared = [m for m in all_hint_messages() if m not in (CHEETAH_ONLY, LION_ONLY)]
+    if guide_id == "lion":
+        return shared + [LION_ONLY]
+    if guide_id == "cheetah":
+        return shared + [CHEETAH_ONLY]
+    return shared
 
 
 def collect() -> None:
@@ -102,14 +162,22 @@ def collect() -> None:
     }
     for rel, msg in {**sloth_messages, **world_messages}.items():
         require_in_source(rel, msg)
-        add(msg)
-    # A guide introduces itself the first time it speaks (GuideBubble.spokenLine)
+        add(msg)  # neutral voice (also the fallback)
+    # Each guide speaks in its own voice. A guide introduces itself the first
+    # time it speaks (GuideBubble.spokenLine). Guide ids/names from guides.js.
+    guide_ids = re.findall(r'^  (\w+): \{ id: "\w+", name: "(\w+)"', guides_js, re.M)
+    animals = dict(guide_ids)  # id -> name
     for msg in sloth_messages.values():
-        add(f"Hi, I'm {sloth_name}! {msg}")
-    for name in animal_names:
-        for msg in world_messages.values():
-            add(f"Hi, I'm {name}! {msg}")
+        add(msg, voice="sloth")
+        add(f"Hi, I'm {sloth_name}! {msg}", voice="sloth")
+    add("Let's go!", voice="sloth")
     add("Let's go!")
+    for gid, name in animals.items():
+        for msg in world_messages.values():
+            add(msg, voice=gid)
+            add(f"Hi, I'm {name}! {msg}", voice=gid)
+        for msg in hint_messages(gid):
+            add(msg, say=hint_say(msg), voice=gid)
 
     # ---- page titles and info popups -------------------------------------
     games = re.findall(r'"(Parrot Pairs|Syllable Safari|Monkey Mix-Up|Lion\'s Letters|Lizard Lookouts|Cheetah Challenge)"', read("data/mockData.js"))
@@ -165,23 +233,15 @@ def collect() -> None:
     # ---- game instructions and hint-bubble messages ------------------------
     for sound_word in sound_words:
         add(f'Find the vowel that sounds like the one in "{sound_word}" to complete the word! Tap a vowel from the tray to complete the word.')
-    for rel, msg in {
-        "pages/CheetahChallengeGame.jsx": "Ready, set, go! Say the word out loud as fast as you can.",
-        "pages/LionsLettersGame.jsx": "Tap the sound box to hear the letters, then trace them!",
-        "pages/ParrotPairsGame.jsx": "Can you find the letters that got mixed up? Tap the speaker to hear the word!",
-        "pages/SyllableSafariGame.jsx": "Tap the pieces to hear them, then build the word in order!",
-        "pages/MonkeyMixUpGame.jsx": "Amazing! You found the sound. Can you find another one?",
-    }.items():
+    for rel, msg in HINT_SOURCES.items():
         require_in_source(rel, msg)
-        add(msg)
-    require_in_source("pages/MonkeyMixUpGame.jsx", "Tap a vowel to try filling in the word!")
-    add("Tap a vowel to try filling in the word!")
+    for msg in all_hint_messages():
+        add(msg, say=hint_say(msg))  # neutral fallback
 
     for letter in "bdpq":
         name = LETTER_NAMES[letter]
         add(f"Tap all the letter {letter}'s hiding in this sentence!", say=f"Tap every letter {name} hiding in this sentence!")
         add(f"Click all the {letter}s in this paragraph", say=f"Click every letter {name} in this paragraph!")
-        add(f"Take your time! A '{letter}' can be tricky to spot.", say=f"Take your time! The letter {name} can be tricky to spot.")
 
 
 def synthesize(model: str, voices: str, force: bool) -> None:
@@ -203,14 +263,22 @@ def synthesize(model: str, voices: str, force: bool) -> None:
     todo = [
         (h, key)
         for h, key in hashes.items()
-        if force or index.get(h, {}).get("say") != lines[key] or index.get(h, {}).get("speed") != SPEED_SIG or not (OUT / f"{h}.m4a").exists()
+        if force
+        or index.get(h, {}).get("say") != lines[key][0]
+        or index.get(h, {}).get("speed") != voice_sig(lines[key][1])
+        or not (OUT / f"{h}.m4a").exists()
     ]
     print(f"{len(lines)} lines, {len(todo)} to record")
 
     for n, (h, key) in enumerate(todo, 1):
-        say = re.sub(r"dyscover", "Discover", lines[key], flags=re.I)
-        speed = SENTENCE_SPEED if " " in say.strip() else WORD_SPEED
-        samples, rate = kokoro.create(say, voice=VOICE, speed=speed, lang="en-us")
+        text, voice_name = lines[key]
+        cfg = VOICES[voice_name]
+        say = re.sub(r"dyscover", "Discover", text, flags=re.I)
+        pace = cfg["sentence"] if " " in say.strip() else cfg["word"]
+        # pitch is applied by playing the samples back at a different sample
+        # rate, which also changes pace by the same factor - pre-compensate
+        samples, rate = kokoro.create(say, voice=cfg["voice"], speed=pace / cfg["pitch"], lang=cfg["lang"])
+        rate = int(rate * cfg["pitch"])
         samples = np.asarray(samples)
         loud = np.where(np.abs(samples) > 0.01)[0]  # trim leading/trailing silence
         if len(loud):
@@ -222,7 +290,7 @@ def synthesize(model: str, voices: str, force: bool) -> None:
             wav = Path(tmp) / "clip.wav"
             sf.write(wav, samples, rate)
             subprocess.run(["afconvert", "-f", "m4af", "-d", "aac", "-b", "48000", str(wav), str(OUT / f"{h}.m4a")], check=True)
-        index[h] = {"key": key, "say": lines[key], "speed": SPEED_SIG}
+        index[h] = {"key": key, "say": text, "speed": voice_sig(voice_name)}
         if n % 20 == 0:
             print(f"  {n}/{len(todo)}")
 
@@ -245,8 +313,8 @@ if __name__ == "__main__":
     args = ap.parse_args()
     collect()
     if args.list:
-        for k, v in lines.items():
-            print(f"{k!r} -> {v!r}")
+        for k, (say, voice) in lines.items():
+            print(f"[{voice}] {k!r} -> {say!r}")
         print(len(lines), "lines")
     else:
         synthesize(args.model, args.voices, args.force)
