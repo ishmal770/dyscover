@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Trophy, Volume2, Share2, Star, Play, ArrowLeft } from "lucide-react";
 import AccessibilityToolbar from "../components/AccessibilityToolbar";
+import GuideBubble from "../components/GuideBubble";
 import { speak } from "../components/GameHintBubble";
 import { GAME_TROPHIES, SKILL_FILTERS } from "../data/mockData";
 import "./TrophyRoom.css";
@@ -107,6 +108,10 @@ function TrophyRoom() {
       })}
 
       <AccessibilityToolbar />
+      <GuideBubble
+        message="Look at all the trophies you have won! Tap Play Again to play a game once more."
+        instructions="This is your trophy room. Each card is a game you have played, and the stars show how well you did. Tap Play Again to try a game once more. Tap a skill at the top to see only those games."
+      />
     </div>
   );
 }

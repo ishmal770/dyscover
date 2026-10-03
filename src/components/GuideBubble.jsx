@@ -2,7 +2,7 @@
 // page scrolls into view it pops in, waves, and reads `message` aloud - that
 // is the "welcome". Tapping the guide opens a chooser to swap animals.
 import { useEffect, useRef, useState } from "react";
-import { Volume2, X } from "lucide-react";
+import { Volume2, X, HelpCircle } from "lucide-react";
 import GuideArt from "./GuideArt";
 import { speak, cancelSpeech, audioUnlocked } from "./GameHintBubble";
 import { useGuide } from "../context/GuideContext";
@@ -24,7 +24,9 @@ function spokenLine(guide, message, forceIntro = false) {
 // `onAdvance` makes the guide the "next" button: tapping him says a cheer and
 // moves the child on, with `advanceHint` shown as a pulsing label.
 // `centered` places him in the page flow instead of the bottom-right corner.
-function GuideBubble({ message, fixedCharacter, onAdvance, advanceHint, centered }) {
+// `instructions` adds a "How to use this page" button: the guide reads it aloud
+// (only when asked) and the words show in the bubble.
+function GuideBubble({ message, fixedCharacter, onAdvance, advanceHint, centered, instructions }) {
   const { guide: chosen, guides, chooseGuide } = useGuide();
   const guide = fixedCharacter === "sloth" ? SLOTH : chosen;
   const canChoose = !fixedCharacter;
@@ -34,6 +36,8 @@ function GuideBubble({ message, fixedCharacter, onAdvance, advanceHint, centered
   // True when the browser blocked the automatic welcome (no click yet) so we
   // show a "tap me to hear" prompt instead of staying silently mute.
   const [needsTap, setNeedsTap] = useState(false);
+  const [showHow, setShowHow] = useState(false);
+  const [asking, setAsking] = useState(false);
   const guideName = guide.name;
 
   // All pages stay mounted in the horizontal strip, so "arriving" means this
@@ -57,6 +61,7 @@ function GuideBubble({ message, fixedCharacter, onAdvance, advanceHint, centered
           clearTimeout(timer);
           setWelcoming(false);
           setPickerOpen(false);
+          setShowHow(false);
           cancelSpeech();
         }
       },
@@ -68,6 +73,14 @@ function GuideBubble({ message, fixedCharacter, onAdvance, advanceHint, centered
       observer.disconnect();
     };
   }, [message, guideName]);
+
+  function askHowToUse() {
+    setNeedsTap(false);
+    setShowHow(true);
+    setAsking(true);
+    speak(instructions, { voice: guide.id });
+    setTimeout(() => setAsking(false), 3500);
+  }
 
   function advance() {
     setWelcoming(true);
@@ -116,8 +129,20 @@ function GuideBubble({ message, fixedCharacter, onAdvance, advanceHint, centered
         </div>
       )}
       <div className="guide-bubble__message">
-        <p>{message}</p>
-        <button className="guide-bubble__listen" onClick={() => speak(message, { voice: guide.id })} aria-label="Hear the guide again">
+        <div className="guide-bubble__message-body">
+          <p>{message}</p>
+          {showHow && instructions && <p className="guide-bubble__how">{instructions}</p>}
+          {instructions && (
+            <button className="guide-bubble__how-btn" onClick={askHowToUse}>
+              <HelpCircle size={14} /> How to use this page
+            </button>
+          )}
+        </div>
+        <button className="guide-bubble__listen" onClick={() => {
+            setNeedsTap(false);
+            speak(message, { voice: guide.id });
+          }}
+          aria-label="Hear the guide again">
           <Volume2 size={14} />
         </button>
       </div>
@@ -126,7 +151,7 @@ function GuideBubble({ message, fixedCharacter, onAdvance, advanceHint, centered
         onClick={onAdvance ? advance : canChoose && !needsTap ? () => setPickerOpen((open) => !open) : replay}
         aria-label={onAdvance ? `${guide.label} - tap to continue` : canChoose ? `${guide.label} - tap to change your guide` : `${guide.label} - tap to hear the welcome again`}
       >
-        <GuideArt character={guide.id} waving={welcoming} size={fixedCharacter === "sloth" ? 150 : 130} />
+        <GuideArt character={guide.id} waving={welcoming || asking} size={fixedCharacter === "sloth" ? 150 : 130} />
         {(advanceHint || needsTap) && <span className="guide-bubble__tap-hint">{advanceHint || "Tap me to hear!"}</span>}
       </button>
     </div>

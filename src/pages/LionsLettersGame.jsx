@@ -15,6 +15,13 @@ const ROUNDS = LETTERS.flatMap((letter, i) => [
   { type: "word", value: WORDS[i] },
 ]);
 
+// What the guide reads when asked for help, for each part of the game.
+const HELP = {
+  letter: "Tap the sound box to hear the letter. Then trace the letter with your finger on the lines. Then press Continue.",
+  spell: "Tap each number to hear a letter. Then trace that letter. When every letter is done, press Continue.",
+  word: "Now write the whole word with your finger on the lines. Then press Continue.",
+};
+
 function LionsLettersGame({ onHome, onBack }) {
   const [roundIndex, setRoundIndex] = useState(0);
   const [heardSound, setHeardSound] = useState(false);
@@ -165,7 +172,7 @@ function LionsLettersGame({ onHome, onBack }) {
 
       <AccessibilityToolbar />
       <GameHintBubble
-        instructions="Tap the sound box to hear the letter. Then trace the letter with your finger on the lines. For words, tap each number to hear a letter and trace it. Then write the whole word."
+        instructions={round.type === "letter" ? HELP.letter : wordPhase === "letters" ? HELP.spell : HELP.word}
         character="lion"
         message="Tap the sound box to hear the letters, then trace them!"
       />

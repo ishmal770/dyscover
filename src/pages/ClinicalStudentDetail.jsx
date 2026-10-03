@@ -10,6 +10,7 @@ import {
 } from "recharts";
 import { ArrowLeft, FileDown, MessageSquare, ListChecks, Sparkles, Download } from "lucide-react";
 import { STUDENTS } from "../data/mockData";
+import HelpButton from "../components/HelpButton";
 import "./ClinicalStudentDetail.css";
 
 function downloadCsv(filename, rows) {
@@ -61,6 +62,7 @@ function ClinicalStudentDetail() {
             Expert analysis for <strong>{student.name}</strong> &middot; Last active {student.lastActive}
           </p>
         </div>
+        <HelpButton text="This is one student's full report. The chart shows their skills, and the bars show progress in each game. Write notes in the box, and use the buttons to export the report or download their data." />
         <button className="btn btn--outline" onClick={() => window.print()}>
           <FileDown size={14} /> Export Clinical PDF
         </button>

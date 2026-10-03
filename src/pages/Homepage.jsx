@@ -19,6 +19,7 @@ function Homepage({ onNext }) {
           centered
           onAdvance={onNext}
           advanceHint="Tap me to start!"
+          instructions="Tap me to start your adventure. Tap the speaker to hear me again. Grown-ups can use the links at the bottom of the page."
           message="Welcome to DysCover! Tap me and I'll take you on a jungle adventure."
         />
         {/* Only way to reach the parent/clinician/expert dashboards - they

@@ -33,6 +33,7 @@ function JungleGamesDetail({ onHome, onMap, onPlayGame }) {
       onHome={onHome}
       onMap={onMap}
       onStartGame={onPlayGame}
+      guideInstructions="These are the Jungle Games. Tap a game to read about it. Then press Start Playing. Tap Map to go back to the map."
       guideMessage="Welcome to the Jungle Games! Tap a game to see how to play, then press Start."
     />
   );

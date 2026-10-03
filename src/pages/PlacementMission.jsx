@@ -28,6 +28,7 @@ function PlacementMission({ onNext, onHome }) {
       <AccessibilityToolbar />
       <GuideBubble
         fixedCharacter="sloth"
+        instructions="We will play a few short games so I can build your perfect map. Tap me when you are ready to begin."
         onAdvance={onNext}
         advanceHint="Tap me to play!"
         message="Let's play a few quick games so I can build your perfect map. Tap me when you are ready!"

@@ -227,6 +227,11 @@
   color: var(--amber);
 }
 
+/* the guide floats over this long, scrolling page instead of sitting at its far bottom */
+.trophy-room .guide-bubble {
+  position: fixed;
+}
+
 .trophy-room__card a.btn {
   text-decoration: none;
   white-space: nowrap;

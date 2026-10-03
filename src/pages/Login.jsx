@@ -33,6 +33,7 @@ function Login({ onNext }) {
       </form>
       <GuideBubble
         fixedCharacter="sloth"
+        instructions="Type your explorer name and your secret code. Then tap Log In. If you are new, tap Create Account."
         message="Tell me your explorer name and secret code, then tap Log In. New here? Tap Create Account!"
       />
     </section>

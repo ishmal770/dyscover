@@ -46,7 +46,7 @@ function ActivityRow({ activity, isOpen, onSelect }) {
   );
 }
 
-function WorldHub({ worldLabel, title, activities, progressLabel, masteryStars, masteryTotal, onHome, onMap, onStartGame, guideMessage }) {
+function WorldHub({ worldLabel, title, activities, progressLabel, masteryStars, masteryTotal, onHome, onMap, onStartGame, guideMessage, guideInstructions }) {
   // Which activity's intro modal is currently open, if any
   const [openActivity, setOpenActivity] = useState(null);
 
@@ -110,7 +110,7 @@ function WorldHub({ worldLabel, title, activities, progressLabel, masteryStars, 
         </div>
       </div>
       <AccessibilityToolbar />
-      <GuideBubble message={guideMessage} />
+      <GuideBubble message={guideMessage} instructions={guideInstructions} />
     </section>
   );
 }

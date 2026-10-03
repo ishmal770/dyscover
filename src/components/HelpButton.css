@@ -1,0 +1,72 @@
+/* Styles for HelpButton.jsx - the "?" help control on the dashboards */
+.help-button {
+  position: relative;
+}
+
+.help-button__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  background: var(--white);
+  color: var(--ink);
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.help-button__panel {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 20;
+  width: min(300px, 86vw);
+  padding: 14px;
+  background: var(--white);
+  border-radius: 14px;
+  box-shadow: var(--shadow-card);
+}
+
+.help-button__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+}
+
+.help-button__header button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: none;
+  border-radius: 50%;
+  background: var(--green-paler);
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+
+.help-button__panel p {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+.help-button__listen {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  padding: 7px 14px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--green-pale);
+  color: var(--green-dark);
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+}
