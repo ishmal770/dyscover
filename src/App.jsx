@@ -3,6 +3,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AccessibilityProvider } from "./context/AccessibilityContext";
 import { GuideProvider } from "./context/GuideContext";
+import { ProgressProvider } from "./context/ProgressContext";
 import KidGameApp from "./KidGameApp"; // the horizontal-scroll game experience
 import TrophyRoom from "./pages/TrophyRoom";
 import ClinicalOverview from "./pages/ClinicalOverview";
@@ -13,6 +14,7 @@ function App() {
   return (
     <AccessibilityProvider>
       <GuideProvider>
+      <ProgressProvider>
       <BrowserRouter>
         <Routes>
           {/* Main kid app: onboarding, worlds, and all mini-games */}
@@ -27,6 +29,7 @@ function App() {
           <Route path="/expert" element={<ExpertDashboard />} />
         </Routes>
       </BrowserRouter>
+      </ProgressProvider>
       </GuideProvider>
     </AccessibilityProvider>
   );

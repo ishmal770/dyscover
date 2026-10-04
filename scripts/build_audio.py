@@ -156,15 +156,20 @@ GAME_HELP = {
 PAGE_HELP_SLOTH = {
     "pages/Homepage.jsx": "Tap me to start your adventure. Tap the speaker to hear me again. Grown-ups can use the links at the bottom of the page.",
     "pages/Login.jsx": "Type your explorer name and your secret code. Then tap Log In. If you are new, tap Create Account.",
-    "pages/AdventureMap.jsx": "This is the jungle map. Each place is a world full of games. Tap the green Start button on a world to go there.",
     "pages/PlacementMission.jsx": "We will play a few short games so I can build your perfect map. Tap me when you are ready to begin.",
+    "pages/Dashboard.jsx": "This is your home base. The flame counts the days in a row that you play. The bar shows today's goal. Tap Start to begin your next lesson, or open the map to choose a world.",
 }
 PAGE_HELP_ANIMALS = {
-    "pages/JungleGamesDetail.jsx": "These are the Jungle Games. Tap a game to read about it. Then press Start Playing. Tap Map to go back to the map.",
-    "pages/CanopyQuestDetail.jsx": "These are the Canopy Quest games. Tap a game to read about it. Then press Start Playing. Tap Map to go back to the map.",
+    "pages/AdventureMap.jsx": "This is your adventure map. Each circle is a lesson. Finish one to open the next. Tap the glowing circle, then press Start. Tap the logo to go back home.",
     "pages/TrophyRoom.jsx": "This is your trophy room. Each card is a game you have played, and the stars show how well you did. Tap Play Again to try a game once more. Tap a skill at the top to see only those games.",
 }
 TROPHY_MESSAGE = "Look at all the trophies you have won! Tap Play Again to play a game once more."
+# Said by the game's guide on the "Lesson complete" screen (by stars earned)
+LESSON_CHEERS = [
+    "Lesson complete! Amazing work, you got three stars!",
+    "Lesson complete! Great job, you got two stars!",
+    "Lesson complete! Good try, you got one star. Practice makes you stronger!",
+]
 DASHBOARD_HELP = {
     "pages/ClinicalOverview.jsx": "This page shows how all students are doing. The cards at the top give totals. The charts show accuracy over time and each skill's strength. Tap a student's name in the table to see their full report.",
     "pages/ClinicalStudentDetail.jsx": "This is one student's full report. The chart shows their skills, and the bars show progress in each game. Write notes in the box, and use the buttons to export the report or download their data.",
@@ -208,12 +213,11 @@ def collect() -> None:
     sloth_messages = {
         "pages/Homepage.jsx": "Welcome to DysCover! Tap me and I'll take you on a jungle adventure.",
         "pages/Login.jsx": "Tell me your explorer name and secret code, then tap Log In. New here? Tap Create Account!",
-        "pages/AdventureMap.jsx": "Welcome to the jungle, explorer! Tap Start on a world to begin your adventure.",
         "pages/PlacementMission.jsx": "Let's play a few quick games so I can build your perfect map. Tap me when you are ready!",
+        "pages/Dashboard.jsx": "Welcome back, explorer! Tap Start to keep learning.",
     }
     world_messages = {
-        "pages/JungleGamesDetail.jsx": "Welcome to the Jungle Games! Tap a game to see how to play, then press Start.",
-        "pages/CanopyQuestDetail.jsx": "Welcome to Canopy Quest, high up in the trees! Tap a game to see how to play, then press Start.",
+        "pages/AdventureMap.jsx": "Welcome to the Adventure Map! Follow the path and tap the glowing circle to start your next lesson.",
     }
     for rel, msg in {**sloth_messages, **world_messages}.items():
         require_in_source(rel, msg)
@@ -244,6 +248,8 @@ def collect() -> None:
             add(text, voice=gid)
         add(TROPHY_MESSAGE, voice=gid)
         add(f"Hi, I'm {name}! {TROPHY_MESSAGE}", voice=gid)
+        for cheer in LESSON_CHEERS:
+            add(cheer, voice=gid)
 
     # ---- page titles and info popups -------------------------------------
     games = re.findall(r'"(Parrot Pairs|Syllable Safari|Monkey Mix-Up|Lion\'s Letters|Lizard Lookouts|Cheetah Challenge)"', read("data/mockData.js"))
@@ -255,12 +261,9 @@ def collect() -> None:
     for w in re.findall(r'world: "([^"]+)"', read("data/mockData.js")):
         add(w)
 
-    intro = "Look closely at the big word on top. Then, find the word below that looks exactly the same!"
-    require_in_source("components/GameIntroModal.jsx", intro)
     add("DysCover is a reading adventure game. Explore the map, play games in each world, and collect stars!")
     require_in_source("components/InfoPopover.jsx", "DysCover is a reading adventure game. Explore the map, play games in each world, and collect stars!")
     for g in games:
-        add(f"Let's play {g}! {intro}")
         add(f"You're playing {g}! Tap any speaker icon to hear words read aloud, and use the buttons on screen to answer.")
 
     # ---- letters ---------------------------------------------------------
@@ -311,6 +314,9 @@ def collect() -> None:
             add(text)  # neutral voice / fallback (dashboards use only this)
     require_in_source("pages/TrophyRoom.jsx", TROPHY_MESSAGE)
     add(TROPHY_MESSAGE)
+    for cheer in LESSON_CHEERS:
+        require_in_source("components/LessonComplete.jsx", cheer)
+        add(cheer)
     for rel, msg in HINT_SOURCES.items():
         require_in_source(rel, msg)
     for msg in all_hint_messages():

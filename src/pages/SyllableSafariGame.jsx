@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Star, Volume2, Check, RotateCcw, Home } from "lucide-react";
+import { Star, Volume2, Check } from "lucide-react";
 import GameTopBar from "../components/GameTopBar";
+import LessonComplete from "../components/LessonComplete";
 import AccessibilityToolbar from "../components/AccessibilityToolbar";
 import GameHintBubble, { speak } from "../components/GameHintBubble";
 import "./SyllableSafariGame.css";
@@ -162,18 +163,7 @@ function SyllableSafariGame({ onHome, onBack }) {
     return (
       <section className="page syllable-game">
         <GameTopBar gameName="Syllable Safari" onHome={onHome} onBack={onBack} />
-        <div className="syllable-game__complete">
-          <h1>Game Session Completed!</h1>
-          <p>You built {ROUNDS.length} words.</p>
-          <div className="syllable-game__complete-actions">
-            <button className="btn btn--outline" onClick={handlePlayAgain}>
-              <RotateCcw size={14} /> Play Again
-            </button>
-            <button className="btn btn--primary" onClick={onBack}>
-              <Home size={14} /> Back to World
-            </button>
-          </div>
-        </div>
+        <LessonComplete lessonId="syllableSafariGame" stars={stars} onPlayAgain={handlePlayAgain} onBack={onBack} />
         <AccessibilityToolbar />
       </section>
     );

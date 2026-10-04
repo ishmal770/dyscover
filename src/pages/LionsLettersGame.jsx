@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Volume2, ArrowRight, RotateCcw, Home } from "lucide-react";
+import { Volume2, ArrowRight } from "lucide-react";
 import GameTopBar from "../components/GameTopBar";
+import LessonComplete from "../components/LessonComplete";
 import AccessibilityToolbar from "../components/AccessibilityToolbar";
 import GameHintBubble, { speak } from "../components/GameHintBubble";
 import LetterTraceCanvas from "../components/LetterTraceCanvas";
@@ -78,18 +79,7 @@ function LionsLettersGame({ onHome, onBack }) {
     return (
       <section className="page lions-game">
         <GameTopBar gameName="Lion's Letters" onHome={onHome} onBack={onBack} />
-        <div className="lions-game__complete">
-          <h1>Game Session Completed!</h1>
-          <p>You practiced {LETTERS.length} letters and {WORDS.length} words.</p>
-          <div className="lions-game__complete-actions">
-            <button className="btn btn--outline" onClick={handlePlayAgain}>
-              <RotateCcw size={14} /> Play Again
-            </button>
-            <button className="btn btn--primary" onClick={onBack}>
-              <Home size={14} /> Back to World
-            </button>
-          </div>
-        </div>
+        <LessonComplete lessonId="lionsLettersGame" stars={3} character="lion" onPlayAgain={handlePlayAgain} onBack={onBack} />
         <AccessibilityToolbar />
       </section>
     );
