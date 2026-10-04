@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AccessibilityProvider } from "./context/AccessibilityContext";
 import { GuideProvider } from "./context/GuideContext";
 import { ProgressProvider } from "./context/ProgressContext";
+import HelpMode from "./components/HelpMode";
 import KidGameApp from "./KidGameApp"; // the horizontal-scroll game experience
 import Backpack from "./pages/Backpack";
 import ClinicalOverview from "./pages/ClinicalOverview";
@@ -16,6 +17,7 @@ function App() {
       <GuideProvider>
       <ProgressProvider>
       <BrowserRouter>
+        <HelpMode />
         <Routes>
           {/* Main kid app: onboarding, worlds, and all mini-games */}
           <Route path="/" element={<KidGameApp />} />

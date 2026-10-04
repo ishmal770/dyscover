@@ -1,4 +1,5 @@
 // All data in this file is fake/illustrative - there is no backend yet.
+import { makePractice } from "./consistency.js";
 
 export const GAME_TROPHIES = [
   {
@@ -30,6 +31,7 @@ const accuracyTrendTemplate = (start) =>
 export const STUDENTS = [
   {
     id: "leo-carter",
+    practice: makePractice(11, 0.55),
     name: "Leo Carter",
     grade: "3rd Grade",
     lastActive: "Today, 10:45 AM",
@@ -123,6 +125,7 @@ export const STUDENTS = [
   },
   {
     id: "emma-davis",
+    practice: makePractice(7, 0.82),
     name: "Emma Davis",
     grade: "2nd Grade",
     lastActive: "Today, 8:00 AM",

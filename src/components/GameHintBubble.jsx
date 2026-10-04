@@ -7,7 +7,9 @@
 // (The speech functions live in src/audio/speech.js and are re-exported here
 // because most of the app imports them from this file.)
 import { useEffect, useRef, useState } from "react";
-import { Play, HelpCircle } from "lucide-react";
+import { createPortal } from "react-dom";
+import { Play, HelpCircle, Film } from "lucide-react";
+import GameDemo from "./GameDemo";
 import GuideArt from "./GuideArt";
 import { useGuide } from "../context/GuideContext";
 import { speak, cancelSpeech, audioUnlocked } from "../audio/speech";
@@ -20,12 +22,13 @@ const WELCOME_MS = 4500;
 // `character` pins this game's own mascot (e.g. the lion in Lion's Letters);
 // otherwise the child's chosen guide is shown. `instructions` is the how-to-play
 // text for the current step of the game.
-function GameHintBubble({ message, character, instructions }) {
+function GameHintBubble({ message, character, instructions, demo }) {
   const { guide } = useGuide();
   const guideId = character || guide.id;
   const rootRef = useRef(null);
   const [showHow, setShowHow] = useState(false);
   const [asking, setAsking] = useState(false);
+  const [showDemo, setShowDemo] = useState(false);
   const [welcoming, setWelcoming] = useState(false);
   // True when the browser blocked the automatic welcome (no click yet)
   const [needsTap, setNeedsTap] = useState(false);
@@ -106,6 +109,17 @@ function GameHintBubble({ message, character, instructions }) {
               <HelpCircle size={12} /> How to play
             </button>
           )}
+          {demo && (
+            <button
+              className="game-hint-bubble__btn game-hint-bubble__btn--demo"
+              onClick={() => {
+                cancelSpeech();
+                setShowDemo(true);
+              }}
+            >
+              <Film size={12} /> Watch demo
+            </button>
+          )}
         </div>
       </div>
       {/* Tapping the guide is the same as asking how to play */}
@@ -117,6 +131,7 @@ function GameHintBubble({ message, character, instructions }) {
         <GuideArt character={guideId} waving={asking || welcoming} size={84} />
         {needsTap && <span className="game-hint-bubble__tap-hint">Tap me to hear!</span>}
       </button>
+      {showDemo && createPortal(<GameDemo demoId={demo} onClose={() => setShowDemo(false)} />, document.body)}
     </div>
   );
 }

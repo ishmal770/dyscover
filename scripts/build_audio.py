@@ -61,6 +61,15 @@ SYLLABLE_SAY = {
     "but": "but", "ter": "tur", "fly": "fly", "el": "el", "e": "eh", "phant": "fant",
     "com": "kom", "pu": "pew", "nan": "nan", "ba": "buh", "a": "uh", "di": "dye",
     "no": "no", "saur": "sore", "ad": "ad", "ven": "ven", "ture": "cher",
+    "bas": "bass", "ket": "ket", "mon": "mun", "key": "key", "flow": "flow", "er": "ur",
+    "pup": "pup", "can": "can", "dy": "dee", "ro": "roe", "bot": "bot", "piz": "peet", "za": "sah",
+    "um": "um", "brel": "brel", "la": "lah", "to": "toe", "ma": "may", "kan": "kang", "ga": "guh",
+    "roo": "roo", "ham": "ham", "bur": "bur", "vol": "vol", "ca": "kay",
+    "tel": "tel", "phone": "phone", "hel": "hel", "i": "ih", "cop": "cop", "al": "al", "li": "lih",
+    "tor": "tor", "wa": "waw", "mel": "mel", "on": "on", "pine": "pine", "ap": "ap", "ple": "pull",
+    "mi": "my", "cro": "crow", "scope": "scope", "as": "as", "tro": "troh", "naut": "not",
+    "cat": "cat", "pil": "pil", "lar": "ler", "bi": "by", "cy": "sigh", "cle": "kul",
+    "skate": "skate", "board": "board",
 }
 
 
@@ -78,6 +87,13 @@ def clip_key(text: str) -> str:
     text = text.replace("‘", "'").replace("’", "'")
     text = re.sub(r"dyscover", "discover", text, flags=re.I)
     return re.sub(r"\s+", " ", text).strip().lower()
+
+
+def node_json(rel: str) -> dict:
+    """Load every export of a plain-data JS module (src/<rel>) as JSON, via Node."""
+    code = f"import * as m from {json.dumps('file://' + str(SRC / rel))}; console.log(JSON.stringify(m));"
+    out = subprocess.run(["node", "--input-type=module", "-e", code], check=True, capture_output=True, text=True)
+    return json.loads(out.stdout)
 
 
 def read(rel: str) -> str:
@@ -158,13 +174,13 @@ PAGE_HELP_SLOTH = {
     "pages/Login.jsx": "Type your explorer name and your secret code. Then tap Log In. If you are new, tap Create Account.",
     "pages/PlacementMission.jsx": "We will play a few short games so I can build your perfect map. Tap me when you are ready to begin.",
     "pages/Dashboard.jsx": "This is your home base. The flame counts the days in a row that you play. The bar shows today's goal. Tap Start to begin your next lesson, or open the map to choose a world. Tap your picture to open your profile.",
-    "pages/Profile.jsx": "This is your profile. Tap a picture to make it your avatar. Pictures with a lock need more levels, stars or trophies. Tap the pencil to change your name.",
+    "pages/Profile.jsx": "This is your profile. Tap a picture to make it your avatar. Pictures with a lock need more levels, stars or treasures. Tap the pencil to change your name.",
 }
 PAGE_HELP_ANIMALS = {
     "pages/AdventureMap.jsx": "This is your adventure map. Each circle is a lesson. Finish one to open the next. Tap the glowing circle, then press Start. Tap the logo to go back home.",
-    "pages/TrophyRoom.jsx": "This is your trophy room. Each card is a game you have played, and the stars show how well you did. Tap Play Again to try a game once more. Tap a skill at the top to see only those games.",
+    "pages/Backpack.jsx": "This is your backpack. Every lesson you finish puts a new treasure inside. Finish all the lessons in a unit to win its gem. Tap Play again to practice a lesson, or tap the speaker to hear about a treasure.",
 }
-TROPHY_MESSAGE = "Look at all the trophies you have won! Tap Play Again to play a game once more."
+TROPHY_MESSAGE = "Look at all the treasures in your backpack! Finish lessons to find more."
 # Said by the game's guide on the "Lesson complete" screen (by stars earned)
 LESSON_CHEERS = [
     "Lesson complete! Amazing work, you got three stars!",
@@ -174,7 +190,7 @@ LESSON_CHEERS = [
 DASHBOARD_HELP = {
     "pages/ClinicalOverview.jsx": "This page shows how all students are doing. The cards at the top give totals. The charts show accuracy over time and each skill's strength. Tap a student's name in the table to see their full report.",
     "pages/ClinicalStudentDetail.jsx": "This is one student's full report. The chart shows their skills, and the bars show progress in each game. Write notes in the box, and use the buttons to export the report or download their data.",
-    "pages/ExpertDashboard.jsx": "This is the expert view. Pick a student on the left. Use the tabs to switch between progress, raw data, and practice suggestions.",
+    "pages/ExpertDashboard.jsx": "This is the expert view. Pick a student on the left. The first one is the child using this device, with real numbers. The calendar shows how steadily they practice. Use the tabs to switch between progress, raw data, and practice suggestions.",
 }
 PINNED_GAMES = {"pages/LionsLettersGame.jsx": "lion", "pages/CheetahChallengeGame.jsx": "cheetah"}
 CHEETAH_ONLY = HINT_SOURCES["pages/CheetahChallengeGame.jsx"]
@@ -259,7 +275,6 @@ def collect() -> None:
     assert len(games) == 6, games
     add("Jungle Games")
     add("Canopy Quest")
-    add("My Trophy Room")
     for w in re.findall(r'world: "([^"]+)"', read("data/mockData.js")):
         add(w)
 
@@ -268,33 +283,29 @@ def collect() -> None:
     for g in games:
         add(f"You're playing {g}! Tap any speaker icon to hear words read aloud, and use the buttons on screen to answer.")
 
-    # ---- letters ---------------------------------------------------------
-    for letter, name in LETTER_NAMES.items():
-        if letter in "bdpqcmtgraeiou":  # the letters the games actually speak
-            add(letter, say=name)
+    # ---- data-driven lines: gates, treasures, demos, help tips, quiz, banks ----
+    spoken = node_json("data/spoken.js")
+    for text in spoken["NEUTRAL_LINES"]:
+        add(text)
+    for text in spoken["SLOTH_LINES"]:
+        add(text, voice="sloth")
 
-    # ---- words (every game) ----------------------------------------------
-    words: set[str] = set()
-    for a, b in re.findall(r'word1: "(\w+)", word2: "(\w+)"', read("pages/ParrotPairsGame.jsx")):
-        words |= {a, b}
-    words |= set(re.findall(r'word: "(\w+)", syllables', read("pages/SyllableSafariGame.jsx")))
-    words |= set(re.findall(r'"(\w+)"', re.search(r"const WORDS = \[(.*?)\]", read("pages/CheetahChallengeGame.jsx"), re.S).group(1)))
-    words |= set(re.findall(r'"(\w+)"', re.search(r"const WORDS = \[(.*?)\]", read("pages/LionsLettersGame.jsx"), re.S).group(1)))
+    # letters (the games speak them by name)
+    for letter, name in LETTER_NAMES.items():
+        add(letter, say=name)
+
+    # words (every game, every grade band)
+    words = set(spoken["WORDS"])
     monkey = read("pages/MonkeyMixUpGame.jsx")
-    for template, answer in re.findall(r"template: \[(.*?)\], answer: \"(\w)\"", monkey):
-        parts = [p.strip() for p in template.split(",")]
-        words.add("".join(answer if p == "null" else p.strip('"') for p in parts))
-    words |= set(w for w in re.findall(r'"(\w+)"', re.search(r"const BONUS_WORDS = \[(.*?)\]", monkey, re.S).group(1)))
+    words |= set(w.lower() for w in re.findall(r'"(\w+)"', re.search(r"const BONUS_WORDS = \[(.*?)\]", monkey, re.S).group(1)))
     examples = re.search(r"const SOUND_EXAMPLES = \{(.*?)\}", monkey, re.S).group(1)
     sound_words = re.findall(r'\w+: "(\w+)"', examples)
     words |= set(sound_words)
     for w in sorted(words):
         add(w.lower())
 
-    # ---- syllable pieces -------------------------------------------------
-    pieces = set()
-    for syl in re.findall(r"syllables: \[(.*?)\]", read("pages/SyllableSafariGame.jsx")):
-        pieces |= set(p.lower() for p in re.findall(r'"(\w+)"', syl))
+    # syllable pieces
+    pieces = set(spoken["PIECES"])
     missing = pieces - set(SYLLABLE_SAY)
     if missing:
         raise SystemExit(f"Add pronunciations for syllable pieces: {sorted(missing)}")
@@ -314,7 +325,7 @@ def collect() -> None:
         for rel, text in table.items():
             require_in_source(rel, text)
             add(text)  # neutral voice / fallback (dashboards use only this)
-    require_in_source("pages/TrophyRoom.jsx", TROPHY_MESSAGE)
+    require_in_source("pages/Backpack.jsx", TROPHY_MESSAGE)
     add(TROPHY_MESSAGE)
     for cheer in LESSON_CHEERS:
         require_in_source("components/LessonComplete.jsx", cheer)

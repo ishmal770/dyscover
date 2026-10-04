@@ -1,0 +1,99 @@
+.consistency__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.consistency__status {
+  padding: 5px 14px;
+  border-radius: var(--radius-pill);
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.consistency__status--good { background: #dff3d3; color: #2f7d1f; }
+.consistency__status--ok { background: var(--amber-bg); color: var(--amber); }
+.consistency__status--low { background: #fdecec; color: #b53a3a; }
+
+.consistency__stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 10px;
+  margin: 14px 0;
+}
+
+.consistency__stats > div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.consistency__stats svg { color: var(--green-dark); }
+.consistency__stats strong { font-size: 1.3rem; }
+.consistency__stats span { font-size: 0.75rem; color: var(--ink-soft); }
+
+.consistency__body {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+@media (max-width: 700px) {
+  .consistency__body { grid-template-columns: 1fr; }
+}
+
+.consistency__weekdays,
+.consistency__grid {
+  display: grid;
+  grid-template-columns: repeat(7, 30px);
+  gap: 5px;
+}
+
+.consistency__weekdays {
+  margin-bottom: 5px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-align: center;
+  color: var(--ink-soft);
+}
+
+.consistency__day {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border-radius: 7px;
+  background: #ebefe8;
+}
+
+.consistency__day--pad { background: none; }
+.consistency__day--l1 { background: #c9e8b8; }
+.consistency__day--l2 { background: #8fd06a; }
+.consistency__day--l3 { background: #4a9524; }
+.consistency__day.is-today { outline: 2px solid var(--ink); outline-offset: 1px; }
+
+.consistency__legend {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 8px;
+  font-size: 0.7rem;
+  color: var(--ink-soft);
+}
+
+.consistency__legend .consistency__day {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+}
+
+.consistency__chart-note {
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--ink-soft);
+}

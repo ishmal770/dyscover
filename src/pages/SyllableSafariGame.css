@@ -74,8 +74,27 @@
 }
 
 .syllable-game__word-row {
+  --letter-width: clamp(16px, calc((min(100vw, 680px) - 64px - (var(--letter-n, 6) - 1) * var(--letter-gap, 14px)) / var(--letter-n, 6)), var(--letter-base, 44px));
+  --letter-height: calc(var(--letter-width) * 1.2);
+  --letter-font: calc(var(--letter-width) * 0.55);
   display: flex;
   align-items: center;
+}
+
+/* the picture that goes with the word */
+.syllable-game__picture {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(84px, 22vw, 124px);
+  height: clamp(84px, 22vw, 124px);
+  margin: 14px auto 0;
+  border: 4px solid var(--white);
+  border-radius: 50%;
+  background: var(--green-pale);
+  box-shadow: var(--shadow-soft);
+  font-size: clamp(2.8rem, 9vw, 4.4rem);
+  line-height: 1;
 }
 
 .syllable-game__letter-group {

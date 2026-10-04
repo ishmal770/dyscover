@@ -2,13 +2,15 @@
 // home screen: streak, XP and stars at the top, this week's practice days,
 // today's goal, and one big "next lesson" button so there's always an obvious
 // thing to do. Everything shown here is real saved progress (ProgressContext).
-import { Flame, Zap, Star, Target, Play, Map as MapIcon, Backpack, Check, UserRound } from "lucide-react";
+import { Flame, Zap, Star, Target, Play, Map as MapIcon, Backpack, Check, UserRound, Volume2 } from "lucide-react";
 import TopBar from "../components/TopBar";
 import AccessibilityToolbar from "../components/AccessibilityToolbar";
 import GuideBubble from "../components/GuideBubble";
 import Avatar from "../components/Avatar";
 import { GemArt } from "../components/TreasureArt";
 import { GEMS } from "../data/treasures";
+import { JUNGLES } from "../data/jungleQuiz";
+import { speak } from "../audio/speech";
 import { useProgress, dayKey } from "../context/ProgressContext";
 import { LESSON_BY_ID, UNITS } from "../data/lessons";
 import "./Dashboard.css";
@@ -29,7 +31,7 @@ function lastSevenDays(history) {
 
 function Dashboard({ onStartLesson, onOpenMap, onOpenUnit, onOpenBackpack, onOpenProfile }) {
   const progress = useProgress();
-  const { pendingGem, name, avatar, levelInfo, xp, streak, todayXp, goal, totalStars, maxStars, history, playedToday, unitProgress } = progress;
+  const { jungle, pendingGem, name, avatar, levelInfo, xp, streak, todayXp, goal, totalStars, maxStars, history, playedToday, unitProgress } = progress;
   const next = LESSON_BY_ID[progress.nextLesson().id];
   const nextProgress = progress.lessons[next.id];
   const goalPercent = Math.min(100, Math.round((todayXp / goal) * 100));
@@ -54,6 +56,11 @@ function Dashboard({ onStartLesson, onOpenMap, onOpenUnit, onOpenBackpack, onOpe
               <span className="dash__me-text">
                 <span className="dash__me-name">Hi, {name}!</span>
                 <span className="dash__me-sub">{headline}</span>
+                {jungle && (
+                  <span className="dash__jungle" style={{ background: JUNGLES[jungle].color }}>
+                    {JUNGLES[jungle].emoji} {JUNGLES[jungle].name}
+                  </span>
+                )}
               </span>
             </button>
             <div className="dash__chips">
@@ -85,7 +92,12 @@ function Dashboard({ onStartLesson, onOpenMap, onOpenUnit, onOpenBackpack, onOpe
           <div className="dash__next">
             <div>
               <span className="dash__next-unit">{next.unitTitle.toUpperCase()}</span>
-              <h2>{next.name}</h2>
+              <h2>
+                {next.name}
+                <button className="dash__speak" onClick={() => speak(`${next.name}. ${next.blurb}`)} aria-label="Read aloud">
+                  <Volume2 size={18} />
+                </button>
+              </h2>
               <p>{next.blurb}</p>
               {nextProgress && <span className="dash__next-done">Finished before - practice to earn more stars</span>}
             </div>

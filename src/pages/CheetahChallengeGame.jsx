@@ -4,9 +4,10 @@ import GameTopBar from "../components/GameTopBar";
 import LessonComplete from "../components/LessonComplete";
 import AccessibilityToolbar from "../components/AccessibilityToolbar";
 import GameHintBubble, { speak } from "../components/GameHintBubble";
+import { useProgress } from "../context/ProgressContext";
+import { BANKS } from "../data/questionBanks";
 import "./CheetahChallengeGame.css";
 
-const WORDS = ["FOX", "DOG", "CAT", "SUN", "TREE", "BIRD", "FISH", "FROG", "DUCK", "LION", "BEAR", "STAR"];
 const ROUND_MS = 6000;
 const TICK_MS = 100;
 
@@ -14,6 +15,8 @@ const SpeechRecognitionApi =
   typeof window !== "undefined" && (window.SpeechRecognition || window.webkitSpeechRecognition);
 
 function CheetahChallengeGame({ onHome, onBack, onDone }) {
+  const { grade } = useProgress();
+  const words = BANKS.cheetah[grade];
   const [roundIndex, setRoundIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [streak, setStreak] = useState(0);
@@ -29,7 +32,7 @@ function CheetahChallengeGame({ onHome, onBack, onDone }) {
   const recognitionRef = useRef(null);
 
   const stars = Math.min(3, Math.floor(streak / 3));
-  const word = WORDS[roundIndex];
+  const word = words[roundIndex];
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -80,7 +83,7 @@ function CheetahChallengeGame({ onHome, onBack, onDone }) {
   function advanceRound() {
     setTimeout(() => {
       setRoundIndex((i) => {
-        if (i + 1 >= WORDS.length) {
+        if (i + 1 >= words.length) {
           setFinished(true);
           return i;
         }
@@ -150,7 +153,7 @@ function CheetahChallengeGame({ onHome, onBack, onDone }) {
           <strong>{score.toLocaleString()}</strong>
         </div>
         <span className="cheetah-game__round-count">
-          {roundIndex + 1} / {WORDS.length}
+          {roundIndex + 1} / {words.length}
         </span>
         <div className="cheetah-game__stars">
           {[0, 1, 2].map((i) => (
@@ -202,7 +205,9 @@ function CheetahChallengeGame({ onHome, onBack, onDone }) {
                 <Volume2 size={14} />
               </button>
             </div>
-            <div className="cheetah-game__word">{word}</div>
+            <div className="cheetah-game__word" style={{ "--word-len": word.length }}>
+              {word}
+            </div>
           </div>
 
           {SpeechRecognitionApi ? (
@@ -234,6 +239,7 @@ function CheetahChallengeGame({ onHome, onBack, onDone }) {
 
       <AccessibilityToolbar />
       <GameHintBubble
+        demo="cheetahChallengeGame"
         character="cheetah"
         message="Ready, set, go! Say the word out loud as fast as you can."
         instructions="A word will show up. Read it out loud as fast as you can before the time runs out. Tap the microphone and say the word, or tap the card when you have read it."

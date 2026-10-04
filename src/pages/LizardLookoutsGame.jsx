@@ -5,42 +5,9 @@ import LessonComplete from "../components/LessonComplete";
 import AccessibilityToolbar from "../components/AccessibilityToolbar";
 import GameHintBubble, { speak } from "../components/GameHintBubble";
 import LetterTraceCanvas from "../components/LetterTraceCanvas";
+import { useProgress } from "../context/ProgressContext";
+import { BANKS } from "../data/questionBanks";
 import "./LizardLookoutsGame.css";
-
-const ROUNDS = [
-  {
-    pairLabel: "b vs d",
-    letter: "b",
-    sentence: "The big bear bit a ripe apple by the barn.",
-    paragraph:
-      "Ben bounced his big blue ball beside the barn. A brown bunny bounded by, and Ben laughed as the ball bumped along the bumpy path back to his backpack.",
-    reminder: "The bat comes before the ball when drawing a 'b'.",
-  },
-  {
-    pairLabel: "b vs d",
-    letter: "d",
-    sentence: "The dark deer drowned in a deep ditch.",
-    paragraph:
-      "Daisy the friendly duck danced down a dusty dirt path. She discovered a tiny dragonfly on a dandelion. Daisy slipped it into the dirty pond and found a dark stone. She carried it back to her den before dinner.",
-    reminder: "The ball comes before the bat when drawing a 'd'.",
-  },
-  {
-    pairLabel: "p vs q",
-    letter: "p",
-    sentence: "The pig put a pepper by the pandit.",
-    paragraph:
-      "Paul and his playful puppy walked to the park on a pleasant morning. They passed pretty purple flowers and tall pine trees. Paul tossed a pink ball to his puppy and he picked it up.",
-    reminder: "It's like half a lollipop. Draw the stick, then the lollipop on the right side.",
-  },
-  {
-    pairLabel: "p vs q",
-    letter: "q",
-    sentence: "The quiet queen quit quickly.",
-    paragraph:
-      "Quinn, the quiet queen packed a quilt and a quick snack. She walked to a garden where she found a duck quacking and a quail hiding. The queen smiled and watched the quail quietly walk and the duck quack.",
-    reminder: "Take your time! A 'q' has a circle first, then a tail pointing down.",
-  },
-];
 
 const STEPS = ["find", "shape", "trace", "paragraph"];
 
@@ -146,6 +113,8 @@ const HELP = {
 };
 
 function LizardLookoutsGame({ onHome, onBack, onDone }) {
+  const { grade } = useProgress();
+  const rounds = BANKS.lizard[grade];
   const [roundIndex, setRoundIndex] = useState(0);
   const [stepIndex, setStepIndex] = useState(0);
   const [foundSentence, setFoundSentence] = useState(() => new Set());
@@ -153,7 +122,7 @@ function LizardLookoutsGame({ onHome, onBack, onDone }) {
   const [highlightPart, setHighlightPart] = useState(null);
   const [stars, setStars] = useState(0);
 
-  const round = ROUNDS[roundIndex];
+  const round = rounds[roundIndex];
   const step = STEPS[stepIndex];
 
   const sentenceTotal = useMemo(
@@ -200,7 +169,7 @@ function LizardLookoutsGame({ onHome, onBack, onDone }) {
     if (next.size === paragraphTotal) {
       setStars((s) => Math.min(3, s + 1));
       setTimeout(() => {
-        if (roundIndex + 1 >= ROUNDS.length) {
+        if (roundIndex + 1 >= rounds.length) {
           setStepIndex(STEPS.length);
         } else {
           setRoundIndex((r) => r + 1);
@@ -224,7 +193,7 @@ function LizardLookoutsGame({ onHome, onBack, onDone }) {
           <h1>
             Practice: {round.pairLabel}
             <span className="lizard-game__round-pill">
-              Letter {roundIndex + 1} of {ROUNDS.length}
+              Letter {roundIndex + 1} of {rounds.length}
             </span>
           </h1>
           <p>Let&rsquo;s learn how to tell these tricky letters apart!</p>
@@ -356,6 +325,7 @@ function LizardLookoutsGame({ onHome, onBack, onDone }) {
 
       <AccessibilityToolbar />
       <GameHintBubble
+        demo="lizardLookoutsGame"
         instructions={HELP[step] || HELP.find}
         message={`Take your time! A '${round.letter}' can be tricky to spot.`}
       />

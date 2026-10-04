@@ -138,9 +138,11 @@
   border: 1px solid var(--border);
   border-radius: 16px;
   text-align: center;
-  font-size: 2.3rem;
+  /* big, but never wider than the card: shrinks for long words and narrow screens */
+  font-size: clamp(1.4rem, calc((100vw - 110px) / var(--word-len, 6) * 1.45), 2.6rem);
   font-weight: 800;
   color: var(--ink);
+  overflow-wrap: anywhere;
 }
 
 .cheetah-game__hint-text {

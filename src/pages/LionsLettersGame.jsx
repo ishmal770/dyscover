@@ -5,16 +5,11 @@ import LessonComplete from "../components/LessonComplete";
 import AccessibilityToolbar from "../components/AccessibilityToolbar";
 import GameHintBubble, { speak } from "../components/GameHintBubble";
 import LetterTraceCanvas from "../components/LetterTraceCanvas";
+import { useProgress } from "../context/ProgressContext";
+import { BANKS } from "../data/questionBanks";
 import "./LionsLettersGame.css";
 
-const LETTERS = ["c", "d", "m", "t", "g", "r"];
-const WORDS = ["box", "cat", "sun", "dog", "map", "pen"];
 const STYLE_KEY = "dyscover-handwriting";
-
-const ROUNDS = LETTERS.flatMap((letter, i) => [
-  { type: "letter", value: letter },
-  { type: "word", value: WORDS[i] },
-]);
 
 // What the guide reads when asked for help, for each part of the game.
 const HELP = {
@@ -24,6 +19,8 @@ const HELP = {
 };
 
 function LionsLettersGame({ onHome, onBack, onDone }) {
+  const { grade } = useProgress();
+  const rounds = BANKS.lion[grade];
   const [roundIndex, setRoundIndex] = useState(0);
   const [heardSound, setHeardSound] = useState(false);
   const [revealed, setRevealed] = useState(() => new Set());
@@ -46,8 +43,8 @@ function LionsLettersGame({ onHome, onBack, onDone }) {
     }
   }
 
-  const round = ROUNDS[roundIndex];
-  const isLastRound = roundIndex + 1 >= ROUNDS.length;
+  const round = rounds[roundIndex];
+  const isLastRound = roundIndex + 1 >= rounds.length;
 
   function resetRoundState() {
     setHeardSound(false);
@@ -91,7 +88,7 @@ function LionsLettersGame({ onHome, onBack, onDone }) {
 
       <div className="lions-game__topline">
         <span className="lions-game__progress-pill">
-          {roundIndex + 1} / {ROUNDS.length}
+          {roundIndex + 1} / {rounds.length}
         </span>
         <div className="lions-game__style-toggle" role="group" aria-label="Handwriting style">
           <button className={!cursive ? "is-active" : ""} onClick={() => chooseStyle(false)} aria-pressed={!cursive}>
@@ -162,6 +159,7 @@ function LionsLettersGame({ onHome, onBack, onDone }) {
 
       <AccessibilityToolbar />
       <GameHintBubble
+        demo="lionsLettersGame"
         instructions={round.type === "letter" ? HELP.letter : wordPhase === "letters" ? HELP.spell : HELP.word}
         character="lion"
         message="Tap the sound box to hear the letters, then trace them!"

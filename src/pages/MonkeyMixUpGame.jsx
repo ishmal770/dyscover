@@ -4,24 +4,11 @@ import GameTopBar from "../components/GameTopBar";
 import LessonComplete from "../components/LessonComplete";
 import AccessibilityToolbar from "../components/AccessibilityToolbar";
 import GameHintBubble, { speak } from "../components/GameHintBubble";
+import { useProgress } from "../context/ProgressContext";
+import { BANKS } from "../data/questionBanks";
 import "./MonkeyMixUpGame.css";
 
 const VOWELS = ["A", "E", "I", "O", "U"];
-
-const ROUNDS = [
-  { template: ["S", null, "N"], answer: "U", sound: "uh" },
-  { template: ["C", null, "T"], answer: "A", sound: "aa" },
-  { template: ["P", null, "G"], answer: "I", sound: "ih" },
-  { template: ["D", null, "G"], answer: "O", sound: "aw" },
-  { template: ["B", null, "D"], answer: "E", sound: "eh" },
-  { template: ["C", null, "P"], answer: "U", sound: "uh" },
-  { template: ["H", null, "T"], answer: "A", sound: "aa" },
-  { template: ["W", null, "N"], answer: "I", sound: "ih" },
-  { template: ["T", null, "P"], answer: "O", sound: "aw" },
-  { template: ["P", null, "N"], answer: "E", sound: "eh" },
-  { template: ["R", null, "N"], answer: "U", sound: "uh" },
-  { template: ["M", null, "P"], answer: "A", sound: "aa" },
-];
 
 const BONUS_WORDS = ["Sun", "Bug", "Cup", "Rays", "Roach"];
 
@@ -32,6 +19,8 @@ const BONUS_WORDS = ["Sun", "Bug", "Cup", "Rays", "Roach"];
 const SOUND_EXAMPLES = { uh: "cup", aa: "cat", ih: "pig", aw: "dog", eh: "bed" };
 
 function MonkeyMixUpGame({ onHome, onBack, onDone }) {
+  const { grade } = useProgress();
+  const rounds = BANKS.monkey[grade];
   const [roundIndex, setRoundIndex] = useState(0);
   const [filled, setFilled] = useState(null);
   const [wrong, setWrong] = useState(false);
@@ -39,10 +28,10 @@ function MonkeyMixUpGame({ onHome, onBack, onDone }) {
   const [level] = useState(4);
   const [sessionComplete, setSessionComplete] = useState(false);
 
-  const round = ROUNDS[roundIndex];
+  const round = rounds[roundIndex];
   const solved = filled === round.answer;
   const word = round.template.map((c) => c ?? round.answer).join("");
-  const isLastRound = roundIndex + 1 >= ROUNDS.length;
+  const isLastRound = roundIndex + 1 >= rounds.length;
 
   function handleVowelClick(letter) {
     speak(letter);
@@ -95,7 +84,7 @@ function MonkeyMixUpGame({ onHome, onBack, onDone }) {
               <Zap size={12} fill="currentColor" /> Level {level}
             </span>
             <span className="monkey-game__round-count">
-              {roundIndex + 1} / {ROUNDS.length}
+              {roundIndex + 1} / {rounds.length}
             </span>
             <div className="monkey-game__stars">
               {[0, 1, 2].map((i) => (
@@ -206,6 +195,7 @@ function MonkeyMixUpGame({ onHome, onBack, onDone }) {
 
       <AccessibilityToolbar />
       <GameHintBubble
+        demo="monkeyMixUpGame"
         instructions="A vowel is missing from the word. Listen to the sound in the clue. Then tap the vowel from the tray that makes that sound. When you get it right, press Next."
         message={
           solved
