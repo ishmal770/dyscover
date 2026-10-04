@@ -325,6 +325,12 @@ function LizardLookoutsGame({ onHome, onBack, onDone }) {
 
       <AccessibilityToolbar />
       <GameHintBubble
+        steps={[
+          { label: "Finding the letter", text: HELP.find },
+          { label: "Looking at the shape", text: HELP.shape },
+          { label: "Tracing the letter", text: HELP.trace },
+          { label: "Finding it in the paragraph", text: HELP.paragraph },
+        ]}
         demo="lizardLookoutsGame"
         instructions={HELP[step] || HELP.find}
         message={`Take your time! A '${round.letter}' can be tricky to spot.`}

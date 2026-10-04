@@ -214,6 +214,11 @@
   "say": "ih",
   "speed": "0.76/0.85"
  },
+ "0d82d8c6": {
+  "key": "gorilla|do you want to hear the other instructions? tap one to listen.",
+  "say": "Do you want to hear the other instructions? Tap one to listen.",
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 0.84, \"sentence\": 0.68, \"voice\": \"am_fenrir\", \"word\": 0.78}"
+ },
  "0da57fb4": {
   "key": "the gate is open! a new world is waiting for you.",
   "say": "The gate is open! A new world is waiting for you.",
@@ -904,11 +909,6 @@
   "say": "Listen to the word. Then tap in between the letters where the word splits into parts.",
   "speed": "{\"lang\": \"en-gb\", \"pitch\": 1.2, \"sentence\": 0.78, \"voice\": \"bf_lily\", \"word\": 0.85}"
  },
- "51997e35": {
-  "key": "press this to pick your grade. your questions match your grade.",
-  "say": "Press this to pick your grade. Your questions match your grade.",
-  "speed": "0.76/0.85"
- },
  "51c25f4e": {
   "key": "press this and your guide tells you how to play.",
   "say": "Press this and your guide tells you how to play.",
@@ -918,6 +918,11 @@
   "key": "discover",
   "say": "discover",
   "speed": "0.76/0.85"
+ },
+ "52b04ecc": {
+  "key": "lion|do you want to hear the other instructions? tap one to listen.",
+  "say": "Do you want to hear the other instructions? Tap one to listen.",
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"am_onyx\", \"word\": 0.8}"
  },
  "531aaba3": {
   "key": "this lesson is locked. finish the lesson before it to open it.",
@@ -1614,6 +1619,11 @@
   "say": "Press this to keep going.",
   "speed": "0.76/0.85"
  },
+ "8f279d17": {
+  "key": "sloth|all done! great job. your adventure is ready.",
+  "say": "All done! Great job. Your adventure is ready.",
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.0, \"sentence\": 0.74, \"voice\": \"af_heart\", \"word\": 0.82}"
+ },
  "8fa4f4ca": {
   "key": "explorer",
   "say": "explorer",
@@ -1949,6 +1959,11 @@
   "say": "Look closely at the letter. Tap Show the Stick and Show the Circle to see its parts. Then press Continue.",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 0.84, \"sentence\": 0.68, \"voice\": \"am_fenrir\", \"word\": 0.78}"
  },
+ "ab837610": {
+  "key": "do you want to hear the other instructions? tap one to listen.",
+  "say": "Do you want to hear the other instructions? Tap one to listen.",
+  "speed": "0.76/0.85"
+ },
  "acd357f3": {
   "key": "take your time! a 'q' can be tricky to spot.",
   "say": "Take your time! The letter cue can be tricky to spot.",
@@ -2052,6 +2067,11 @@
  "b4036f34": {
   "key": "syl:bur",
   "say": "bur",
+  "speed": "0.76/0.85"
+ },
+ "b48d3df7": {
+  "key": "all done! great job. your adventure is ready.",
+  "say": "All done! Great job. Your adventure is ready.",
   "speed": "0.76/0.85"
  },
  "b53ae8bd": {
@@ -2454,6 +2474,11 @@
   "say": "Lesson complete! Good try, you got one star. Practice makes you stronger!",
   "speed": "{\"lang\": \"en-gb\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"bf_emma\", \"word\": 0.8}"
  },
+ "d565def2": {
+  "key": "mimi|do you want to hear the other instructions? tap one to listen.",
+  "say": "Do you want to hear the other instructions? Tap one to listen.",
+  "speed": "{\"lang\": \"en-gb\", \"pitch\": 1.2, \"sentence\": 0.78, \"voice\": \"bf_lily\", \"word\": 0.85}"
+ },
  "d5bf1d4b": {
   "key": "cheetah|trace the letter with your finger on the lines. then press continue.",
   "say": "Trace the letter with your finger on the lines. Then press Continue.",
@@ -2493,6 +2518,11 @@
   "key": "saw",
   "say": "saw",
   "speed": "0.76/0.85"
+ },
+ "d745cb11": {
+  "key": "elephant|do you want to hear the other instructions? tap one to listen.",
+  "say": "Do you want to hear the other instructions? Tap one to listen.",
+  "speed": "{\"lang\": \"en-gb\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"bf_emma\", \"word\": 0.8}"
  },
  "d7b8f81a": {
   "key": "bicycle",
@@ -2592,6 +2622,11 @@
  "e0363a7b": {
   "key": "son",
   "say": "son",
+  "speed": "0.76/0.85"
+ },
+ "e0431544": {
+  "key": "listen, then tap the word you hear.",
+  "say": "Listen, then tap the word you hear.",
   "speed": "0.76/0.85"
  },
  "e04e3f61": {
@@ -2964,6 +2999,11 @@
   "say": "hat",
   "speed": "0.76/0.85"
  },
+ "f2c17502": {
+  "key": "cheetah|do you want to hear the other instructions? tap one to listen.",
+  "say": "Do you want to hear the other instructions? Tap one to listen.",
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.06, \"sentence\": 0.84, \"voice\": \"am_liam\", \"word\": 0.88}"
+ },
  "f2dead7f": {
   "key": "lion",
   "say": "lion",
@@ -3048,6 +3088,11 @@
   "key": "cut",
   "say": "cut",
   "speed": "0.76/0.85"
+ },
+ "f6c800cd": {
+  "key": "monkey|do you want to hear the other instructions? tap one to listen.",
+  "say": "Do you want to hear the other instructions? Tap one to listen.",
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.08, \"sentence\": 0.8, \"voice\": \"am_puck\", \"word\": 0.85}"
  },
  "f70c4715": {
   "key": "r",
