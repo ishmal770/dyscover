@@ -76,7 +76,7 @@ function pickFallbackVoice() {
   return english.find((v) => v.name.includes("Samantha")) || english.find((v) => v.lang === "en-US") || english[0] || null;
 }
 
-function speakWithBrowserVoice(text) {
+function speakWithBrowserVoice(text, onEnd) {
   if (!("speechSynthesis" in window)) return;
   const synth = window.speechSynthesis;
   // All-caps short strings get read as spelled-out acronyms by most TTS
@@ -95,6 +95,10 @@ function speakWithBrowserVoice(text) {
   const voice = pickFallbackVoice();
   if (voice) utterance.voice = voice;
   currentUtterance = utterance;
+  if (onEnd) {
+    utterance.onend = onEnd;
+    utterance.onerror = onEnd;
+  }
 
   clearTimeout(speakTimer);
   // Chrome can silently drop speech that starts right after cancel(), so wait
@@ -117,8 +121,20 @@ function speakWithBrowserVoice(text) {
 //                                    if recorded, else the neutral voice
 // speak(chunk, { clip: "syl:ti" }) - looks the clip up under a different key
 //                                    (for pieces that sound different alone)
+// speak(text, { onEnd }) - calls onEnd when the line has finished (or at once if
+//                          nothing will be said, e.g. muted), but not if something
+//                          else cuts it off
 function speak(text, options = {}) {
-  if (muted || !text) return;
+  let ended = false;
+  const finish = () => {
+    if (ended) return;
+    ended = true;
+    options.onEnd?.();
+  };
+  if (muted || !text) {
+    if (options.onEnd) setTimeout(finish, 0);
+    return;
+  }
   cancelSpeech();
 
   const plainKey = options.clip || clipKey(text);
@@ -127,18 +143,20 @@ function speak(text, options = {}) {
   const id = hashKey(key);
   if (!clips.has(id)) {
     if (import.meta.env.DEV) console.warn(`[audio] no recorded clip for "${key}" - using browser voice`);
-    speakWithBrowserVoice(text);
+    speakWithBrowserVoice(text, options.onEnd ? finish : undefined);
     return;
   }
 
   const el = new Audio(`${import.meta.env.BASE_URL}audio/${id}.m4a`);
   audio = el;
+  el.addEventListener("ended", finish);
   el.addEventListener("error", () => {
-    if (audio === el) speakWithBrowserVoice(text);
+    if (audio === el) speakWithBrowserVoice(text, options.onEnd ? finish : undefined);
   });
   el.play().catch((err) => {
     // NotAllowedError = no click yet; stay quiet rather than talk over the page later
-    if (err && err.name !== "NotAllowedError" && audio === el) speakWithBrowserVoice(text);
+    if (err && err.name !== "NotAllowedError" && audio === el) speakWithBrowserVoice(text, options.onEnd ? finish : undefined);
+    else if (err && err.name === "NotAllowedError") finish(); // nothing will play, so do not wait for it
   });
 }
 

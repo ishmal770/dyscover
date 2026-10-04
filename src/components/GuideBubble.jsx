@@ -88,10 +88,36 @@ function GuideBubble({ message, fixedCharacter, onAdvance, advanceHint, centered
     setTimeout(() => setAsking(false), 3500);
   }
 
+  // Tapping the guide to move on: say the welcome first if it has not been heard
+  // yet, then "Let's go!", and only then move to the next page (so the next
+  // page's welcome never cuts the guide off). Tapping again skips the wait.
+  const advanceRef = useRef(null);
   function advance() {
+    if (advanceRef.current) {
+      advanceRef.current(); // already going: skip ahead now
+      return;
+    }
     setWelcoming(true);
-    speak("Let's go!", { voice: guide.id });
-    setTimeout(onAdvance, 900);
+    let went = false;
+    const go = () => {
+      if (went) return;
+      went = true;
+      advanceRef.current = null;
+      clearTimeout(failsafe);
+      cancelSpeech();
+      onAdvance();
+    };
+    const failsafe = setTimeout(go, 15000); // never leave the child stuck if audio fails
+    advanceRef.current = go;
+    const sayGo = () => speak("Let's go!", { voice: guide.id, onEnd: go });
+    const key = `guide:${message}`;
+    setNeedsTap(false);
+    if (!hasHeard(key)) {
+      markHeard(key);
+      speak(spokenLine(guide, message), { voice: guide.id, onEnd: sayGo });
+    } else {
+      sayGo();
+    }
   }
 
   function replay() {
