@@ -27,20 +27,24 @@ ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / "src"
 OUT = ROOT / "public" / "audio"
 MANIFEST = SRC / "data" / "audioManifest.json"
+CALL_FILE = ROOT / "scripts" / "assets" / "chimp-call.wav"
 INDEX = ROOT / "scripts" / "audio-index.json"  # hash -> {key, say}, used as a cache
 
 # Voices. "default" reads words, letters, instructions and popups. Each guide
 # also has its own character voice for the lines it speaks itself (welcomes,
 # "Let's go!", hint-bubble messages). Everything is slow and clear for young
 # readers: sentences slower than single words/letters.
+#   call = a short chimp sound (scripts/assets/chimp-call.wav) played softly right
+#   before the guide's greetings ("Hi, I'm ..." and "Let's go!") - only those, so
+#   it stays a friendly hello and never gets annoying. The words are always spoken.
 #   pitch > 1 = higher and smaller, < 1 = deeper and bigger. It is applied by
 #   resampling (so the voice gets a bigger/smaller "body"), with the Kokoro
 #   speed pre-compensated so the final pace is still sentence/word below.
 VOICES = {
     "default":  dict(voice="af_sky",    lang="en-us", pitch=1.00, sentence=0.76, word=0.85),
     "sloth":    dict(voice="af_heart",  lang="en-us", pitch=1.00, sentence=0.74, word=0.82),
-    "monkey":   dict(voice="am_puck",   lang="en-us", pitch=1.08, sentence=0.80, word=0.85),
-    "mimi":     dict(voice="bf_lily",   lang="en-gb", pitch=1.20, sentence=0.78, word=0.85),
+    "monkey":   dict(voice="am_puck",   lang="en-us", pitch=1.08, sentence=0.80, word=0.85, call=dict(gain=0.30, pitch=1.0)),
+    "mimi":     dict(voice="bf_lily",   lang="en-gb", pitch=1.20, sentence=0.78, word=0.85, call=dict(gain=0.26, pitch=1.3)),
     "lion":     dict(voice="am_onyx",   lang="en-us", pitch=0.90, sentence=0.72, word=0.80),
     "cheetah":  dict(voice="am_liam",   lang="en-us", pitch=1.06, sentence=0.84, word=0.88),
     "elephant": dict(voice="bf_emma",   lang="en-gb", pitch=0.90, sentence=0.72, word=0.80),
@@ -95,6 +99,15 @@ def voice_sig(name: str) -> str:
     if name == "default":
         return f"{v['sentence']}/{v['word']}"  # unchanged from before voices existed
     return json.dumps(v, sort_keys=True)
+
+
+def wants_call(voice_name: str, text: str) -> bool:
+    """Greetings from the monkey guides begin with a soft chimp call."""
+    return bool(VOICES[voice_name].get("call")) and (text.startswith("Hi, I'm") or text == "Let's go!")
+
+
+def line_sig(voice_name: str, text: str) -> str:
+    return voice_sig(voice_name) + ("+call" if wants_call(voice_name, text) else "")
 
 
 lines: dict[str, tuple[str, str]] = {}  # clip key -> (what to say, voice name)
@@ -339,7 +352,7 @@ def synthesize(model: str, voices: str, force: bool) -> None:
         for h, key in hashes.items()
         if force
         or index.get(h, {}).get("say") != lines[key][0]
-        or index.get(h, {}).get("speed") != voice_sig(lines[key][1])
+        or index.get(h, {}).get("speed") != line_sig(lines[key][1], lines[key][0])
         or not (OUT / f"{h}.m4a").exists()
     ]
     print(f"{len(lines)} lines, {len(todo)} to record")
@@ -354,6 +367,13 @@ def synthesize(model: str, voices: str, force: bool) -> None:
         samples, rate = kokoro.create(say, voice=cfg["voice"], speed=pace / cfg["pitch"], lang=cfg["lang"])
         rate = int(rate * cfg["pitch"])
         samples = np.asarray(samples)
+        if wants_call(voice_name, text):
+            call = cfg["call"]
+            raw, call_rate = sf.read(CALL_FILE)
+            # resample the call to this clip's rate (at its own pitch), soften it, then a short breath
+            n = int(len(raw) * rate / (call_rate * call["pitch"]))
+            chirp = np.interp(np.linspace(0, len(raw) - 1, n), np.arange(len(raw)), raw) * call["gain"]
+            samples = np.concatenate([chirp, np.zeros(int(0.18 * rate)), samples])
         loud = np.where(np.abs(samples) > 0.01)[0]  # trim leading/trailing silence
         if len(loud):
             pad = int(0.06 * rate)
@@ -364,7 +384,7 @@ def synthesize(model: str, voices: str, force: bool) -> None:
             wav = Path(tmp) / "clip.wav"
             sf.write(wav, samples, rate)
             subprocess.run(["afconvert", "-f", "m4af", "-d", "aac", "-b", "48000", str(wav), str(OUT / f"{h}.m4a")], check=True)
-        index[h] = {"key": key, "say": text, "speed": voice_sig(voice_name)}
+        index[h] = {"key": key, "say": text, "speed": line_sig(voice_name, text)}
         if n % 20 == 0:
             print(f"  {n}/{len(todo)}")
 
