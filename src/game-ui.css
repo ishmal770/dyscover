@@ -175,3 +175,50 @@ strong { font-weight: 800; }
     font-size: 0.82rem;
   }
 }
+
+/* pages whose content can be taller than a small screen scroll instead of clipping */
+.login {
+  overflow-y: auto;
+  justify-content: safe center;
+}
+
+/* every page scrolls vertically if its content is taller than the screen
+   (small phones, split windows) instead of cutting things off. The floating
+   toolbar and guides are pinned to the screen, not to the scrolling page:
+   `contain: layout` makes each slide the box that "fixed" refers to. */
+.scroller__section {
+  contain: layout;
+}
+
+.scroller__section > .page {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.scroller__section .a11y-toolbar,
+.scroller__section .guide-bubble:not(.guide-bubble--centered),
+.scroller__section .game-hint-bubble {
+  position: fixed;
+}
+
+/* the home-page host stays centered in the page, with everything under him centered too */
+.guide-bubble--centered {
+  position: relative;
+  align-self: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.guide-bubble--centered .guide-bubble__message {
+  align-self: center;
+}
+
+.guide-bubble--centered .guide-bubble__avatar {
+  align-self: center;
+}
+
+.guide-bubble--centered .guide-bubble__tap-hint {
+  margin-left: auto;
+  margin-right: auto;
+}

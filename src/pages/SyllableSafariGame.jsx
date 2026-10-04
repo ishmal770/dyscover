@@ -4,22 +4,9 @@ import GameTopBar from "../components/GameTopBar";
 import LessonComplete from "../components/LessonComplete";
 import AccessibilityToolbar from "../components/AccessibilityToolbar";
 import GameHintBubble, { speak } from "../components/GameHintBubble";
+import { useProgress } from "../context/ProgressContext";
+import { BANKS } from "../data/questionBanks";
 import "./SyllableSafariGame.css";
-
-const ROUNDS = [
-  { word: "TIGER", syllables: ["TI", "GER"] },
-  { word: "RABBIT", syllables: ["RAB", "BIT"] },
-  { word: "MUSIC", syllables: ["MU", "SIC"] },
-  { word: "HAPPY", syllables: ["HAP", "PY"] },
-  { word: "GARDEN", syllables: ["GAR", "DEN"] },
-  { word: "PENCIL", syllables: ["PEN", "CIL"] },
-  { word: "BUTTERFLY", syllables: ["BUT", "TER", "FLY"] },
-  { word: "ELEPHANT", syllables: ["EL", "E", "PHANT"] },
-  { word: "COMPUTER", syllables: ["COM", "PU", "TER"] },
-  { word: "BANANA", syllables: ["BA", "NAN", "A"] },
-  { word: "DINOSAUR", syllables: ["DI", "NO", "SAUR"] },
-  { word: "ADVENTURE", syllables: ["AD", "VEN", "TURE"] },
-];
 
 function shuffle(items) {
   const arr = [...items];
@@ -30,10 +17,12 @@ function shuffle(items) {
   return arr;
 }
 
+// Base letter-tile size by word length; the CSS shrinks it so the word always
+// fits the screen width (see .syllable-game__word-row).
 function getLetterMetrics(len) {
-  if (len <= 6) return { width: 48, height: 56, gap: 20, font: "1.6rem" };
-  if (len <= 8) return { width: 38, height: 48, gap: 14, font: "1.3rem" };
-  return { width: 30, height: 40, gap: 10, font: "1.05rem" };
+  if (len <= 6) return { base: 52, gap: 14 };
+  if (len <= 8) return { base: 44, gap: 10 };
+  return { base: 38, gap: 6 };
 }
 
 function getSplitPoints(syllables) {
@@ -53,26 +42,27 @@ const HELP = {
 };
 
 function SyllableSafariGame({ onHome, onBack, onDone }) {
+  const { grade } = useProgress();
+  const rounds = BANKS.syllable[grade];
   const [roundIndex, setRoundIndex] = useState(0);
   const [phase, setPhase] = useState("split");
   const [placedDividers, setPlacedDividers] = useState(() => new Set());
   const [feedback, setFeedback] = useState("");
-  const [tray, setTray] = useState(() => shuffle(ROUNDS[0].syllables));
-  const [slots, setSlots] = useState(() => Array(ROUNDS[0].syllables.length).fill(null));
+  const [tray, setTray] = useState(() => shuffle(rounds[0].syllables));
+  const [slots, setSlots] = useState(() => Array(rounds[0].syllables.length).fill(null));
   const [selectedChunk, setSelectedChunk] = useState(null);
   const [stars, setStars] = useState(3);
   const [solved, setSolved] = useState(false);
   const [sessionComplete, setSessionComplete] = useState(false);
 
-  const round = ROUNDS[roundIndex];
+  const round = rounds[roundIndex];
   const splitPoints = getSplitPoints(round.syllables);
-  const isLastRound = roundIndex + 1 >= ROUNDS.length;
+  const isLastRound = roundIndex + 1 >= rounds.length;
   const letterMetrics = getLetterMetrics(round.word.length);
   const letterStyle = {
-    "--letter-width": `${letterMetrics.width}px`,
-    "--letter-height": `${letterMetrics.height}px`,
+    "--letter-base": `${letterMetrics.base}px`,
+    "--letter-n": round.word.length,
     "--letter-gap": `${letterMetrics.gap}px`,
-    "--letter-font": letterMetrics.font,
   };
 
   function handleGapClick(gapIndex) {
@@ -139,8 +129,8 @@ function SyllableSafariGame({ onHome, onBack, onDone }) {
     setRoundIndex(next);
     setPhase("split");
     setPlacedDividers(new Set());
-    setTray(shuffle(ROUNDS[next].syllables));
-    setSlots(Array(ROUNDS[next].syllables.length).fill(null));
+    setTray(shuffle(rounds[next].syllables));
+    setSlots(Array(rounds[next].syllables.length).fill(null));
     setSelectedChunk(null);
     setSolved(false);
     setFeedback("");
@@ -150,8 +140,8 @@ function SyllableSafariGame({ onHome, onBack, onDone }) {
     setRoundIndex(0);
     setPhase("split");
     setPlacedDividers(new Set());
-    setTray(shuffle(ROUNDS[0].syllables));
-    setSlots(Array(ROUNDS[0].syllables.length).fill(null));
+    setTray(shuffle(rounds[0].syllables));
+    setSlots(Array(rounds[0].syllables.length).fill(null));
     setSelectedChunk(null);
     setSolved(false);
     setFeedback("");
@@ -177,7 +167,7 @@ function SyllableSafariGame({ onHome, onBack, onDone }) {
         <div className="syllable-game__progress-bar">
           <div
             className="syllable-game__progress-fill"
-            style={{ width: `${((roundIndex + (phase === "build" ? 0.5 : 0)) / ROUNDS.length) * 100}%` }}
+            style={{ width: `${((roundIndex + (phase === "build" ? 0.5 : 0)) / rounds.length) * 100}%` }}
           />
         </div>
         <div className="syllable-game__stars">
@@ -185,6 +175,10 @@ function SyllableSafariGame({ onHome, onBack, onDone }) {
             <Star key={i} size={16} fill={i < stars ? "currentColor" : "none"} />
           ))}
         </div>
+      </div>
+
+      <div className="syllable-game__picture" aria-hidden="true">
+        {round.picture}
       </div>
 
       {phase === "split" ? (
@@ -266,6 +260,7 @@ function SyllableSafariGame({ onHome, onBack, onDone }) {
 
       <AccessibilityToolbar />
       <GameHintBubble
+        demo="syllableSafariGame"
         instructions={HELP[phase]}
         message="Tap the pieces to hear them, then build the word in order!"
       />

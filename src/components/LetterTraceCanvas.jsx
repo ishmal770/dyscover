@@ -79,7 +79,12 @@ function LetterTraceCanvas({ guideText, height = 220, cursive = false }) {
         size *= maxWidth / textWidth;
         ctx.font = `${weight} ${size}px ${family}`;
       }
-      ctx.fillText(guideText, width / 2, BASE_LINE * height);
+      // Round letters (c, e, o...) dip a hair below the baseline. Lift letters
+      // with no real descender so their bottom edge rests exactly on the line,
+      // like writing on binder paper; g, j, p, q, y keep their tails below it.
+      const descent = ctx.measureText(guideText).actualBoundingBoxDescent || 0;
+      const lift = descent < size * 0.08 ? descent : 0;
+      ctx.fillText(guideText, width / 2, BASE_LINE * height - lift);
     }
 
     // Wait for the web font so the first paint isn't in a fallback face

@@ -1,9 +1,13 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Cell, LineChart, Line } from "recharts";
 import { ArrowLeft, ShieldAlert, Search, Play } from "lucide-react";
 import { STUDENTS, GAME_TROPHIES } from "../data/mockData";
 import HelpButton from "../components/HelpButton";
+import PracticeConsistency from "../components/PracticeConsistency";
+import { useProgress } from "../context/ProgressContext";
+import { LESSONS } from "../data/lessons";
+import { GRADE_BANDS } from "../data/questionBanks";
 import "./ExpertDashboard.css";
 
 const TABS = ["Overview & Progress", "Diagnostics & Raw Data", "Settings & Practice"];
@@ -14,14 +18,52 @@ function barColor(score) {
   return "#e05555";
 }
 
+// The child using this device, built from their real saved progress (the other
+// students are illustrative demo data)
+function useLiveStudent() {
+  const { name, grade, history, lessons, maxStars, totalStars, lastDay } = useProgress();
+  return useMemo(() => {
+    const practice = Array.from({ length: 28 }, (_, i) => {
+      const d = new Date();
+      d.setDate(d.getDate() - (27 - i));
+      const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+      return Math.round((history[key] || 0) / 2); // about 2 XP per minute
+    });
+    const bySkill = {};
+    LESSONS.forEach((l) => {
+      (bySkill[l.skill] = bySkill[l.skill] || []).push(lessons[l.id]?.stars || 0);
+    });
+    return {
+      id: "this-device",
+      live: true,
+      name: `${name} (this device)`,
+      grade: GRADE_BANDS.find((b) => b.id === grade)?.label ?? "",
+      lastActive: lastDay ?? "No practice yet",
+      overallMastery: Math.round((totalStars / maxStars) * 100),
+      practice,
+      skills: Object.entries(bySkill).map(([skill, stars]) => ({ skill, score: Math.round((stars.reduce((a, b) => a + b, 0) / (stars.length * 3)) * 100) })),
+      curriculumProgress: LESSONS.map((l) => ({ world: l.name, percent: Math.round(((lessons[l.id]?.stars || 0) / 3) * 100) })),
+      accuracyTrend: [],
+      sessions: [],
+      recentActivity: Object.entries(history)
+        .sort((a, b) => (a[0] < b[0] ? 1 : -1))
+        .slice(0, 3)
+        .map(([day, xp]) => ({ label: `Practiced and earned ${xp} XP`, time: day, type: "played" })),
+      aiNote: "This student is using this device right now. Their numbers come from real play.",
+    };
+  }, [name, grade, history, lessons, maxStars, totalStars, lastDay]);
+}
+
 function ExpertDashboard() {
   const navigate = useNavigate();
+  const live = useLiveStudent();
+  const students = [live, ...STUDENTS];
   const [query, setQuery] = useState("");
-  const [selectedId, setSelectedId] = useState(STUDENTS[0].id);
+  const [selectedId, setSelectedId] = useState("this-device");
   const [activeTab, setActiveTab] = useState(TABS[0]);
 
-  const filteredStudents = STUDENTS.filter((s) => s.name.toLowerCase().includes(query.toLowerCase()));
-  const student = STUDENTS.find((s) => s.id === selectedId) ?? STUDENTS[0];
+  const filteredStudents = students.filter((s) => s.name.toLowerCase().includes(query.toLowerCase()));
+  const student = students.find((s) => s.id === selectedId) ?? students[0];
 
   return (
     <div className="expert-dash">
@@ -40,7 +82,7 @@ function ExpertDashboard() {
         </button>
         <h1>Expert Dashboard</h1>
         <span className="expert-dash__restricted">Restricted View</span>
-        <HelpButton text="This is the expert view. Pick a student on the left. Use the tabs to switch between progress, raw data, and practice suggestions." />
+        <HelpButton text="This is the expert view. Pick a student on the left. The first one is the child using this device, with real numbers. The calendar shows how steadily they practice. Use the tabs to switch between progress, raw data, and practice suggestions." />
       </header>
 
       <div className="expert-dash__body">
@@ -96,6 +138,8 @@ function ExpertDashboard() {
 
           {activeTab === "Overview & Progress" && (
             <>
+              <PracticeConsistency practice={student.practice} unit={student.live ? "min (est.)" : "min"} />
+
               <div className="expert-dash__card">
                 <h3>Skill Mastery Heatmap</h3>
                 <p className="expert-dash__card-sub">Current performance across the dyslexia intervention areas.</p>
@@ -135,6 +179,7 @@ function ExpertDashboard() {
             <>
               <div className="expert-dash__card">
                 <h3>Accuracy Trend</h3>
+                {student.accuracyTrend.length === 0 && <p className="expert-dash__card-sub">Not enough sessions yet.</p>}
                 <ResponsiveContainer width="100%" height={200}>
                   <LineChart data={student.accuracyTrend}>
                     <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />

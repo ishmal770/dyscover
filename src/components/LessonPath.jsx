@@ -5,9 +5,11 @@
 // lesson before them is finished. Tapping a circle opens a small card with
 // the lesson's description and a Start button.
 import { useEffect, useRef, useState } from "react";
-import { Check, Lock, Play, Star, X } from "lucide-react";
+import { Check, Film, Lock, Play, Star, Volume2, X } from "lucide-react";
 import TopBar from "./TopBar";
 import GemGate from "./GemGate";
+import GameDemo from "./GameDemo";
+import { speak } from "../audio/speech";
 import AccessibilityToolbar from "./AccessibilityToolbar";
 import GuideBubble from "./GuideBubble";
 import { useProgress } from "../context/ProgressContext";
@@ -41,7 +43,12 @@ function Unit({ unit, unitIndex, currentId, onOpen }) {
       <div className="path__banner">
         <div>
           <span className="path__unit-num">UNIT {unitIndex + 1}</span>
-          <h2>{unit.title}</h2>
+          <h2>
+            {unit.title}
+            <button className="path__banner-speak" onClick={() => speak(`${unit.title}. ${unit.tagline}`)} aria-label="Read aloud">
+              <Volume2 size={18} />
+            </button>
+          </h2>
           <p>{unit.tagline}</p>
           <span className="path__count">
             {progress.done}/{progress.total} lessons &middot; {progress.stars}/{progress.maxStars} stars
@@ -90,6 +97,7 @@ function Unit({ unit, unitIndex, currentId, onOpen }) {
 function LessonPath({ onHome, onStartLesson, guideMessage, guideInstructions }) {
   const { isCompleted, isUnlocked, stars, pendingGem } = useProgress();
   const [openId, setOpenId] = useState(null);
+  const [demoId, setDemoId] = useState(null);
   const scrollRef = useRef(null);
 
   const allLessons = UNITS.flatMap((u) => u.lessons);
@@ -127,8 +135,16 @@ function LessonPath({ onHome, onStartLesson, guideMessage, guideInstructions }) 
               <X size={16} />
             </button>
             <span className="path__sheet-skill">{open.skill}</span>
-            <h2>{open.name}</h2>
+            <h2>
+              {open.name}
+              <button className="path__sheet-speak" onClick={() => speak(`${open.name}. ${open.blurb}`)} aria-label="Read aloud">
+                <Volume2 size={18} />
+              </button>
+            </h2>
             <p>{open.blurb}</p>
+            <button className="path__sheet-demo" onClick={() => setDemoId(open.id)}>
+              <Film size={16} /> Watch how to play
+            </button>
             {isUnlocked(open.id) ? (
               <>
                 <p className="path__sheet-reward">
@@ -153,6 +169,7 @@ function LessonPath({ onHome, onStartLesson, guideMessage, guideInstructions }) 
         </div>
       )}
 
+      {demoId && <GameDemo demoId={demoId} onClose={() => setDemoId(null)} />}
       <AccessibilityToolbar />
       <GuideBubble message={guideMessage} instructions={guideInstructions} />
     </section>

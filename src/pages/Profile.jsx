@@ -7,12 +7,14 @@ import TopBar from "../components/TopBar";
 import AccessibilityToolbar from "../components/AccessibilityToolbar";
 import GuideBubble from "../components/GuideBubble";
 import Avatar from "../components/Avatar";
+import GradePicker from "../components/GradePicker";
 import { useProgress } from "../context/ProgressContext";
 import { AVATARS, unlockText } from "../data/avatars";
+import { JUNGLES } from "../data/jungleQuiz";
 import "./Profile.css";
 
-function Profile({ onBack }) {
-  const { name, setName, avatar, setAvatar, levelInfo, xp, streak, bestStreak, stats, maxStars, isAvatarUnlocked } = useProgress();
+function Profile({ onBack, onQuiz }) {
+  const { jungle, name, setName, avatar, setAvatar, levelInfo, xp, streak, bestStreak, stats, maxStars, isAvatarUnlocked } = useProgress();
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState(name);
   const [notice, setNotice] = useState("");
@@ -105,6 +107,22 @@ function Profile({ onBack }) {
             </div>
           </div>
 
+          <div className="profile__jungle" style={jungle ? { borderColor: JUNGLES[jungle].color } : undefined}>
+            <span className="profile__jungle-emoji" aria-hidden="true">
+              {jungle ? JUNGLES[jungle].emoji : "🌴"}
+            </span>
+            <div>
+              <strong>{jungle ? JUNGLES[jungle].name : "Which jungle are you joining?"}</strong>
+              <span>{jungle ? "This is your jungle!" : "Take the picture quiz to find out."}</span>
+            </div>
+            <button className="btn btn--outline" onClick={onQuiz}>
+              {jungle ? "Retake quiz" : "Take quiz"}
+            </button>
+          </div>
+
+          <h2 className="profile__heading">My grade</h2>
+          <GradePicker />
+
           <h2 className="profile__heading">
             Choose my avatar{" "}
             <span>
@@ -120,6 +138,7 @@ function Profile({ onBack }) {
                   key={a.id}
                   className={`profile__avatar${chosen ? " is-chosen" : ""}${open ? "" : " is-locked"}`}
                   onClick={() => pick(a)}
+                  data-help="avatar"
                   aria-pressed={chosen}
                   aria-label={open ? `${a.name}${chosen ? ", chosen" : ""}` : `${a.name}, locked. ${unlockText(a)}`}
                 >

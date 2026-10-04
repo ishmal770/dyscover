@@ -7,25 +7,12 @@ import GameTopBar from "../components/GameTopBar";
 import LessonComplete from "../components/LessonComplete";
 import AccessibilityToolbar from "../components/AccessibilityToolbar";
 import GameHintBubble, { speak } from "../components/GameHintBubble";
+import { useProgress } from "../context/ProgressContext";
+import { BANKS } from "../data/questionBanks";
 import "./ParrotPairsGame.css";
 
 // 12 near-identical word pairs, each differing by a small run of
 // transposed/substituted letters somewhere in the middle
-const ROUNDS = [
-  { word1: "EXPECTATIONS", word2: "EXPLANATIONS" },
-  { word1: "EXCEPTIONS", word2: "EXPRESSIONS" },
-  { word1: "EXCITEMENT", word2: "EXPERIMENT" },
-  { word1: "EXPLAIN", word2: "EXPLORE" },
-  { word1: "SMILE", word2: "SLIME" },
-  { word1: "ANGEL", word2: "ANGLE" },
-  { word1: "QUIET", word2: "QUITE" },
-  { word1: "DESSERT", word2: "DESERT" },
-  { word1: "FORM", word2: "FROM" },
-  { word1: "TRIAL", word2: "TRAIL" },
-  { word1: "BREATH", word2: "BREATHE" },
-  { word1: "AFFECT", word2: "EFFECT" },
-];
-
 function getDiffRanges(word1, word2) {
   const len1 = word1.length;
   const len2 = word2.length;
@@ -72,6 +59,8 @@ function getTileMetrics(maxLen) {
 }
 
 function ParrotPairsGame({ onHome, onBack, onDone }) {
+  const { grade } = useProgress();
+  const rounds = BANKS.parrot[grade];
   const [roundIndex, setRoundIndex] = useState(0);
   const [selected1, setSelected1] = useState(() => new Set());
   const [selected2, setSelected2] = useState(() => new Set());
@@ -83,7 +72,7 @@ function ParrotPairsGame({ onHome, onBack, onDone }) {
   const [solved, setSolved] = useState(false);
   const [sessionComplete, setSessionComplete] = useState(false);
 
-  const round = ROUNDS[roundIndex];
+  const round = rounds[roundIndex];
   const stars = Math.max(0, 3 - hintsUsed);
   const { range1, range2 } = getDiffRanges(round.word1, round.word2);
   const expected1 = rangeToSet(range1);
@@ -132,7 +121,7 @@ function ParrotPairsGame({ onHome, onBack, onDone }) {
   }
 
   function handleNextWord() {
-    if (roundIndex + 1 >= ROUNDS.length) {
+    if (roundIndex + 1 >= rounds.length) {
       setSessionComplete(true);
       return;
     }
@@ -181,7 +170,7 @@ function ParrotPairsGame({ onHome, onBack, onDone }) {
           <strong>{score}</strong>
         </div>
         <span className="parrot-game__round-count">
-          {roundIndex + 1} / {ROUNDS.length}
+          {roundIndex + 1} / {rounds.length}
         </span>
         <div className="parrot-game__stars">
           {[0, 1, 2].map((i) => (
@@ -259,7 +248,7 @@ function ParrotPairsGame({ onHome, onBack, onDone }) {
         </button>
         {solved ? (
           <button className="btn btn--primary" onClick={handleNextWord}>
-            {roundIndex + 1 >= ROUNDS.length ? "Finish" : "Next Word"} <Check size={16} />
+            {roundIndex + 1 >= rounds.length ? "Finish" : "Next Word"} <Check size={16} />
           </button>
         ) : (
           <button className="btn btn--primary" onClick={handleCheckAnswer}>
@@ -270,6 +259,7 @@ function ParrotPairsGame({ onHome, onBack, onDone }) {
 
       <AccessibilityToolbar />
       <GameHintBubble
+        demo="parrotPairsGame"
         instructions="Look at the two words. A few letters got mixed up between them. Tap the letters that are different in each word. Then press Check Answer. You can tap a speaker to hear a word, or tap Hint if you need help."
         message="Can you find the letters that got mixed up? Tap the speaker to hear the word!"
       />

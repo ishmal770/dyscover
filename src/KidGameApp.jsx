@@ -3,6 +3,7 @@
 // unmounting/remounting components. This keeps the transitions instant
 // and avoids losing in-progress game state when peeking at another page.
 import { useRef, useEffect, useState } from "react";
+import { useProgress } from "./context/ProgressContext";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import "./App.css";
 import Homepage from "./pages/Homepage";
@@ -10,6 +11,7 @@ import Login from "./pages/Login";
 import AdventureMap from "./pages/AdventureMap";
 import PlacementMission from "./pages/PlacementMission";
 import Dashboard from "./pages/Dashboard";
+import JungleQuiz from "./pages/JungleQuiz";
 import Profile from "./pages/Profile";
 import ParrotPairsGame from "./pages/ParrotPairsGame";
 import SyllableSafariGame from "./pages/SyllableSafariGame";
@@ -24,6 +26,7 @@ function KidGameApp() {
   const sectionRefs = useRef({});
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const { grade } = useProgress();
 
   // Smoothly scrolls the horizontal strip so the named section fills the view.
   const goTo = (key) => {
@@ -66,7 +69,8 @@ function KidGameApp() {
     <div className="scroller">
       {/* Getting started: splash -> log in -> quick placement */}
       {section("home", <Homepage onNext={() => goTo("login")} />)}
-      {section("login", <Login onNext={() => goTo("placement")} />)}
+      {section("login", <Login onNext={() => goTo("quiz")} />)}
+      {section("quiz", <JungleQuiz onNext={() => goTo("placement")} />)}
       {section("placement", <PlacementMission onNext={toDashboard} onHome={toDashboard} />)}
 
       {/* Home base, then the world map. The map is one lesson path; each lesson is a game. */}
@@ -80,16 +84,16 @@ function KidGameApp() {
           onOpenProfile={() => goTo("profile")}
         />
       )}
-      {section("profile", <Profile onBack={toDashboard} />)}
+      {section("profile", <Profile onBack={toDashboard} onQuiz={() => goTo("quiz")} />)}
       {section("map", <AdventureMap onHome={toDashboard} onStartLesson={goTo} />)}
 
       {/* The lessons: Unit 1 (Jungle Games), then Unit 2 (Canopy Quest). Each one returns to the map. */}
-      {section("parrotPairsGame", <ParrotPairsGame key={runs.parrotPairsGame || 0} onHome={toDashboard} onBack={() => goTo("map")} onDone={() => finishLesson("parrotPairsGame")} />)}
-      {section("syllableSafariGame", <SyllableSafariGame key={runs.syllableSafariGame || 0} onHome={toDashboard} onBack={() => goTo("map")} onDone={() => finishLesson("syllableSafariGame")} />)}
-      {section("monkeyMixUpGame", <MonkeyMixUpGame key={runs.monkeyMixUpGame || 0} onHome={toDashboard} onBack={() => goTo("map")} onDone={() => finishLesson("monkeyMixUpGame")} />)}
-      {section("lionsLettersGame", <LionsLettersGame key={runs.lionsLettersGame || 0} onHome={toDashboard} onBack={() => goTo("map")} onDone={() => finishLesson("lionsLettersGame")} />)}
-      {section("lizardLookoutsGame", <LizardLookoutsGame key={runs.lizardLookoutsGame || 0} onHome={toDashboard} onBack={() => goTo("map")} onDone={() => finishLesson("lizardLookoutsGame")} />)}
-      {section("cheetahChallengeGame", <CheetahChallengeGame key={runs.cheetahChallengeGame || 0} onHome={toDashboard} onBack={() => goTo("map")} onDone={() => finishLesson("cheetahChallengeGame")} />)}
+      {section("parrotPairsGame", <ParrotPairsGame key={`${runs.parrotPairsGame || 0}-${grade}`} onHome={toDashboard} onBack={() => goTo("map")} onDone={() => finishLesson("parrotPairsGame")} />)}
+      {section("syllableSafariGame", <SyllableSafariGame key={`${runs.syllableSafariGame || 0}-${grade}`} onHome={toDashboard} onBack={() => goTo("map")} onDone={() => finishLesson("syllableSafariGame")} />)}
+      {section("monkeyMixUpGame", <MonkeyMixUpGame key={`${runs.monkeyMixUpGame || 0}-${grade}`} onHome={toDashboard} onBack={() => goTo("map")} onDone={() => finishLesson("monkeyMixUpGame")} />)}
+      {section("lionsLettersGame", <LionsLettersGame key={`${runs.lionsLettersGame || 0}-${grade}`} onHome={toDashboard} onBack={() => goTo("map")} onDone={() => finishLesson("lionsLettersGame")} />)}
+      {section("lizardLookoutsGame", <LizardLookoutsGame key={`${runs.lizardLookoutsGame || 0}-${grade}`} onHome={toDashboard} onBack={() => goTo("map")} onDone={() => finishLesson("lizardLookoutsGame")} />)}
+      {section("cheetahChallengeGame", <CheetahChallengeGame key={`${runs.cheetahChallengeGame || 0}-${grade}`} onHome={toDashboard} onBack={() => goTo("map")} onDone={() => finishLesson("cheetahChallengeGame")} />)}
     </div>
   );
 }
