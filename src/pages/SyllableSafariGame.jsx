@@ -52,7 +52,7 @@ const HELP = {
   build: "Now tap a piece to hear it, then tap a box to put it in. Put the pieces in order to build the word. Then press Check Word.",
 };
 
-function SyllableSafariGame({ onHome, onBack }) {
+function SyllableSafariGame({ onHome, onBack, onDone }) {
   const [roundIndex, setRoundIndex] = useState(0);
   const [phase, setPhase] = useState("split");
   const [placedDividers, setPlacedDividers] = useState(() => new Set());
@@ -163,7 +163,7 @@ function SyllableSafariGame({ onHome, onBack }) {
     return (
       <section className="page syllable-game">
         <GameTopBar gameName="Syllable Safari" onHome={onHome} onBack={onBack} />
-        <LessonComplete lessonId="syllableSafariGame" stars={stars} onPlayAgain={handlePlayAgain} onBack={onBack} />
+        <LessonComplete lessonId="syllableSafariGame" stars={stars} onPlayAgain={handlePlayAgain} onBack={onDone ?? onBack} />
         <AccessibilityToolbar />
       </section>
     );

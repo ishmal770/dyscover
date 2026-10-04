@@ -23,7 +23,7 @@ const HELP = {
   word: "Now write the whole word with your finger on the lines. Then press Continue.",
 };
 
-function LionsLettersGame({ onHome, onBack }) {
+function LionsLettersGame({ onHome, onBack, onDone }) {
   const [roundIndex, setRoundIndex] = useState(0);
   const [heardSound, setHeardSound] = useState(false);
   const [revealed, setRevealed] = useState(() => new Set());
@@ -79,7 +79,7 @@ function LionsLettersGame({ onHome, onBack }) {
     return (
       <section className="page lions-game">
         <GameTopBar gameName="Lion's Letters" onHome={onHome} onBack={onBack} />
-        <LessonComplete lessonId="lionsLettersGame" stars={3} character="lion" onPlayAgain={handlePlayAgain} onBack={onBack} />
+        <LessonComplete lessonId="lionsLettersGame" stars={3} character="lion" onPlayAgain={handlePlayAgain} onBack={onDone ?? onBack} />
         <AccessibilityToolbar />
       </section>
     );

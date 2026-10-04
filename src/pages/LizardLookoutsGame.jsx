@@ -145,7 +145,7 @@ const HELP = {
   paragraph: "Now find the same letter again in the paragraph. Tap every one you can find.",
 };
 
-function LizardLookoutsGame({ onHome, onBack }) {
+function LizardLookoutsGame({ onHome, onBack, onDone }) {
   const [roundIndex, setRoundIndex] = useState(0);
   const [stepIndex, setStepIndex] = useState(0);
   const [foundSentence, setFoundSentence] = useState(() => new Set());
@@ -240,7 +240,7 @@ function LizardLookoutsGame({ onHome, onBack }) {
       </div>
 
       {isComplete ? (
-        <LessonComplete lessonId="lizardLookoutsGame" stars={stars} onPlayAgain={handlePlayAgain} onBack={onBack} />
+        <LessonComplete lessonId="lizardLookoutsGame" stars={stars} onPlayAgain={handlePlayAgain} onBack={onDone ?? onBack} />
       ) : (
         <div className="lizard-game__steps">
           <div className="lizard-game__step-tabs">

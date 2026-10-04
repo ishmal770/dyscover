@@ -31,7 +31,7 @@ const BONUS_WORDS = ["Sun", "Bug", "Cup", "Rays", "Roach"];
 // reliable and is standard phonics-teaching practice.
 const SOUND_EXAMPLES = { uh: "cup", aa: "cat", ih: "pig", aw: "dog", eh: "bed" };
 
-function MonkeyMixUpGame({ onHome, onBack }) {
+function MonkeyMixUpGame({ onHome, onBack, onDone }) {
   const [roundIndex, setRoundIndex] = useState(0);
   const [filled, setFilled] = useState(null);
   const [wrong, setWrong] = useState(false);
@@ -79,7 +79,7 @@ function MonkeyMixUpGame({ onHome, onBack }) {
     return (
       <section className="page monkey-game">
         <GameTopBar gameName="Monkey Mix-Up" onHome={onHome} onBack={onBack} />
-        <LessonComplete lessonId="monkeyMixUpGame" stars={stars} onPlayAgain={handlePlayAgain} onBack={onBack} />
+        <LessonComplete lessonId="monkeyMixUpGame" stars={stars} onPlayAgain={handlePlayAgain} onBack={onDone ?? onBack} />
         <AccessibilityToolbar />
       </section>
     );
