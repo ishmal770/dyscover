@@ -40,7 +40,6 @@ export const HELP_RULES = [
   [/^clear$/, "Press this to erase what you wrote and try again."],
   [/choose color/, "Press this to pick a color for your pencil."],
   [/^\d+$/, "Press the number to hear that letter."],
-  [/^grades/, "Press this to pick your grade. Your questions match your grade."],
   [/change my name/, "Press the pencil to change your name."],
   [/^save$/, "Press this to save your new name."],
   [/retake quiz|take quiz|take the quiz again/, "Press this to answer the jungle quiz questions."],

@@ -84,7 +84,7 @@ function KidGameApp() {
           onOpenProfile={() => goTo("profile")}
         />
       )}
-      {section("profile", <Profile onBack={toDashboard} onQuiz={() => goTo("quiz")} />)}
+      {section("profile", <Profile onBack={toDashboard} onQuiz={() => goTo("quiz")} onPlacement={() => goTo("placement")} />)}
       {section("map", <AdventureMap onHome={toDashboard} onStartLesson={goTo} />)}
 
       {/* The lessons: Unit 1 (Jungle Games), then Unit 2 (Canopy Quest). Each one returns to the map. */}

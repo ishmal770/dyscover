@@ -5,6 +5,7 @@ import { useEffect, useState, useSyncExternalStore } from "react";
 import { Volume2, X } from "lucide-react";
 import { getHelp, setHelp, subscribeHelp } from "../helpState";
 import { speak } from "../audio/speech";
+import { hasHeard, markHeard } from "../audio/heard";
 import { HELP_ON, tipFor } from "../data/helpTips";
 import "./HelpMode.css";
 
@@ -22,7 +23,13 @@ function HelpMode() {
 
   useEffect(() => {
     document.documentElement.classList.toggle("help-mode", on);
-    if (on) speak(HELP_ON);
+    if (on) {
+      // the "help is on" line is said the first time only (it is also written on the card)
+      if (!hasHeard("help-on")) {
+        markHeard("help-on");
+        speak(HELP_ON);
+      }
+    }
     // eslint-disable-next-line react-hooks/set-state-in-effect
     else setTip("");
   }, [on]);

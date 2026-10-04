@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { Volume2, X, HelpCircle } from "lucide-react";
 import GuideArt from "./GuideArt";
 import { speak, cancelSpeech, audioUnlocked } from "./GameHintBubble";
+import { hasHeard, markHeard } from "../audio/heard";
 import { useGuide } from "../context/GuideContext";
 import { SLOTH } from "../data/guides";
 import "./GuideBubble.css";
@@ -50,8 +51,13 @@ function GuideBubble({ message, fixedCharacter, onAdvance, advanceHint, centered
       ([entry]) => {
         if (entry.isIntersecting) {
           setWelcoming(true);
-          if (audioUnlocked()) {
+          // The welcome is said once; after that this page stays quiet (tap the guide to hear it again)
+          const key = `guide:${message}`;
+          if (hasHeard(key)) {
             setNeedsTap(false);
+          } else if (audioUnlocked()) {
+            setNeedsTap(false);
+            markHeard(key);
             speak(spokenLine(guide, message), { voice: guide.id });
           } else {
             setNeedsTap(true);
@@ -90,6 +96,7 @@ function GuideBubble({ message, fixedCharacter, onAdvance, advanceHint, centered
 
   function replay() {
     setNeedsTap(false);
+    markHeard(`guide:${message}`);
     setWelcoming(true);
     speak(spokenLine(guide, message), { voice: guide.id });
     setTimeout(() => setWelcoming(false), WELCOME_MS);
@@ -140,6 +147,7 @@ function GuideBubble({ message, fixedCharacter, onAdvance, advanceHint, centered
         </div>
         <button className="guide-bubble__listen" onClick={() => {
             setNeedsTap(false);
+            markHeard(`guide:${message}`);
             speak(message, { voice: guide.id });
           }}
           aria-label="Hear the guide again">

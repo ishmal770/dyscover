@@ -7,14 +7,14 @@ import TopBar from "../components/TopBar";
 import AccessibilityToolbar from "../components/AccessibilityToolbar";
 import GuideBubble from "../components/GuideBubble";
 import Avatar from "../components/Avatar";
-import GradePicker from "../components/GradePicker";
+import { GRADE_BANDS } from "../data/questionBanks";
 import { useProgress } from "../context/ProgressContext";
 import { AVATARS, unlockText } from "../data/avatars";
 import { JUNGLES } from "../data/jungleQuiz";
 import "./Profile.css";
 
-function Profile({ onBack, onQuiz }) {
-  const { jungle, name, setName, avatar, setAvatar, levelInfo, xp, streak, bestStreak, stats, maxStars, isAvatarUnlocked } = useProgress();
+function Profile({ onBack, onQuiz, onPlacement }) {
+  const { grade, jungle, name, setName, avatar, setAvatar, levelInfo, xp, streak, bestStreak, stats, maxStars, isAvatarUnlocked } = useProgress();
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState(name);
   const [notice, setNotice] = useState("");
@@ -120,8 +120,18 @@ function Profile({ onBack, onQuiz }) {
             </button>
           </div>
 
-          <h2 className="profile__heading">My grade</h2>
-          <GradePicker />
+          <div className="profile__jungle">
+            <span className="profile__jungle-emoji" aria-hidden="true">
+              🎯
+            </span>
+            <div>
+              <strong>{GRADE_BANDS.find((b) => b.id === grade)?.label}</strong>
+              <span>Picked for you by your placement mission.</span>
+            </div>
+            <button className="btn btn--outline" onClick={onPlacement}>
+              Play placement again
+            </button>
+          </div>
 
           <h2 className="profile__heading">
             Choose my avatar{" "}

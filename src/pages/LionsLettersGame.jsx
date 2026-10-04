@@ -159,6 +159,11 @@ function LionsLettersGame({ onHome, onBack, onDone }) {
 
       <AccessibilityToolbar />
       <GameHintBubble
+        steps={[
+          { label: "Tracing a letter", text: HELP.letter },
+          { label: "Spelling a word", text: HELP.spell },
+          { label: "Writing the word", text: HELP.word },
+        ]}
         demo="lionsLettersGame"
         instructions={round.type === "letter" ? HELP.letter : wordPhase === "letters" ? HELP.spell : HELP.word}
         character="lion"

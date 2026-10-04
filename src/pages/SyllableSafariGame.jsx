@@ -260,6 +260,10 @@ function SyllableSafariGame({ onHome, onBack, onDone }) {
 
       <AccessibilityToolbar />
       <GameHintBubble
+        steps={[
+          { label: "Splitting the word", text: HELP.split },
+          { label: "Building the word", text: HELP.build },
+        ]}
         demo="syllableSafariGame"
         instructions={HELP[phase]}
         message="Tap the pieces to hear them, then build the word in order!"

@@ -180,6 +180,8 @@ PAGE_HELP_ANIMALS = {
     "pages/AdventureMap.jsx": "This is your adventure map. Each circle is a lesson. Finish one to open the next. Tap the glowing circle, then press Start. Tap the logo to go back home.",
     "pages/Backpack.jsx": "This is your backpack. Every lesson you finish puts a new treasure inside. Finish all the lessons in a unit to win its gem. Tap Play again to practice a lesson, or tap the speaker to hear about a treasure.",
 }
+# What a guide asks after reading a game step's instructions
+ASK_MORE = "Do you want to hear the other instructions? Tap one to listen."
 TROPHY_MESSAGE = "Look at all the treasures in your backpack! Finish lessons to find more."
 # Said by the game's guide on the "Lesson complete" screen (by stars earned)
 LESSON_CHEERS = [
@@ -266,6 +268,7 @@ def collect() -> None:
             add(text, voice=gid)
         add(TROPHY_MESSAGE, voice=gid)
         add(f"Hi, I'm {name}! {TROPHY_MESSAGE}", voice=gid)
+        add(ASK_MORE, voice=gid)
         for cheer in LESSON_CHEERS:
             add(cheer, voice=gid)
 
@@ -325,6 +328,8 @@ def collect() -> None:
         for rel, text in table.items():
             require_in_source(rel, text)
             add(text)  # neutral voice / fallback (dashboards use only this)
+    require_in_source("components/GameHintBubble.jsx", ASK_MORE)
+    add(ASK_MORE)
     require_in_source("pages/Backpack.jsx", TROPHY_MESSAGE)
     add(TROPHY_MESSAGE)
     for cheer in LESSON_CHEERS:
