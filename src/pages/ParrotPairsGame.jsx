@@ -63,12 +63,13 @@ function sameSet(a, b) {
   return true;
 }
 
+// Letter tiles: big and easy to tap, but shrunk (never below 22px) so the
+// longest word still fits on one row of the screen it is played on.
 function getTileMetrics(maxLen) {
-  if (maxLen <= 5) return { size: 44, font: "1.3rem", gap: 8 };
-  if (maxLen <= 7) return { size: 38, font: "1.1rem", gap: 6 };
-  if (maxLen <= 9) return { size: 30, font: "0.95rem", gap: 5 };
-  if (maxLen <= 11) return { size: 25, font: "0.8rem", gap: 4 };
-  return { size: 21, font: "0.7rem", gap: 3 };
+  const gap = maxLen <= 5 ? 10 : maxLen <= 9 ? 7 : 4;
+  const fit = (Math.min(window.innerWidth, 900) - 110) / maxLen - gap;
+  const size = Math.round(Math.max(22, Math.min(maxLen <= 5 ? 64 : maxLen <= 7 ? 54 : 46, fit)));
+  return { size, font: `${(size / 30).toFixed(2)}rem`, gap };
 }
 
 function ParrotPairsGame({ onHome, onBack, onDone }) {
