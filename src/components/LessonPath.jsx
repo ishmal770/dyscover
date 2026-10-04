@@ -13,9 +13,9 @@ import { useProgress } from "../context/ProgressContext";
 import { UNITS } from "../data/lessons";
 import "./LessonPath.css";
 
-const STEP = 150; // vertical distance between circles
-const SIDE = 70; // how far circles swing left/right of center
-const WIDTH = 320;
+const STEP = 190; // vertical distance between circles
+const SIDE = 84; // how far circles swing left/right of center
+const WIDTH = 340;
 
 // One unit: its banner and trail of lesson circles
 function Unit({ unit, unitIndex, currentId, onOpen }) {
@@ -24,8 +24,8 @@ function Unit({ unit, unitIndex, currentId, onOpen }) {
 
   // Circle centers zig-zag down the page: center, right, center, left, ...
   const swing = [0, SIDE, 0, -SIDE];
-  const points = unit.lessons.map((_, i) => ({ x: WIDTH / 2 + swing[i % 4], y: 56 + i * STEP }));
-  const height = points[points.length - 1].y + 100;
+  const points = unit.lessons.map((_, i) => ({ x: WIDTH / 2 + swing[i % 4], y: 70 + i * STEP }));
+  const height = points[points.length - 1].y + 120;
   const trail = points
     .map((p, i) => {
       if (i === 0) return `M${p.x} ${p.y}`;
@@ -66,7 +66,7 @@ function Unit({ unit, unitIndex, currentId, onOpen }) {
                 onClick={() => onOpen(lesson.id)}
                 aria-label={`${lesson.name}: ${state === "locked" ? "locked" : done ? "finished" : "ready"}`}
               >
-                {state === "done" ? <Check size={34} strokeWidth={3.5} /> : state === "locked" ? <Lock size={28} /> : <Play size={32} fill="currentColor" />}
+                {state === "done" ? <Check size={46} strokeWidth={3.5} /> : state === "locked" ? <Lock size={36} /> : <Play size={42} fill="currentColor" />}
               </button>
               <span className="path__node-name">{lesson.name}</span>
               {done && (

@@ -78,15 +78,15 @@
   flex-direction: column;
   align-items: center;
   gap: 6px;
-  transform: translate(-50%, -44px);
+  transform: translate(-50%, -58px);
 }
 
 .path__node {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 88px;
-  height: 88px;
+  width: 116px;
+  height: 116px;
   border: none;
   border-radius: 50%;
   color: var(--white);
@@ -120,13 +120,13 @@
 
 .path__start-tag {
   position: absolute;
-  top: -34px;
-  padding: 5px 14px;
+  top: -40px;
+  padding: 6px 18px;
   border: 2px solid var(--green);
   border-radius: 12px;
   background: var(--white);
   color: var(--green-dark);
-  font-size: 0.8rem;
+  font-size: 1rem;
   font-weight: 800;
   letter-spacing: 0.06em;
   animation: path-bob 1.2s ease-in-out infinite;
@@ -146,8 +146,8 @@
 }
 
 .path__node-name {
-  max-width: 130px;
-  font-size: 0.85rem;
+  max-width: 170px;
+  font-size: 1.05rem;
   font-weight: 800;
   text-align: center;
   color: var(--ink);
