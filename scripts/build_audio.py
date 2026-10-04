@@ -157,7 +157,8 @@ PAGE_HELP_SLOTH = {
     "pages/Homepage.jsx": "Tap me to start your adventure. Tap the speaker to hear me again. Grown-ups can use the links at the bottom of the page.",
     "pages/Login.jsx": "Type your explorer name and your secret code. Then tap Log In. If you are new, tap Create Account.",
     "pages/PlacementMission.jsx": "We will play a few short games so I can build your perfect map. Tap me when you are ready to begin.",
-    "pages/Dashboard.jsx": "This is your home base. The flame counts the days in a row that you play. The bar shows today's goal. Tap Start to begin your next lesson, or open the map to choose a world.",
+    "pages/Dashboard.jsx": "This is your home base. The flame counts the days in a row that you play. The bar shows today's goal. Tap Start to begin your next lesson, or open the map to choose a world. Tap your picture to open your profile.",
+    "pages/Profile.jsx": "This is your profile. Tap a picture to make it your avatar. Pictures with a lock need more levels, stars or trophies. Tap the pencil to change your name.",
 }
 PAGE_HELP_ANIMALS = {
     "pages/AdventureMap.jsx": "This is your adventure map. Each circle is a lesson. Finish one to open the next. Tap the glowing circle, then press Start. Tap the logo to go back home.",
@@ -215,6 +216,7 @@ def collect() -> None:
         "pages/Login.jsx": "Tell me your explorer name and secret code, then tap Log In. New here? Tap Create Account!",
         "pages/PlacementMission.jsx": "Let's play a few quick games so I can build your perfect map. Tap me when you are ready!",
         "pages/Dashboard.jsx": "Welcome back, explorer! Tap Start to keep learning.",
+        "pages/Profile.jsx": "This is your profile! Pick a picture to be your avatar. Play more lessons to unlock new ones.",
     }
     world_messages = {
         "pages/AdventureMap.jsx": "Welcome to the Adventure Map! Follow the path and tap the glowing circle to start your next lesson.",

@@ -4,12 +4,14 @@
 // path, the "lesson complete" screen and the Trophy Room.
 import { createContext, useContext, useRef, useState } from "react";
 import { UNITS, LESSONS } from "../data/lessons";
+import { AVATARS, AVATAR_BY_ID, DEFAULT_AVATAR, isAvatarUnlocked, levelFor } from "../data/avatars";
 
 const STORAGE_KEY = "dyscover-progress";
 const DAILY_GOAL_XP = 30;
 
 const EMPTY = {
   name: "Explorer",
+  avatar: DEFAULT_AVATAR, // the picture on the child's account (see data/avatars.js)
   xp: 0,
   streak: 0, // consecutive days played, as of `lastDay`
   bestStreak: 0,
@@ -41,6 +43,17 @@ function load() {
   return EMPTY;
 }
 
+// Level, stars and gold trophies (3-star lessons) from a saved state - what
+// avatars unlock against
+function statsOf(s) {
+  const lessons = Object.values(s.lessons);
+  return {
+    level: levelFor(s.xp).level,
+    stars: lessons.reduce((sum, l) => sum + l.stars, 0),
+    trophies: lessons.filter((l) => l.stars >= 3).length,
+  };
+}
+
 const ProgressContext = createContext(null);
 
 function ProgressProvider({ children }) {
@@ -69,8 +82,9 @@ function ProgressProvider({ children }) {
     const streak = s.lastDay === today ? s.streak : s.lastDay === offsetDay(-1) ? s.streak + 1 : 1;
     const xpBefore = s.today.day === today ? s.today.xp : 0;
     const todayXp = xpBefore + xpGained;
+    const statsBefore = statsOf(s);
 
-    commit({
+    const next = {
       ...s,
       xp: s.xp + xpGained,
       streak,
@@ -79,9 +93,31 @@ function ProgressProvider({ children }) {
       today: { day: today, xp: todayXp },
       history: { ...s.history, [today]: (s.history[today] || 0) + xpGained },
       lessons: { ...s.lessons, [id]: { stars: Math.max(prev?.stars || 0, stars), plays: (prev?.plays || 0) + 1 } },
-    });
+    };
+    commit(next);
 
-    return { xpGained, streak, todayXp, goal: DAILY_GOAL_XP, goalReached: xpBefore < DAILY_GOAL_XP && todayXp >= DAILY_GOAL_XP, firstTime };
+    const statsAfter = statsOf(next);
+    return {
+      xpGained,
+      streak,
+      todayXp,
+      goal: DAILY_GOAL_XP,
+      goalReached: xpBefore < DAILY_GOAL_XP && todayXp >= DAILY_GOAL_XP,
+      firstTime,
+      level: statsAfter.level,
+      leveledUp: statsAfter.level > statsBefore.level,
+      newAvatars: AVATARS.filter((a) => !isAvatarUnlocked(a, statsBefore) && isAvatarUnlocked(a, statsAfter)),
+    };
+  }
+
+  function setAvatar(id) {
+    const s = stateRef.current;
+    if (AVATAR_BY_ID[id] && isAvatarUnlocked(AVATAR_BY_ID[id], statsOf(s))) commit({ ...s, avatar: id });
+  }
+
+  function setName(name) {
+    const clean = name.trim().slice(0, 16);
+    if (clean) commit({ ...stateRef.current, name: clean });
   }
 
   const today = dayKey();
@@ -101,8 +137,15 @@ function ProgressProvider({ children }) {
     return [...LESSONS].sort((a, b) => (state.lessons[a.id]?.stars || 0) - (state.lessons[b.id]?.stars || 0))[0];
   }
 
+  const stats = statsOf(state);
   const value = {
     name: state.name,
+    avatar: AVATAR_BY_ID[state.avatar] ? state.avatar : DEFAULT_AVATAR,
+    setAvatar,
+    setName,
+    stats,
+    levelInfo: levelFor(state.xp),
+    isAvatarUnlocked: (a) => isAvatarUnlocked(a, stats),
     xp: state.xp,
     // a streak is only alive if you played today or yesterday
     streak: state.lastDay === today || state.lastDay === offsetDay(-1) ? state.streak : 0,

@@ -1,0 +1,22 @@
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  overflow: hidden;
+  border: 3px solid var(--white);
+  border-radius: 50%;
+  background: #e1f2d3;
+  box-shadow: var(--shadow-soft);
+}
+
+.avatar img {
+  width: 88%;
+  height: 88%;
+  object-fit: contain;
+}
+
+/* a not-yet-earned avatar shows only its dark outline */
+.avatar--locked img {
+  filter: brightness(0) opacity(0.35);
+}

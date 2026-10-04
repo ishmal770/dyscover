@@ -2,10 +2,11 @@
 // home screen: streak, XP and stars at the top, this week's practice days,
 // today's goal, and one big "next lesson" button so there's always an obvious
 // thing to do. Everything shown here is real saved progress (ProgressContext).
-import { Flame, Zap, Star, Target, Play, Map as MapIcon, Trophy, Check } from "lucide-react";
+import { Flame, Zap, Star, Target, Play, Map as MapIcon, Trophy, Check, UserRound } from "lucide-react";
 import TopBar from "../components/TopBar";
 import AccessibilityToolbar from "../components/AccessibilityToolbar";
 import GuideBubble from "../components/GuideBubble";
+import Avatar from "../components/Avatar";
 import { useProgress, dayKey } from "../context/ProgressContext";
 import { LESSON_BY_ID, UNITS } from "../data/lessons";
 import "./Dashboard.css";
@@ -24,9 +25,9 @@ function lastSevenDays(history) {
   return days;
 }
 
-function Dashboard({ onStartLesson, onOpenMap, onOpenUnit, onOpenTrophies }) {
+function Dashboard({ onStartLesson, onOpenMap, onOpenUnit, onOpenTrophies, onOpenProfile }) {
   const progress = useProgress();
-  const { name, xp, streak, todayXp, goal, totalStars, maxStars, history, playedToday, unitProgress } = progress;
+  const { name, avatar, levelInfo, xp, streak, todayXp, goal, totalStars, maxStars, history, playedToday, unitProgress } = progress;
   const next = LESSON_BY_ID[progress.nextLesson().id];
   const nextProgress = progress.lessons[next.id];
   const goalPercent = Math.min(100, Math.round((todayXp / goal) * 100));
@@ -43,10 +44,16 @@ function Dashboard({ onStartLesson, onOpenMap, onOpenUnit, onOpenTrophies }) {
       <div className="dash__scroll">
         <div className="dash__inner">
           <header className="dash__hero">
-            <div>
-              <h1>Hi, {name}!</h1>
-              <p>{headline}</p>
-            </div>
+            <button className="dash__me" onClick={onOpenProfile} aria-label="Open my profile">
+              <span className="dash__me-avatar">
+                <Avatar id={avatar} size={64} />
+                <span className="dash__me-level">Lv {levelInfo.level}</span>
+              </span>
+              <span className="dash__me-text">
+                <span className="dash__me-name">Hi, {name}!</span>
+                <span className="dash__me-sub">{headline}</span>
+              </span>
+            </button>
             <div className="dash__chips">
               <span className="dash__chip dash__chip--streak" title="Days in a row">
                 <Flame size={18} fill="currentColor" /> {streak}
@@ -125,6 +132,9 @@ function Dashboard({ onStartLesson, onOpenMap, onOpenUnit, onOpenTrophies }) {
             <button className="btn btn--outline" onClick={onOpenMap}>
               <MapIcon size={16} /> Adventure map
             </button>
+            <button className="btn btn--outline" onClick={onOpenProfile}>
+              <UserRound size={16} /> My profile
+            </button>
             <button className="btn btn--outline" onClick={onOpenTrophies}>
               <Trophy size={16} /> My trophies
             </button>
@@ -136,7 +146,7 @@ function Dashboard({ onStartLesson, onOpenMap, onOpenUnit, onOpenTrophies }) {
       <GuideBubble
         fixedCharacter="sloth"
         message="Welcome back, explorer! Tap Start to keep learning."
-        instructions="This is your home base. The flame counts the days in a row that you play. The bar shows today's goal. Tap Start to begin your next lesson, or open the map to choose a world."
+        instructions="This is your home base. The flame counts the days in a row that you play. The bar shows today's goal. Tap Start to begin your next lesson, or open the map to choose a world. Tap your picture to open your profile."
       />
     </section>
   );
