@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
-import { Trophy, Star, Clock, Flame, Volume2, Play, RotateCcw, Mic, Home } from "lucide-react";
+import { Trophy, Star, Clock, Flame, Volume2, Play, RotateCcw, Mic } from "lucide-react";
 import GameTopBar from "../components/GameTopBar";
+import LessonComplete from "../components/LessonComplete";
 import AccessibilityToolbar from "../components/AccessibilityToolbar";
 import GameHintBubble, { speak } from "../components/GameHintBubble";
 import "./CheetahChallengeGame.css";
@@ -16,6 +17,7 @@ function CheetahChallengeGame({ onHome, onBack }) {
   const [roundIndex, setRoundIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [streak, setStreak] = useState(0);
+  const [correct, setCorrect] = useState(0); // words read in time (for the lesson stars)
   const [timeLeft, setTimeLeft] = useState(100);
   const [finished, setFinished] = useState(false);
   const [isActive, setIsActive] = useState(false);
@@ -92,6 +94,7 @@ function CheetahChallengeGame({ onHome, onBack }) {
     advancingRef.current = true;
     setScore((s) => s + Math.round(timeLeft * 10));
     setStreak((s) => s + 1);
+    setCorrect((c) => c + 1);
     advanceRound();
   }
 
@@ -127,6 +130,7 @@ function CheetahChallengeGame({ onHome, onBack }) {
     setRoundIndex(0);
     setScore(0);
     setStreak(0);
+    setCorrect(0);
     setFinished(false);
     advancingRef.current = false;
     remainingRef.current = ROUND_MS;
@@ -168,18 +172,13 @@ function CheetahChallengeGame({ onHome, onBack }) {
       </div>
 
       {finished ? (
-        <div className="cheetah-game__finished">
-          <h1>Game Session Completed!</h1>
-          <p>Final score: {score.toLocaleString()}</p>
-          <div className="cheetah-game__finished-actions">
-            <button className="btn btn--outline" onClick={handleRestart}>
-              <Play size={14} fill="currentColor" /> Play Again
-            </button>
-            <button className="btn btn--primary" onClick={onBack}>
-              <Home size={14} /> Back to World
-            </button>
-          </div>
-        </div>
+        <LessonComplete
+          lessonId="cheetahChallengeGame"
+          stars={correct >= 10 ? 3 : correct >= 7 ? 2 : 1}
+          character="cheetah"
+          onPlayAgain={handleRestart}
+          onBack={onBack}
+        />
       ) : (
         <>
           <div

@@ -1,6 +1,7 @@
 import { useState, useMemo } from "react";
-import { Star, Info, ArrowRight, RotateCcw, Home, Volume2, Minus, Circle } from "lucide-react";
+import { Star, Info, ArrowRight, Volume2, Minus, Circle } from "lucide-react";
 import GameTopBar from "../components/GameTopBar";
+import LessonComplete from "../components/LessonComplete";
 import AccessibilityToolbar from "../components/AccessibilityToolbar";
 import GameHintBubble, { speak } from "../components/GameHintBubble";
 import LetterTraceCanvas from "../components/LetterTraceCanvas";
@@ -239,18 +240,7 @@ function LizardLookoutsGame({ onHome, onBack }) {
       </div>
 
       {isComplete ? (
-        <div className="lizard-game__finished">
-          <h2>Game Session Completed!</h2>
-          <p>You practiced b, d, p, and q.</p>
-          <div className="lizard-game__finished-actions">
-            <button className="btn btn--outline" onClick={handlePlayAgain}>
-              <RotateCcw size={14} /> Play Again
-            </button>
-            <button className="btn btn--primary" onClick={onBack}>
-              <Home size={14} /> Back to World
-            </button>
-          </div>
-        </div>
+        <LessonComplete lessonId="lizardLookoutsGame" stars={stars} onPlayAgain={handlePlayAgain} onBack={onBack} />
       ) : (
         <div className="lizard-game__steps">
           <div className="lizard-game__step-tabs">

@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Star, Zap, Lightbulb, Volume2, Play, ArrowRight, RotateCcw, Home } from "lucide-react";
+import { Star, Zap, Lightbulb, Volume2, Play, ArrowRight } from "lucide-react";
 import GameTopBar from "../components/GameTopBar";
+import LessonComplete from "../components/LessonComplete";
 import AccessibilityToolbar from "../components/AccessibilityToolbar";
 import GameHintBubble, { speak } from "../components/GameHintBubble";
 import "./MonkeyMixUpGame.css";
@@ -78,18 +79,7 @@ function MonkeyMixUpGame({ onHome, onBack }) {
     return (
       <section className="page monkey-game">
         <GameTopBar gameName="Monkey Mix-Up" onHome={onHome} onBack={onBack} />
-        <div className="monkey-game__complete">
-          <h1>Game Session Completed!</h1>
-          <p>You built {ROUNDS.length} words.</p>
-          <div className="monkey-game__complete-actions">
-            <button className="btn btn--outline" onClick={handlePlayAgain}>
-              <RotateCcw size={14} /> Play Again
-            </button>
-            <button className="btn btn--primary" onClick={onBack}>
-              <Home size={14} /> Back to World
-            </button>
-          </div>
-        </div>
+        <LessonComplete lessonId="monkeyMixUpGame" stars={stars} onPlayAgain={handlePlayAgain} onBack={onBack} />
         <AccessibilityToolbar />
       </section>
     );

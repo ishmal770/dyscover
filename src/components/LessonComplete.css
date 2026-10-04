@@ -1,0 +1,130 @@
+/* Styles for LessonComplete.jsx - end-of-lesson celebration screen */
+.lesson-complete {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 28px 20px 120px;
+  text-align: center;
+  /* scrolls inside the page area below the top bar on short screens */
+  max-height: calc(100svh - 64px);
+  overflow-y: auto;
+}
+
+.lesson-complete__mascot {
+  animation: lesson-bounce 0.9s ease-out;
+}
+
+.lesson-complete h1 {
+  font-size: 1.9rem;
+  font-weight: 800;
+  color: var(--green-dark);
+}
+
+.lesson-complete__name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+
+.lesson-complete__stars {
+  display: flex;
+  gap: 8px;
+  margin: 6px 0 4px;
+  color: var(--border);
+}
+
+.lesson-complete__stars svg {
+  opacity: 0;
+  animation: lesson-star-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.lesson-complete__stars svg.is-earned {
+  color: #f5b301;
+}
+
+.lesson-complete__stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.lesson-complete__stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 14px 8px;
+  border: 2px solid var(--border);
+  border-radius: 16px;
+  background: var(--white);
+}
+
+.lesson-complete__stat strong {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.lesson-complete__stat span {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+
+.lesson-complete__stat--xp svg { color: #f5b301; }
+.lesson-complete__stat--streak svg { color: #ff7a1a; }
+.lesson-complete__stat--goal svg { color: var(--green-dark); }
+
+.lesson-complete__banner {
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  background: var(--green-pale);
+  color: var(--green-dark);
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
+.lesson-complete__banner--unlock {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--amber-bg);
+  color: var(--amber);
+}
+
+.lesson-complete__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  margin-top: 14px;
+}
+
+.lesson-complete__actions .btn {
+  justify-content: center;
+  width: 100%;
+}
+
+@keyframes lesson-bounce {
+  0% { transform: translateY(40px) scale(0.7); opacity: 0; }
+  60% { transform: translateY(-8px) scale(1.05); opacity: 1; }
+  100% { transform: translateY(0) scale(1); }
+}
+
+@keyframes lesson-star-pop {
+  from { transform: scale(0.2) rotate(-30deg); opacity: 0; }
+  to { transform: scale(1) rotate(0); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lesson-complete__mascot,
+  .lesson-complete__stars svg {
+    animation: none;
+    opacity: 1;
+  }
+}

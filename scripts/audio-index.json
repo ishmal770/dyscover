@@ -1,17 +1,22 @@
 {
+ "003baa6a": {
+  "key": "lesson complete! good try, you got one star. practice makes you stronger!",
+  "say": "Lesson complete! Good try, you got one star. Practice makes you stronger!",
+  "speed": "0.76/0.85"
+ },
  "016b8756": {
   "key": "syl:e",
   "say": "eh",
   "speed": "0.76/0.85"
  },
+ "01b435a5": {
+  "key": "elephant|lesson complete! amazing work, you got three stars!",
+  "say": "Lesson complete! Amazing work, you got three stars!",
+  "speed": "{\"lang\": \"en-gb\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"bf_emma\", \"word\": 0.8}"
+ },
  "0252be73": {
   "key": "elephant|hi, i'm ellie! look at all the trophies you have won! tap play again to play a game once more.",
   "say": "Hi, I'm Ellie! Look at all the trophies you have won! Tap Play Again to play a game once more.",
-  "speed": "{\"lang\": \"en-gb\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"bf_emma\", \"word\": 0.8}"
- },
- "02aafe6e": {
-  "key": "elephant|hi, i'm ellie! welcome to the jungle games! tap a game to see how to play, then press start.",
-  "say": "Hi, I'm Ellie! Welcome to the Jungle Games! Tap a game to see how to play, then press Start.",
   "speed": "{\"lang\": \"en-gb\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"bf_emma\", \"word\": 0.8}"
  },
  "02c5e24f": {
@@ -19,10 +24,10 @@
   "say": "This is your trophy room. Each card is a game you have played, and the stars show how well you did. Tap Play Again to try a game once more. Tap a skill at the top to see only those games.",
   "speed": "0.76/0.85"
  },
- "03506dbd": {
-  "key": "elephant|these are the canopy quest games. tap a game to read about it. then press start playing. tap map to go back to the map.",
-  "say": "These are the Canopy Quest games. Tap a game to read about it. Then press Start Playing. Tap Map to go back to the map.",
-  "speed": "{\"lang\": \"en-gb\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"bf_emma\", \"word\": 0.8}"
+ "03a732f0": {
+  "key": "mimi|lesson complete! amazing work, you got three stars!",
+  "say": "Lesson complete! Amazing work, you got three stars!",
+  "speed": "{\"lang\": \"en-gb\", \"pitch\": 1.2, \"sentence\": 0.78, \"voice\": \"bf_lily\", \"word\": 0.85}"
  },
  "03d5b964": {
   "key": "butterfly",
@@ -39,11 +44,6 @@
   "say": "Listen to the word. Then tap in between the letters where the word splits into parts.",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 0.84, \"sentence\": 0.68, \"voice\": \"am_fenrir\", \"word\": 0.78}"
  },
- "04cb7b28": {
-  "key": "cheetah|hi, i'm chase! welcome to the jungle games! tap a game to see how to play, then press start.",
-  "say": "Hi, I'm Chase! Welcome to the Jungle Games! Tap a game to see how to play, then press Start.",
-  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.06, \"sentence\": 0.84, \"voice\": \"am_liam\", \"word\": 0.88}"
- },
  "056b8da2": {
   "key": "syl:a",
   "say": "uh",
@@ -53,6 +53,11 @@
   "key": "sloth|tap me to start your adventure. tap the speaker to hear me again. grown-ups can use the links at the bottom of the page.",
   "say": "Tap me to start your adventure. Tap the speaker to hear me again. Grown-ups can use the links at the bottom of the page.",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 1.0, \"sentence\": 0.74, \"voice\": \"af_heart\", \"word\": 0.82}"
+ },
+ "0612151c": {
+  "key": "gorilla|lesson complete! amazing work, you got three stars!",
+  "say": "Lesson complete! Amazing work, you got three stars!",
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 0.84, \"sentence\": 0.68, \"voice\": \"am_fenrir\", \"word\": 0.78}"
  },
  "06253b00": {
   "key": "sloth|tell me your explorer name and secret code, then tap log in. new here? tap create account!",
@@ -78,11 +83,6 @@
   "key": "lion|take your time! a 'd' can be tricky to spot.",
   "say": "Take your time! The letter dee can be tricky to spot.",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"am_onyx\", \"word\": 0.8}"
- },
- "07de83f0": {
-  "key": "elephant|welcome to the jungle games! tap a game to see how to play, then press start.",
-  "say": "Welcome to the Jungle Games! Tap a game to see how to play, then press Start.",
-  "speed": "{\"lang\": \"en-gb\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"bf_emma\", \"word\": 0.8}"
  },
  "081b9dfa": {
   "key": "gorilla|look at the two words. a few letters got mixed up between them. tap the letters that are different in each word. then press check answer. you can tap a speaker to hear a word, or tap hint if you need help.",
@@ -129,6 +129,11 @@
   "say": "Can you find the letters that got mixed up? Tap the speaker to hear the word!",
   "speed": "0.76/0.85"
  },
+ "0bd43642": {
+  "key": "welcome to the adventure map! follow the path and tap the glowing circle to start your next lesson.",
+  "say": "Welcome to the Adventure Map! Follow the path and tap the glowing circle to start your next lesson.",
+  "speed": "0.76/0.85"
+ },
  "0bf7cb59": {
   "key": "win",
   "say": "win",
@@ -137,6 +142,16 @@
  "0c26fcb0": {
   "key": "lion|tap the sound box to hear the letter. then trace the letter with your finger on the lines. then press continue.",
   "say": "Tap the sound box to hear the letter. Then trace the letter with your finger on the lines. Then press Continue.",
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"am_onyx\", \"word\": 0.8}"
+ },
+ "0c6b65fd": {
+  "key": "mimi|this is your adventure map. each circle is a lesson. finish one to open the next. tap the glowing circle, then press start. tap the logo to go back home.",
+  "say": "This is your adventure map. Each circle is a lesson. Finish one to open the next. Tap the glowing circle, then press Start. Tap the logo to go back home.",
+  "speed": "{\"lang\": \"en-gb\", \"pitch\": 1.2, \"sentence\": 0.78, \"voice\": \"bf_lily\", \"word\": 0.85}"
+ },
+ "0ef76f76": {
+  "key": "lion|lesson complete! amazing work, you got three stars!",
+  "say": "Lesson complete! Amazing work, you got three stars!",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"am_onyx\", \"word\": 0.8}"
  },
  "0f68be05": {
@@ -164,6 +179,11 @@
   "say": "Tap a vowel to try filling in the word!",
   "speed": "0.76/0.85"
  },
+ "146a6dbf": {
+  "key": "welcome back, explorer! tap start to keep learning.",
+  "say": "Welcome back, explorer! Tap Start to keep learning.",
+  "speed": "0.76/0.85"
+ },
  "146d5d5d": {
   "key": "you're playing syllable safari! tap any speaker icon to hear words read aloud, and use the buttons on screen to answer.",
   "say": "You're playing Syllable Safari! Tap any speaker icon to hear words read aloud, and use the buttons on screen to answer.",
@@ -179,15 +199,15 @@
   "say": "ven",
   "speed": "0.76/0.85"
  },
- "1779f563": {
-  "key": "welcome to the jungle games! tap a game to see how to play, then press start.",
-  "say": "Welcome to the Jungle Games! Tap a game to see how to play, then press Start.",
-  "speed": "0.76/0.85"
- },
  "18ed7a7d": {
   "key": "elephant|amazing! you found the sound. can you find another one?",
   "say": "Amazing! You found the sound. Can you find another one?",
   "speed": "{\"lang\": \"en-gb\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"bf_emma\", \"word\": 0.8}"
+ },
+ "19dee6e0": {
+  "key": "mimi|lesson complete! good try, you got one star. practice makes you stronger!",
+  "say": "Lesson complete! Good try, you got one star. Practice makes you stronger!",
+  "speed": "{\"lang\": \"en-gb\", \"pitch\": 1.2, \"sentence\": 0.78, \"voice\": \"bf_lily\", \"word\": 0.85}"
  },
  "1ba255c2": {
   "key": "gorilla|take your time! a 'p' can be tricky to spot.",
@@ -204,15 +224,15 @@
   "say": "Take your time! The letter pee can be tricky to spot.",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"am_onyx\", \"word\": 0.8}"
  },
- "1ec0f1e6": {
-  "key": "lion|these are the canopy quest games. tap a game to read about it. then press start playing. tap map to go back to the map.",
-  "say": "These are the Canopy Quest games. Tap a game to read about it. Then press Start Playing. Tap Map to go back to the map.",
-  "speed": "{\"lang\": \"en-us\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"am_onyx\", \"word\": 0.8}"
- },
  "1ecbde42": {
   "key": "lion|look at all the trophies you have won! tap play again to play a game once more.",
   "say": "Look at all the trophies you have won! Tap Play Again to play a game once more.",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"am_onyx\", \"word\": 0.8}"
+ },
+ "20d269be": {
+  "key": "this is your home base. the flame counts the days in a row that you play. the bar shows today's goal. tap start to begin your next lesson, or open the map to choose a world.",
+  "say": "This is your home base. The flame counts the days in a row that you play. The bar shows today's goal. Tap Start to begin your next lesson, or open the map to choose a world.",
+  "speed": "0.76/0.85"
  },
  "2199595c": {
   "key": "gorilla|take your time! a 'b' can be tricky to spot.",
@@ -244,6 +264,11 @@
   "say": "excitement",
   "speed": "0.76/0.85"
  },
+ "26966c7b": {
+  "key": "lion|this is your adventure map. each circle is a lesson. finish one to open the next. tap the glowing circle, then press start. tap the logo to go back home.",
+  "say": "This is your adventure map. Each circle is a lesson. Finish one to open the next. Tap the glowing circle, then press Start. Tap the logo to go back home.",
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"am_onyx\", \"word\": 0.8}"
+ },
  "280e10cc": {
   "key": "syl:com",
   "say": "kom",
@@ -269,11 +294,6 @@
   "say": "desert",
   "speed": "0.76/0.85"
  },
- "2cb76fd0": {
-  "key": "lion|hi, i'm leo! welcome to the jungle games! tap a game to see how to play, then press start.",
-  "say": "Hi, I'm Leo! Welcome to the Jungle Games! Tap a game to see how to play, then press Start.",
-  "speed": "{\"lang\": \"en-us\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"am_onyx\", \"word\": 0.8}"
- },
  "2d1428d9": {
   "key": "syl:cil",
   "say": "sill",
@@ -282,6 +302,11 @@
  "2de7c081": {
   "key": "tap the sound box to hear the letters, then trace them!",
   "say": "Tap the sound box to hear the letters, then trace them!",
+  "speed": "0.76/0.85"
+ },
+ "2e31ce82": {
+  "key": "lesson complete! amazing work, you got three stars!",
+  "say": "Lesson complete! Amazing work, you got three stars!",
   "speed": "0.76/0.85"
  },
  "3076193e": {
@@ -293,6 +318,11 @@
   "key": "lion|this is your trophy room. each card is a game you have played, and the stars show how well you did. tap play again to try a game once more. tap a skill at the top to see only those games.",
   "say": "This is your trophy room. Each card is a game you have played, and the stars show how well you did. Tap Play Again to try a game once more. Tap a skill at the top to see only those games.",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"am_onyx\", \"word\": 0.8}"
+ },
+ "31dcf009": {
+  "key": "cheetah|hi, i'm chase! welcome to the adventure map! follow the path and tap the glowing circle to start your next lesson.",
+  "say": "Hi, I'm Chase! Welcome to the Adventure Map! Follow the path and tap the glowing circle to start your next lesson.",
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.06, \"sentence\": 0.84, \"voice\": \"am_liam\", \"word\": 0.88}"
  },
  "325a3189": {
   "key": "let's go!",
@@ -309,20 +339,10 @@
   "say": "Parrot Pairs",
   "speed": "0.76/0.85"
  },
- "3385ef97": {
-  "key": "monkey|welcome to canopy quest, high up in the trees! tap a game to see how to play, then press start.",
-  "say": "Welcome to Canopy Quest, high up in the trees! Tap a game to see how to play, then press Start.",
-  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.08, \"sentence\": 0.8, \"voice\": \"am_puck\", \"word\": 0.85}"
- },
  "3427a32d": {
   "key": "monkey|listen to the word. then tap in between the letters where the word splits into parts.",
   "say": "Listen to the word. Then tap in between the letters where the word splits into parts.",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 1.08, \"sentence\": 0.8, \"voice\": \"am_puck\", \"word\": 0.85}"
- },
- "34281ecb": {
-  "key": "this is the jungle map. each place is a world full of games. tap the green start button on a world to go there.",
-  "say": "This is the jungle map. Each place is a world full of games. Tap the green Start button on a world to go there.",
-  "speed": "0.76/0.85"
  },
  "343f6722": {
   "key": "amazing! you found the sound. can you find another one?",
@@ -339,11 +359,6 @@
   "say": "Now tap a piece to hear it, then tap a box to put it in. Put the pieces in order to build the word. Then press Check Word.",
   "speed": "{\"lang\": \"en-gb\", \"pitch\": 1.2, \"sentence\": 0.78, \"voice\": \"bf_lily\", \"word\": 0.85}"
  },
- "36156669": {
-  "key": "monkey|these are the canopy quest games. tap a game to read about it. then press start playing. tap map to go back to the map.",
-  "say": "These are the Canopy Quest games. Tap a game to read about it. Then press Start Playing. Tap Map to go back to the map.",
-  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.08, \"sentence\": 0.8, \"voice\": \"am_puck\", \"word\": 0.85}"
- },
  "36ac8180": {
   "key": "let's play a few quick games so i can build your perfect map. tap me when you are ready!",
   "say": "Let's play a few quick games so I can build your perfect map. Tap me when you are ready!",
@@ -353,6 +368,11 @@
   "key": "you're playing monkey mix-up! tap any speaker icon to hear words read aloud, and use the buttons on screen to answer.",
   "say": "You're playing Monkey Mix-Up! Tap any speaker icon to hear words read aloud, and use the buttons on screen to answer.",
   "speed": "0.76/0.85"
+ },
+ "395a8b5e": {
+  "key": "sloth|this is your home base. the flame counts the days in a row that you play. the bar shows today's goal. tap start to begin your next lesson, or open the map to choose a world.",
+  "say": "This is your home base. The flame counts the days in a row that you play. The bar shows today's goal. Tap Start to begin your next lesson, or open the map to choose a world.",
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.0, \"sentence\": 0.74, \"voice\": \"af_heart\", \"word\": 0.82}"
  },
  "39699490": {
   "key": "syl:phant",
@@ -374,6 +394,11 @@
   "say": "Tap a vowel to try filling in the word!",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 1.08, \"sentence\": 0.8, \"voice\": \"am_puck\", \"word\": 0.85}"
  },
+ "3b0438dc": {
+  "key": "elephant|this is your adventure map. each circle is a lesson. finish one to open the next. tap the glowing circle, then press start. tap the logo to go back home.",
+  "say": "This is your adventure map. Each circle is a lesson. Finish one to open the next. Tap the glowing circle, then press Start. Tap the logo to go back home.",
+  "speed": "{\"lang\": \"en-gb\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"bf_emma\", \"word\": 0.8}"
+ },
  "3c134a23": {
   "key": "monkey|a vowel is missing from the word. listen to the sound in the clue. then tap the vowel from the tray that makes that sound. when you get it right, press next.",
   "say": "A vowel is missing from the word. Listen to the sound in the clue. Then tap the vowel from the tray that makes that sound. When you get it right, press Next.",
@@ -389,10 +414,20 @@
   "say": "Tap every letter bee hiding in this sentence!",
   "speed": "0.76/0.85"
  },
+ "3de60f1f": {
+  "key": "this is your adventure map. each circle is a lesson. finish one to open the next. tap the glowing circle, then press start. tap the logo to go back home.",
+  "say": "This is your adventure map. Each circle is a lesson. Finish one to open the next. Tap the glowing circle, then press Start. Tap the logo to go back home.",
+  "speed": "0.76/0.85"
+ },
  "4058c747": {
   "key": "form",
   "say": "form",
   "speed": "0.76/0.85"
+ },
+ "40e0aef4": {
+  "key": "monkey|hi, i'm momo! welcome to the adventure map! follow the path and tap the glowing circle to start your next lesson.",
+  "say": "Hi, I'm Momo! Welcome to the Adventure Map! Follow the path and tap the glowing circle to start your next lesson.",
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.08, \"sentence\": 0.8, \"voice\": \"am_puck\", \"word\": 0.85}"
  },
  "4219938d": {
   "key": "sloth|welcome to discover! tap me and i'll take you on a jungle adventure.",
@@ -428,6 +463,11 @@
   "key": "sloth|type your explorer name and your secret code. then tap log in. if you are new, tap create account.",
   "say": "Type your explorer name and your secret code. Then tap Log In. If you are new, tap Create Account.",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 1.0, \"sentence\": 0.74, \"voice\": \"af_heart\", \"word\": 0.82}"
+ },
+ "46a35dcd": {
+  "key": "monkey|welcome to the adventure map! follow the path and tap the glowing circle to start your next lesson.",
+  "say": "Welcome to the Adventure Map! Follow the path and tap the glowing circle to start your next lesson.",
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.08, \"sentence\": 0.8, \"voice\": \"am_puck\", \"word\": 0.85}"
  },
  "48c23de0": {
   "key": "tell me your explorer name and secret code, then tap log in. new here? tap create account!",
@@ -489,11 +529,6 @@
   "say": "Trace the letter with your finger on the lines. Then press Continue.",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 0.84, \"sentence\": 0.68, \"voice\": \"am_fenrir\", \"word\": 0.78}"
  },
- "50a064d5": {
-  "key": "elephant|hi, i'm ellie! welcome to canopy quest, high up in the trees! tap a game to see how to play, then press start.",
-  "say": "Hi, I'm Ellie! Welcome to Canopy Quest, high up in the trees! Tap a game to see how to play, then press Start.",
-  "speed": "{\"lang\": \"en-gb\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"bf_emma\", \"word\": 0.8}"
- },
  "50ae46ec": {
   "key": "bed",
   "say": "bed",
@@ -508,11 +543,6 @@
   "key": "monkey|look for the tricky letter hiding in the sentence. tap every one you can find.",
   "say": "Look for the tricky letter hiding in the sentence. Tap every one you can find.",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 1.08, \"sentence\": 0.8, \"voice\": \"am_puck\", \"word\": 0.85}"
- },
- "55042451": {
-  "key": "gorilla|hi, i'm gus! welcome to the jungle games! tap a game to see how to play, then press start.",
-  "say": "Hi, I'm Gus! Welcome to the Jungle Games! Tap a game to see how to play, then press Start.",
-  "speed": "{\"lang\": \"en-us\", \"pitch\": 0.84, \"sentence\": 0.68, \"voice\": \"am_fenrir\", \"word\": 0.78}"
  },
  "5505928f": {
   "key": "smile",
@@ -529,6 +559,11 @@
   "say": "Look for the tricky letter hiding in the sentence. Tap every one you can find.",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"am_onyx\", \"word\": 0.8}"
  },
+ "563ed480": {
+  "key": "cheetah|lesson complete! amazing work, you got three stars!",
+  "say": "Lesson complete! Amazing work, you got three stars!",
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.06, \"sentence\": 0.84, \"voice\": \"am_liam\", \"word\": 0.88}"
+ },
  "57931627": {
   "key": "click all the ds in this paragraph",
   "say": "Click every letter dee in this paragraph!",
@@ -544,20 +579,15 @@
   "say": "Look closely at the letter. Tap Show the Stick and Show the Circle to see its parts. Then press Continue.",
   "speed": "{\"lang\": \"en-gb\", \"pitch\": 1.2, \"sentence\": 0.78, \"voice\": \"bf_lily\", \"word\": 0.85}"
  },
- "5a46c338": {
-  "key": "welcome to canopy quest, high up in the trees! tap a game to see how to play, then press start.",
-  "say": "Welcome to Canopy Quest, high up in the trees! Tap a game to see how to play, then press Start.",
-  "speed": "0.76/0.85"
- },
- "5af77379": {
-  "key": "let's play parrot pairs! look closely at the big word on top. then, find the word below that looks exactly the same!",
-  "say": "Let's play Parrot Pairs! Look closely at the big word on top. Then, find the word below that looks exactly the same!",
-  "speed": "0.76/0.85"
- },
  "5b2b7250": {
   "key": "syl:pu",
   "say": "pew",
   "speed": "0.76/0.85"
+ },
+ "5bfbad24": {
+  "key": "cheetah|welcome to the adventure map! follow the path and tap the glowing circle to start your next lesson.",
+  "say": "Welcome to the Adventure Map! Follow the path and tap the glowing circle to start your next lesson.",
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.06, \"sentence\": 0.84, \"voice\": \"am_liam\", \"word\": 0.88}"
  },
  "5ee06c95": {
   "key": "cheetah|this is your trophy room. each card is a game you have played, and the stars show how well you did. tap play again to try a game once more. tap a skill at the top to see only those games.",
@@ -578,6 +608,11 @@
   "key": "monkey|now tap a piece to hear it, then tap a box to put it in. put the pieces in order to build the word. then press check word.",
   "say": "Now tap a piece to hear it, then tap a box to put it in. Put the pieces in order to build the word. Then press Check Word.",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 1.08, \"sentence\": 0.8, \"voice\": \"am_puck\", \"word\": 0.85}"
+ },
+ "61e920ac": {
+  "key": "gorilla|lesson complete! good try, you got one star. practice makes you stronger!",
+  "say": "Lesson complete! Good try, you got one star. Practice makes you stronger!",
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 0.84, \"sentence\": 0.68, \"voice\": \"am_fenrir\", \"word\": 0.78}"
  },
  "62764959": {
   "key": "mimi|can you find the letters that got mixed up? tap the speaker to hear the word!",
@@ -609,11 +644,6 @@
   "say": "Take your time! The letter bee can be tricky to spot.",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"am_onyx\", \"word\": 0.8}"
  },
- "662afeff": {
-  "key": "let's play cheetah challenge! look closely at the big word on top. then, find the word below that looks exactly the same!",
-  "say": "Let's play Cheetah Challenge! Look closely at the big word on top. Then, find the word below that looks exactly the same!",
-  "speed": "0.76/0.85"
- },
  "662fb70c": {
   "key": "you're playing cheetah challenge! tap any speaker icon to hear words read aloud, and use the buttons on screen to answer.",
   "say": "You're playing Cheetah Challenge! Tap any speaker icon to hear words read aloud, and use the buttons on screen to answer.",
@@ -643,21 +673,6 @@
   "key": "mimi|take your time! a 'p' can be tricky to spot.",
   "say": "Take your time! The letter pee can be tricky to spot.",
   "speed": "{\"lang\": \"en-gb\", \"pitch\": 1.2, \"sentence\": 0.78, \"voice\": \"bf_lily\", \"word\": 0.85}"
- },
- "6a51722c": {
-  "key": "sloth|hi, i'm sunny! welcome to the jungle, explorer! tap start on a world to begin your adventure.",
-  "say": "Hi, I'm Sunny! Welcome to the jungle, explorer! Tap Start on a world to begin your adventure.",
-  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.0, \"sentence\": 0.74, \"voice\": \"af_heart\", \"word\": 0.82}"
- },
- "6af5c637": {
-  "key": "these are the jungle games. tap a game to read about it. then press start playing. tap map to go back to the map.",
-  "say": "These are the Jungle Games. Tap a game to read about it. Then press Start Playing. Tap Map to go back to the map.",
-  "speed": "0.76/0.85"
- },
- "6b9bbf93": {
-  "key": "elephant|welcome to canopy quest, high up in the trees! tap a game to see how to play, then press start.",
-  "say": "Welcome to Canopy Quest, high up in the trees! Tap a game to see how to play, then press Start.",
-  "speed": "{\"lang\": \"en-gb\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"bf_emma\", \"word\": 0.8}"
  },
  "6cc8b9a6": {
   "key": "mimi|a vowel is missing from the word. listen to the sound in the clue. then tap the vowel from the tray that makes that sound. when you get it right, press next.",
@@ -699,11 +714,6 @@
   "say": "mew",
   "speed": "0.76/0.85"
  },
- "6f6ccb12": {
-  "key": "gorilla|hi, i'm gus! welcome to canopy quest, high up in the trees! tap a game to see how to play, then press start.",
-  "say": "Hi, I'm Gus! Welcome to Canopy Quest, high up in the trees! Tap a game to see how to play, then press Start.",
-  "speed": "{\"lang\": \"en-us\", \"pitch\": 0.84, \"sentence\": 0.68, \"voice\": \"am_fenrir\", \"word\": 0.78}"
- },
  "70641a18": {
   "key": "monkey|hi, i'm momo! look at all the trophies you have won! tap play again to play a game once more.",
   "say": "Hi, I'm Momo! Look at all the trophies you have won! Tap Play Again to play a game once more.",
@@ -714,10 +724,10 @@
   "say": "box",
   "speed": "0.76/0.85"
  },
- "70eddd69": {
-  "key": "mimi|these are the jungle games. tap a game to read about it. then press start playing. tap map to go back to the map.",
-  "say": "These are the Jungle Games. Tap a game to read about it. Then press Start Playing. Tap Map to go back to the map.",
-  "speed": "{\"lang\": \"en-gb\", \"pitch\": 1.2, \"sentence\": 0.78, \"voice\": \"bf_lily\", \"word\": 0.85}"
+ "70e68d4e": {
+  "key": "lion|lesson complete! good try, you got one star. practice makes you stronger!",
+  "say": "Lesson complete! Good try, you got one star. Practice makes you stronger!",
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"am_onyx\", \"word\": 0.8}"
  },
  "714784c8": {
   "key": "monkey|trace the letter with your finger on the lines. then press continue.",
@@ -734,11 +744,6 @@
   "say": "Now find the same letter again in the paragraph. Tap every one you can find.",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 1.06, \"sentence\": 0.84, \"voice\": \"am_liam\", \"word\": 0.88}"
  },
- "72d2e200": {
-  "key": "mimi|these are the canopy quest games. tap a game to read about it. then press start playing. tap map to go back to the map.",
-  "say": "These are the Canopy Quest games. Tap a game to read about it. Then press Start Playing. Tap Map to go back to the map.",
-  "speed": "{\"lang\": \"en-gb\", \"pitch\": 1.2, \"sentence\": 0.78, \"voice\": \"bf_lily\", \"word\": 0.85}"
- },
  "73d58d75": {
   "key": "bug",
   "say": "bug",
@@ -747,6 +752,11 @@
  "747c6a1d": {
   "key": "click all the bs in this paragraph",
   "say": "Click every letter bee in this paragraph!",
+  "speed": "0.76/0.85"
+ },
+ "74daa664": {
+  "key": "lesson complete! great job, you got two stars!",
+  "say": "Lesson complete! Great job, you got two stars!",
   "speed": "0.76/0.85"
  },
  "755727dc": {
@@ -814,11 +824,6 @@
   "say": "gar",
   "speed": "0.76/0.85"
  },
- "7d831e68": {
-  "key": "let's play lizard lookouts! look closely at the big word on top. then, find the word below that looks exactly the same!",
-  "say": "Let's play Lizard Lookouts! Look closely at the big word on top. Then, find the word below that looks exactly the same!",
-  "speed": "0.76/0.85"
- },
  "806fe784": {
   "key": "cheetah challenge",
   "say": "Cheetah Challenge",
@@ -828,11 +833,6 @@
   "key": "gorilla|tap a vowel to try filling in the word!",
   "say": "Tap a vowel to try filling in the word!",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 0.84, \"sentence\": 0.68, \"voice\": \"am_fenrir\", \"word\": 0.78}"
- },
- "8089e283": {
-  "key": "lion|these are the jungle games. tap a game to read about it. then press start playing. tap map to go back to the map.",
-  "say": "These are the Jungle Games. Tap a game to read about it. Then press Start Playing. Tap Map to go back to the map.",
-  "speed": "{\"lang\": \"en-us\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"am_onyx\", \"word\": 0.8}"
  },
  "8095e511": {
   "key": "lion|hi, i'm leo! look at all the trophies you have won! tap play again to play a game once more.",
@@ -854,20 +854,15 @@
   "say": "slime",
   "speed": "0.76/0.85"
  },
- "847269eb": {
-  "key": "sloth|this is the jungle map. each place is a world full of games. tap the green start button on a world to go there.",
-  "say": "This is the jungle map. Each place is a world full of games. Tap the green Start button on a world to go there.",
-  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.0, \"sentence\": 0.74, \"voice\": \"af_heart\", \"word\": 0.82}"
- },
  "84caf358": {
   "key": "this is the expert view. pick a student on the left. use the tabs to switch between progress, raw data, and practice suggestions.",
   "say": "This is the expert view. Pick a student on the left. Use the tabs to switch between progress, raw data, and practice suggestions.",
   "speed": "0.76/0.85"
  },
- "86c7b29a": {
-  "key": "these are the canopy quest games. tap a game to read about it. then press start playing. tap map to go back to the map.",
-  "say": "These are the Canopy Quest games. Tap a game to read about it. Then press Start Playing. Tap Map to go back to the map.",
-  "speed": "0.76/0.85"
+ "85492bb1": {
+  "key": "lion|hi, i'm leo! welcome to the adventure map! follow the path and tap the glowing circle to start your next lesson.",
+  "say": "Hi, I'm Leo! Welcome to the Adventure Map! Follow the path and tap the glowing circle to start your next lesson.",
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"am_onyx\", \"word\": 0.8}"
  },
  "87a1002c": {
   "key": "elephant|this is your trophy room. each card is a game you have played, and the stars show how well you did. tap play again to try a game once more. tap a skill at the top to see only those games.",
@@ -894,6 +889,11 @@
   "say": "Now tap a piece to hear it, then tap a box to put it in. Put the pieces in order to build the word. Then press Check Word.",
   "speed": "{\"lang\": \"en-gb\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"bf_emma\", \"word\": 0.8}"
  },
+ "8b6b3fb6": {
+  "key": "gorilla|lesson complete! great job, you got two stars!",
+  "say": "Lesson complete! Great job, you got two stars!",
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 0.84, \"sentence\": 0.68, \"voice\": \"am_fenrir\", \"word\": 0.78}"
+ },
  "8b980178": {
   "key": "cheetah|take your time! a 'b' can be tricky to spot.",
   "say": "Take your time! The letter bee can be tricky to spot.",
@@ -908,16 +908,6 @@
   "key": "find the vowel that sounds like the one in \"dog\" to complete the word! tap a vowel from the tray to complete the word.",
   "say": "Find the vowel that sounds like the one in \"dog\" to complete the word! Tap a vowel from the tray to complete the word.",
   "speed": "0.76/0.85"
- },
- "8f4971c1": {
-  "key": "cheetah|welcome to the jungle games! tap a game to see how to play, then press start.",
-  "say": "Welcome to the Jungle Games! Tap a game to see how to play, then press Start.",
-  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.06, \"sentence\": 0.84, \"voice\": \"am_liam\", \"word\": 0.88}"
- },
- "8fde4759": {
-  "key": "cheetah|these are the jungle games. tap a game to read about it. then press start playing. tap map to go back to the map.",
-  "say": "These are the Jungle Games. Tap a game to read about it. Then press Start Playing. Tap Map to go back to the map.",
-  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.06, \"sentence\": 0.84, \"voice\": \"am_liam\", \"word\": 0.88}"
  },
  "906c67c6": {
   "key": "monkey|take your time! a 'q' can be tricky to spot.",
@@ -934,15 +924,15 @@
   "say": "We will play a few short games so I can build your perfect map. Tap me when you are ready to begin.",
   "speed": "0.76/0.85"
  },
- "90fcd45b": {
-  "key": "cheetah|hi, i'm chase! welcome to canopy quest, high up in the trees! tap a game to see how to play, then press start.",
-  "say": "Hi, I'm Chase! Welcome to Canopy Quest, high up in the trees! Tap a game to see how to play, then press Start.",
-  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.06, \"sentence\": 0.84, \"voice\": \"am_liam\", \"word\": 0.88}"
- },
  "91b0ec09": {
   "key": "cheetah|hi, i'm chase! look at all the trophies you have won! tap play again to play a game once more.",
   "say": "Hi, I'm Chase! Look at all the trophies you have won! Tap Play Again to play a game once more.",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 1.06, \"sentence\": 0.84, \"voice\": \"am_liam\", \"word\": 0.88}"
+ },
+ "921dab3b": {
+  "key": "elephant|hi, i'm ellie! welcome to the adventure map! follow the path and tap the glowing circle to start your next lesson.",
+  "say": "Hi, I'm Ellie! Welcome to the Adventure Map! Follow the path and tap the glowing circle to start your next lesson.",
+  "speed": "{\"lang\": \"en-gb\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"bf_emma\", \"word\": 0.8}"
  },
  "93ee1c02": {
   "key": "elephant|now find the same letter again in the paragraph. tap every one you can find.",
@@ -963,11 +953,6 @@
   "key": "syl:ger",
   "say": "gur",
   "speed": "0.76/0.85"
- },
- "956f3ba2": {
-  "key": "cheetah|welcome to canopy quest, high up in the trees! tap a game to see how to play, then press start.",
-  "say": "Welcome to Canopy Quest, high up in the trees! Tap a game to see how to play, then press Start.",
-  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.06, \"sentence\": 0.84, \"voice\": \"am_liam\", \"word\": 0.88}"
  },
  "95cd8075": {
   "key": "from",
@@ -1014,15 +999,20 @@
   "say": "Look at the two words. A few letters got mixed up between them. Tap the letters that are different in each word. Then press Check Answer. You can tap a speaker to hear a word, or tap Hint if you need help.",
   "speed": "{\"lang\": \"en-gb\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"bf_emma\", \"word\": 0.8}"
  },
+ "9ebd7238": {
+  "key": "lion|lesson complete! great job, you got two stars!",
+  "say": "Lesson complete! Great job, you got two stars!",
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"am_onyx\", \"word\": 0.8}"
+ },
  "9f9c4fd4": {
   "key": "music",
   "say": "music",
   "speed": "0.76/0.85"
  },
- "9fe9cd9a": {
-  "key": "sloth|welcome to the jungle, explorer! tap start on a world to begin your adventure.",
-  "say": "Welcome to the jungle, explorer! Tap Start on a world to begin your adventure.",
-  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.0, \"sentence\": 0.74, \"voice\": \"af_heart\", \"word\": 0.82}"
+ "9fa724d8": {
+  "key": "monkey|this is your adventure map. each circle is a lesson. finish one to open the next. tap the glowing circle, then press start. tap the logo to go back home.",
+  "say": "This is your adventure map. Each circle is a lesson. Finish one to open the next. Tap the glowing circle, then press Start. Tap the logo to go back home.",
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.08, \"sentence\": 0.8, \"voice\": \"am_puck\", \"word\": 0.85}"
  },
  "a1d062c4": {
   "key": "cheetah|tap a vowel to try filling in the word!",
@@ -1069,19 +1059,14 @@
   "say": "angel",
   "speed": "0.76/0.85"
  },
+ "aaa0fc48": {
+  "key": "gorilla|welcome to the adventure map! follow the path and tap the glowing circle to start your next lesson.",
+  "say": "Welcome to the Adventure Map! Follow the path and tap the glowing circle to start your next lesson.",
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 0.84, \"sentence\": 0.68, \"voice\": \"am_fenrir\", \"word\": 0.78}"
+ },
  "ab04e326": {
   "key": "gorilla|look closely at the letter. tap show the stick and show the circle to see its parts. then press continue.",
   "say": "Look closely at the letter. Tap Show the Stick and Show the Circle to see its parts. Then press Continue.",
-  "speed": "{\"lang\": \"en-us\", \"pitch\": 0.84, \"sentence\": 0.68, \"voice\": \"am_fenrir\", \"word\": 0.78}"
- },
- "ab74e516": {
-  "key": "let's play syllable safari! look closely at the big word on top. then, find the word below that looks exactly the same!",
-  "say": "Let's play Syllable Safari! Look closely at the big word on top. Then, find the word below that looks exactly the same!",
-  "speed": "0.76/0.85"
- },
- "aca58d04": {
-  "key": "gorilla|these are the canopy quest games. tap a game to read about it. then press start playing. tap map to go back to the map.",
-  "say": "These are the Canopy Quest games. Tap a game to read about it. Then press Start Playing. Tap Map to go back to the map.",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 0.84, \"sentence\": 0.68, \"voice\": \"am_fenrir\", \"word\": 0.78}"
  },
  "acd357f3": {
@@ -1104,6 +1089,11 @@
   "say": "Type your explorer name and your secret code. Then tap Log In. If you are new, tap Create Account.",
   "speed": "0.76/0.85"
  },
+ "ae908114": {
+  "key": "gorilla|hi, i'm gus! welcome to the adventure map! follow the path and tap the glowing circle to start your next lesson.",
+  "say": "Hi, I'm Gus! Welcome to the Adventure Map! Follow the path and tap the glowing circle to start your next lesson.",
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 0.84, \"sentence\": 0.68, \"voice\": \"am_fenrir\", \"word\": 0.78}"
+ },
  "afa4e2bd": {
   "key": "gorilla|tap the pieces to hear them, then build the word in order!",
   "say": "Tap the pieces to hear them, then build the word in order!",
@@ -1119,15 +1109,15 @@
   "say": "Tap every letter cue hiding in this sentence!",
   "speed": "0.76/0.85"
  },
- "b13a083d": {
-  "key": "gorilla|these are the jungle games. tap a game to read about it. then press start playing. tap map to go back to the map.",
-  "say": "These are the Jungle Games. Tap a game to read about it. Then press Start Playing. Tap Map to go back to the map.",
-  "speed": "{\"lang\": \"en-us\", \"pitch\": 0.84, \"sentence\": 0.68, \"voice\": \"am_fenrir\", \"word\": 0.78}"
- },
  "b1514998": {
   "key": "computer",
   "say": "computer",
   "speed": "0.76/0.85"
+ },
+ "b16e8929": {
+  "key": "sloth|hi, i'm sunny! welcome back, explorer! tap start to keep learning.",
+  "say": "Hi, I'm Sunny! Welcome back, explorer! Tap Start to keep learning.",
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.0, \"sentence\": 0.74, \"voice\": \"af_heart\", \"word\": 0.82}"
  },
  "b1e0962f": {
   "key": "elephant|a vowel is missing from the word. listen to the sound in the clue. then tap the vowel from the tray that makes that sound. when you get it right, press next.",
@@ -1139,15 +1129,15 @@
   "say": "but",
   "speed": "0.76/0.85"
  },
+ "b53ae8bd": {
+  "key": "elephant|lesson complete! great job, you got two stars!",
+  "say": "Lesson complete! Great job, you got two stars!",
+  "speed": "{\"lang\": \"en-gb\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"bf_emma\", \"word\": 0.8}"
+ },
  "b53f4f1f": {
   "key": "find the vowel that sounds like the one in \"pig\" to complete the word! tap a vowel from the tray to complete the word.",
   "say": "Find the vowel that sounds like the one in \"pig\" to complete the word! Tap a vowel from the tray to complete the word.",
   "speed": "0.76/0.85"
- },
- "b54a7b77": {
-  "key": "lion|welcome to the jungle games! tap a game to see how to play, then press start.",
-  "say": "Welcome to the Jungle Games! Tap a game to see how to play, then press Start.",
-  "speed": "{\"lang\": \"en-us\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"am_onyx\", \"word\": 0.8}"
  },
  "b680409e": {
   "key": "you're playing lion's letters! tap any speaker icon to hear words read aloud, and use the buttons on screen to answer.",
@@ -1163,11 +1153,6 @@
   "key": "dessert",
   "say": "dessert",
   "speed": "0.76/0.85"
- },
- "b75fda20": {
-  "key": "monkey|these are the jungle games. tap a game to read about it. then press start playing. tap map to go back to the map.",
-  "say": "These are the Jungle Games. Tap a game to read about it. Then press Start Playing. Tap Map to go back to the map.",
-  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.08, \"sentence\": 0.8, \"voice\": \"am_puck\", \"word\": 0.85}"
  },
  "b8ea5143": {
   "key": "a word will show up. read it out loud as fast as you can before the time runs out. tap the microphone and say the word, or tap the card when you have read it.",
@@ -1199,6 +1184,11 @@
   "say": "Trace the letter with your finger on the lines. Then press Continue.",
   "speed": "{\"lang\": \"en-gb\", \"pitch\": 1.2, \"sentence\": 0.78, \"voice\": \"bf_lily\", \"word\": 0.85}"
  },
+ "bc8911d1": {
+  "key": "elephant|welcome to the adventure map! follow the path and tap the glowing circle to start your next lesson.",
+  "say": "Welcome to the Adventure Map! Follow the path and tap the glowing circle to start your next lesson.",
+  "speed": "{\"lang\": \"en-gb\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"bf_emma\", \"word\": 0.8}"
+ },
  "bc9aade0": {
   "key": "cheetah|amazing! you found the sound. can you find another one?",
   "say": "Amazing! You found the sound. Can you find another one?",
@@ -1229,16 +1219,6 @@
   "say": "Now write the whole word with your finger on the lines. Then press Continue.",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"am_onyx\", \"word\": 0.8}"
  },
- "be11f331": {
-  "key": "mimi|welcome to the jungle games! tap a game to see how to play, then press start.",
-  "say": "Welcome to the Jungle Games! Tap a game to see how to play, then press Start.",
-  "speed": "{\"lang\": \"en-gb\", \"pitch\": 1.2, \"sentence\": 0.78, \"voice\": \"bf_lily\", \"word\": 0.85}"
- },
- "c0df4b72": {
-  "key": "mimi|welcome to canopy quest, high up in the trees! tap a game to see how to play, then press start.",
-  "say": "Welcome to Canopy Quest, high up in the trees! Tap a game to see how to play, then press Start.",
-  "speed": "{\"lang\": \"en-gb\", \"pitch\": 1.2, \"sentence\": 0.78, \"voice\": \"bf_lily\", \"word\": 0.85}"
- },
  "c1d66038": {
   "key": "gorilla|hi, i'm gus! look at all the trophies you have won! tap play again to play a game once more.",
   "say": "Hi, I'm Gus! Look at all the trophies you have won! Tap Play Again to play a game once more.",
@@ -1264,10 +1244,10 @@
   "say": "adventure",
   "speed": "0.76/0.85"
  },
- "c69787cc": {
-  "key": "lion|welcome to canopy quest, high up in the trees! tap a game to see how to play, then press start.",
-  "say": "Welcome to Canopy Quest, high up in the trees! Tap a game to see how to play, then press Start.",
-  "speed": "{\"lang\": \"en-us\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"am_onyx\", \"word\": 0.8}"
+ "c5c61d5f": {
+  "key": "sloth|welcome back, explorer! tap start to keep learning.",
+  "say": "Welcome back, explorer! Tap Start to keep learning.",
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.0, \"sentence\": 0.74, \"voice\": \"af_heart\", \"word\": 0.82}"
  },
  "c6b8f6d0": {
   "key": "elephant|can you find the letters that got mixed up? tap the speaker to hear the word!",
@@ -1279,6 +1259,11 @@
   "say": "explore",
   "speed": "0.76/0.85"
  },
+ "c71c5ff4": {
+  "key": "mimi|welcome to the adventure map! follow the path and tap the glowing circle to start your next lesson.",
+  "say": "Welcome to the Adventure Map! Follow the path and tap the glowing circle to start your next lesson.",
+  "speed": "{\"lang\": \"en-gb\", \"pitch\": 1.2, \"sentence\": 0.78, \"voice\": \"bf_lily\", \"word\": 0.85}"
+ },
  "cb619ce5": {
   "key": "rabbit",
   "say": "rabbit",
@@ -1288,11 +1273,6 @@
   "key": "monkey|look closely at the letter. tap show the stick and show the circle to see its parts. then press continue.",
   "say": "Look closely at the letter. Tap Show the Stick and Show the Circle to see its parts. Then press Continue.",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 1.08, \"sentence\": 0.8, \"voice\": \"am_puck\", \"word\": 0.85}"
- },
- "cc80b89b": {
-  "key": "let's play monkey mix-up! look closely at the big word on top. then, find the word below that looks exactly the same!",
-  "say": "Let's play Monkey Mix-Up! Look closely at the big word on top. Then, find the word below that looks exactly the same!",
-  "speed": "0.76/0.85"
  },
  "cdfa06a5": {
   "key": "lion|trace the letter with your finger on the lines. then press continue.",
@@ -1308,16 +1288,6 @@
   "key": "lion|tap the sound box to hear the letters, then trace them!",
   "say": "Tap the sound box to hear the letters, then trace them!",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"am_onyx\", \"word\": 0.8}"
- },
- "d0819bce": {
-  "key": "gorilla|welcome to canopy quest, high up in the trees! tap a game to see how to play, then press start.",
-  "say": "Welcome to Canopy Quest, high up in the trees! Tap a game to see how to play, then press Start.",
-  "speed": "{\"lang\": \"en-us\", \"pitch\": 0.84, \"sentence\": 0.68, \"voice\": \"am_fenrir\", \"word\": 0.78}"
- },
- "d09624d0": {
-  "key": "cheetah|these are the canopy quest games. tap a game to read about it. then press start playing. tap map to go back to the map.",
-  "say": "These are the Canopy Quest games. Tap a game to read about it. Then press Start Playing. Tap Map to go back to the map.",
-  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.06, \"sentence\": 0.84, \"voice\": \"am_liam\", \"word\": 0.88}"
  },
  "d0b0370f": {
   "key": "jungle games",
@@ -1339,14 +1309,19 @@
   "say": "Take your time! The letter pee can be tricky to spot.",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 1.08, \"sentence\": 0.8, \"voice\": \"am_puck\", \"word\": 0.85}"
  },
+ "d46b53ad": {
+  "key": "cheetah|this is your adventure map. each circle is a lesson. finish one to open the next. tap the glowing circle, then press start. tap the logo to go back home.",
+  "say": "This is your adventure map. Each circle is a lesson. Finish one to open the next. Tap the glowing circle, then press Start. Tap the logo to go back home.",
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.06, \"sentence\": 0.84, \"voice\": \"am_liam\", \"word\": 0.88}"
+ },
  "d4806bf1": {
   "key": "monkey|amazing! you found the sound. can you find another one?",
   "say": "Amazing! You found the sound. Can you find another one?",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 1.08, \"sentence\": 0.8, \"voice\": \"am_puck\", \"word\": 0.85}"
  },
- "d58a74f4": {
-  "key": "elephant|these are the jungle games. tap a game to read about it. then press start playing. tap map to go back to the map.",
-  "say": "These are the Jungle Games. Tap a game to read about it. Then press Start Playing. Tap Map to go back to the map.",
+ "d5402529": {
+  "key": "elephant|lesson complete! good try, you got one star. practice makes you stronger!",
+  "say": "Lesson complete! Good try, you got one star. Practice makes you stronger!",
   "speed": "{\"lang\": \"en-gb\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"bf_emma\", \"word\": 0.8}"
  },
  "d5bf1d4b": {
@@ -1354,10 +1329,10 @@
   "say": "Trace the letter with your finger on the lines. Then press Continue.",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 1.06, \"sentence\": 0.84, \"voice\": \"am_liam\", \"word\": 0.88}"
  },
- "d6aaf573": {
-  "key": "lion|hi, i'm leo! welcome to canopy quest, high up in the trees! tap a game to see how to play, then press start.",
-  "say": "Hi, I'm Leo! Welcome to Canopy Quest, high up in the trees! Tap a game to see how to play, then press Start.",
-  "speed": "{\"lang\": \"en-us\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"am_onyx\", \"word\": 0.8}"
+ "d6756ed1": {
+  "key": "gorilla|this is your adventure map. each circle is a lesson. finish one to open the next. tap the glowing circle, then press start. tap the logo to go back home.",
+  "say": "This is your adventure map. Each circle is a lesson. Finish one to open the next. Tap the glowing circle, then press Start. Tap the logo to go back home.",
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 0.84, \"sentence\": 0.68, \"voice\": \"am_fenrir\", \"word\": 0.78}"
  },
  "d6fa9b6c": {
   "key": "world 1: jungle games",
@@ -1382,6 +1357,11 @@
  "daec9a91": {
   "key": "lion|now tap a piece to hear it, then tap a box to put it in. put the pieces in order to build the word. then press check word.",
   "say": "Now tap a piece to hear it, then tap a box to put it in. Put the pieces in order to build the word. Then press Check Word.",
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"am_onyx\", \"word\": 0.8}"
+ },
+ "db0e676e": {
+  "key": "lion|welcome to the adventure map! follow the path and tap the glowing circle to start your next lesson.",
+  "say": "Welcome to the Adventure Map! Follow the path and tap the glowing circle to start your next lesson.",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"am_onyx\", \"word\": 0.8}"
  },
  "dc7cdf97": {
@@ -1464,6 +1444,11 @@
   "say": "elephant",
   "speed": "0.76/0.85"
  },
+ "e609f6d9": {
+  "key": "monkey|lesson complete! amazing work, you got three stars!",
+  "say": "Lesson complete! Amazing work, you got three stars!",
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.08, \"sentence\": 0.8, \"voice\": \"am_puck\", \"word\": 0.85}"
+ },
  "e60c2c52": {
   "key": "c",
   "say": "see",
@@ -1504,15 +1489,15 @@
   "say": "em",
   "speed": "0.76/0.85"
  },
+ "e92e941d": {
+  "key": "mimi|hi, i'm mimi! welcome to the adventure map! follow the path and tap the glowing circle to start your next lesson.",
+  "say": "Hi, I'm Mimi! Welcome to the Adventure Map! Follow the path and tap the glowing circle to start your next lesson.",
+  "speed": "{\"lang\": \"en-gb\", \"pitch\": 1.2, \"sentence\": 0.78, \"voice\": \"bf_lily\", \"word\": 0.85}"
+ },
  "e9659a0d": {
   "key": "lizard lookouts",
   "say": "Lizard Lookouts",
   "speed": "0.76/0.85"
- },
- "e9d52324": {
-  "key": "mimi|hi, i'm mimi! welcome to the jungle games! tap a game to see how to play, then press start.",
-  "say": "Hi, I'm Mimi! Welcome to the Jungle Games! Tap a game to see how to play, then press Start.",
-  "speed": "{\"lang\": \"en-gb\", \"pitch\": 1.2, \"sentence\": 0.78, \"voice\": \"bf_lily\", \"word\": 0.85}"
  },
  "ea0c329e": {
   "key": "o",
@@ -1579,25 +1564,15 @@
   "say": "Look for the tricky letter hiding in the sentence. Tap every one you can find.",
   "speed": "{\"lang\": \"en-gb\", \"pitch\": 1.2, \"sentence\": 0.78, \"voice\": \"bf_lily\", \"word\": 0.85}"
  },
- "eed3277a": {
-  "key": "welcome to the jungle, explorer! tap start on a world to begin your adventure.",
-  "say": "Welcome to the jungle, explorer! Tap Start on a world to begin your adventure.",
-  "speed": "0.76/0.85"
+ "ee028c5a": {
+  "key": "mimi|lesson complete! great job, you got two stars!",
+  "say": "Lesson complete! Great job, you got two stars!",
+  "speed": "{\"lang\": \"en-gb\", \"pitch\": 1.2, \"sentence\": 0.78, \"voice\": \"bf_lily\", \"word\": 0.85}"
  },
  "ef660529": {
   "key": "mimi|tap the pieces to hear them, then build the word in order!",
   "say": "Tap the pieces to hear them, then build the word in order!",
   "speed": "{\"lang\": \"en-gb\", \"pitch\": 1.2, \"sentence\": 0.78, \"voice\": \"bf_lily\", \"word\": 0.85}"
- },
- "ef8d22e7": {
-  "key": "mimi|hi, i'm mimi! welcome to canopy quest, high up in the trees! tap a game to see how to play, then press start.",
-  "say": "Hi, I'm Mimi! Welcome to Canopy Quest, high up in the trees! Tap a game to see how to play, then press Start.",
-  "speed": "{\"lang\": \"en-gb\", \"pitch\": 1.2, \"sentence\": 0.78, \"voice\": \"bf_lily\", \"word\": 0.85}"
- },
- "efd2ba31": {
-  "key": "monkey|hi, i'm momo! welcome to the jungle games! tap a game to see how to play, then press start.",
-  "say": "Hi, I'm Momo! Welcome to the Jungle Games! Tap a game to see how to play, then press Start.",
-  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.08, \"sentence\": 0.8, \"voice\": \"am_puck\", \"word\": 0.85}"
  },
  "f00c3c10": {
   "key": "u",
@@ -1624,11 +1599,6 @@
   "say": "tee",
   "speed": "0.76/0.85"
  },
- "f1836cf4": {
-  "key": "monkey|welcome to the jungle games! tap a game to see how to play, then press start.",
-  "say": "Welcome to the Jungle Games! Tap a game to see how to play, then press Start.",
-  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.08, \"sentence\": 0.8, \"voice\": \"am_puck\", \"word\": 0.85}"
- },
  "f270b0b8": {
   "key": "tiger",
   "say": "tiger",
@@ -1644,20 +1614,15 @@
   "say": "lion",
   "speed": "0.76/0.85"
  },
- "f317cf6d": {
-  "key": "let's play lion's letters! look closely at the big word on top. then, find the word below that looks exactly the same!",
-  "say": "Let's play Lion's Letters! Look closely at the big word on top. Then, find the word below that looks exactly the same!",
-  "speed": "0.76/0.85"
- },
- "f36caa72": {
-  "key": "monkey|hi, i'm momo! welcome to canopy quest, high up in the trees! tap a game to see how to play, then press start.",
-  "say": "Hi, I'm Momo! Welcome to Canopy Quest, high up in the trees! Tap a game to see how to play, then press Start.",
-  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.08, \"sentence\": 0.8, \"voice\": \"am_puck\", \"word\": 0.85}"
- },
  "f40c425c": {
   "key": "q",
   "say": "cue",
   "speed": "0.76/0.85"
+ },
+ "f4b84aed": {
+  "key": "monkey|lesson complete! good try, you got one star. practice makes you stronger!",
+  "say": "Lesson complete! Good try, you got one star. Practice makes you stronger!",
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.08, \"sentence\": 0.8, \"voice\": \"am_puck\", \"word\": 0.85}"
  },
  "f50c43ef": {
   "key": "p",
@@ -1679,11 +1644,6 @@
   "say": "are",
   "speed": "0.76/0.85"
  },
- "f7a6dd3d": {
-  "key": "gorilla|welcome to the jungle games! tap a game to see how to play, then press start.",
-  "say": "Welcome to the Jungle Games! Tap a game to see how to play, then press Start.",
-  "speed": "{\"lang\": \"en-us\", \"pitch\": 0.84, \"sentence\": 0.68, \"voice\": \"am_fenrir\", \"word\": 0.78}"
- },
  "f856b98d": {
   "key": "gorilla|take your time! a 'q' can be tricky to spot.",
   "say": "Take your time! The letter cue can be tricky to spot.",
@@ -1704,6 +1664,11 @@
   "say": "cup",
   "speed": "0.76/0.85"
  },
+ "fa757231": {
+  "key": "monkey|lesson complete! great job, you got two stars!",
+  "say": "Lesson complete! Great job, you got two stars!",
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.08, \"sentence\": 0.8, \"voice\": \"am_puck\", \"word\": 0.85}"
+ },
  "faa82900": {
   "key": "monkey|this is your trophy room. each card is a game you have played, and the stars show how well you did. tap play again to try a game once more. tap a skill at the top to see only those games.",
   "say": "This is your trophy room. Each card is a game you have played, and the stars show how well you did. Tap Play Again to try a game once more. Tap a skill at the top to see only those games.",
@@ -1714,10 +1679,20 @@
   "say": "tur",
   "speed": "0.76/0.85"
  },
+ "fb362cea": {
+  "key": "cheetah|lesson complete! great job, you got two stars!",
+  "say": "Lesson complete! Great job, you got two stars!",
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.06, \"sentence\": 0.84, \"voice\": \"am_liam\", \"word\": 0.88}"
+ },
  "fc3311f7": {
   "key": "lion|can you find the letters that got mixed up? tap the speaker to hear the word!",
   "say": "Can you find the letters that got mixed up? Tap the speaker to hear the word!",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"am_onyx\", \"word\": 0.8}"
+ },
+ "fd46e510": {
+  "key": "cheetah|lesson complete! good try, you got one star. practice makes you stronger!",
+  "say": "Lesson complete! Good try, you got one star. Practice makes you stronger!",
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.06, \"sentence\": 0.84, \"voice\": \"am_liam\", \"word\": 0.88}"
  },
  "fd48d785": {
   "key": "mimi|hi, i'm mimi! look at all the trophies you have won! tap play again to play a game once more.",

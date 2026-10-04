@@ -2,8 +2,9 @@
 // "angel"/"angle") and must tap the specific letters that got swapped
 // between them, rather than just spotting that the words differ.
 import { useState } from "react";
-import { Star, Search, Volume2, RotateCcw, Check, Home } from "lucide-react";
+import { Star, Search, Volume2, RotateCcw, Check } from "lucide-react";
 import GameTopBar from "../components/GameTopBar";
+import LessonComplete from "../components/LessonComplete";
 import AccessibilityToolbar from "../components/AccessibilityToolbar";
 import GameHintBubble, { speak } from "../components/GameHintBubble";
 import "./ParrotPairsGame.css";
@@ -77,6 +78,7 @@ function ParrotPairsGame({ onHome, onBack }) {
   const [wrongFlash, setWrongFlash] = useState(false);
   const [score, setScore] = useState(0);
   const [hintsUsed, setHintsUsed] = useState(0);
+  const [hintsTotal, setHintsTotal] = useState(0); // hints over the whole session (for the lesson stars)
   const [message, setMessage] = useState("Tap the letters that got mixed up in each word!");
   const [solved, setSolved] = useState(false);
   const [sessionComplete, setSessionComplete] = useState(false);
@@ -119,6 +121,7 @@ function ParrotPairsGame({ onHome, onBack }) {
     setSelected1(new Set(expected1));
     setSelected2(new Set(expected2));
     setHintsUsed((h) => h + 1);
+    setHintsTotal((h) => h + 1);
     setMessage("Here's a hint - the mixed-up letters are highlighted.");
   }
 
@@ -148,6 +151,7 @@ function ParrotPairsGame({ onHome, onBack }) {
     setSolved(false);
     setHintsUsed(0);
     setScore(0);
+    setHintsTotal(0);
     setSessionComplete(false);
     setMessage("Tap the letters that got mixed up in each word!");
   }
@@ -156,18 +160,12 @@ function ParrotPairsGame({ onHome, onBack }) {
     return (
       <section className="page parrot-game">
         <GameTopBar gameName="Parrot Pairs" onHome={onHome} onBack={onBack} />
-        <div className="parrot-game__complete">
-          <h1>Game Session Completed!</h1>
-          <p>Final score: {score}</p>
-          <div className="parrot-game__complete-actions">
-            <button className="btn btn--outline" onClick={handlePlayAgain}>
-              <RotateCcw size={14} /> Play Again
-            </button>
-            <button className="btn btn--primary" onClick={onBack}>
-              <Home size={14} /> Back to World
-            </button>
-          </div>
-        </div>
+        <LessonComplete
+          lessonId="parrotPairsGame"
+          stars={hintsTotal <= 2 ? 3 : hintsTotal <= 6 ? 2 : 1}
+          onPlayAgain={handlePlayAgain}
+          onBack={onBack}
+        />
         <AccessibilityToolbar />
       </section>
     );

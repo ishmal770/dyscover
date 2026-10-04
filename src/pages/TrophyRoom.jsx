@@ -5,6 +5,7 @@ import AccessibilityToolbar from "../components/AccessibilityToolbar";
 import GuideBubble from "../components/GuideBubble";
 import { speak } from "../components/GameHintBubble";
 import { GAME_TROPHIES, SKILL_FILTERS } from "../data/mockData";
+import { useProgress } from "../context/ProgressContext";
 import "./TrophyRoom.css";
 
 function TrophyRoom() {
@@ -12,8 +13,15 @@ function TrophyRoom() {
   const [filter, setFilter] = useState("All");
   const [shareMessage, setShareMessage] = useState("");
 
-  const totalStars = GAME_TROPHIES.flatMap((w) => w.games).reduce((sum, g) => sum + g.stars, 0);
-  const masteredCount = GAME_TROPHIES.flatMap((w) => w.games).filter((g) => g.mastered).length;
+  // The game list/skills come from mockData, but the stars are the child's real saved progress
+  const { stars } = useProgress();
+  const worlds = GAME_TROPHIES.map((w) => ({
+    ...w,
+    games: w.games.map((g) => ({ ...g, stars: stars(g.routeKey), mastered: stars(g.routeKey) === 3 })),
+  }));
+
+  const totalStars = worlds.flatMap((w) => w.games).reduce((sum, g) => sum + g.stars, 0);
+  const masteredCount = worlds.flatMap((w) => w.games).filter((g) => g.mastered).length;
 
   async function handleShare() {
     const summary = `I've earned ${totalStars} stars and mastered ${masteredCount} games on DysCover!`;
@@ -72,7 +80,7 @@ function TrophyRoom() {
         </div>
       </div>
 
-      {GAME_TROPHIES.map(({ world, games }) => {
+      {worlds.map(({ world, games }) => {
         const visibleGames = filter === "All" ? games : games.filter((g) => g.skill === filter);
         if (visibleGames.length === 0) return null;
         return (

@@ -3,14 +3,13 @@
 // unmounting/remounting components. This keeps the transitions instant
 // and avoids losing in-progress game state when peeking at another page.
 import { useRef, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import "./App.css";
 import Homepage from "./pages/Homepage";
 import Login from "./pages/Login";
 import AdventureMap from "./pages/AdventureMap";
 import PlacementMission from "./pages/PlacementMission";
-import JungleGamesDetail from "./pages/JungleGamesDetail";
-import CanopyQuestDetail from "./pages/CanopyQuestDetail";
+import Dashboard from "./pages/Dashboard";
 import ParrotPairsGame from "./pages/ParrotPairsGame";
 import SyllableSafariGame from "./pages/SyllableSafariGame";
 import MonkeyMixUpGame from "./pages/MonkeyMixUpGame";
@@ -18,23 +17,12 @@ import LionsLettersGame from "./pages/LionsLettersGame";
 import CheetahChallengeGame from "./pages/CheetahChallengeGame";
 import LizardLookoutsGame from "./pages/LizardLookoutsGame";
 
-// Maps a game's display name (used on hub/trophy cards) to its section key,
-// so hub pages and the Trophy Room's "Play Again" links can jump straight
-// to the right game.
-const GAME_ROUTES = {
-  "Parrot Pairs": "parrotPairsGame",
-  "Syllable Safari": "syllableSafariGame",
-  "Monkey Mix-Up": "monkeyMixUpGame",
-  "Lion's Letters": "lionsLettersGame",
-  "Lizard Lookouts": "lizardLookoutsGame",
-  "Cheetah Challenge": "cheetahChallengeGame",
-};
-
 function KidGameApp() {
   // Holds a live DOM node reference for every section, keyed by section name,
   // so goTo() can scroll to any of them without re-rendering.
   const sectionRefs = useRef({});
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
 
   // Smoothly scrolls the horizontal strip so the named section fills the view.
   const goTo = (key) => {
@@ -43,13 +31,6 @@ function KidGameApp() {
       inline: "start",
       block: "nearest",
     });
-  };
-
-  // Used by hub pages when a game card is tapped: looks up the section key
-  // for the given game and scrolls to it.
-  const playGame = (activity) => {
-    const key = GAME_ROUTES[activity.name];
-    if (key) goTo(key);
   };
 
   // Supports deep links like /?play=parrotPairsGame (used by the Trophy
@@ -61,53 +42,42 @@ function KidGameApp() {
     }
   }, [searchParams]);
 
+  // Every "home" button goes to the dashboard (the kid's home base); the splash
+  // page is only the very first screen.
+  const toDashboard = () => goTo("dashboard");
+
+  const section = (key, children) => (
+    <div ref={(el) => (sectionRefs.current[key] = el)} className="scroller__section">
+      {children}
+    </div>
+  );
+
   return (
     <div className="scroller">
-      {/* Onboarding flow: homepage -> login -> world map -> placement quiz */}
-      <div ref={(el) => (sectionRefs.current.home = el)} className="scroller__section">
-        <Homepage onNext={() => goTo("login")} />
-      </div>
-      <div ref={(el) => (sectionRefs.current.login = el)} className="scroller__section">
-        <Login onNext={() => goTo("map")} />
-      </div>
-      <div ref={(el) => (sectionRefs.current.map = el)} className="scroller__section">
-        <AdventureMap
-          onNext={() => goTo("placement")}
-          onStartCanopy={() => goTo("canopyDetail")}
-          onHome={() => goTo("home")}
+      {/* Getting started: splash -> log in -> quick placement */}
+      {section("home", <Homepage onNext={() => goTo("login")} />)}
+      {section("login", <Login onNext={() => goTo("placement")} />)}
+      {section("placement", <PlacementMission onNext={toDashboard} onHome={toDashboard} />)}
+
+      {/* Home base, then the world map. The map is one lesson path; each lesson is a game. */}
+      {section(
+        "dashboard",
+        <Dashboard
+          onStartLesson={goTo}
+          onOpenMap={() => goTo("map")}
+          onOpenUnit={goTo}
+          onOpenTrophies={() => navigate("/trophy-room")}
         />
-      </div>
-      <div ref={(el) => (sectionRefs.current.placement = el)} className="scroller__section">
-        <PlacementMission onNext={() => goTo("jungleDetail")} onHome={() => goTo("home")} />
-      </div>
+      )}
+      {section("map", <AdventureMap onHome={toDashboard} onStartLesson={goTo} />)}
 
-      {/* World 1: Jungle Games - game list, then the 3 games themselves */}
-      <div ref={(el) => (sectionRefs.current.jungleDetail = el)} className="scroller__section">
-        <JungleGamesDetail onHome={() => goTo("home")} onMap={() => goTo("map")} onPlayGame={playGame} />
-      </div>
-      <div ref={(el) => (sectionRefs.current.parrotPairsGame = el)} className="scroller__section">
-        <ParrotPairsGame onHome={() => goTo("home")} onBack={() => goTo("jungleDetail")} />
-      </div>
-      <div ref={(el) => (sectionRefs.current.syllableSafariGame = el)} className="scroller__section">
-        <SyllableSafariGame onHome={() => goTo("home")} onBack={() => goTo("jungleDetail")} />
-      </div>
-      <div ref={(el) => (sectionRefs.current.monkeyMixUpGame = el)} className="scroller__section">
-        <MonkeyMixUpGame onHome={() => goTo("home")} onBack={() => goTo("jungleDetail")} />
-      </div>
-
-      {/* World 2: Canopy Quest - game list, then the 3 games themselves */}
-      <div ref={(el) => (sectionRefs.current.canopyDetail = el)} className="scroller__section">
-        <CanopyQuestDetail onHome={() => goTo("home")} onMap={() => goTo("map")} onPlayGame={playGame} />
-      </div>
-      <div ref={(el) => (sectionRefs.current.lionsLettersGame = el)} className="scroller__section">
-        <LionsLettersGame onHome={() => goTo("home")} onBack={() => goTo("canopyDetail")} />
-      </div>
-      <div ref={(el) => (sectionRefs.current.lizardLookoutsGame = el)} className="scroller__section">
-        <LizardLookoutsGame onHome={() => goTo("home")} onBack={() => goTo("canopyDetail")} />
-      </div>
-      <div ref={(el) => (sectionRefs.current.cheetahChallengeGame = el)} className="scroller__section">
-        <CheetahChallengeGame onHome={() => goTo("home")} onBack={() => goTo("canopyDetail")} />
-      </div>
+      {/* The lessons: Unit 1 (Jungle Games), then Unit 2 (Canopy Quest). Each one returns to the map. */}
+      {section("parrotPairsGame", <ParrotPairsGame onHome={toDashboard} onBack={() => goTo("map")} />)}
+      {section("syllableSafariGame", <SyllableSafariGame onHome={toDashboard} onBack={() => goTo("map")} />)}
+      {section("monkeyMixUpGame", <MonkeyMixUpGame onHome={toDashboard} onBack={() => goTo("map")} />)}
+      {section("lionsLettersGame", <LionsLettersGame onHome={toDashboard} onBack={() => goTo("map")} />)}
+      {section("lizardLookoutsGame", <LizardLookoutsGame onHome={toDashboard} onBack={() => goTo("map")} />)}
+      {section("cheetahChallengeGame", <CheetahChallengeGame onHome={toDashboard} onBack={() => goTo("map")} />)}
     </div>
   );
 }
