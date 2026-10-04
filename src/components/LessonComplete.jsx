@@ -5,6 +5,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Star, Zap, Flame, Target, Lock, ArrowRight, RotateCcw } from "lucide-react";
 import GuideArt from "./GuideArt";
+import Avatar from "./Avatar";
 import { speak } from "../audio/speech";
 import { useGuide } from "../context/GuideContext";
 import { useProgress } from "../context/ProgressContext";
@@ -79,6 +80,12 @@ function LessonComplete({ lessonId, stars, character, onPlayAgain, onBack }) {
         </div>
       </div>
 
+      {result.leveledUp && <p className="lesson-complete__banner">Level up! You are now level {result.level}!</p>}
+      {result.newAvatars.map((a) => (
+        <p key={a.id} className="lesson-complete__banner lesson-complete__banner--unlock lesson-complete__banner--avatar">
+          <Avatar id={a.id} size={34} /> New avatar unlocked: {a.name}! Find it in your profile.
+        </p>
+      ))}
       {result.goalReached && <p className="lesson-complete__banner">Daily goal reached!</p>}
       {upNext && (
         <p className="lesson-complete__banner lesson-complete__banner--unlock">

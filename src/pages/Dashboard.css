@@ -310,3 +310,51 @@
     justify-content: center;
   }
 }
+
+/* the child's avatar + greeting; tapping opens the profile page */
+.dash__me {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0;
+  border: none;
+  background: none;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.dash__me-avatar {
+  position: relative;
+  flex: none;
+}
+
+.dash__me-level {
+  position: absolute;
+  right: -6px;
+  bottom: -4px;
+  padding: 1px 8px;
+  border: 2px solid var(--white);
+  border-radius: var(--radius-pill);
+  background: #f5b301;
+  color: var(--white);
+  font-size: 0.7rem;
+  font-weight: 800;
+}
+
+.dash__me-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.dash__me-name {
+  font-size: 1.7rem;
+  font-weight: 800;
+}
+
+.dash__me-sub {
+  margin-top: 2px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+}

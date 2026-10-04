@@ -128,3 +128,8 @@
     opacity: 1;
   }
 }
+
+.lesson-complete__banner--avatar {
+  gap: 10px;
+  padding-block: 6px;
+}

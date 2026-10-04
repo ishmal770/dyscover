@@ -44,6 +44,11 @@
   "say": "Listen to the word. Then tap in between the letters where the word splits into parts.",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 0.84, \"sentence\": 0.68, \"voice\": \"am_fenrir\", \"word\": 0.78}"
  },
+ "04e3c536": {
+  "key": "sloth|hi, i'm sunny! this is your profile! pick a picture to be your avatar. play more lessons to unlock new ones.",
+  "say": "Hi, I'm Sunny! This is your profile! Pick a picture to be your avatar. Play more lessons to unlock new ones.",
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.0, \"sentence\": 0.74, \"voice\": \"af_heart\", \"word\": 0.82}"
+ },
  "056b8da2": {
   "key": "syl:a",
   "say": "uh",
@@ -229,11 +234,6 @@
   "say": "Look at all the trophies you have won! Tap Play Again to play a game once more.",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"am_onyx\", \"word\": 0.8}"
  },
- "20d269be": {
-  "key": "this is your home base. the flame counts the days in a row that you play. the bar shows today's goal. tap start to begin your next lesson, or open the map to choose a world.",
-  "say": "This is your home base. The flame counts the days in a row that you play. The bar shows today's goal. Tap Start to begin your next lesson, or open the map to choose a world.",
-  "speed": "0.76/0.85"
- },
  "2199595c": {
   "key": "gorilla|take your time! a 'b' can be tricky to spot.",
   "say": "Take your time! The letter bee can be tricky to spot.",
@@ -368,11 +368,6 @@
   "key": "you're playing monkey mix-up! tap any speaker icon to hear words read aloud, and use the buttons on screen to answer.",
   "say": "You're playing Monkey Mix-Up! Tap any speaker icon to hear words read aloud, and use the buttons on screen to answer.",
   "speed": "0.76/0.85"
- },
- "395a8b5e": {
-  "key": "sloth|this is your home base. the flame counts the days in a row that you play. the bar shows today's goal. tap start to begin your next lesson, or open the map to choose a world.",
-  "say": "This is your home base. The flame counts the days in a row that you play. The bar shows today's goal. Tap Start to begin your next lesson, or open the map to choose a world.",
-  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.0, \"sentence\": 0.74, \"voice\": \"af_heart\", \"word\": 0.82}"
  },
  "39699490": {
   "key": "syl:phant",
@@ -567,6 +562,11 @@
  "57931627": {
   "key": "click all the ds in this paragraph",
   "say": "Click every letter dee in this paragraph!",
+  "speed": "0.76/0.85"
+ },
+ "57f43d77": {
+  "key": "this is your home base. the flame counts the days in a row that you play. the bar shows today's goal. tap start to begin your next lesson, or open the map to choose a world. tap your picture to open your profile.",
+  "say": "This is your home base. The flame counts the days in a row that you play. The bar shows today's goal. Tap Start to begin your next lesson, or open the map to choose a world. Tap your picture to open your profile.",
   "speed": "0.76/0.85"
  },
  "58157023": {
@@ -919,6 +919,11 @@
   "say": "This is your trophy room. Each card is a game you have played, and the stars show how well you did. Tap Play Again to try a game once more. Tap a skill at the top to see only those games.",
   "speed": "{\"lang\": \"en-gb\", \"pitch\": 1.2, \"sentence\": 0.78, \"voice\": \"bf_lily\", \"word\": 0.85}"
  },
+ "90f0a93a": {
+  "key": "this is your profile. tap a picture to make it your avatar. pictures with a lock need more levels, stars or trophies. tap the pencil to change your name.",
+  "say": "This is your profile. Tap a picture to make it your avatar. Pictures with a lock need more levels, stars or trophies. Tap the pencil to change your name.",
+  "speed": "0.76/0.85"
+ },
  "90f6c057": {
   "key": "we will play a few short games so i can build your perfect map. tap me when you are ready to begin.",
   "say": "We will play a few short games so I can build your perfect map. Tap me when you are ready to begin.",
@@ -1139,6 +1144,16 @@
   "say": "Find the vowel that sounds like the one in \"pig\" to complete the word! Tap a vowel from the tray to complete the word.",
   "speed": "0.76/0.85"
  },
+ "b5d7314c": {
+  "key": "sloth|this is your profile! pick a picture to be your avatar. play more lessons to unlock new ones.",
+  "say": "This is your profile! Pick a picture to be your avatar. Play more lessons to unlock new ones.",
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.0, \"sentence\": 0.74, \"voice\": \"af_heart\", \"word\": 0.82}"
+ },
+ "b61830da": {
+  "key": "sloth|this is your profile. tap a picture to make it your avatar. pictures with a lock need more levels, stars or trophies. tap the pencil to change your name.",
+  "say": "This is your profile. Tap a picture to make it your avatar. Pictures with a lock need more levels, stars or trophies. Tap the pencil to change your name.",
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.0, \"sentence\": 0.74, \"voice\": \"af_heart\", \"word\": 0.82}"
+ },
  "b680409e": {
   "key": "you're playing lion's letters! tap any speaker icon to hear words read aloud, and use the buttons on screen to answer.",
   "say": "You're playing Lion's Letters! Tap any speaker icon to hear words read aloud, and use the buttons on screen to answer.",
@@ -1264,6 +1279,11 @@
   "say": "Welcome to the Adventure Map! Follow the path and tap the glowing circle to start your next lesson.",
   "speed": "{\"lang\": \"en-gb\", \"pitch\": 1.2, \"sentence\": 0.78, \"voice\": \"bf_lily\", \"word\": 0.85}"
  },
+ "cab20617": {
+  "key": "sloth|this is your home base. the flame counts the days in a row that you play. the bar shows today's goal. tap start to begin your next lesson, or open the map to choose a world. tap your picture to open your profile.",
+  "say": "This is your home base. The flame counts the days in a row that you play. The bar shows today's goal. Tap Start to begin your next lesson, or open the map to choose a world. Tap your picture to open your profile.",
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.0, \"sentence\": 0.74, \"voice\": \"af_heart\", \"word\": 0.82}"
+ },
  "cb619ce5": {
   "key": "rabbit",
   "say": "rabbit",
@@ -1387,6 +1407,11 @@
  "e00c22e0": {
   "key": "e",
   "say": "ee",
+  "speed": "0.76/0.85"
+ },
+ "e00ef3ac": {
+  "key": "this is your profile! pick a picture to be your avatar. play more lessons to unlock new ones.",
+  "say": "This is your profile! Pick a picture to be your avatar. Play more lessons to unlock new ones.",
   "speed": "0.76/0.85"
  },
  "e04e3f61": {
