@@ -13,7 +13,7 @@ const TICK_MS = 100;
 const SpeechRecognitionApi =
   typeof window !== "undefined" && (window.SpeechRecognition || window.webkitSpeechRecognition);
 
-function CheetahChallengeGame({ onHome, onBack }) {
+function CheetahChallengeGame({ onHome, onBack, onDone }) {
   const [roundIndex, setRoundIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [streak, setStreak] = useState(0);
@@ -177,7 +177,7 @@ function CheetahChallengeGame({ onHome, onBack }) {
           stars={correct >= 10 ? 3 : correct >= 7 ? 2 : 1}
           character="cheetah"
           onPlayAgain={handleRestart}
-          onBack={onBack}
+          onBack={onDone ?? onBack}
         />
       ) : (
         <>

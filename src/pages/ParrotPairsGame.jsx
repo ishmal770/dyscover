@@ -71,7 +71,7 @@ function getTileMetrics(maxLen) {
   return { size: 21, font: "0.7rem", gap: 3 };
 }
 
-function ParrotPairsGame({ onHome, onBack }) {
+function ParrotPairsGame({ onHome, onBack, onDone }) {
   const [roundIndex, setRoundIndex] = useState(0);
   const [selected1, setSelected1] = useState(() => new Set());
   const [selected2, setSelected2] = useState(() => new Set());
@@ -164,7 +164,7 @@ function ParrotPairsGame({ onHome, onBack }) {
           lessonId="parrotPairsGame"
           stars={hintsTotal <= 2 ? 3 : hintsTotal <= 6 ? 2 : 1}
           onPlayAgain={handlePlayAgain}
-          onBack={onBack}
+          onBack={onDone ?? onBack}
         />
         <AccessibilityToolbar />
       </section>
