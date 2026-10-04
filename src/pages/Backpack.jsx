@@ -35,6 +35,8 @@ function Backpack() {
       await navigator.clipboard.writeText(summary);
       setShareMessage("Copied your backpack summary to the clipboard!");
       setTimeout(() => setShareMessage(""), 3000);
+    } else {
+      setShareMessage(summary);
     }
   }
 
