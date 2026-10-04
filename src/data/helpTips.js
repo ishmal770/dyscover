@@ -30,7 +30,7 @@ export const HELP_RULES = [
   [/^share/, "Press this to share how many treasures you found."],
   [/^info$/, "Press this to learn about DysCover."],
   [/^settings$/, "Press this to change the text size, colors, and sound."],
-  [/^mute|^unmute/, "Press this to turn the sound on or off."],
+  [/^mute|^unmute|spoken audio/, "Press this to turn the sound on or off."],
   [/readable spacing|^font$/, "Press this to make the letters easier to read."],
   [/text size|^size$|^lg$|^xl$/, "Press this to make the words bigger or smaller."],
   [/contrast/, "Press this to make the colors stronger so they are easier to see."],

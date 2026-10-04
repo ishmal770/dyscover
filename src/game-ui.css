@@ -68,8 +68,17 @@ strong { font-weight: 800; }
 
 .topbar { padding: 16px 28px; gap: 14px; }
 .gametopbar { padding: 14px 28px; gap: 14px; }
-.topbar__logo img { height: 40px; }
-.gametopbar__logo img { height: 36px; }
+/* the logo file is a square with the artwork in a thin middle band; crop to that band so the logo is big and readable */
+.topbar__logo img,
+.gametopbar__logo img {
+  aspect-ratio: 10 / 3;
+  width: auto;
+  object-fit: cover;
+  object-position: 50% 47.5%;
+}
+
+.topbar__logo img { height: 58px; }
+.gametopbar__logo img { height: 48px; }
 
 .topbar__label {
   padding: 9px 22px;
@@ -111,8 +120,8 @@ strong { font-weight: 800; }
   .gametopbar { padding: 10px 12px; gap: 8px; }
   .topbar__icon-btn,
   .gametopbar__icon-btn { width: 34px; height: 34px; }
-  .topbar__logo img { height: 24px; }
-  .gametopbar__logo img { height: 22px; }
+  .topbar__logo img { height: 34px; }
+  .gametopbar__logo img { height: 30px; }
   .topbar__icon-btn svg,
   .gametopbar__icon-btn svg { width: 16px; height: 16px; }
   .topbar__side--end,
