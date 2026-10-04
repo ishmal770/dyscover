@@ -1,6 +1,6 @@
 // The avatars a child can pick for their account, and what unlocks each one.
-// Unlocks come from levels (earned with XP), stars, or gold trophies (a lesson
-// finished with all three stars). They are checked against the saved progress,
+// Unlocks come from levels (earned with XP), stars, or treasures found in the
+// backpack (one per finished lesson). They are checked against the saved progress,
 // so a child can never lose an avatar they have earned.
 
 export const XP_PER_LEVEL = 40;
@@ -12,27 +12,28 @@ export function levelFor(xp) {
   return { level, into, needed: XP_PER_LEVEL, percent: Math.round((into / XP_PER_LEVEL) * 100) };
 }
 
-// `character` is a guide id (see guides.js / GuideArt.jsx); "sloth" is the host
+// Seven human explorers (drawn in components/ExplorerArt.jsx). `treasures` is
+// how many treasures (finished lessons) have gone into the backpack.
 export const AVATARS = [
-  { id: "sloth", name: "Sunny", character: "sloth", unlock: null },
-  { id: "monkey", name: "Momo", character: "monkey", unlock: null },
-  { id: "mimi", name: "Mimi", character: "mimi", unlock: { type: "level", n: 2 } },
-  { id: "elephant", name: "Ellie", character: "elephant", unlock: { type: "stars", n: 3 } },
-  { id: "lion", name: "Leo", character: "lion", unlock: { type: "level", n: 3 } },
-  { id: "cheetah", name: "Chase", character: "cheetah", unlock: { type: "trophies", n: 2 } },
-  { id: "gorilla", name: "Gus", character: "gorilla", unlock: { type: "level", n: 5 } },
+  { id: "zara", name: "Zara", unlock: null },
+  { id: "kai", name: "Kai", unlock: null },
+  { id: "maya", name: "Maya", unlock: { type: "level", n: 2 } },
+  { id: "leo", name: "Leo", unlock: { type: "stars", n: 3 } },
+  { id: "amara", name: "Amara", unlock: { type: "level", n: 3 } },
+  { id: "sam", name: "Sam", unlock: { type: "treasures", n: 4 } },
+  { id: "noor", name: "Noor", unlock: { type: "level", n: 5 } },
 ];
 
 export const AVATAR_BY_ID = Object.fromEntries(AVATARS.map((a) => [a.id, a]));
-export const DEFAULT_AVATAR = "sloth";
+export const DEFAULT_AVATAR = "zara";
 
-// stats: { level, stars, trophies }
+// stats: { level, stars, treasures }
 export function isAvatarUnlocked(avatar, stats) {
   const u = avatar.unlock;
   if (!u) return true;
   if (u.type === "level") return stats.level >= u.n;
   if (u.type === "stars") return stats.stars >= u.n;
-  return stats.trophies >= u.n;
+  return stats.treasures >= u.n;
 }
 
 // Short, kid-friendly description of what a locked avatar needs
@@ -41,5 +42,5 @@ export function unlockText(avatar) {
   if (!u) return "";
   if (u.type === "level") return `Reach level ${u.n}`;
   if (u.type === "stars") return `Collect ${u.n} stars`;
-  return `Win ${u.n} gold trophies`;
+  return `Find ${u.n} treasures`;
 }

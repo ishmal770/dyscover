@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { Star, Zap, Flame, Target, Lock, ArrowRight, RotateCcw } from "lucide-react";
 import GuideArt from "./GuideArt";
 import Avatar from "./Avatar";
+import { GemArt, TreasureArt } from "./TreasureArt";
 import { speak } from "../audio/speech";
 import { useGuide } from "../context/GuideContext";
 import { useProgress } from "../context/ProgressContext";
@@ -80,6 +81,17 @@ function LessonComplete({ lessonId, stars, character, onPlayAgain, onBack }) {
         </div>
       </div>
 
+      {result.treasure && (
+        <p className="lesson-complete__banner lesson-complete__banner--avatar">
+          <TreasureArt icon={result.treasure.icon} size={40} /> Treasure found: {result.treasure.name}!
+        </p>
+      )}
+      {result.gem && (
+        <p className="lesson-complete__banner lesson-complete__banner--avatar">
+          <GemArt color={result.gem.color} dark={result.gem.dark} size={40} glow />
+          {result.gem.hasNext ? `You won the ${result.gem.name}! Put it in the gate on the map.` : `You won the ${result.gem.name}!`}
+        </p>
+      )}
       {result.leveledUp && <p className="lesson-complete__banner">Level up! You are now level {result.level}!</p>}
       {result.newAvatars.map((a) => (
         <p key={a.id} className="lesson-complete__banner lesson-complete__banner--unlock lesson-complete__banner--avatar">

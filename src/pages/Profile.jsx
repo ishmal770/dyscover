@@ -1,8 +1,8 @@
 // The child's account page: their name, level and stats, and a picker for the
-// avatar. Avatars unlock as the child earns levels, stars and gold trophies
+// avatar. Avatars unlock as the child earns levels, stars and treasures
 // (rules in data/avatars.js); locked ones show what is needed.
 import { useState } from "react";
-import { ArrowLeft, Check, Flame, Lock, Pencil, Star, Trophy, Zap } from "lucide-react";
+import { ArrowLeft, Check, Flame, Lock, Pencil, Star, Backpack, Zap } from "lucide-react";
 import TopBar from "../components/TopBar";
 import AccessibilityToolbar from "../components/AccessibilityToolbar";
 import GuideBubble from "../components/GuideBubble";
@@ -99,9 +99,9 @@ function Profile({ onBack }) {
               <span>stars</span>
             </div>
             <div className="profile__stat profile__stat--trophies">
-              <Trophy size={20} />
-              <strong>{stats.trophies}</strong>
-              <span>gold trophies</span>
+              <Backpack size={20} />
+              <strong>{stats.treasures}</strong>
+              <span>treasures</span>
             </div>
           </div>
 
@@ -141,7 +141,7 @@ function Profile({ onBack }) {
             })}
           </div>
           <p className="profile__notice" role="status">
-            {notice || "Play lessons to earn levels, stars and trophies and unlock more avatars!"}
+            {notice || "Play lessons to earn levels, stars and treasures and unlock more avatars!"}
           </p>
         </div>
       </div>
@@ -150,7 +150,7 @@ function Profile({ onBack }) {
       <GuideBubble
         fixedCharacter="sloth"
         message="This is your profile! Pick a picture to be your avatar. Play more lessons to unlock new ones."
-        instructions="This is your profile. Tap a picture to make it your avatar. Pictures with a lock need more levels, stars or trophies. Tap the pencil to change your name."
+        instructions="This is your profile. Tap a picture to make it your avatar. Pictures with a lock need more levels, stars or treasures. Tap the pencil to change your name."
       />
     </section>
   );

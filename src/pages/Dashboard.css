@@ -358,3 +358,37 @@
   font-weight: 600;
   color: var(--ink-soft);
 }
+
+/* "you won a gem - put it in the gate" card */
+.dash__gem {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 22px;
+  border: 3px solid #b9e5a8;
+  border-radius: 20px;
+  background: #f1fae9;
+}
+
+.dash__gem > div {
+  flex: 1;
+  min-width: 180px;
+}
+
+.dash__gem h2 {
+  font-size: 1.3rem;
+  font-weight: 900;
+}
+
+.dash__gem p {
+  margin-top: 2px;
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+
+.dash__gem .dash__start {
+  background: var(--green);
+  color: var(--white);
+  box-shadow: 0 4px 0 var(--green-dark);
+}

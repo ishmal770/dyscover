@@ -1,11 +1,11 @@
 // Top-level router: splits the kid-facing game app from the adult-facing
-// Trophy Room / Clinical / Expert dashboard pages.
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+// Backpack / Clinical / Expert dashboard pages.
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AccessibilityProvider } from "./context/AccessibilityContext";
 import { GuideProvider } from "./context/GuideContext";
 import { ProgressProvider } from "./context/ProgressContext";
 import KidGameApp from "./KidGameApp"; // the horizontal-scroll game experience
-import TrophyRoom from "./pages/TrophyRoom";
+import Backpack from "./pages/Backpack";
 import ClinicalOverview from "./pages/ClinicalOverview";
 import ClinicalStudentDetail from "./pages/ClinicalStudentDetail";
 import ExpertDashboard from "./pages/ExpertDashboard";
@@ -19,8 +19,9 @@ function App() {
         <Routes>
           {/* Main kid app: onboarding, worlds, and all mini-games */}
           <Route path="/" element={<KidGameApp />} />
-          {/* Kid-visible rewards page, linked from the trophy icon in the top bar */}
-          <Route path="/trophy-room" element={<TrophyRoom />} />
+          {/* Kid-visible rewards page (treasures and gems), linked from the backpack icon in the top bar */}
+          <Route path="/backpack" element={<Backpack />} />
+          <Route path="/trophy-room" element={<Navigate to="/backpack" replace />} />
           {/* Aggregate progress dashboard for parents/clinicians */}
           <Route path="/clinical" element={<ClinicalOverview />} />
           {/* Per-student deep dive, linked from the Clinical Overview table */}

@@ -6,17 +6,15 @@
   overflow: hidden;
   border: 3px solid var(--white);
   border-radius: 50%;
-  background: #e1f2d3;
+  background: linear-gradient(#e9f7dc, #cfeab8);
   box-shadow: var(--shadow-soft);
 }
 
-.avatar img {
-  width: 88%;
-  height: 88%;
-  object-fit: contain;
+.avatar svg {
+  display: block;
 }
 
 /* a not-yet-earned avatar shows only its dark outline */
-.avatar--locked img {
+.avatar--locked svg {
   filter: brightness(0) opacity(0.35);
 }

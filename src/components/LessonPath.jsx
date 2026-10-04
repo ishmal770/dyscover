@@ -7,6 +7,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Check, Lock, Play, Star, X } from "lucide-react";
 import TopBar from "./TopBar";
+import GemGate from "./GemGate";
 import AccessibilityToolbar from "./AccessibilityToolbar";
 import GuideBubble from "./GuideBubble";
 import { useProgress } from "../context/ProgressContext";
@@ -80,19 +81,21 @@ function Unit({ unit, unitIndex, currentId, onOpen }) {
           );
         })}
       </div>
+
+      <GemGate unit={unit} />
     </>
   );
 }
 
 function LessonPath({ onHome, onStartLesson, guideMessage, guideInstructions }) {
-  const { isCompleted, isUnlocked, stars } = useProgress();
+  const { isCompleted, isUnlocked, stars, pendingGem } = useProgress();
   const [openId, setOpenId] = useState(null);
   const scrollRef = useRef(null);
 
   const allLessons = UNITS.flatMap((u) => u.lessons);
   const open = allLessons.find((l) => l.id === openId);
   const currentId = allLessons.find((l) => !isCompleted(l.id) && isUnlocked(l.id))?.id;
-  const allDone = !currentId;
+  const allDone = !currentId && !pendingGem;
 
   // Bring the glowing lesson into view (scroll only this list, never the page)
   useEffect(() => {

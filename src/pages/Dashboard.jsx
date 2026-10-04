@@ -2,11 +2,13 @@
 // home screen: streak, XP and stars at the top, this week's practice days,
 // today's goal, and one big "next lesson" button so there's always an obvious
 // thing to do. Everything shown here is real saved progress (ProgressContext).
-import { Flame, Zap, Star, Target, Play, Map as MapIcon, Trophy, Check, UserRound } from "lucide-react";
+import { Flame, Zap, Star, Target, Play, Map as MapIcon, Backpack, Check, UserRound } from "lucide-react";
 import TopBar from "../components/TopBar";
 import AccessibilityToolbar from "../components/AccessibilityToolbar";
 import GuideBubble from "../components/GuideBubble";
 import Avatar from "../components/Avatar";
+import { GemArt } from "../components/TreasureArt";
+import { GEMS } from "../data/treasures";
 import { useProgress, dayKey } from "../context/ProgressContext";
 import { LESSON_BY_ID, UNITS } from "../data/lessons";
 import "./Dashboard.css";
@@ -25,9 +27,9 @@ function lastSevenDays(history) {
   return days;
 }
 
-function Dashboard({ onStartLesson, onOpenMap, onOpenUnit, onOpenTrophies, onOpenProfile }) {
+function Dashboard({ onStartLesson, onOpenMap, onOpenUnit, onOpenBackpack, onOpenProfile }) {
   const progress = useProgress();
-  const { name, avatar, levelInfo, xp, streak, todayXp, goal, totalStars, maxStars, history, playedToday, unitProgress } = progress;
+  const { pendingGem, name, avatar, levelInfo, xp, streak, todayXp, goal, totalStars, maxStars, history, playedToday, unitProgress } = progress;
   const next = LESSON_BY_ID[progress.nextLesson().id];
   const nextProgress = progress.lessons[next.id];
   const goalPercent = Math.min(100, Math.round((todayXp / goal) * 100));
@@ -66,6 +68,19 @@ function Dashboard({ onStartLesson, onOpenMap, onOpenUnit, onOpenTrophies, onOpe
               </span>
             </div>
           </header>
+
+          {pendingGem && (
+            <div className="dash__gem">
+              <GemArt color={GEMS[pendingGem.id].color} dark={GEMS[pendingGem.id].dark} size={64} glow />
+              <div>
+                <h2>You won the {GEMS[pendingGem.id].name}!</h2>
+                <p>Put it in the gate on the map to open the next world.</p>
+              </div>
+              <button className="dash__start" onClick={onOpenMap}>
+                <MapIcon size={18} /> TO THE GATE
+              </button>
+            </div>
+          )}
 
           <div className="dash__next">
             <div>
@@ -135,8 +150,8 @@ function Dashboard({ onStartLesson, onOpenMap, onOpenUnit, onOpenTrophies, onOpe
             <button className="btn btn--outline" onClick={onOpenProfile}>
               <UserRound size={16} /> My profile
             </button>
-            <button className="btn btn--outline" onClick={onOpenTrophies}>
-              <Trophy size={16} /> My trophies
+            <button className="btn btn--outline" onClick={onOpenBackpack}>
+              <Backpack size={16} /> My backpack
             </button>
           </div>
         </div>

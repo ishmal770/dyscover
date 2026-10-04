@@ -63,13 +63,12 @@ function sameSet(a, b) {
   return true;
 }
 
-// Letter tiles: big and easy to tap, but shrunk (never below 22px) so the
-// longest word still fits on one row of the screen it is played on.
+// Letter tiles: a base size by word length. The CSS shrinks it further (never
+// below 20px) so the longest word always fits on one row, whatever the screen
+// width - even if the window is resized.
 function getTileMetrics(maxLen) {
-  const gap = maxLen <= 5 ? 10 : maxLen <= 9 ? 7 : 4;
-  const fit = (Math.min(window.innerWidth, 900) - 110) / maxLen - gap;
-  const size = Math.round(Math.max(22, Math.min(maxLen <= 5 ? 64 : maxLen <= 7 ? 54 : 46, fit)));
-  return { size, font: `${(size / 30).toFixed(2)}rem`, gap };
+  const base = maxLen <= 5 ? 48 : maxLen <= 7 ? 40 : maxLen <= 9 ? 34 : maxLen <= 11 ? 28 : 24;
+  return { base, gap: maxLen <= 7 ? 6 : 4, count: maxLen };
 }
 
 function ParrotPairsGame({ onHome, onBack, onDone }) {
@@ -91,8 +90,8 @@ function ParrotPairsGame({ onHome, onBack, onDone }) {
   const expected2 = rangeToSet(range2);
   const metrics = getTileMetrics(Math.max(round.word1.length, round.word2.length));
   const tileStyle = {
-    "--tile-size": `${metrics.size}px`,
-    "--tile-font": metrics.font,
+    "--tile-base": `${metrics.base}px`,
+    "--tile-n": metrics.count,
     "--tile-gap": `${metrics.gap}px`,
   };
 

@@ -76,7 +76,7 @@ function KidGameApp() {
           onStartLesson={goTo}
           onOpenMap={() => goTo("map")}
           onOpenUnit={goTo}
-          onOpenTrophies={() => navigate("/trophy-room")}
+          onOpenBackpack={() => navigate("/backpack")}
           onOpenProfile={() => goTo("profile")}
         />
       )}

@@ -3,7 +3,7 @@
 // game's real in-app name) plus the same icon row as TopBar.
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Info, Settings, Trophy, Volume2, VolumeX } from "lucide-react";
+import { Backpack, Info, Settings, Volume2, VolumeX } from "lucide-react";
 import logo from "../assets/dyscover-logo.png";
 import { useAccessibility } from "../context/AccessibilityContext";
 import InfoPopover from "./InfoPopover";
@@ -41,9 +41,9 @@ function GameTopBar({ gameName, onHome, onBack }) {
         >
           <Settings size={16} />
         </button>
-        {/* Trophy icon jumps to the kid-facing rewards page */}
-        <button className="gametopbar__icon-btn" aria-label="Achievements" onClick={() => navigate("/trophy-room")}>
-          <Trophy size={16} />
+        {/* Backpack icon jumps to the kid-facing treasures page */}
+        <button className="gametopbar__icon-btn" aria-label="My backpack" onClick={() => navigate("/backpack")}>
+          <Backpack size={16} />
         </button>
         <button
           className="gametopbar__icon-btn gametopbar__icon-btn--avatar"

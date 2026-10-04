@@ -3,15 +3,15 @@
    large touch targets, and a soft jungle feel - leaf pattern behind each page
    and a vine under the headers. */
 :root {
-  --sans: "Nunito", ui-rounded, "SF Pro Rounded", system-ui, "Segoe UI", Roboto, sans-serif;
   --radius-lg: 28px;
   --shadow-card: 0 14px 0 rgba(74, 149, 36, 0.12), 0 18px 36px rgba(43, 43, 43, 0.1);
-  font-size: 20px;
+  /* fluid: the whole UI (everything in rem) scales smoothly with the screen */
+  font-size: clamp(16px, 0.6vw + 12px, 18px);
   line-height: 140%;
 }
 
-:root.a11y-size-lg { font-size: 22px; }
-:root.a11y-size-xl { font-size: 25px; }
+:root.a11y-size-lg { font-size: clamp(18px, 0.6vw + 14px, 21px); }
+:root.a11y-size-xl { font-size: clamp(20px, 0.7vw + 16px, 24px); }
 
 h1, h2, h3 { font-weight: 900; letter-spacing: -0.01em; }
 strong { font-weight: 800; }
@@ -98,7 +98,7 @@ strong { font-weight: 800; }
 
 /* guide + speech bubbles read bigger */
 .guide-bubble__message {
-  max-width: 380px;
+  max-width: min(380px, calc(100vw - 150px));
   padding: 18px 20px;
   border-radius: 24px 24px 6px 24px;
   border: 3px solid var(--green);
@@ -110,14 +110,16 @@ strong { font-weight: 800; }
   .topbar { padding: 12px 12px; gap: 8px; }
   .gametopbar { padding: 10px 12px; gap: 8px; }
   .topbar__icon-btn,
-  .gametopbar__icon-btn { width: 38px; height: 38px; }
+  .gametopbar__icon-btn { width: 34px; height: 34px; }
+  .topbar__logo img { height: 24px; }
+  .gametopbar__logo img { height: 22px; }
   .topbar__icon-btn svg,
-  .gametopbar__icon-btn svg { width: 18px; height: 18px; }
+  .gametopbar__icon-btn svg { width: 16px; height: 16px; }
   .topbar__side--end,
-  .gametopbar__icons { gap: 6px; }
-  .topbar__label { padding: 7px 12px; font-size: 0.68rem; }
+  .gametopbar__icons { gap: 4px; }
+  .topbar__label { padding: 6px 10px; font-size: 0.62rem; letter-spacing: 0.03em; }
   .gametopbar__breadcrumb { font-size: 0.85rem; }
-  .guide-bubble__message { max-width: 250px; padding: 14px 16px; font-size: 0.95rem; }
+  .guide-bubble__message { max-width: min(250px, calc(100vw - 130px)); padding: 14px 16px; font-size: 0.95rem; }
   .btn { padding: 14px 26px; }
 }
 

@@ -113,6 +113,7 @@
 }
 
 .parrot-game__letters {
+  --tile-size: clamp(20px, calc((min(100vw, 900px) - 120px) / var(--tile-n, 8) - var(--tile-gap, 6px)), var(--tile-base, 40px));
   display: flex;
   gap: var(--tile-gap, 8px);
   justify-content: center;
@@ -134,7 +135,7 @@
   border: 2px solid var(--border);
   border-radius: 12px;
   background: var(--white);
-  font-size: var(--tile-font, 1.3rem);
+  font-size: calc(var(--tile-size, 40px) * 0.5);
   font-weight: 800;
   color: var(--ink);
   cursor: pointer;
