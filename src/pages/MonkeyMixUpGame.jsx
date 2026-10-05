@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { Star, Zap, Lightbulb, Volume2, Play, ArrowRight } from "lucide-react";
 import GameTopBar from "../components/GameTopBar";
+import GameBanner from "../components/GameBanner";
+import WordPicture from "../components/WordPicture";
 import LessonComplete from "../components/LessonComplete";
 import AccessibilityToolbar from "../components/AccessibilityToolbar";
 import GameHintBubble, { speak } from "../components/GameHintBubble";
 import { useProgress } from "../context/ProgressContext";
 import { BANKS } from "../data/questionBanks";
+import { letterName } from "../data/letters";
 import "./MonkeyMixUpGame.css";
 
 const VOWELS = ["A", "E", "I", "O", "U"];
@@ -34,7 +37,7 @@ function MonkeyMixUpGame({ onHome, onBack, onDone }) {
   const isLastRound = roundIndex + 1 >= rounds.length;
 
   function handleVowelClick(letter) {
-    speak(letter);
+    speak(letterName(letter));
     if (solved) return;
     if (letter === round.answer) {
       setFilled(letter);
@@ -77,6 +80,7 @@ function MonkeyMixUpGame({ onHome, onBack, onDone }) {
   return (
     <section className="page monkey-game">
       <GameTopBar gameName="Monkey Mix-Up" onHome={onHome} onBack={onBack} />
+      <GameBanner game="monkeyMixUpGame" />
       <div className="monkey-game__body">
         <div className="monkey-game__main">
           <div className="monkey-game__topline">
@@ -122,6 +126,10 @@ function MonkeyMixUpGame({ onHome, onBack, onDone }) {
             >
               <Volume2 size={13} />
             </button>
+          </div>
+
+          <div className="monkey-game__picture">
+            <WordPicture word={round.template.map((c) => c ?? round.answer).join("")} size={88} />
           </div>
 
           <div className="monkey-game__puzzle">

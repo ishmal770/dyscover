@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Star, Volume2, Check } from "lucide-react";
 import GameTopBar from "../components/GameTopBar";
+import GameBanner from "../components/GameBanner";
 import LessonComplete from "../components/LessonComplete";
 import AccessibilityToolbar from "../components/AccessibilityToolbar";
 import GameHintBubble, { speak } from "../components/GameHintBubble";
@@ -162,6 +163,7 @@ function SyllableSafariGame({ onHome, onBack, onDone }) {
   return (
     <section className="page syllable-game">
       <GameTopBar gameName="Syllable Safari" onHome={onHome} onBack={onBack} />
+      <GameBanner game="syllableSafariGame" />
 
       <div className="syllable-game__progress">
         <div className="syllable-game__progress-bar">

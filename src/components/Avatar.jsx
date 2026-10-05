@@ -1,5 +1,5 @@
 // A child's avatar: one of the human explorers in a round badge. Used on the
-// dashboard, profile and lesson-complete screens (the picker is pages/Profile.jsx).
+// home page and lesson-complete screen (the picker is components/MeCard.jsx).
 import ExplorerArt from "./ExplorerArt";
 import { AVATAR_BY_ID, DEFAULT_AVATAR } from "../data/avatars";
 import "./Avatar.css";

@@ -4,6 +4,9 @@
 import { useState } from "react";
 import { Star, Search, Volume2, RotateCcw, Check } from "lucide-react";
 import GameTopBar from "../components/GameTopBar";
+import GameBanner from "../components/GameBanner";
+import WordPicture from "../components/WordPicture";
+import { pictureFor } from "../data/wordPictures";
 import LessonComplete from "../components/LessonComplete";
 import AccessibilityToolbar from "../components/AccessibilityToolbar";
 import GameHintBubble, { speak } from "../components/GameHintBubble";
@@ -163,6 +166,7 @@ function ParrotPairsGame({ onHome, onBack, onDone }) {
   return (
     <section className="page parrot-game">
       <GameTopBar gameName="Parrot Pairs" onHome={onHome} onBack={onBack} />
+      <GameBanner game="parrotPairsGame" />
       <div className="parrot-game__scorebar">
         <div className="parrot-game__score">
           <Star size={14} fill="currentColor" />
@@ -193,6 +197,11 @@ function ParrotPairsGame({ onHome, onBack, onDone }) {
               <Volume2 size={14} />
             </button>
           </div>
+          {pictureFor(round.word1) && (
+            <div className="parrot-game__pic">
+              <WordPicture word={round.word1} size={52} />
+            </div>
+          )}
           <div className="parrot-game__letters" style={tileStyle}>
             {[...round.word1].map((letter, i) => (
               <button
@@ -222,6 +231,11 @@ function ParrotPairsGame({ onHome, onBack, onDone }) {
               <Volume2 size={14} />
             </button>
           </div>
+          {pictureFor(round.word2) && (
+            <div className="parrot-game__pic">
+              <WordPicture word={round.word2} size={52} />
+            </div>
+          )}
           <div className="parrot-game__letters" style={tileStyle}>
             {[...round.word2].map((letter, i) => (
               <button

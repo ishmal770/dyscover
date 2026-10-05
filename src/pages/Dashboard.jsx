@@ -1,18 +1,18 @@
-// The kid's home base, shown before the map. Like a language-learning app's
-// home screen: streak, XP and stars at the top, this week's practice days,
-// today's goal, and one big "next lesson" button so there's always an obvious
-// thing to do. Everything shown here is real saved progress (ProgressContext).
-import { Flame, Zap, Star, Target, Play, Map as MapIcon, Backpack, Check, UserRound, Volume2 } from "lucide-react";
+// The kid's home page - everything about "me" in one place: avatar, name,
+// level and stats (with a picker to change the avatar), today's goal, this
+// week, and one big "next lesson" button so there is always an obvious thing to
+// do. All of it is real saved progress (ProgressContext).
+import { Target, Play, Map as MapIcon, Backpack, Check, Flame, Volume2 } from "lucide-react";
 import TopBar from "../components/TopBar";
 import AccessibilityToolbar from "../components/AccessibilityToolbar";
 import GuideBubble from "../components/GuideBubble";
-import Avatar from "../components/Avatar";
+import MeCard from "../components/MeCard";
+import GameArt from "../components/GameArt";
 import { GemArt } from "../components/TreasureArt";
-import { GEMS } from "../data/treasures";
-import { JUNGLES } from "../data/jungleQuiz";
 import { speak } from "../audio/speech";
 import { useProgress, dayKey } from "../context/ProgressContext";
-import { LESSON_BY_ID, UNITS } from "../data/lessons";
+import { LESSON_BY_ID } from "../data/lessons";
+import { GEMS } from "../data/treasures";
 import "./Dashboard.css";
 
 const DAY_LETTERS = ["S", "M", "T", "W", "T", "F", "S"];
@@ -29,9 +29,9 @@ function lastSevenDays(history) {
   return days;
 }
 
-function Dashboard({ onStartLesson, onOpenMap, onOpenUnit, onOpenBackpack, onOpenProfile }) {
+function Dashboard({ onStartLesson, onOpenMap, onOpenBackpack, onQuiz, onPlacement }) {
   const progress = useProgress();
-  const { jungle, pendingGem, name, avatar, levelInfo, xp, streak, todayXp, goal, totalStars, maxStars, history, playedToday, unitProgress } = progress;
+  const { pendingGem, streak, todayXp, goal, history, playedToday } = progress;
   const next = LESSON_BY_ID[progress.nextLesson().id];
   const nextProgress = progress.lessons[next.id];
   const goalPercent = Math.min(100, Math.round((todayXp / goal) * 100));
@@ -44,37 +44,10 @@ function Dashboard({ onStartLesson, onOpenMap, onOpenUnit, onOpenBackpack, onOpe
 
   return (
     <section className="page dash">
-      <TopBar label="MY DASHBOARD" />
+      <TopBar label="MY HOME" />
       <div className="dash__scroll">
         <div className="dash__inner">
-          <header className="dash__hero">
-            <button className="dash__me" onClick={onOpenProfile} aria-label="Open my profile">
-              <span className="dash__me-avatar">
-                <Avatar id={avatar} size={64} />
-                <span className="dash__me-level">Lv {levelInfo.level}</span>
-              </span>
-              <span className="dash__me-text">
-                <span className="dash__me-name">Hi, {name}!</span>
-                <span className="dash__me-sub">{headline}</span>
-                {jungle && (
-                  <span className="dash__jungle" style={{ background: JUNGLES[jungle].color }}>
-                    {JUNGLES[jungle].emoji} {JUNGLES[jungle].name}
-                  </span>
-                )}
-              </span>
-            </button>
-            <div className="dash__chips">
-              <span className="dash__chip dash__chip--streak" title="Days in a row">
-                <Flame size={18} fill="currentColor" /> {streak}
-              </span>
-              <span className="dash__chip dash__chip--xp" title="XP">
-                <Zap size={18} fill="currentColor" /> {xp}
-              </span>
-              <span className="dash__chip dash__chip--stars" title="Stars">
-                <Star size={18} fill="currentColor" /> {totalStars}/{maxStars}
-              </span>
-            </div>
-          </header>
+          <MeCard headline={headline} />
 
           {pendingGem && (
             <div className="dash__gem">
@@ -90,6 +63,9 @@ function Dashboard({ onStartLesson, onOpenMap, onOpenUnit, onOpenBackpack, onOpe
           )}
 
           <div className="dash__next">
+            <span className="dash__next-art">
+              <GameArt id={next.id} size={92} />
+            </span>
             <div>
               <span className="dash__next-unit">{next.unitTitle.toUpperCase()}</span>
               <h2>
@@ -99,7 +75,6 @@ function Dashboard({ onStartLesson, onOpenMap, onOpenUnit, onOpenBackpack, onOpe
                 </button>
               </h2>
               <p>{next.blurb}</p>
-              {nextProgress && <span className="dash__next-done">Finished before - practice to earn more stars</span>}
             </div>
             <button className="dash__start" onClick={() => onStartLesson(next.id)}>
               <Play size={18} fill="currentColor" /> {nextProgress ? "PRACTICE" : "START"}
@@ -135,37 +110,20 @@ function Dashboard({ onStartLesson, onOpenMap, onOpenUnit, onOpenBackpack, onOpe
             </section>
           </div>
 
-          <h3 className="dash__heading">Your adventure</h3>
-          <div className="dash__units">
-            {UNITS.map((unit, i) => {
-              const p = unitProgress(unit.id);
-              return (
-                <button key={unit.id} className="dash__unit" onClick={() => onOpenUnit(unit.sectionKey)}>
-                  <span className="dash__unit-num">UNIT {i + 1}</span>
-                  <strong>{unit.title}</strong>
-                  <span className="dash__unit-tag">{unit.tagline}</span>
-                  <span className="dash__unit-bar">
-                    <span style={{ width: `${(p.done / p.total) * 100}%` }} />
-                  </span>
-                  <span className="dash__unit-count">
-                    {p.done}/{p.total} lessons &middot; {p.stars}/{p.maxStars} stars
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-
           <div className="dash__links">
             <button className="btn btn--outline" onClick={onOpenMap}>
-              <MapIcon size={16} /> Adventure map
-            </button>
-            <button className="btn btn--outline" onClick={onOpenProfile}>
-              <UserRound size={16} /> My profile
+              <MapIcon size={18} /> Adventure map
             </button>
             <button className="btn btn--outline" onClick={onOpenBackpack}>
-              <Backpack size={16} /> My backpack
+              <Backpack size={18} /> My backpack
             </button>
           </div>
+
+          <p className="dash__redo">
+            <button onClick={onQuiz}>Retake the jungle quiz</button>
+            <span aria-hidden="true">&middot;</span>
+            <button onClick={onPlacement}>Play the placement games again</button>
+          </p>
         </div>
       </div>
 
@@ -173,7 +131,7 @@ function Dashboard({ onStartLesson, onOpenMap, onOpenUnit, onOpenBackpack, onOpe
       <GuideBubble
         fixedCharacter="sloth"
         message="Welcome back, explorer! Tap Start to keep learning."
-        instructions="This is your home base. The flame counts the days in a row that you play. The bar shows today's goal. Tap Start to begin your next lesson, or open the map to choose a world. Tap your picture to open your profile."
+        instructions="This is your home base. The flame counts the days in a row that you play. The bar shows today's goal. Tap Start to begin your next lesson, or open the map to choose a world. Tap Change picture to pick a new avatar."
       />
     </section>
   );
