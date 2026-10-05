@@ -73,6 +73,16 @@ SYLLABLE_SAY = {
 }
 
 
+# Kokoro says a short "uh/ee" sound before most single words ("cat" comes out as
+# "a ... cat"). scripts/measure_cuts.py finds where the real word starts in each
+# single-word clip (using speech-to-text word timings) and writes audio-cuts.json
+# (clip hash -> seconds to cut from the front). They are applied below. CUTS_TAG
+# changes whenever the cuts file does, so affected clips get re-recorded.
+CUTS_FILE = ROOT / "scripts" / "audio-cuts.json"
+CUTS = json.loads(CUTS_FILE.read_text()) if CUTS_FILE.exists() else {}
+CUTS_TAG = f"cuts-{len(CUTS)}"
+
+
 def hash_key(key: str) -> str:
     """FNV-1a 32-bit, identical to hashKey() in src/audio/speech.js."""
     h = 0x811C9DC5
@@ -114,7 +124,9 @@ def voice_sig(name: str) -> str:
 
 
 def line_sig(voice_name: str, text: str) -> str:
-    return voice_sig(voice_name)
+    # single words are cut at the start (see audio-cuts.json), so they are
+    # re-recorded when the cuts change
+    return voice_sig(voice_name) + ("" if " " in text.strip() else f"|{CUTS_TAG}")
 
 
 lines: dict[str, tuple[str, str]] = {}  # clip key -> (what to say, voice name)
@@ -173,8 +185,7 @@ PAGE_HELP_SLOTH = {
     "pages/Homepage.jsx": "Tap me to start your adventure. Tap the speaker to hear me again. Grown-ups can use the links at the bottom of the page.",
     "pages/Login.jsx": "Type your explorer name and your secret code. Then tap Log In. If you are new, tap Create Account.",
     "pages/PlacementMission.jsx": "We will play a few short games so I can build your perfect map. Tap me when you are ready to begin.",
-    "pages/Dashboard.jsx": "This is your home base. The flame counts the days in a row that you play. The bar shows today's goal. Tap Start to begin your next lesson, or open the map to choose a world. Tap your picture to open your profile.",
-    "pages/Profile.jsx": "This is your profile. Tap a picture to make it your avatar. Pictures with a lock need more levels, stars or treasures. Tap the pencil to change your name.",
+    "pages/Dashboard.jsx": "This is your home base. The flame counts the days in a row that you play. The bar shows today's goal. Tap Start to begin your next lesson, or open the map to choose a world. Tap Change picture to pick a new avatar.",
 }
 PAGE_HELP_ANIMALS = {
     "pages/AdventureMap.jsx": "This is your adventure map. Each circle is a lesson. Finish one to open the next. Tap the glowing circle, then press Start. Tap the logo to go back home.",
@@ -234,7 +245,6 @@ def collect() -> None:
         "pages/Login.jsx": "Tell me your explorer name and secret code, then tap Log In. New here? Tap Create Account!",
         "pages/PlacementMission.jsx": "Let's play a few quick games so I can build your perfect map. Tap me when you are ready!",
         "pages/Dashboard.jsx": "Welcome back, explorer! Tap Start to keep learning.",
-        "pages/Profile.jsx": "This is your profile! Pick a picture to be your avatar. Play more lessons to unlock new ones.",
     }
     world_messages = {
         "pages/AdventureMap.jsx": "Welcome to the Adventure Map! Follow the path and tap the glowing circle to start your next lesson.",
@@ -292,10 +302,6 @@ def collect() -> None:
         add(text)
     for text in spoken["SLOTH_LINES"]:
         add(text, voice="sloth")
-
-    # letters (the games speak them by name)
-    for letter, name in LETTER_NAMES.items():
-        add(letter, say=name)
 
     # words (every game, every grade band)
     words = set(spoken["WORDS"])
@@ -388,6 +394,8 @@ def synthesize(model: str, voices: str, force: bool) -> None:
             samples = samples[max(0, loud[0] - pad): loud[-1] + pad]
         peak = float(np.max(np.abs(samples))) or 1.0
         samples = samples * (0.9 / peak)
+        if h in CUTS and " " not in say.strip():
+            samples = samples[int(CUTS[h] * rate):]
         with tempfile.TemporaryDirectory() as tmp:
             wav = Path(tmp) / "clip.wav"
             sf.write(wav, samples, rate)

@@ -163,3 +163,18 @@
   text-decoration: underline;
   cursor: pointer;
 }
+
+/* the whole question block sits in the middle of the page */
+.quiz__body {
+  justify-content: center;
+  padding-bottom: 90px;
+}
+
+.quiz__host {
+  justify-content: center;
+}
+
+.quiz__answer {
+  justify-content: center;
+  text-align: center;
+}

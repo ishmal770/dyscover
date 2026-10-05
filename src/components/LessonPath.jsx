@@ -8,6 +8,7 @@ import { useEffect, useRef, useState } from "react";
 import { Check, Film, Lock, Play, Star, Volume2, X } from "lucide-react";
 import TopBar from "./TopBar";
 import GemGate from "./GemGate";
+import GameArt from "./GameArt";
 import GameDemo from "./GameDemo";
 import { speak } from "../audio/speech";
 import AccessibilityToolbar from "./AccessibilityToolbar";
@@ -74,7 +75,18 @@ function Unit({ unit, unitIndex, currentId, onOpen }) {
                 onClick={() => onOpen(lesson.id)}
                 aria-label={`${lesson.name}: ${state === "locked" ? "locked" : done ? "finished" : "ready"}`}
               >
-                {state === "done" ? <Check size={46} strokeWidth={3.5} /> : state === "locked" ? <Lock size={36} /> : <Play size={42} fill="currentColor" />}
+                {state === "locked" ? (
+                  <Lock size={36} />
+                ) : (
+                  <span className="path__art">
+                    <GameArt id={lesson.id} size={78} />
+                  </span>
+                )}
+                {state === "done" && (
+                  <span className="path__check">
+                    <Check size={20} strokeWidth={4} />
+                  </span>
+                )}
               </button>
               <span className="path__node-name">{lesson.name}</span>
               {done && (
@@ -134,6 +146,9 @@ function LessonPath({ onHome, onStartLesson, guideMessage, guideInstructions }) 
             <button className="path__sheet-close" onClick={() => setOpenId(null)} aria-label="Close">
               <X size={16} />
             </button>
+            <span className="path__sheet-art">
+              <GameArt id={open.id} size={96} />
+            </span>
             <span className="path__sheet-skill">{open.skill}</span>
             <h2>
               {open.name}

@@ -1,12 +1,14 @@
 import { useState, useMemo } from "react";
 import { Star, Info, ArrowRight, Volume2, Minus, Circle } from "lucide-react";
 import GameTopBar from "../components/GameTopBar";
+import GameBanner from "../components/GameBanner";
 import LessonComplete from "../components/LessonComplete";
 import AccessibilityToolbar from "../components/AccessibilityToolbar";
 import GameHintBubble, { speak } from "../components/GameHintBubble";
 import LetterTraceCanvas from "../components/LetterTraceCanvas";
 import { useProgress } from "../context/ProgressContext";
 import { BANKS } from "../data/questionBanks";
+import { letterName } from "../data/letters";
 import "./LizardLookoutsGame.css";
 
 const STEPS = ["find", "shape", "trace", "paragraph"];
@@ -187,6 +189,7 @@ function LizardLookoutsGame({ onHome, onBack, onDone }) {
   return (
     <section className="page lizard-game">
       <GameTopBar gameName="Lizard Lookouts" onHome={onHome} onBack={onBack} />
+      <GameBanner game="lizardLookoutsGame" />
 
       <div className="lizard-game__topline">
         <div>
@@ -262,7 +265,7 @@ function LizardLookoutsGame({ onHome, onBack, onDone }) {
                 >
                   <Circle size={14} /> Show the Circle
                 </button>
-                <button onClick={() => speak(round.letter)}>
+                <button onClick={() => speak(letterName(round.letter))}>
                   <Volume2 size={14} /> Hear It
                 </button>
               </div>
@@ -278,7 +281,7 @@ function LizardLookoutsGame({ onHome, onBack, onDone }) {
                 <p className="lizard-game__instructions">Trace the letter &lsquo;{round.letter}&rsquo;</p>
                 <button
                   className="lizard-game__inline-speaker"
-                  onClick={() => speak(round.letter)}
+                  onClick={() => speak(letterName(round.letter))}
                   aria-label="Hear the letter"
                 >
                   <Volume2 size={13} />

@@ -1,12 +1,15 @@
 import { useState } from "react";
 import { Volume2, ArrowRight } from "lucide-react";
 import GameTopBar from "../components/GameTopBar";
+import GameBanner from "../components/GameBanner";
+import WordPicture from "../components/WordPicture";
 import LessonComplete from "../components/LessonComplete";
 import AccessibilityToolbar from "../components/AccessibilityToolbar";
 import GameHintBubble, { speak } from "../components/GameHintBubble";
 import LetterTraceCanvas from "../components/LetterTraceCanvas";
 import { useProgress } from "../context/ProgressContext";
 import { BANKS } from "../data/questionBanks";
+import { letterIntro, letterName } from "../data/letters";
 import "./LionsLettersGame.css";
 
 const STYLE_KEY = "dyscover-handwriting";
@@ -68,7 +71,7 @@ function LionsLettersGame({ onHome, onBack, onDone }) {
   }
 
   function handleLetterHeard(letter, index) {
-    speak(letter);
+    speak(letterName(letter));
     setRevealed((prev) => new Set([...prev, index]));
   }
 
@@ -85,6 +88,7 @@ function LionsLettersGame({ onHome, onBack, onDone }) {
   return (
     <section className="page lions-game">
       <GameTopBar gameName="Lion's Letters" onHome={onHome} onBack={onBack} />
+      <GameBanner game="lionsLettersGame" />
 
       <div className="lions-game__topline">
         <span className="lions-game__progress-pill">
@@ -106,7 +110,7 @@ function LionsLettersGame({ onHome, onBack, onDone }) {
           <button
             className="lions-game__sound-box"
             onClick={() => {
-              speak(round.value);
+              speak(letterIntro(round.value));
               setHeardSound(true);
             }}
           >
@@ -120,6 +124,7 @@ function LionsLettersGame({ onHome, onBack, onDone }) {
         </div>
       ) : (
         <div className="lions-game__round-card">
+          <WordPicture word={round.value} size={88} />
           {wordPhase === "letters" ? (
             <>
               <h1>Spell it out: listen to each letter</h1>

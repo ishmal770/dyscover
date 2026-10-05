@@ -95,7 +95,7 @@ function LessonComplete({ lessonId, stars, character, onPlayAgain, onBack }) {
       {result.leveledUp && <p className="lesson-complete__banner">Level up! You are now level {result.level}!</p>}
       {result.newAvatars.map((a) => (
         <p key={a.id} className="lesson-complete__banner lesson-complete__banner--unlock lesson-complete__banner--avatar">
-          <Avatar id={a.id} size={34} /> New avatar unlocked: {a.name}! Find it in your profile.
+          <Avatar id={a.id} size={34} /> New avatar unlocked: {a.name}! Change it on your home page.
         </p>
       ))}
       {result.goalReached && <p className="lesson-complete__banner">Daily goal reached!</p>}

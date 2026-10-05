@@ -335,3 +335,9 @@
     width: 100%;
   }
 }
+
+.monkey-game__picture {
+  display: flex;
+  justify-content: center;
+  margin: 6px 0;
+}

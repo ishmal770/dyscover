@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { Trophy, Star, Clock, Flame, Volume2, Play, RotateCcw, Mic } from "lucide-react";
 import GameTopBar from "../components/GameTopBar";
+import GameBanner from "../components/GameBanner";
+import WordPicture from "../components/WordPicture";
 import LessonComplete from "../components/LessonComplete";
 import AccessibilityToolbar from "../components/AccessibilityToolbar";
 import GameHintBubble, { speak } from "../components/GameHintBubble";
@@ -145,6 +147,7 @@ function CheetahChallengeGame({ onHome, onBack, onDone }) {
   return (
     <section className="page cheetah-game" ref={sectionRef}>
       <GameTopBar gameName="Cheetah Challenge" onHome={onHome} onBack={onBack} />
+      <GameBanner game="cheetahChallengeGame" />
 
       <div className="cheetah-game__scorebar">
         <div className="cheetah-game__score">
@@ -204,6 +207,9 @@ function CheetahChallengeGame({ onHome, onBack, onDone }) {
               >
                 <Volume2 size={14} />
               </button>
+            </div>
+            <div className="cheetah-game__picture">
+              <WordPicture word={word} size={96} />
             </div>
             <div className="cheetah-game__word" style={{ "--word-len": word.length }}>
               {word}

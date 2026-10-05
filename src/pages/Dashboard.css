@@ -422,3 +422,43 @@
   color: var(--white);
   cursor: pointer;
 }
+
+.dash__next-art {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: var(--white);
+}
+
+.dash__next > div {
+  flex: 1;
+  min-width: 160px;
+}
+
+/* small "do it again" links at the bottom of the home page */
+.dash__redo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: var(--ink-soft);
+}
+
+.dash__redo button {
+  border: none;
+  background: none;
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.dash__links {
+  justify-content: center;
+}

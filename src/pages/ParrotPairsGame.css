@@ -260,3 +260,13 @@
   gap: 12px;
   margin-top: 12px;
 }
+
+.parrot-game__word-header {
+  gap: 10px;
+}
+
+.parrot-game__pic {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8px;
+}

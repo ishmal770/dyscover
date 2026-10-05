@@ -12,7 +12,6 @@ import AdventureMap from "./pages/AdventureMap";
 import PlacementMission from "./pages/PlacementMission";
 import Dashboard from "./pages/Dashboard";
 import JungleQuiz from "./pages/JungleQuiz";
-import Profile from "./pages/Profile";
 import ParrotPairsGame from "./pages/ParrotPairsGame";
 import SyllableSafariGame from "./pages/SyllableSafariGame";
 import MonkeyMixUpGame from "./pages/MonkeyMixUpGame";
@@ -81,10 +80,10 @@ function KidGameApp() {
           onOpenMap={() => goTo("map")}
           onOpenUnit={goTo}
           onOpenBackpack={() => navigate("/backpack")}
-          onOpenProfile={() => goTo("profile")}
+          onQuiz={() => goTo("quiz")}
+          onPlacement={() => goTo("placement")}
         />
       )}
-      {section("profile", <Profile onBack={toDashboard} onQuiz={() => goTo("quiz")} onPlacement={() => goTo("placement")} />)}
       {section("map", <AdventureMap onHome={toDashboard} onStartLesson={goTo} />)}
 
       {/* The lessons: Unit 1 (Jungle Games), then Unit 2 (Canopy Quest). Each one returns to the map. */}
