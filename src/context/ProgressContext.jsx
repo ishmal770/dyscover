@@ -22,6 +22,7 @@ const EMPTY = {
   lessons: {}, // lessonId -> { stars: 1-3 (best), plays }
   gems: [], // unit ids whose gem has been put into the gate (opens the next unit)
   grade: "g35", // grade band for the questions (see data/questionBanks.js)
+  placed: false, // true once the placement mission has been finished (it is played only once)
   jungle: null, // the jungle the child was sorted into by the quiz
 };
 
@@ -134,7 +135,7 @@ function ProgressProvider({ children }) {
   }
 
   function setGrade(grade) {
-    commit({ ...stateRef.current, grade });
+    commit({ ...stateRef.current, grade, placed: true });
   }
 
   function setJungle(jungle) {
@@ -180,6 +181,7 @@ function ProgressProvider({ children }) {
     setAvatar,
     setName,
     grade: state.grade,
+    placed: state.placed,
     setGrade,
     jungle: state.jungle,
     setJungle,

@@ -6,6 +6,7 @@
 // Fallback: if a line has no clip, the browser's built-in voice reads it.
 
 import manifest from "../data/audioManifest.json";
+import { rev } from "../data/audioRev.json";
 
 const clips = new Set(manifest);
 
@@ -147,7 +148,7 @@ function speak(text, options = {}) {
     return;
   }
 
-  const el = new Audio(`${import.meta.env.BASE_URL}audio/${id}.m4a`);
+  const el = new Audio(`${import.meta.env.BASE_URL}audio/${id}.m4a?v=${rev}`);
   audio = el;
   el.addEventListener("ended", finish);
   el.addEventListener("error", () => {

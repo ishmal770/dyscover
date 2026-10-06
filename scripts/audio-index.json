@@ -534,11 +534,6 @@
   "say": "Hi, I'm Chase! Welcome to the Adventure Map! Follow the path and tap the glowing circle to start your next lesson.",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 1.06, \"sentence\": 0.84, \"voice\": \"am_liam\", \"word\": 0.88}"
  },
- "325a3189": {
-  "key": "let's go!",
-  "say": "Let's go!",
-  "speed": "0.76/0.85"
- },
  "32a90c19": {
   "key": "elephant|listen to the word. then tap in between the letters where the word splits into parts.",
   "say": "Listen to the word. Then tap in between the letters where the word splits into parts.",
@@ -613,6 +608,11 @@
   "key": "world",
   "say": "world",
   "speed": "0.76/0.85|cuts-183"
+ },
+ "37c9baf5": {
+  "key": "sloth|okay, let's go on an adventure!",
+  "say": "Okay, let's go on an adventure!",
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.0, \"sentence\": 0.74, \"voice\": \"af_heart\", \"word\": 0.82}"
  },
  "37f68278": {
   "key": "you're playing monkey mix-up! tap any speaker icon to hear words read aloud, and use the buttons on screen to answer.",
@@ -838,6 +838,11 @@
   "key": "sloth|type your explorer name and your secret code. then tap log in. if you are new, tap create account.",
   "say": "Type your explorer name and your secret code. Then tap Log In. If you are new, tap Create Account.",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 1.0, \"sentence\": 0.74, \"voice\": \"af_heart\", \"word\": 0.82}"
+ },
+ "464942d5": {
+  "key": "okay, let's go on an adventure!",
+  "say": "Okay, let's go on an adventure!",
+  "speed": "0.76/0.85"
  },
  "4660d711": {
   "key": "river",
@@ -1208,11 +1213,6 @@
   "key": "bright sunshine",
   "say": "Bright sunshine",
   "speed": "0.76/0.85"
- },
- "648f81a9": {
-  "key": "sloth|let's go!",
-  "say": "Let's go!",
-  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.0, \"sentence\": 0.74, \"voice\": \"af_heart\", \"word\": 0.82}"
  },
  "64bdd1a5": {
   "key": "elephant|take your time! a 'p' can be tricky to spot.",
@@ -2668,11 +2668,6 @@
   "key": "monkey|amazing! you found the sound. can you find another one?",
   "say": "Amazing! You found the sound. Can you find another one?",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 1.08, \"sentence\": 0.8, \"voice\": \"am_puck\", \"word\": 0.85}"
- },
- "d4819fc8": {
-  "key": "press this to play the placement games again.",
-  "say": "Press this to play the placement games again.",
-  "speed": "0.76/0.85"
  },
  "d4e16a20": {
   "key": "jungle games. spot letters and build words",
