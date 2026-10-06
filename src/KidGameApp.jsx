@@ -81,7 +81,6 @@ function KidGameApp() {
           onOpenUnit={goTo}
           onOpenBackpack={() => navigate("/backpack")}
           onQuiz={() => goTo("quiz")}
-          onPlacement={() => goTo("placement")}
         />
       )}
       {section("map", <AdventureMap onHome={toDashboard} onStartLesson={goTo} />)}

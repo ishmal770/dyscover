@@ -27,6 +27,7 @@ ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / "src"
 OUT = ROOT / "public" / "audio"
 MANIFEST = SRC / "data" / "audioManifest.json"
+REV = SRC / "data" / "audioRev.json"  # bumped whenever a clip is re-recorded, so browsers never play a stale cached clip
 INDEX = ROOT / "scripts" / "audio-index.json"  # hash -> {key, say}, used as a cache
 
 # Voices. "default" reads words, letters, instructions and popups. Each guide
@@ -191,6 +192,8 @@ PAGE_HELP_ANIMALS = {
     "pages/AdventureMap.jsx": "This is your adventure map. Each circle is a lesson. Finish one to open the next. Tap the glowing circle, then press Start. Tap the logo to go back home.",
     "pages/Backpack.jsx": "This is your backpack. Every lesson you finish puts a new treasure inside. Finish all the lessons in a unit to win its gem. Tap Play again to practice a lesson, or tap the speaker to hear about a treasure.",
 }
+# What the guide says as the child moves on to the next page
+GO_LINE = "Okay, let's go on an adventure!"
 # What a guide asks after reading a game step's instructions
 ASK_MORE = "Do you want to hear the other instructions? Tap one to listen."
 TROPHY_MESSAGE = "Look at all the treasures in your backpack! Finish lessons to find more."
@@ -259,8 +262,9 @@ def collect() -> None:
     for msg in sloth_messages.values():
         add(msg, voice="sloth")
         add(f"Hi, I'm {sloth_name}! {msg}", voice="sloth")
-    add("Let's go!", voice="sloth")
-    add("Let's go!")
+    require_in_source("components/GuideBubble.jsx", GO_LINE)
+    add(GO_LINE, voice="sloth")
+    add(GO_LINE)
     for text in PAGE_HELP_SLOTH.values():
         add(text, voice="sloth")
         add(text)
@@ -411,6 +415,10 @@ def synthesize(model: str, voices: str, force: bool) -> None:
     index = {h: v for h, v in index.items() if h in hashes}
     INDEX.write_text(json.dumps(index, indent=1, sort_keys=True))
     MANIFEST.write_text(json.dumps(sorted(hashes)) + "\n")
+    if todo:
+        import time
+
+        REV.write_text(json.dumps({"rev": int(time.time())}) + "\n")
     print(f"Done: {len(hashes)} clips")
 
 

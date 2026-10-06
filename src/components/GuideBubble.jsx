@@ -12,6 +12,10 @@ import "./GuideBubble.css";
 
 const WELCOME_MS = 4500;
 
+// What the guide says as the child moves on (a longer line than "Let's go!": very short
+// clips start with a stray "eh" sound)
+const GO_LINE = "Okay, let's go on an adventure!";
+
 // Each guide introduces themselves by name only the first time they speak
 // (per visit), so pages after the first just say what's on that page.
 const introduced = new Set();
@@ -109,7 +113,7 @@ function GuideBubble({ message, fixedCharacter, onAdvance, advanceHint, centered
     };
     const failsafe = setTimeout(go, 15000); // never leave the child stuck if audio fails
     advanceRef.current = go;
-    const sayGo = () => speak("Let's go!", { voice: guide.id, onEnd: go });
+    const sayGo = () => speak(GO_LINE, { voice: guide.id, onEnd: go });
     const key = `guide:${message}`;
     setNeedsTap(false);
     if (!hasHeard(key)) {
