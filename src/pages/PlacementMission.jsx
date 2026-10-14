@@ -1,6 +1,8 @@
 // The placement mission: a few quick "listen and tap the word you hear"
-// questions. How far the child gets sets their grade band for every game, so
-// nobody has to pick one. No timer and no "wrong" screens - it is a game.
+// questions that adapt. It starts at the grade band the child chose, goes up
+// after a right answer and down after a wrong one, and where it lands sets the
+// level every game uses. No timer and no "wrong" screens - it is a game - and
+// it is played only once.
 import { useEffect, useRef, useState } from "react";
 import { Sparkles, ArrowRight, Volume2 } from "lucide-react";
 import TopBar from "../components/TopBar";
@@ -10,21 +12,23 @@ import SlothArt from "../components/SlothArt";
 import { speak, cancelSpeech, audioUnlocked } from "../audio/speech";
 import { hasHeard, markHeard } from "../audio/heard";
 import { useProgress } from "../context/ProgressContext";
-import { PLACEMENT, PLACEMENT_DONE, PLACEMENT_PROMPT, placeFromAnswers } from "../data/placement";
+import { GRADE_BANDS } from "../data/questionBanks";
+import { PLACEMENT_DONE, PLACEMENT_PROMPT, QUESTION_COUNT, nextBand, pickQuestion } from "../data/placement";
 import "./PlacementMission.css";
 
 function PlacementMission({ onNext, onHome }) {
-  const { setGrade, placed } = useProgress();
+  const { setGrade, placed, grade } = useProgress();
   const rootRef = useRef(null);
   const [active, setActive] = useState(false);
   const [started, setStarted] = useState(false);
-  const [step, setStep] = useState(0);
-  const [answers, setAnswers] = useState([]);
+  const [count, setCount] = useState(0); // questions answered so far
+  const [band, setBand] = useState(grade); // the band of the next question
+  const [asked, setAsked] = useState([]);
   const [chosen, setChosen] = useState(null);
 
   // the placement is played only once: after it, this page just shows the finished card
-  const done = placed || answers.length >= PLACEMENT.length;
-  const q = PLACEMENT[Math.min(step, PLACEMENT.length - 1)];
+  const done = placed || count >= QUESTION_COUNT;
+  const q = pickQuestion(band, asked);
 
   useEffect(() => {
     const el = rootRef.current;
@@ -44,47 +48,52 @@ function PlacementMission({ onNext, onHome }) {
       markHeard("placement-done");
       speak(PLACEMENT_DONE, { voice: "sloth" });
     }
-  }, [active, started, step, done]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [active, started, count, done]); // eslint-disable-line react-hooks/exhaustive-deps
 
   function pick(choice) {
     if (chosen) return;
     setChosen(choice);
     setTimeout(() => {
-      const next = [...answers, choice === q.word];
-      setAnswers(next);
+      const next = nextBand(band, choice === q.word);
+      setAsked((a) => [...a, q.word]);
+      setBand(next);
       setChosen(null);
-      if (next.length >= PLACEMENT.length) setGrade(placeFromAnswers(next));
-      else setStep((s) => s + 1);
+      if (count + 1 >= QUESTION_COUNT) setGrade(next); // where it lands is the child's level
+      setCount((c) => c + 1);
     }, 700);
   }
 
-  function restart() {
+  function begin() {
     setStarted(true);
-    setStep(0);
-    setAnswers([]);
+    setCount(0);
+    setBand(grade);
+    setAsked([]);
     setChosen(null);
   }
+
+  const startLabel = GRADE_BANDS.find((b) => b.id === grade)?.label;
 
   return (
     <section className="page placement" ref={rootRef}>
       <TopBar label="PLACEMENT MISSION" showLogo onLogoClick={onHome} />
       <div className="placement__body">
-        {!started ? (
+        {!started && !placed ? (
           <div className="placement__card">
             <div className="placement__icon">
               <Sparkles size={22} />
             </div>
             <h2>Ready for a Quick Adventure?</h2>
             <p>We are going to play a few short games to figure out exactly how to build your perfect map.</p>
-            <button className="btn btn--primary" onClick={restart}>
+            <p className="placement__start-note">We will start with {startLabel} words and find your level.</p>
+            <button className="btn btn--primary" onClick={begin}>
               Let&rsquo;s Play! <ArrowRight size={16} />
             </button>
           </div>
         ) : !done ? (
           <div className="placement__card placement__card--quiz">
-            <div className="placement__dots" aria-label={`Question ${step + 1} of ${PLACEMENT.length}`}>
-              {PLACEMENT.map((_, i) => (
-                <span key={i} className={i < step ? "is-done" : i === step ? "is-now" : ""} />
+            <div className="placement__dots" aria-label={`Question ${count + 1} of ${QUESTION_COUNT}`}>
+              {Array.from({ length: QUESTION_COUNT }, (_, i) => (
+                <span key={i} className={i < count ? "is-done" : i === count ? "is-now" : ""} />
               ))}
             </div>
             <h2>{PLACEMENT_PROMPT}</h2>
@@ -115,7 +124,7 @@ function PlacementMission({ onNext, onHome }) {
         <GuideBubble
           fixedCharacter="sloth"
           instructions="We will play a few short games so I can build your perfect map. Tap me when you are ready to begin."
-          onAdvance={restart}
+          onAdvance={begin}
           advanceHint="Tap me to play!"
           message="Let's play a few quick games so I can build your perfect map. Tap me when you are ready!"
         />

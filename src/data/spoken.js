@@ -8,7 +8,7 @@ import { HELP_TIP_LINES } from "./helpTips.js";
 import { QUIZ_LINES } from "./jungleQuiz.js";
 import { BANKS } from "./questionBanks.js";
 import { LETTER_LINES } from "./letters.js";
-import { PLACEMENT, PLACEMENT_DONE, PLACEMENT_PROMPT } from "./placement.js";
+import { PLACEMENT_WORDS, PLACEMENT_DONE, PLACEMENT_PROMPT } from "./placement.js";
 
 // read in the neutral voice
 export const NEUTRAL_LINES = [
@@ -23,7 +23,7 @@ export const NEUTRAL_LINES = [
   PLACEMENT_PROMPT,
   PLACEMENT_DONE,
   ...LETTER_LINES,
-  ...PLACEMENT.map((q) => q.word),
+  ...PLACEMENT_WORDS,
 ];
 
 // the sloth reads the jungle quiz and the placement result

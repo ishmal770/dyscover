@@ -1,10 +1,18 @@
 /* App-wide design tokens (colors, shadows, radii, base font) used by every
    page and component's CSS file via var(--token-name). */
 :root {
+  /* the app's main color. It is green by default and changes with the jungle
+     the child is sorted into (see the :root[data-jungle=...] blocks below) */
   --green: #5dbb2f;
   --green-dark: #4a9524;
   --green-pale: #e9f5e8;
   --green-paler: #f2f9ef;
+  --green-hi: #5dbb2f;
+  --green-lo: #3f9a22;
+  --green-edge: #2f7d1f;
+  --green-soft: #c9e8b8;
+  --green-tint: #f1fae9;
+  --green-border: #b9e5a8;
   --brown: #8a7355;
   --amber: #d98c1f;
   --amber-bg: #fbeed9;
@@ -83,4 +91,64 @@ input {
   --ink: #000000;
   --ink-soft: #262626;
   --border: #000000;
+}
+
+:root {
+  /* default (no jungle chosen yet) = the rainforest look */
+  --green: #5dbb2f;
+  --green-dark: #4a9524;
+  --green-pale: #e9f5e8;
+  --green-paler: #f2f9ef;
+  --green-hi: #5dbb2f;
+  --green-lo: #3f9a22;
+  --green-edge: #2f7d1f;
+  --green-soft: #c9e8b8;
+  --green-tint: #f1fae9;
+  --green-border: #b9e5a8;
+  --leaf-pattern: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22220%22 height=%22220%22 viewBox=%220 0 220 220%22%3E%3Cg fill=%22%235dbb2f%22 fill-opacity=%220.10%22%3E%3Cpath d=%22M30 40c18-26 46-26 52-18-6 24-30 40-52 18z%22/%3E%3Cpath d=%22M150 150c22-24 50-20 56-10-8 22-34 36-56 10z%22/%3E%3Cpath d=%22M120 30c10-16 28-16 32-8-4 14-20 22-32 8z%22/%3E%3Cpath d=%22M40 160c14-14 32-10 36-2-6 14-24 20-36 2z%22/%3E%3Ccircle cx=%22100%22 cy=%22100%22 r=%225%22/%3E%3Ccircle cx=%22190%22 cy=%2260%22 r=%224%22/%3E%3Ccircle cx=%2214%22 cy=%22110%22 r=%224%22/%3E%3Ccircle cx=%2290%22 cy=%22195%22 r=%224%22/%3E%3C/g%3E%3C/svg%3E");
+  --vine-pattern: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%2214%22 viewBox=%220 0 120 14%22%3E%3Cpath d=%22M0 5 Q15 12 30 5 T60 5 T90 5 T120 5%22 fill=%22none%22 stroke=%22%235dbb2f%22 stroke-width=%222.5%22 stroke-linecap=%22round%22/%3E%3Cpath d=%22M14 9c2-6 8-7 10-4-2 4-6 6-10 4z%22 fill=%22%235dbb2f%22/%3E%3Cpath d=%22M44 3c2 6 8 7 10 4-2-4-6-6-10-4z%22 fill=%22%237bd04a%22/%3E%3Cpath d=%22M74 9c2-6 8-7 10-4-2 4-6 6-10 4z%22 fill=%22%235dbb2f%22/%3E%3Cpath d=%22M104 3c2 6 8 7 10 4-2-4-6-6-10-4z%22 fill=%22%237bd04a%22/%3E%3C/svg%3E");
+}
+
+/* ---- jungle color schemes (set on <html data-jungle=...> by ProgressContext) ---- */
+:root[data-jungle="rainforest"] {
+  --green: #5dbb2f;
+  --green-dark: #4a9524;
+  --green-pale: #e9f5e8;
+  --green-paler: #f2f9ef;
+  --green-hi: #5dbb2f;
+  --green-lo: #3f9a22;
+  --green-edge: #2f7d1f;
+  --green-soft: #c9e8b8;
+  --green-tint: #f1fae9;
+  --green-border: #b9e5a8;
+  --leaf-pattern: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22220%22 height=%22220%22 viewBox=%220 0 220 220%22%3E%3Cg fill=%22%235dbb2f%22 fill-opacity=%220.10%22%3E%3Cpath d=%22M30 40c18-26 46-26 52-18-6 24-30 40-52 18z%22/%3E%3Cpath d=%22M150 150c22-24 50-20 56-10-8 22-34 36-56 10z%22/%3E%3Cpath d=%22M120 30c10-16 28-16 32-8-4 14-20 22-32 8z%22/%3E%3Cpath d=%22M40 160c14-14 32-10 36-2-6 14-24 20-36 2z%22/%3E%3Ccircle cx=%22100%22 cy=%22100%22 r=%225%22/%3E%3Ccircle cx=%22190%22 cy=%2260%22 r=%224%22/%3E%3Ccircle cx=%2214%22 cy=%22110%22 r=%224%22/%3E%3Ccircle cx=%2290%22 cy=%22195%22 r=%224%22/%3E%3C/g%3E%3C/svg%3E");
+  --vine-pattern: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%2214%22 viewBox=%220 0 120 14%22%3E%3Cpath d=%22M0 5 Q15 12 30 5 T60 5 T90 5 T120 5%22 fill=%22none%22 stroke=%22%235dbb2f%22 stroke-width=%222.5%22 stroke-linecap=%22round%22/%3E%3Cpath d=%22M14 9c2-6 8-7 10-4-2 4-6 6-10 4z%22 fill=%22%235dbb2f%22/%3E%3Cpath d=%22M44 3c2 6 8 7 10 4-2-4-6-6-10-4z%22 fill=%22%237bd04a%22/%3E%3Cpath d=%22M74 9c2-6 8-7 10-4-2 4-6 6-10 4z%22 fill=%22%235dbb2f%22/%3E%3Cpath d=%22M104 3c2 6 8 7 10 4-2-4-6-6-10-4z%22 fill=%22%237bd04a%22/%3E%3C/svg%3E");
+}
+:root[data-jungle="mountain"] {
+  --green: #4a90d9;
+  --green-dark: #2f6fb5;
+  --green-pale: #e6f0fb;
+  --green-paler: #f1f7fd;
+  --green-hi: #5aa0e8;
+  --green-lo: #3a7bc0;
+  --green-edge: #2a5f99;
+  --green-soft: #c4dcf5;
+  --green-tint: #eef5fc;
+  --green-border: #a9cbee;
+  --leaf-pattern: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22220%22 height=%22220%22 viewBox=%220 0 220 220%22%3E%3Cg fill=%22%234a90d9%22 fill-opacity=%220.10%22%3E%3Cpath d=%22M30 40c18-26 46-26 52-18-6 24-30 40-52 18z%22/%3E%3Cpath d=%22M150 150c22-24 50-20 56-10-8 22-34 36-56 10z%22/%3E%3Cpath d=%22M120 30c10-16 28-16 32-8-4 14-20 22-32 8z%22/%3E%3Cpath d=%22M40 160c14-14 32-10 36-2-6 14-24 20-36 2z%22/%3E%3Ccircle cx=%22100%22 cy=%22100%22 r=%225%22/%3E%3Ccircle cx=%22190%22 cy=%2260%22 r=%224%22/%3E%3Ccircle cx=%2214%22 cy=%22110%22 r=%224%22/%3E%3Ccircle cx=%2290%22 cy=%22195%22 r=%224%22/%3E%3C/g%3E%3C/svg%3E");
+  --vine-pattern: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%2214%22 viewBox=%220 0 120 14%22%3E%3Cpath d=%22M0 5 Q15 12 30 5 T60 5 T90 5 T120 5%22 fill=%22none%22 stroke=%22%234a90d9%22 stroke-width=%222.5%22 stroke-linecap=%22round%22/%3E%3Cpath d=%22M14 9c2-6 8-7 10-4-2 4-6 6-10 4z%22 fill=%22%234a90d9%22/%3E%3Cpath d=%22M44 3c2 6 8 7 10 4-2-4-6-6-10-4z%22 fill=%22%237ab6f0%22/%3E%3Cpath d=%22M74 9c2-6 8-7 10-4-2 4-6 6-10 4z%22 fill=%22%234a90d9%22/%3E%3Cpath d=%22M104 3c2 6 8 7 10 4-2-4-6-6-10-4z%22 fill=%22%237ab6f0%22/%3E%3C/svg%3E");
+}
+:root[data-jungle="river"] {
+  --green: #e8872b;
+  --green-dark: #b9661a;
+  --green-pale: #fdf0dc;
+  --green-paler: #fef7ec;
+  --green-hi: #f09a3e;
+  --green-lo: #e07a1f;
+  --green-edge: #b9601a;
+  --green-soft: #f9d9ad;
+  --green-tint: #fef4e4;
+  --green-border: #f3c889;
+  --leaf-pattern: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22220%22 height=%22220%22 viewBox=%220 0 220 220%22%3E%3Cg fill=%22%23e8872b%22 fill-opacity=%220.10%22%3E%3Cpath d=%22M30 40c18-26 46-26 52-18-6 24-30 40-52 18z%22/%3E%3Cpath d=%22M150 150c22-24 50-20 56-10-8 22-34 36-56 10z%22/%3E%3Cpath d=%22M120 30c10-16 28-16 32-8-4 14-20 22-32 8z%22/%3E%3Cpath d=%22M40 160c14-14 32-10 36-2-6 14-24 20-36 2z%22/%3E%3Ccircle cx=%22100%22 cy=%22100%22 r=%225%22/%3E%3Ccircle cx=%22190%22 cy=%2260%22 r=%224%22/%3E%3Ccircle cx=%2214%22 cy=%22110%22 r=%224%22/%3E%3Ccircle cx=%2290%22 cy=%22195%22 r=%224%22/%3E%3C/g%3E%3C/svg%3E");
+  --vine-pattern: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%2214%22 viewBox=%220 0 120 14%22%3E%3Cpath d=%22M0 5 Q15 12 30 5 T60 5 T90 5 T120 5%22 fill=%22none%22 stroke=%22%23e8872b%22 stroke-width=%222.5%22 stroke-linecap=%22round%22/%3E%3Cpath d=%22M14 9c2-6 8-7 10-4-2 4-6 6-10 4z%22 fill=%22%23e8872b%22/%3E%3Cpath d=%22M44 3c2 6 8 7 10 4-2-4-6-6-10-4z%22 fill=%22%23f7b35f%22/%3E%3Cpath d=%22M74 9c2-6 8-7 10-4-2 4-6 6-10 4z%22 fill=%22%23e8872b%22/%3E%3Cpath d=%22M104 3c2 6 8 7 10 4-2-4-6-6-10-4z%22 fill=%22%23f7b35f%22/%3E%3C/svg%3E");
 }

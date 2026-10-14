@@ -31,9 +31,9 @@
   width: 100%;
   padding: 18px 20px;
   border-radius: 18px;
-  background: linear-gradient(135deg, #5dbb2f, #3f9a22);
+  background: linear-gradient(135deg, var(--green-hi), var(--green-lo));
   color: var(--white);
-  box-shadow: 0 5px 0 #2f7d1f;
+  box-shadow: 0 5px 0 var(--green-edge);
 }
 
 .path__unit-num {

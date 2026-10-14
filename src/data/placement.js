@@ -1,24 +1,46 @@
-// The placement mission: six quick "listen and tap the word you hear" questions,
-// two for each grade band, easiest first. How far a child gets decides their
-// grade band for every game (nobody picks it). Plain data, read by the audio script too.
+// The placement mission: "listen and tap the word you hear" questions that adapt.
+// It starts at the grade band the child chose, then moves up a band after a right
+// answer and down a band after a wrong one. After QUESTION_COUNT questions, the band
+// it would ask next is the child's level, and every game uses that band's questions.
+// Plain data, read by the audio script too.
 
-export const PLACEMENT = [
-  { band: "k2", word: "cat", choices: ["cut", "cat", "cot"] },
-  { band: "k2", word: "dog", choices: ["dig", "dug", "dog"] },
-  { band: "g35", word: "smile", choices: ["smile", "slime", "while"] },
-  { band: "g35", word: "angle", choices: ["angel", "angry", "angle"] },
-  { band: "g68", word: "explore", choices: ["explain", "expose", "explore"] },
-  { band: "g68", word: "experiment", choices: ["excitement", "experiment", "expectations"] },
-];
+export const BANDS = ["k2", "g35", "g68"];
+export const QUESTION_COUNT = 6;
 
+// a pool of questions for each band, easiest band first
+export const POOL = {
+  k2: [
+    { word: "cat", choices: ["cut", "cat", "cot"] },
+    { word: "dog", choices: ["dig", "dug", "dog"] },
+    { word: "pig", choices: ["peg", "pig", "pug"] },
+    { word: "top", choices: ["tip", "top", "tap"] },
+  ],
+  g35: [
+    { word: "smile", choices: ["smile", "slime", "while"] },
+    { word: "angle", choices: ["angel", "angry", "angle"] },
+    { word: "stone", choices: ["store", "stone", "stove"] },
+    { word: "beach", choices: ["bench", "beach", "bleach"] },
+  ],
+  g68: [
+    { word: "explore", choices: ["explain", "expose", "explore"] },
+    { word: "experiment", choices: ["excitement", "experiment", "expectations"] },
+    { word: "expectations", choices: ["explanations", "expectations", "exceptions"] },
+    { word: "excitement", choices: ["excitement", "experiment", "exceptions"] },
+  ],
+};
+
+export const PLACEMENT_WORDS = Object.values(POOL).flatMap((qs) => qs.map((q) => q.word));
 export const PLACEMENT_PROMPT = "Listen, then tap the word you hear.";
 export const PLACEMENT_DONE = "All done! Great job. Your adventure is ready.";
 
-// From the list of answers (true = right, one per question) to a grade band.
-// A child needs a right answer in a band, and both in the band below it, to move up.
-export function placeFromAnswers(answers) {
-  const right = (band) => PLACEMENT.filter((q, i) => q.band === band && answers[i]).length;
-  if (right("k2") >= 1 && right("g35") === 2 && right("g68") >= 1) return "g68";
-  if (right("k2") >= 1 && right("g35") >= 1) return "g35";
-  return "k2";
+// the first question in a band that has not been asked yet
+export function pickQuestion(band, askedWords) {
+  const pool = POOL[band];
+  return pool.find((q) => !askedWords.includes(q.word)) || pool[0];
+}
+
+// one band up after a right answer, one down after a wrong one (never off the ends)
+export function nextBand(band, correct) {
+  const i = BANDS.indexOf(band) + (correct ? 1 : -1);
+  return BANDS[Math.max(0, Math.min(BANDS.length - 1, i))];
 }

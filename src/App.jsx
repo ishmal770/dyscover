@@ -7,6 +7,7 @@ import { ProgressProvider } from "./context/ProgressContext";
 import HelpMode from "./components/HelpMode";
 import KidGameApp from "./KidGameApp"; // the horizontal-scroll game experience
 import Backpack from "./pages/Backpack";
+import Credits from "./pages/Credits";
 import ClinicalOverview from "./pages/ClinicalOverview";
 import ClinicalStudentDetail from "./pages/ClinicalStudentDetail";
 import ExpertDashboard from "./pages/ExpertDashboard";
@@ -23,6 +24,7 @@ function App() {
           <Route path="/" element={<KidGameApp />} />
           {/* Kid-visible rewards page (treasures and gems), linked from the backpack icon in the top bar */}
           <Route path="/backpack" element={<Backpack />} />
+          <Route path="/credits" element={<Credits />} />
           <Route path="/trophy-room" element={<Navigate to="/backpack" replace />} />
           {/* Aggregate progress dashboard for parents/clinicians */}
           <Route path="/clinical" element={<ClinicalOverview />} />

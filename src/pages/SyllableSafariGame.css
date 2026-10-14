@@ -81,20 +81,16 @@
   align-items: center;
 }
 
-/* the picture that goes with the word */
+/* the photo that goes with the word */
 .syllable-game__picture {
   display: flex;
-  align-items: center;
   justify-content: center;
-  width: clamp(84px, 22vw, 124px);
-  height: clamp(84px, 22vw, 124px);
   margin: 14px auto 0;
-  border: 4px solid var(--white);
-  border-radius: 50%;
-  background: var(--green-pale);
-  box-shadow: var(--shadow-soft);
-  font-size: clamp(2.8rem, 9vw, 4.4rem);
-  line-height: 1;
+}
+
+.syllable-game__picture .word-picture {
+  width: clamp(88px, 22vw, 124px) !important;
+  height: clamp(88px, 22vw, 124px) !important;
 }
 
 .syllable-game__letter-group {

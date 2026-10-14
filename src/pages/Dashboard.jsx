@@ -29,7 +29,7 @@ function lastSevenDays(history) {
   return days;
 }
 
-function Dashboard({ onStartLesson, onOpenMap, onOpenBackpack, onQuiz }) {
+function Dashboard({ onStartLesson, onOpenMap, onOpenBackpack, onQuiz, onCredits }) {
   const progress = useProgress();
   const { pendingGem, streak, todayXp, goal, history, playedToday } = progress;
   const next = LESSON_BY_ID[progress.nextLesson().id];
@@ -121,6 +121,8 @@ function Dashboard({ onStartLesson, onOpenMap, onOpenBackpack, onQuiz }) {
 
           <p className="dash__redo">
             <button onClick={onQuiz}>Retake the jungle quiz</button>
+            <span aria-hidden="true">&middot;</span>
+            <button onClick={onCredits}>Picture credits</button>
           </p>
         </div>
       </div>

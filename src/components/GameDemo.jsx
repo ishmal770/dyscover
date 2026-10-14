@@ -4,6 +4,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Hand, RotateCcw, X, Volume2 } from "lucide-react";
 import { speak, cancelSpeech } from "../audio/speech";
+import WordPicture from "./WordPicture";
 import { DEMOS } from "../data/demos";
 import "./GameDemo.css";
 
@@ -88,6 +89,13 @@ function GameDemo({ demoId, onClose }) {
           <svg viewBox="0 0 100 100" className="demo__trace" aria-hidden="true">
             <path d="M68 38 C 60 24, 36 24, 32 48 C 30 70, 56 78, 70 62" fill="none" strokeWidth="7" strokeLinecap="round" />
           </svg>
+        </span>
+      );
+    }
+    if (item.kind === "photo") {
+      return (
+        <span {...common}>
+          <WordPicture word={text} size={84} />
         </span>
       );
     }

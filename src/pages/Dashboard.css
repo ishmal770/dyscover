@@ -72,9 +72,9 @@
   gap: 16px;
   padding: 22px;
   border-radius: 20px;
-  background: linear-gradient(135deg, #5dbb2f, #3f9a22);
+  background: linear-gradient(135deg, var(--green-hi), var(--green-lo));
   color: var(--white);
-  box-shadow: 0 5px 0 #2f7d1f;
+  box-shadow: 0 5px 0 var(--green-edge);
 }
 
 .dash__next-unit {
@@ -113,17 +113,17 @@
   border: none;
   border-radius: 16px;
   background: var(--white);
-  color: #3f9a22;
+  color: var(--green-lo);
   font-size: 1.1rem;
   font-weight: 800;
   letter-spacing: 0.04em;
-  box-shadow: 0 4px 0 #c9e8b8;
+  box-shadow: 0 4px 0 var(--green-soft);
   cursor: pointer;
 }
 
 .dash__start:active {
   transform: translateY(3px);
-  box-shadow: 0 1px 0 #c9e8b8;
+  box-shadow: 0 1px 0 var(--green-soft);
 }
 
 .dash__row {
@@ -366,9 +366,9 @@
   align-items: center;
   gap: 14px;
   padding: 18px 22px;
-  border: 3px solid #b9e5a8;
+  border: 3px solid var(--green-border);
   border-radius: 20px;
-  background: #f1fae9;
+  background: var(--green-tint);
 }
 
 .dash__gem > div {

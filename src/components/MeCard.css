@@ -43,9 +43,9 @@
   gap: 20px;
   padding: 20px;
   border-radius: 20px;
-  background: linear-gradient(135deg, #5dbb2f, #3f9a22);
+  background: linear-gradient(135deg, var(--green-hi), var(--green-lo));
   color: var(--white);
-  box-shadow: 0 5px 0 #2f7d1f;
+  box-shadow: 0 5px 0 var(--green-edge);
 }
 
 .profile__avatar-wrap {
@@ -207,7 +207,7 @@
 
 .profile__avatar.is-chosen {
   border-color: var(--green);
-  background: #f1fae9;
+  background: var(--green-tint);
   box-shadow: 0 4px 0 var(--green);
 }
 

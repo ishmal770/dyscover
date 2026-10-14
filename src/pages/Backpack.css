@@ -121,8 +121,8 @@
 }
 
 .backpack__card--gem {
-  border-color: #b9e5a8;
-  background: #f1fae9;
+  border-color: var(--green-border);
+  background: var(--green-tint);
 }
 
 .backpack__thumb {

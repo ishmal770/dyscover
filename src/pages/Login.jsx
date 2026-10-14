@@ -3,6 +3,7 @@
 // name, if typed, becomes the name on the child's account.
 import { useRef } from "react";
 import GuideBubble from "../components/GuideBubble";
+import GradePicker from "../components/GradePicker";
 import { useProgress } from "../context/ProgressContext";
 import "./Login.css";
 
@@ -29,6 +30,11 @@ function Login({ onNext }) {
           Explorer Name
           <input type="text" placeholder="Enter your name" ref={nameRef} maxLength={16} />
         </label>
+        <div className="login__field">
+          My grade
+          <GradePicker />
+          <small className="login__note">A quick game will check your level.</small>
+        </div>
         <label className="login__field">
           Secret Code
           <input type="password" placeholder="••••••••" />

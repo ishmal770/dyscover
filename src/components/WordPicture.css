@@ -1,11 +1,15 @@
 .word-picture {
   display: inline-flex;
-  align-items: center;
-  justify-content: center;
   flex: none;
-  border: 3px solid var(--white);
+  overflow: hidden;
+  border: 4px solid var(--white);
   border-radius: 50%;
   background: var(--green-pale);
   box-shadow: var(--shadow-soft);
-  line-height: 1;
+}
+
+.word-picture img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }

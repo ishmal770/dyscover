@@ -2,7 +2,7 @@
 // lesson. Everything lives in localStorage (there is no backend), so it
 // survives reloads on this device. Used by the dashboard, the map, the lesson
 // path, the "lesson complete" screen and the backpack.
-import { createContext, useContext, useRef, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { UNITS, LESSONS } from "../data/lessons";
 import { TREASURES, GEMS } from "../data/treasures";
 import { AVATARS, AVATAR_BY_ID, DEFAULT_AVATAR, isAvatarUnlocked, levelFor } from "../data/avatars";
@@ -64,6 +64,11 @@ const ProgressContext = createContext(null);
 function ProgressProvider({ children }) {
   const [state, setState] = useState(load);
   const stateRef = useRef(state); // so completeLesson can return its result synchronously
+
+  // the whole app takes on the colors of the child's jungle (rainforest = green, mountain = blue, river = orange)
+  useEffect(() => {
+    document.documentElement.dataset.jungle = state.jungle || "";
+  }, [state.jungle]);
 
   function commit(next) {
     stateRef.current = next;
@@ -134,6 +139,13 @@ function ProgressProvider({ children }) {
     commit({ ...s, gems: [...s.gems, unitId] });
   }
 
+  // the grade band the child says they are in (where the placement mission starts)
+  function chooseGrade(grade) {
+    commit({ ...stateRef.current, grade });
+  }
+
+  // the level the placement mission found: this is what every game uses, and it can
+  // only be done once
   function setGrade(grade) {
     commit({ ...stateRef.current, grade, placed: true });
   }
@@ -183,6 +195,7 @@ function ProgressProvider({ children }) {
     grade: state.grade,
     placed: state.placed,
     setGrade,
+    chooseGrade,
     jungle: state.jungle,
     setJungle,
     gems: state.gems,

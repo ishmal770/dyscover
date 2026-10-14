@@ -1,0 +1,88 @@
+.credits {
+  min-height: 100vh;
+  padding: 0 0 40px;
+  background: var(--green-pale);
+}
+
+.credits__header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px 20px 12px;
+}
+
+.credits__header h1 {
+  font-size: 1.6rem;
+  font-weight: 900;
+}
+
+.credits__header p {
+  margin-top: 2px;
+  color: var(--ink-soft);
+  font-weight: 600;
+}
+
+.credits__back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 42px;
+  height: 42px;
+  border: 2px solid var(--border);
+  border-radius: 50%;
+  background: var(--white);
+  cursor: pointer;
+}
+
+.credits__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 12px;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 20px;
+  list-style: none;
+}
+
+.credits__list li {
+  display: flex;
+  gap: 12px;
+  padding: 10px;
+  border-radius: 16px;
+  background: var(--white);
+}
+
+.credits__list img {
+  flex: none;
+  width: 64px;
+  height: 64px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.credits__list div {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  font-size: 0.82rem;
+}
+
+.credits__list strong {
+  font-size: 0.95rem;
+  text-transform: capitalize;
+}
+
+.credits__list span {
+  overflow: hidden;
+  color: var(--ink-soft);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.credits__list a {
+  color: var(--green-dark);
+  font-weight: 700;
+}

@@ -90,6 +90,7 @@
   transition: background 0.25s, border-color 0.25s, transform 0.25s;
 }
 
+.demo__piece--photo,
 .demo__piece--emoji {
   min-width: 0;
   height: auto;

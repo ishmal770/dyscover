@@ -3144,6 +3144,11 @@
   "say": "tiger",
   "speed": "0.76/0.85|cuts-183"
  },
+ "f2769a2c": {
+  "key": "press this to say which grades you are in. a quick game will check your level.",
+  "say": "Press this to say which grades you are in. A quick game will check your level.",
+  "speed": "0.76/0.85"
+ },
  "f2bf17c2": {
   "key": "hat",
   "say": "hat",

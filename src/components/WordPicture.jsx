@@ -1,14 +1,14 @@
-// A round picture for a word (see data/wordPictures.js). Shows nothing for
-// words that have no picture.
-import { pictureFor } from "../data/wordPictures";
+// A round photo for a word or a picture name (see data/pictures.js). Shows
+// nothing for words that have no photo.
+import { pictureUrl } from "../data/pictures";
 import "./WordPicture.css";
 
 function WordPicture({ word, size = 72 }) {
-  const picture = pictureFor(word);
-  if (!picture) return null;
+  const url = pictureUrl(word);
+  if (!url) return null;
   return (
-    <span className="word-picture" style={{ width: size, height: size, fontSize: size * 0.58 }} aria-hidden="true">
-      {picture}
+    <span className="word-picture" style={{ width: size, height: size }}>
+      <img src={url} alt="" draggable={false} loading="lazy" />
     </span>
   );
 }

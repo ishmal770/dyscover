@@ -87,7 +87,7 @@ function MeCard({ headline }) {
         </span>
         {jungle && (
           <span className="me__tag" style={{ background: JUNGLES[jungle].color }}>
-            {JUNGLES[jungle].emoji} {JUNGLES[jungle].name}
+            {JUNGLES[jungle].name}
           </span>
         )}
         <span className="me__tag me__tag--grade">{GRADE_BANDS.find((b) => b.id === grade)?.label}</span>

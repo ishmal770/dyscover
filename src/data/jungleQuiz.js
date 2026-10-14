@@ -3,42 +3,42 @@
 // jungle (ties go to the first answer given). Plain data, read by the audio script too.
 
 export const JUNGLES = {
-  rainforest: { id: "rainforest", name: "Rainbow Rainforest", emoji: "🦜", color: "#2fbf71", blurb: "You love bright colors, birds, and swinging on vines!" },
-  mountain: { id: "mountain", name: "Misty Mountain Jungle", emoji: "⛰️", color: "#5b9bd5", blurb: "You love adventure, climbing high, and finding sparkly crystals!" },
-  river: { id: "river", name: "Sunny River Jungle", emoji: "🦦", color: "#f0a63a", blurb: "You love sunshine, splashing, and making new friends!" },
+  rainforest: { id: "rainforest", name: "Rainbow Rainforest", picture: "rainforest", color: "#4a9a2a", blurb: "You love bright colors, birds, and swinging on vines!" },
+  mountain: { id: "mountain", name: "Misty Mountain Jungle", picture: "mountain", color: "#4a90d9", blurb: "You love adventure, climbing high, and finding sparkly crystals!" },
+  river: { id: "river", name: "Sunny River Jungle", picture: "river", color: "#e8872b", blurb: "You love sunshine, splashing, and making new friends!" },
 };
 
 export const QUIZ = [
   {
     question: "What do you love to do most?",
     answers: [
-      { label: "Swing on vines", emoji: "🌿", jungle: "rainforest" },
-      { label: "Climb a high mountain", emoji: "🧗", jungle: "mountain" },
-      { label: "Splash in the river", emoji: "💦", jungle: "river" },
+      { label: "Swing on vines", picture: "vines", jungle: "rainforest" },
+      { label: "Climb a high mountain", picture: "climb", jungle: "mountain" },
+      { label: "Splash in the river", picture: "river", jungle: "river" },
     ],
   },
   {
     question: "Which jungle friend do you like best?",
     answers: [
-      { label: "A colorful parrot", emoji: "🦜", jungle: "rainforest" },
-      { label: "A cuddly panda", emoji: "🐼", jungle: "mountain" },
-      { label: "A happy otter", emoji: "🦦", jungle: "river" },
+      { label: "A colorful parrot", picture: "parrot", jungle: "rainforest" },
+      { label: "A cuddly panda", picture: "panda", jungle: "mountain" },
+      { label: "A happy otter", picture: "otter", jungle: "river" },
     ],
   },
   {
     question: "What would you like to find?",
     answers: [
-      { label: "A glowing flower", emoji: "🌺", jungle: "rainforest" },
-      { label: "A sparkly crystal", emoji: "💎", jungle: "mountain" },
-      { label: "A golden fish", emoji: "🐟", jungle: "river" },
+      { label: "A glowing flower", picture: "flower", jungle: "rainforest" },
+      { label: "A sparkly crystal", picture: "crystal", jungle: "mountain" },
+      { label: "A golden fish", picture: "goldfish", jungle: "river" },
     ],
   },
   {
     question: "What is your favorite weather?",
     answers: [
-      { label: "Warm rain", emoji: "🌧️", jungle: "rainforest" },
-      { label: "Cool mist", emoji: "🌫️", jungle: "mountain" },
-      { label: "Bright sunshine", emoji: "☀️", jungle: "river" },
+      { label: "Warm rain", picture: "rain", jungle: "rainforest" },
+      { label: "Cool mist", picture: "mist", jungle: "mountain" },
+      { label: "Bright sunshine", picture: "sunshine", jungle: "river" },
     ],
   },
 ];

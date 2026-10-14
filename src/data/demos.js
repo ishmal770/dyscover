@@ -27,7 +27,7 @@ export const DEMOS = {
   syllableSafariGame: {
     title: "How to play Syllable Safari",
     rows: [
-      { items: [{ id: "pic", kind: "emoji", text: "🐯" }] },
+      { items: [{ id: "pic", kind: "photo", text: "tiger" }] },
       { items: [...tiles("TI", "l"), { id: "gap", kind: "gap" }, ...tiles("GER", "m")] },
       { items: [{ id: "b1", kind: "box", text: "" }, { id: "b2", kind: "box", text: "" }] },
       { items: [{ id: "p1", kind: "tile", text: "TI" }, { id: "p2", kind: "tile", text: "GER" }] },

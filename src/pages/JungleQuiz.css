@@ -134,11 +134,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 120px;
-  height: 120px;
+  padding: 6px;
   border-radius: 50%;
   background: var(--jungle);
-  font-size: 3.6rem;
   animation: quiz-pop 0.6s ease-out;
 }
 

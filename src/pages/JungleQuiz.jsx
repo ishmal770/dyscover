@@ -6,6 +6,7 @@ import { ArrowRight, Volume2 } from "lucide-react";
 import TopBar from "../components/TopBar";
 import AccessibilityToolbar from "../components/AccessibilityToolbar";
 import SlothArt from "../components/SlothArt";
+import WordPicture from "../components/WordPicture";
 import { speak, cancelSpeech, audioUnlocked } from "../audio/speech";
 import { hasHeard, markHeard } from "../audio/heard";
 import { useProgress } from "../context/ProgressContext";
@@ -95,17 +96,15 @@ function JungleQuiz({ onNext }) {
                 onClick={() => pick(a)}
                 disabled={Boolean(chosen)}
               >
-                <span className="quiz__emoji" aria-hidden="true">
-                  {a.emoji}
-                </span>
+                <WordPicture word={a.picture} size={96} />
                 <span>{a.label}</span>
               </button>
             ))}
           </div>
         ) : (
           <div className="quiz__result" style={{ "--jungle": JUNGLES[jungleId].color }}>
-            <div className="quiz__badge" aria-hidden="true">
-              {JUNGLES[jungleId].emoji}
+            <div className="quiz__badge">
+              <WordPicture word={JUNGLES[jungleId].picture} size={140} />
             </div>
             <h2>{JUNGLES[jungleId].name}</h2>
             <button className="btn btn--primary" onClick={onNext}>

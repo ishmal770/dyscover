@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Star, Volume2, Check } from "lucide-react";
 import GameTopBar from "../components/GameTopBar";
 import GameBanner from "../components/GameBanner";
+import WordPicture from "../components/WordPicture";
 import LessonComplete from "../components/LessonComplete";
 import AccessibilityToolbar from "../components/AccessibilityToolbar";
 import GameHintBubble, { speak } from "../components/GameHintBubble";
@@ -179,8 +180,8 @@ function SyllableSafariGame({ onHome, onBack, onDone }) {
         </div>
       </div>
 
-      <div className="syllable-game__picture" aria-hidden="true">
-        {round.picture}
+      <div className="syllable-game__picture">
+        <WordPicture word={round.word} size={124} />
       </div>
 
       {phase === "split" ? (
