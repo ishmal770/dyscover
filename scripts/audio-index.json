@@ -84,6 +84,11 @@
   "say": "How to play Syllable Safari",
   "speed": "0.76/0.85"
  },
+ "073557ae": {
+  "key": "now look at the word. slide the sliders to put a break between each part of the word. then press check split.",
+  "say": "Now look at the word. Slide the sliders to put a break between each part of the word. Then press Check Split.",
+  "speed": "0.76/0.85"
+ },
  "0749acf9": {
   "key": "cheetah|tap the pieces to hear them, then build the word in order!",
   "say": "Tap the pieces to hear them, then build the word in order!",
@@ -399,6 +404,11 @@
   "say": "This is your adventure map. Each circle is a lesson. Finish one to open the next. Tap the glowing circle, then press Start. Tap the logo to go back home.",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"am_onyx\", \"word\": 0.8}"
  },
+ "26ccea64": {
+  "key": "slide this to move the break between the letters.",
+  "say": "Slide this to move the break between the letters.",
+  "speed": "0.76/0.85"
+ },
  "278851e8": {
   "key": "press the microphone button and say the word.",
   "say": "Press the microphone button and say the word.",
@@ -449,6 +459,11 @@
   "say": "sill",
   "speed": "0.76/0.85|cuts-183"
  },
+ "2d1be86e": {
+  "key": "press this to check if the word is split in the right place.",
+  "say": "Press this to check if the word is split in the right place.",
+  "speed": "0.76/0.85"
+ },
  "2de7c081": {
   "key": "tap the sound box to hear the letters, then trace them!",
   "say": "Tap the sound box to hear the letters, then trace them!",
@@ -458,11 +473,6 @@
   "key": "lesson complete! amazing work, you got three stars!",
   "say": "Lesson complete! Amazing work, you got three stars!",
   "speed": "0.76/0.85"
- },
- "2ea00c5b": {
-  "key": "lion|now look at the word. tap in between the letters where the word splits into parts.",
-  "say": "Now look at the word. Tap in between the letters where the word splits into parts.",
-  "speed": "{\"lang\": \"en-us\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"am_onyx\", \"word\": 0.8}"
  },
  "2f417105": {
   "key": "lion|hi, i'm leo! look at all your jungle buddies! finish lessons to meet more.",
@@ -503,11 +513,6 @@
   "key": "parrot pairs",
   "say": "Parrot Pairs",
   "speed": "0.76/0.85"
- },
- "33ebf91a": {
-  "key": "elephant|now look at the word. tap in between the letters where the word splits into parts.",
-  "say": "Now look at the word. Tap in between the letters where the word splits into parts.",
-  "speed": "{\"lang\": \"en-gb\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"bf_emma\", \"word\": 0.8}"
  },
  "33f80408": {
   "key": "syl:vol",
@@ -809,6 +814,11 @@
   "say": "Tap the pieces to hear them, then build the word in order!",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 1.08, \"sentence\": 0.8, \"voice\": \"am_puck\", \"word\": 0.85}"
  },
+ "4d4d07a6": {
+  "key": "now look at the word and slide the slider to where the word splits.",
+  "say": "Now look at the word and slide the slider to where the word splits.",
+  "speed": "0.76/0.85"
+ },
  "4f292a60": {
   "key": "forest",
   "say": "forest",
@@ -873,6 +883,11 @@
   "key": "sloth|a sparkly crystal",
   "say": "A sparkly crystal",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 1.0, \"sentence\": 0.74, \"voice\": \"af_heart\", \"word\": 0.82}"
+ },
+ "54808fac": {
+  "key": "cheetah|now look at the word. slide the sliders to put a break between each part of the word. then press check split.",
+  "say": "Now look at the word. Slide the sliders to put a break between each part of the word. Then press Check Split.",
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.06, \"sentence\": 0.84, \"voice\": \"am_liam\", \"word\": 0.88}"
  },
  "5505928f": {
   "key": "smile",
@@ -1499,6 +1514,11 @@
   "say": "We will play a few short games so I can build your perfect map. Tap me when you are ready to begin.",
   "speed": "0.76/0.85"
  },
+ "910e577a": {
+  "key": "lion|now look at the word. slide the sliders to put a break between each part of the word. then press check split.",
+  "say": "Now look at the word. Slide the sliders to put a break between each part of the word. Then press Check Split.",
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"am_onyx\", \"word\": 0.8}"
+ },
  "91613788": {
   "key": "the letter s, as in sun.",
   "say": "The letter S, as in sun.",
@@ -1534,15 +1554,15 @@
   "say": "Now find the same letter again in the paragraph. Tap every one you can find.",
   "speed": "{\"lang\": \"en-gb\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"bf_emma\", \"word\": 0.8}"
  },
+ "9418f445": {
+  "key": "monkey|now look at the word. slide the sliders to put a break between each part of the word. then press check split.",
+  "say": "Now look at the word. Slide the sliders to put a break between each part of the word. Then press Check Split.",
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.08, \"sentence\": 0.8, \"voice\": \"am_puck\", \"word\": 0.85}"
+ },
  "9438fd53": {
   "key": "syl:kan",
   "say": "kang",
   "speed": "0.76/0.85|cuts-183"
- },
- "948378f1": {
-  "key": "mimi|now look at the word. tap in between the letters where the word splits into parts.",
-  "say": "Now look at the word. Tap in between the letters where the word splits into parts.",
-  "speed": "{\"lang\": \"en-gb\", \"pitch\": 1.2, \"sentence\": 0.78, \"voice\": \"bf_lily\", \"word\": 0.85}"
  },
  "9487f49c": {
   "key": "syl:saur",
@@ -1553,6 +1573,11 @@
   "key": "syl:ger",
   "say": "gur",
   "speed": "0.76/0.85|cuts-183"
+ },
+ "94fe74d0": {
+  "key": "gorilla|now look at the word. slide the sliders to put a break between each part of the word. then press check split.",
+  "say": "Now look at the word. Slide the sliders to put a break between each part of the word. Then press Check Split.",
+  "speed": "{\"lang\": \"en-us\", \"pitch\": 0.84, \"sentence\": 0.68, \"voice\": \"am_fenrir\", \"word\": 0.78}"
  },
  "95cd8075": {
   "key": "from",
@@ -1578,11 +1603,6 @@
   "key": "pizza",
   "say": "pizza",
   "speed": "0.76/0.85|cuts-183"
- },
- "97b7f7d5": {
-  "key": "gorilla|now look at the word. tap in between the letters where the word splits into parts.",
-  "say": "Now look at the word. Tap in between the letters where the word splits into parts.",
-  "speed": "{\"lang\": \"en-us\", \"pitch\": 0.84, \"sentence\": 0.68, \"voice\": \"am_fenrir\", \"word\": 0.78}"
  },
  "983fba0c": {
   "key": "gorilla|amazing! you found the sound. can you find another one?",
@@ -1788,11 +1808,6 @@
   "key": "sloth|a happy otter",
   "say": "A happy otter",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 1.0, \"sentence\": 0.74, \"voice\": \"af_heart\", \"word\": 0.82}"
- },
- "a9e06c21": {
-  "key": "cheetah|now look at the word. tap in between the letters where the word splits into parts.",
-  "say": "Now look at the word. Tap in between the letters where the word splits into parts.",
-  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.06, \"sentence\": 0.84, \"voice\": \"am_liam\", \"word\": 0.88}"
  },
  "aa603274": {
   "key": "press this to pick a new avatar picture.",
@@ -2139,11 +2154,6 @@
   "say": "play",
   "speed": "0.76/0.85|cuts-183"
  },
- "c30f0ce7": {
-  "key": "now look at the word and tap between the letters where it splits.",
-  "say": "Now look at the word and tap between the letters where it splits.",
-  "speed": "0.76/0.85"
- },
  "c338c7cd": {
   "key": "how to play parrot pairs",
   "say": "How to play Parrot Pairs",
@@ -2197,6 +2207,11 @@
  "c71c5ff4": {
   "key": "mimi|welcome to the adventure map! follow the path and tap the glowing circle to start your next lesson.",
   "say": "Welcome to the Adventure Map! Follow the path and tap the glowing circle to start your next lesson.",
+  "speed": "{\"lang\": \"en-gb\", \"pitch\": 1.2, \"sentence\": 0.78, \"voice\": \"bf_lily\", \"word\": 0.85}"
+ },
+ "c7358d7c": {
+  "key": "mimi|now look at the word. slide the sliders to put a break between each part of the word. then press check split.",
+  "say": "Now look at the word. Slide the sliders to put a break between each part of the word. Then press Check Split.",
   "speed": "{\"lang\": \"en-gb\", \"pitch\": 1.2, \"sentence\": 0.78, \"voice\": \"bf_lily\", \"word\": 0.85}"
  },
  "c7441a0f": {
@@ -2534,11 +2549,6 @@
   "say": "Take your time! The letter cue can be tricky to spot.",
   "speed": "{\"lang\": \"en-gb\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"bf_emma\", \"word\": 0.8}"
  },
- "e4ebe3c6": {
-  "key": "monkey|now look at the word. tap in between the letters where the word splits into parts.",
-  "say": "Now look at the word. Tap in between the letters where the word splits into parts.",
-  "speed": "{\"lang\": \"en-us\", \"pitch\": 1.08, \"sentence\": 0.8, \"voice\": \"am_puck\", \"word\": 0.85}"
- },
  "e5185c1a": {
   "key": "than",
   "say": "than",
@@ -2829,6 +2839,11 @@
   "say": "Click every letter pee in this paragraph!",
   "speed": "0.76/0.85"
  },
+ "f6129189": {
+  "key": "elephant|now look at the word. slide the sliders to put a break between each part of the word. then press check split.",
+  "say": "Now look at the word. Slide the sliders to put a break between each part of the word. Then press Check Split.",
+  "speed": "{\"lang\": \"en-gb\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"bf_emma\", \"word\": 0.8}"
+ },
  "f62c7c4c": {
   "key": "syl:fly",
   "say": "fly",
@@ -2937,11 +2952,6 @@
  "fe5f4eec": {
   "key": "press the speaker to hear it read out loud.",
   "say": "Press the speaker to hear it read out loud.",
-  "speed": "0.76/0.85"
- },
- "ff60135f": {
-  "key": "now look at the word. tap in between the letters where the word splits into parts.",
-  "say": "Now look at the word. Tap in between the letters where the word splits into parts.",
   "speed": "0.76/0.85"
  },
  "ffc15236": {

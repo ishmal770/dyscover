@@ -9,6 +9,8 @@ export const HELP_FALLBACK = "Tap this button to use it.";
 export const HELP_RULES = [
   [/^avatar$/, "Tap a picture to make it your avatar. Pictures with a lock need more levels, stars, or jungle buddies."],
   [/check answer/, "Press this to check if your answer is right."],
+  [/^slider$/, "Slide this to move the break between the letters."],
+  [/check split/, "Press this to check if the word is split in the right place."],
   [/check word/, "Press this to check if you built the word right."],
   [/^hint/, "Press this to see a hint. It uses up one star."],
   [/next word|^next$/, "Press this to go to the next question."],

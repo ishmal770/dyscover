@@ -158,7 +158,7 @@ GAME_HELP = {
     ],
     "pages/SyllableSafariGame.jsx": [
         "Look at the picture. Tap a piece to hear it, then tap a box to put it in. Put the pieces in order to build the word. Then press Check Word.",
-        "Now look at the word. Tap in between the letters where the word splits into parts.",
+        "Now look at the word. Slide the sliders to put a break between each part of the word. Then press Check Split.",
     ],
     "pages/MonkeyMixUpGame.jsx": [
         "A vowel is missing from the word. Listen to the sound in the clue. Then tap the vowel from the tray that makes that sound. When you get it right, press Next.",

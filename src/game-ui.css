@@ -6,12 +6,12 @@
   --radius-lg: 28px;
   --shadow-card: 0 14px 0 rgba(74, 149, 36, 0.12), 0 18px 36px rgba(43, 43, 43, 0.1);
   /* fluid: the whole UI (everything in rem) scales smoothly with the screen */
-  font-size: clamp(16px, 0.6vw + 12px, 18px);
+  font-size: calc(clamp(16px, 0.6vw + 12px, 18px) * var(--band-scale, 1));
   line-height: 140%;
 }
 
-:root.a11y-size-lg { font-size: clamp(18px, 0.6vw + 14px, 21px); }
-:root.a11y-size-xl { font-size: clamp(20px, 0.7vw + 16px, 24px); }
+:root.a11y-size-lg { font-size: calc(clamp(18px, 0.6vw + 14px, 21px) * var(--band-scale, 1)); }
+:root.a11y-size-xl { font-size: calc(clamp(20px, 0.7vw + 16px, 24px) * var(--band-scale, 1)); }
 
 h1, h2, h3 { font-weight: 900; letter-spacing: -0.01em; }
 strong { font-weight: 800; }
@@ -320,4 +320,22 @@ strong { font-weight: 800; }
 .monkey-game__sloth-box,
 .lizard-game__card {
   border-radius: 22px;
+}
+
+/* ---- text size by grade band -------------------------------------------------- */
+/* K-2: big text everywhere. 3-5: standard text, and longer reading passages. */
+:root[data-band="k2"] { --band-scale: 1.22; }
+:root[data-band="g35"] { --band-scale: 1; }
+
+/* the sentence the youngest readers hunt through is very large; older readers get a paragraph in smaller type */
+:root[data-band="k2"] .lizard-game__hunt-text {
+  max-width: 640px;
+  font-size: clamp(1.9rem, 4.2vw, 2.6rem);
+  line-height: 2.1;
+}
+
+:root[data-band="g35"] .lizard-game__hunt-text {
+  max-width: 640px;
+  font-size: clamp(1.05rem, 2.2vw, 1.3rem);
+  line-height: 1.9;
 }

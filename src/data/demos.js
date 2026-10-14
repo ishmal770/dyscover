@@ -32,6 +32,7 @@ export const DEMOS = {
       { items: [{ id: "p1", kind: "tile", text: "TI" }, { id: "p2", kind: "tile", text: "GER" }] },
       { items: [{ id: "btn", kind: "button", text: "Check Word" }] },
       { items: [...tiles("TI", "l"), { id: "gap", kind: "gap" }, ...tiles("GER", "m")] },
+      { items: [{ id: "slider", kind: "slider", text: "" }] },
     ],
     steps: [
       { caption: "Look at the picture. It is a tiger." },
@@ -40,7 +41,7 @@ export const DEMOS = {
       { caption: "Do the same with the next piece.", cursor: "p2", set: { p2: "selected" } },
       { caption: "Put it in the second box.", cursor: "b2", set: { b2: { state: "filled", text: "GER" }, p2: "used" } },
       { caption: "Press Check Word.", cursor: "btn", set: { btn: "pressed", b1: { state: "correct", text: "TI" }, b2: { state: "correct", text: "GER" } } },
-      { caption: "Now look at the word and tap between the letters where it splits.", cursor: "gap", set: { gap: "placed" } },
+      { caption: "Now look at the word and slide the slider to where the word splits.", cursor: "slider", set: { slider: "moved", gap: "placed" } },
     ],
   },
 

@@ -74,6 +74,11 @@ function ProgressProvider({ children }) {
     document.documentElement.dataset.jungle = state.jungle || "";
   }, [state.jungle]);
 
+  // text is bigger for the youngest readers (K-2) and a bit smaller for grades 3-5
+  useEffect(() => {
+    document.documentElement.dataset.band = state.grade;
+  }, [state.grade]);
+
   function commit(next) {
     stateRef.current = next;
     setState(next);

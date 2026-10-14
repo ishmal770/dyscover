@@ -128,7 +128,7 @@ function LionsLettersGame({ onHome, onBack, onDone }) {
           {wordPhase === "letters" ? (
             <>
               <h1>Spell it out: listen to each letter</h1>
-              <div className="lions-game__letter-slots">
+              <div className="lions-game__letter-slots" style={{ "--slots": round.value.length }}>
                 {[...round.value].map((letter, i) => (
                   <div key={i} className="lions-game__letter-slot">
                     <button className="lions-game__number-btn" onClick={() => handleLetterHeard(letter, i)}>

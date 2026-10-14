@@ -99,6 +99,13 @@ function GameDemo({ demoId, onClose }) {
         </span>
       );
     }
+    if (item.kind === "slider") {
+      return (
+        <span {...common}>
+          <span className="demo__slider-thumb" />
+        </span>
+      );
+    }
     if (item.kind === "meter") {
       return (
         <span {...common}>

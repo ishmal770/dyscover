@@ -60,7 +60,8 @@
   width: 64px;
   height: 64px;
   border-radius: 12px;
-  object-fit: cover;
+  background: var(--white);
+  object-fit: contain;
 }
 
 .credits__list div {

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Downloads each word's picture from the lead photo of its Wikipedia article,
-square-crops it to a small JPEG, and records who made it and its license (a
+shrinks it to a small JPEG (never cropped), and records who made it and its license (a
 credits page is needed for CC BY / CC BY-SA photos).
 Usage: fetch_wiki.py OUT_DIR [slug ...]"""
 import html, io, json, re, sys, time
@@ -78,9 +78,8 @@ for slug, title in PICS.items():
         print(slug, "failed:", str(e)[:70], flush=True)
         time.sleep(4)
         continue
-    w, h = img.size
-    s = min(w, h)
-    img = img.crop(((w - s) // 2, (h - s) // 2, (w - s) // 2 + s, (h - s) // 2 + s)).resize((256, 256), Image.LANCZOS)
+    # keep the WHOLE photo (no cropping), just make it small: longest side 360px
+    img.thumbnail((360, 360), Image.LANCZOS)
     img.save(dest, "JPEG", quality=74, optimize=True)
     credits[slug] = {
         "article": title,

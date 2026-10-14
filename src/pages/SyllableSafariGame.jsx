@@ -27,6 +27,12 @@ function getLetterMetrics(len) {
   return { base: 38, gap: 6 };
 }
 
+// where the sliders start: spread evenly so no break is on top of another
+function defaultSliders(round) {
+  const breaks = round.syllables.length - 1;
+  return Array.from({ length: breaks }, (_, i) => Math.min(round.word.length - 1, i + 1));
+}
+
 function getSplitPoints(syllables) {
   const points = [];
   let cumulative = 0;
@@ -40,7 +46,7 @@ function getSplitPoints(syllables) {
 // What the guide reads when asked for help, for each part of a round.
 const HELP = {
   build: "Look at the picture. Tap a piece to hear it, then tap a box to put it in. Put the pieces in order to build the word. Then press Check Word.",
-  split: "Now look at the word. Tap in between the letters where the word splits into parts.",
+  split: "Now look at the word. Slide the sliders to put a break between each part of the word. Then press Check Split.",
 };
 
 function SyllableSafariGame({ onHome, onBack, onDone }) {
@@ -48,7 +54,8 @@ function SyllableSafariGame({ onHome, onBack, onDone }) {
   const rounds = BANKS.syllable[grade];
   const [roundIndex, setRoundIndex] = useState(0);
   const [phase, setPhase] = useState("build"); // build the word from its pieces first, then find where it splits
-  const [placedDividers, setPlacedDividers] = useState(() => new Set());
+  // one slider per break in the word; each sits at a gap number (1 = after the first letter)
+  const [sliders, setSliders] = useState(() => defaultSliders(rounds[0]));
   const [feedback, setFeedback] = useState("");
   const [tray, setTray] = useState(() => shuffle(rounds[0].syllables));
   const [slots, setSlots] = useState(() => Array(rounds[0].syllables.length).fill(null));
@@ -67,21 +74,21 @@ function SyllableSafariGame({ onHome, onBack, onDone }) {
     "--letter-gap": `${letterMetrics.gap}px`,
   };
 
-  function handleGapClick(gapIndex) {
-    if (placedDividers.has(gapIndex)) return;
-    if (splitPoints.includes(gapIndex)) {
-      const next = new Set(placedDividers);
-      next.add(gapIndex);
-      setPlacedDividers(next);
-      if (next.size === splitPoints.length) {
-        setFeedback("Perfect split!");
-        setTimeout(nextRound, 800); // the round is finished once the word is split
-      } else {
-        setFeedback("Nice! Find the next split.");
-      }
+  function moveSlider(index, value) {
+    setSliders((all) => all.map((v, i) => (i === index ? Number(value) : v)));
+    setFeedback("");
+  }
+
+  // the child presses "Check split" once the sliders are where the word breaks
+  function checkSplit() {
+    const mine = [...sliders].sort((x, y) => x - y);
+    const correct = mine.length === splitPoints.length && mine.every((v, i) => v === splitPoints[i]);
+    if (correct) {
+      setFeedback("Perfect split!");
+      setTimeout(nextRound, 900); // the round is finished once the word is split
     } else {
-      setFeedback("Try again - listen for where the word breaks.");
-      setStars((s) => Math.max(0, s - 1));
+      setFeedback("Not quite - slide the breaks to where the word splits into parts.");
+      setStars((st) => Math.max(0, st - 1));
     }
   }
 
@@ -134,7 +141,7 @@ function SyllableSafariGame({ onHome, onBack, onDone }) {
     const next = roundIndex + 1;
     setRoundIndex(next);
     setPhase("build");
-    setPlacedDividers(new Set());
+    setSliders(defaultSliders(rounds[next]));
     setTray(shuffle(rounds[next].syllables));
     setSlots(Array(rounds[next].syllables.length).fill(null));
     setSelectedChunk(null);
@@ -145,7 +152,7 @@ function SyllableSafariGame({ onHome, onBack, onDone }) {
   function handlePlayAgain() {
     setRoundIndex(0);
     setPhase("build");
-    setPlacedDividers(new Set());
+    setSliders(defaultSliders(rounds[0]));
     setTray(shuffle(rounds[0].syllables));
     setSlots(Array(rounds[0].syllables.length).fill(null));
     setSelectedChunk(null);
@@ -191,7 +198,7 @@ function SyllableSafariGame({ onHome, onBack, onDone }) {
       {phase === "split" ? (
         <>
           <h1 className="syllable-game__title">
-            Tap where the word splits into syllables
+            Slide to split the word into syllables
             <button className="syllable-game__speaker" onClick={() => speak(round.word)}>
               <Volume2 size={14} />
             </button>
@@ -202,22 +209,38 @@ function SyllableSafariGame({ onHome, onBack, onDone }) {
                 <span key={i} className="syllable-game__letter-group">
                   <span className="syllable-game__letter">{letter}</span>
                   {i < round.word.length - 1 && (
-                    <button
-                      className={`syllable-game__gap${
-                        placedDividers.has(i + 1) ? " syllable-game__gap--placed" : ""
-                      }`}
-                      onClick={() => handleGapClick(i + 1)}
-                      aria-label={`Split after letter ${i + 1}`}
-                    >
-                      {placedDividers.has(i + 1) && <span className="syllable-game__divider" />}
-                    </button>
+                    <span className="syllable-game__gap" aria-hidden="true">
+                      {sliders.includes(i + 1) && <span className="syllable-game__divider" />}
+                    </span>
                   )}
                 </span>
               ))}
             </div>
           </div>
+          <div className="syllable-game__sliders">
+            {sliders.map((value, k) => (
+              <label key={k} className="syllable-game__slider">
+                <span>Break {k + 1}</span>
+                <input
+                  type="range"
+                  min={1}
+                  max={round.word.length - 1}
+                  step={1}
+                  value={value}
+                  onChange={(e) => moveSlider(k, e.target.value)}
+                  aria-label={`Break ${k + 1}: after letter ${value}`}
+                  data-help="slider"
+                />
+              </label>
+            ))}
+          </div>
+          <div className="syllable-game__controls">
+            <button className="btn btn--primary" onClick={checkSplit}>
+              Check split <Check size={16} />
+            </button>
+          </div>
           <p className="syllable-game__hint-text">
-            &#9998; Tap where the word splits ({placedDividers.size} / {splitPoints.length})
+            &#9998; Slide the {splitPoints.length === 1 ? "break" : "breaks"} to where the word splits
           </p>
         </>
       ) : (

@@ -322,3 +322,33 @@
   justify-content: center;
   gap: 10px;
 }
+
+/* the slider in the Syllable Safari demo */
+.demo__piece--slider {
+  position: relative;
+  width: 240px;
+  min-width: 0;
+  height: 14px;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background: var(--green-soft);
+}
+
+.demo__slider-thumb {
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  width: 34px;
+  height: 34px;
+  border: 4px solid var(--white);
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 3px 0 var(--green-edge);
+  transform: translate(-50%, -50%);
+  transition: left 1.2s ease;
+}
+
+.demo__piece--slider.is-moved .demo__slider-thumb {
+  left: 40%;
+}

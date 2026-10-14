@@ -94,7 +94,10 @@
 
 .lions-game__letter-slots {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  /* one column per letter, so every letter box sits in one straight row */
+  grid-template-columns: repeat(var(--slots, 3), minmax(0, 1fr));
+  align-items: start;
+  justify-items: center;
   gap: 16px;
   width: 100%;
 }
@@ -104,6 +107,8 @@
   flex-direction: column;
   align-items: center;
   gap: 10px;
+  width: 100%;
+  min-width: 0;
 }
 
 .lions-game__number-btn {
