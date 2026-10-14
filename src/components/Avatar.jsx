@@ -1,8 +1,10 @@
-// A child's avatar: one of the human explorers in a round badge. Used on the
-// home page and lesson-complete screen (the picker is components/MeCard.jsx).
-import ExplorerArt from "./ExplorerArt";
+// A child's avatar: one of seven explorer portraits in a round badge. The portraits are
+// "Lorelei" by Lisa Wischofsky (CC0, public domain), made with DiceBear.
 import { AVATAR_BY_ID, DEFAULT_AVATAR } from "../data/avatars";
 import "./Avatar.css";
+
+const files = import.meta.glob("../assets/avatars/*.svg", { eager: true, import: "default" });
+const url = (id) => files[`../assets/avatars/${id}.svg`];
 
 function Avatar({ id = DEFAULT_AVATAR, size = 64, locked = false }) {
   const avatar = AVATAR_BY_ID[id] || AVATAR_BY_ID[DEFAULT_AVATAR];
@@ -13,7 +15,7 @@ function Avatar({ id = DEFAULT_AVATAR, size = 64, locked = false }) {
       role="img"
       aria-label={locked ? "Locked avatar" : avatar.name}
     >
-      <ExplorerArt id={avatar.id} />
+      <img src={url(avatar.id)} alt="" draggable={false} />
     </span>
   );
 }

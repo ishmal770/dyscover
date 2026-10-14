@@ -133,3 +133,31 @@
   font-weight: 700;
   color: var(--green-dark);
 }
+
+/* the missing-vowel question */
+.placement__puzzle {
+  display: flex;
+  gap: 8px;
+}
+
+.placement__tile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 60px;
+  border: 3px solid var(--border);
+  border-radius: 14px;
+  background: var(--white);
+  font-size: 1.7rem;
+  font-weight: 900;
+}
+
+.placement__tile.is-blank {
+  border-style: dashed;
+  color: var(--ink-soft);
+}
+
+.placement__choices--vowels {
+  grid-template-columns: repeat(5, 1fr);
+}

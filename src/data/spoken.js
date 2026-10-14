@@ -8,7 +8,7 @@ import { HELP_TIP_LINES } from "./helpTips.js";
 import { QUIZ_LINES } from "./jungleQuiz.js";
 import { BANKS } from "./questionBanks.js";
 import { LETTER_LINES } from "./letters.js";
-import { PLACEMENT_WORDS, PLACEMENT_DONE, PLACEMENT_PROMPT } from "./placement.js";
+import { PLACEMENT_WORDS, PLACEMENT_DONE, PLACEMENT_PROMPT, PLACEMENT_VOWEL_PROMPT } from "./placement.js";
 
 // read in the neutral voice
 export const NEUTRAL_LINES = [
@@ -21,6 +21,7 @@ export const NEUTRAL_LINES = [
   ...HELP_TIP_LINES,
   ...QUIZ_LINES,
   PLACEMENT_PROMPT,
+  PLACEMENT_VOWEL_PROMPT,
   PLACEMENT_DONE,
   ...LETTER_LINES,
   ...PLACEMENT_WORDS,
@@ -31,7 +32,7 @@ export const SLOTH_LINES = [...QUIZ_LINES, PLACEMENT_DONE];
 
 // words, letters and syllable pieces the games say (lowercase)
 export const WORDS = [
-  ...BANKS.parrot.k2, ...BANKS.parrot.g35, ...BANKS.parrot.g68,
+  ...BANKS.parrot.k2, ...BANKS.parrot.g35,
 ].flatMap((r) => [r.word1, r.word2])
   .concat(Object.values(BANKS.syllable).flat().map((r) => r.word))
   .concat(Object.values(BANKS.cheetah).flat())

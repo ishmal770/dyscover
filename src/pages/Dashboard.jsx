@@ -8,7 +8,7 @@ import AccessibilityToolbar from "../components/AccessibilityToolbar";
 import GuideBubble from "../components/GuideBubble";
 import MeCard from "../components/MeCard";
 import GameArt from "../components/GameArt";
-import { GemArt } from "../components/TreasureArt";
+import WordPicture from "../components/WordPicture";
 import { speak } from "../audio/speech";
 import { useProgress, dayKey } from "../context/ProgressContext";
 import { LESSON_BY_ID } from "../data/lessons";
@@ -51,7 +51,7 @@ function Dashboard({ onStartLesson, onOpenMap, onOpenBackpack, onQuiz, onCredits
 
           {pendingGem && (
             <div className="dash__gem">
-              <GemArt color={GEMS[pendingGem.id].color} dark={GEMS[pendingGem.id].dark} size={64} glow />
+              <WordPicture word={GEMS[pendingGem.id].photo} size={72} />
               <div>
                 <h2>You won the {GEMS[pendingGem.id].name}!</h2>
                 <p>Put it in the gate on the map to open the next world.</p>
@@ -64,7 +64,7 @@ function Dashboard({ onStartLesson, onOpenMap, onOpenBackpack, onQuiz, onCredits
 
           <div className="dash__next">
             <span className="dash__next-art">
-              <GameArt id={next.id} size={92} />
+              <GameArt id={next.id} size={100} />
             </span>
             <div>
               <span className="dash__next-unit">{next.unitTitle.toUpperCase()}</span>

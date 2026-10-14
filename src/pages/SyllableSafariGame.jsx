@@ -39,15 +39,15 @@ function getSplitPoints(syllables) {
 
 // What the guide reads when asked for help, for each part of a round.
 const HELP = {
-  split: "Listen to the word. Then tap in between the letters where the word splits into parts.",
-  build: "Now tap a piece to hear it, then tap a box to put it in. Put the pieces in order to build the word. Then press Check Word.",
+  build: "Look at the picture. Tap a piece to hear it, then tap a box to put it in. Put the pieces in order to build the word. Then press Check Word.",
+  split: "Now look at the word. Tap in between the letters where the word splits into parts.",
 };
 
 function SyllableSafariGame({ onHome, onBack, onDone }) {
   const { grade } = useProgress();
   const rounds = BANKS.syllable[grade];
   const [roundIndex, setRoundIndex] = useState(0);
-  const [phase, setPhase] = useState("split");
+  const [phase, setPhase] = useState("build"); // build the word from its pieces first, then find where it splits
   const [placedDividers, setPlacedDividers] = useState(() => new Set());
   const [feedback, setFeedback] = useState("");
   const [tray, setTray] = useState(() => shuffle(rounds[0].syllables));
@@ -75,10 +75,7 @@ function SyllableSafariGame({ onHome, onBack, onDone }) {
       setPlacedDividers(next);
       if (next.size === splitPoints.length) {
         setFeedback("Perfect split!");
-        setTimeout(() => {
-          setPhase("build");
-          setFeedback("");
-        }, 700);
+        setTimeout(nextRound, 800); // the round is finished once the word is split
       } else {
         setFeedback("Nice! Find the next split.");
       }
@@ -122,6 +119,13 @@ function SyllableSafariGame({ onHome, onBack, onDone }) {
     }
   }
 
+  // after building the word, go on to finding where it splits
+  function goSplit() {
+    setPhase("split");
+    setSolved(false);
+    setFeedback("");
+  }
+
   function nextRound() {
     if (isLastRound) {
       setSessionComplete(true);
@@ -129,7 +133,7 @@ function SyllableSafariGame({ onHome, onBack, onDone }) {
     }
     const next = roundIndex + 1;
     setRoundIndex(next);
-    setPhase("split");
+    setPhase("build");
     setPlacedDividers(new Set());
     setTray(shuffle(rounds[next].syllables));
     setSlots(Array(rounds[next].syllables.length).fill(null));
@@ -140,7 +144,7 @@ function SyllableSafariGame({ onHome, onBack, onDone }) {
 
   function handlePlayAgain() {
     setRoundIndex(0);
-    setPhase("split");
+    setPhase("build");
     setPlacedDividers(new Set());
     setTray(shuffle(rounds[0].syllables));
     setSlots(Array(rounds[0].syllables.length).fill(null));
@@ -170,7 +174,7 @@ function SyllableSafariGame({ onHome, onBack, onDone }) {
         <div className="syllable-game__progress-bar">
           <div
             className="syllable-game__progress-fill"
-            style={{ width: `${((roundIndex + (phase === "build" ? 0.5 : 0)) / rounds.length) * 100}%` }}
+            style={{ width: `${((roundIndex + (phase === "split" ? 0.5 : 0)) / rounds.length) * 100}%` }}
           />
         </div>
         <div className="syllable-game__stars">
@@ -218,7 +222,7 @@ function SyllableSafariGame({ onHome, onBack, onDone }) {
         </>
       ) : (
         <>
-          <h1 className="syllable-game__title">Now build the word!</h1>
+          <h1 className="syllable-game__title">Build the word!</h1>
           <div className="syllable-game__slots">
             {slots.map((value, i) => (
               <button
@@ -250,8 +254,8 @@ function SyllableSafariGame({ onHome, onBack, onDone }) {
       {phase === "build" && (
         <div className="syllable-game__controls">
           {solved ? (
-            <button className="btn btn--primary" onClick={nextRound}>
-              {isLastRound ? "Finish" : "Next Word"} <Check size={16} />
+            <button className="btn btn--primary" onClick={goSplit}>
+              Now find the split <Check size={16} />
             </button>
           ) : (
             <button className="btn btn--primary" onClick={checkBuild}>
@@ -264,8 +268,8 @@ function SyllableSafariGame({ onHome, onBack, onDone }) {
       <AccessibilityToolbar />
       <GameHintBubble
         steps={[
-          { label: "Splitting the word", text: HELP.split },
           { label: "Building the word", text: HELP.build },
+          { label: "Splitting the word", text: HELP.split },
         ]}
         demo="syllableSafariGame"
         instructions={HELP[phase]}

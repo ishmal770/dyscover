@@ -3,10 +3,10 @@
 // what saves progress (and unlocks the next lesson on the path), so it is
 // recorded here, exactly once, when this screen first appears.
 import { useEffect, useRef, useState } from "react";
-import { Star, Zap, Flame, Target, Lock, ArrowRight, RotateCcw } from "lucide-react";
+import { Star, Zap, Flame, Target, Lock, ArrowRight, RotateCcw, Volume2 } from "lucide-react";
 import GuideArt from "./GuideArt";
 import Avatar from "./Avatar";
-import { GemArt, TreasureArt } from "./TreasureArt";
+import WordPicture from "./WordPicture";
 import { speak } from "../audio/speech";
 import { useGuide } from "../context/GuideContext";
 import { useProgress } from "../context/ProgressContext";
@@ -33,7 +33,7 @@ function LessonComplete({ lessonId, stars, character, onPlayAgain, onBack }) {
     if (recorded.current) return;
     recorded.current = true;
     setResult(completeLesson(lessonId, earned));
-    speak(CHEER[earned], { voice: guideId });
+    // the cheer is read when the speaker button is pressed, not automatically
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!result) return null;
@@ -46,7 +46,12 @@ function LessonComplete({ lessonId, stars, character, onPlayAgain, onBack }) {
       <div className="lesson-complete__mascot">
         <GuideArt character={guideId} waving size={110} />
       </div>
-      <h1>Lesson complete!</h1>
+      <h1>
+        Lesson complete!
+        <button className="lesson-complete__listen" onClick={() => speak(CHEER[earned], { voice: guideId })} aria-label="Hear the cheer">
+          <Volume2 size={20} />
+        </button>
+      </h1>
       <p className="lesson-complete__name">{lesson.name}</p>
 
       <div className="lesson-complete__stars" aria-label={`${earned} out of 3 stars`}>
@@ -83,12 +88,12 @@ function LessonComplete({ lessonId, stars, character, onPlayAgain, onBack }) {
 
       {result.treasure && (
         <p className="lesson-complete__banner lesson-complete__banner--avatar">
-          <TreasureArt icon={result.treasure.icon} size={40} /> Treasure found: {result.treasure.name}!
+          <WordPicture word={result.treasure.photo} size={44} /> You met {result.treasure.name}! Find them in your backpack.
         </p>
       )}
       {result.gem && (
         <p className="lesson-complete__banner lesson-complete__banner--avatar">
-          <GemArt color={result.gem.color} dark={result.gem.dark} size={40} glow />
+          <WordPicture word={result.gem.photo} size={44} />
           {result.gem.hasNext ? `You won the ${result.gem.name}! Put it in the gate on the map.` : `You won the ${result.gem.name}!`}
         </p>
       )}

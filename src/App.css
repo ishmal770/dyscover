@@ -4,7 +4,9 @@
   display: flex;
   width: 100vw;
   height: 100svh;
-  overflow-x: auto;
+  /* pages change only through the app's own buttons - swiping or scrolling sideways must
+     never open a locked game, so the strip is not user-scrollable */
+  overflow-x: hidden;
   overflow-y: hidden;
   scroll-snap-type: x mandatory; /* each slide snaps neatly into place */
   scroll-behavior: smooth;

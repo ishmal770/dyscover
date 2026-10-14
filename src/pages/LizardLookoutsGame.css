@@ -273,3 +273,22 @@
   gap: 12px;
   margin-top: 12px;
 }
+
+/* bigger reading text, and found letters light up so they are easy to see */
+.lizard-game__hunt-text {
+  max-width: 560px;
+  font-size: clamp(1.35rem, 3.2vw, 1.9rem);
+  line-height: 2;
+}
+
+.lizard-game__hunt-letter--found {
+  padding: 0 4px;
+  border-radius: 8px;
+  background: var(--green);
+  color: var(--white);
+  text-decoration: none;
+}
+
+.lizard-game__hunt-letter--found:hover {
+  color: var(--white);
+}

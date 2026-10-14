@@ -86,3 +86,11 @@
   color: var(--green-dark);
   font-weight: 700;
 }
+
+.credits__note {
+  max-width: 900px;
+  margin: 0 auto 14px;
+  padding: 0 20px;
+  color: var(--ink-soft);
+  font-weight: 600;
+}

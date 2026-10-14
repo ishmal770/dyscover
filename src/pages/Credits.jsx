@@ -21,6 +21,9 @@ function Credits() {
           <p>The photos in DysCover come from Wikipedia and Wikimedia Commons. Thank you to everyone who shared them.</p>
         </div>
       </header>
+      <p className="credits__note">
+        Explorer avatars: &ldquo;Lorelei&rdquo; by Lisa Wischofsky, made with DiceBear, CC0 1.0 (public domain). Icons: Lucide (ISC license).
+      </p>
       <ul className="credits__list">
         {rows.map(([slug, c]) => (
           <li key={slug}>

@@ -17,10 +17,10 @@ export const DEMOS = {
     ],
     steps: [
       { caption: "Look at the two words. They look almost the same." },
-      { caption: "Tap the letter that is different in the top word.", cursor: "a1", set: { a1: "selected" } },
-      { caption: "Now tap the different letter in the bottom word.", cursor: "b1", set: { b1: "selected" } },
+      { caption: "Look for the letter in the second word that is different from the first word.", cursor: "b1" },
+      { caption: "Tap that letter in the second word.", cursor: "b1", set: { b1: "selected" } },
       { caption: "Press Check Answer.", cursor: "btn", set: { btn: "pressed" } },
-      { caption: "Great job! You found the mixed-up letters.", set: { a1: "correct", b1: "correct" } },
+      { caption: "Great job! You found the different letter.", set: { b1: "correct" } },
     ],
   },
 
@@ -28,19 +28,19 @@ export const DEMOS = {
     title: "How to play Syllable Safari",
     rows: [
       { items: [{ id: "pic", kind: "photo", text: "tiger" }] },
-      { items: [...tiles("TI", "l"), { id: "gap", kind: "gap" }, ...tiles("GER", "m")] },
       { items: [{ id: "b1", kind: "box", text: "" }, { id: "b2", kind: "box", text: "" }] },
       { items: [{ id: "p1", kind: "tile", text: "TI" }, { id: "p2", kind: "tile", text: "GER" }] },
       { items: [{ id: "btn", kind: "button", text: "Check Word" }] },
+      { items: [...tiles("TI", "l"), { id: "gap", kind: "gap" }, ...tiles("GER", "m")] },
     ],
     steps: [
-      { caption: "Look at the picture and listen to the word. It is tiger." },
-      { caption: "Tap between the letters where the word splits into parts.", cursor: "gap", set: { gap: "placed" } },
-      { caption: "Now build the word. Tap a piece to pick it up.", cursor: "p1", set: { p1: "selected" } },
+      { caption: "Look at the picture. It is a tiger." },
+      { caption: "Tap a piece to hear it and pick it up.", cursor: "p1", set: { p1: "selected" } },
       { caption: "Then tap a box to put it in.", cursor: "b1", set: { b1: { state: "filled", text: "TI" }, p1: "used" } },
       { caption: "Do the same with the next piece.", cursor: "p2", set: { p2: "selected" } },
       { caption: "Put it in the second box.", cursor: "b2", set: { b2: { state: "filled", text: "GER" }, p2: "used" } },
-      { caption: "Press Check Word. Great job!", cursor: "btn", set: { btn: "pressed", b1: { state: "correct", text: "TI" }, b2: { state: "correct", text: "GER" } } },
+      { caption: "Press Check Word.", cursor: "btn", set: { btn: "pressed", b1: { state: "correct", text: "TI" }, b2: { state: "correct", text: "GER" } } },
+      { caption: "Now look at the word and tap between the letters where it splits.", cursor: "gap", set: { gap: "placed" } },
     ],
   },
 

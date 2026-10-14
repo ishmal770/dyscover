@@ -1,5 +1,6 @@
 // Parrot Pairs: the player is shown two visually-similar words (e.g.
-// "angel"/"angle") and must tap the specific letters that got swapped
+// "angel"/"angle") and must tap the letters in the SECOND word that are different
+// from the letters in the first word
 // between them, rather than just spotting that the words differ.
 import { useState } from "react";
 import { Star, Search, Volume2, RotateCcw, Check } from "lucide-react";
@@ -71,7 +72,7 @@ function ParrotPairsGame({ onHome, onBack, onDone }) {
   const [score, setScore] = useState(0);
   const [hintsUsed, setHintsUsed] = useState(0);
   const [hintsTotal, setHintsTotal] = useState(0); // hints over the whole session (for the lesson stars)
-  const [message, setMessage] = useState("Tap the letters that got mixed up in each word!");
+  const [message, setMessage] = useState("Tap the letters in the second word that are different!");
   const [solved, setSolved] = useState(false);
   const [sessionComplete, setSessionComplete] = useState(false);
 
@@ -96,11 +97,11 @@ function ParrotPairsGame({ onHome, onBack, onDone }) {
   }
 
   function handleCheckAnswer() {
-    const correct = sameSet(selected1, expected1) && sameSet(selected2, expected2);
+    const correct = sameSet(selected2, expected2); // only the second word is tapped
     if (correct) {
       setSolved(true);
       setScore((s) => s + 100);
-      setMessage("Great job! Those are the letters that got mixed up.");
+      setMessage("Great job! Those are the different letters.");
     } else {
       setMessage("Not quite - try again!");
       setWrongFlash(true);
@@ -110,17 +111,16 @@ function ParrotPairsGame({ onHome, onBack, onDone }) {
 
   function handleHint() {
     if (solved) return;
-    setSelected1(new Set(expected1));
     setSelected2(new Set(expected2));
     setHintsUsed((h) => h + 1);
     setHintsTotal((h) => h + 1);
-    setMessage("Here's a hint - the mixed-up letters are highlighted.");
+    setMessage("Here's a hint - the different letters are highlighted.");
   }
 
   function handleReset() {
     setSelected1(new Set());
     setSelected2(new Set());
-    setMessage("Tap the letters that got mixed up in each word!");
+    setMessage("Tap the letters in the second word that are different!");
   }
 
   function handleNextWord() {
@@ -133,7 +133,7 @@ function ParrotPairsGame({ onHome, onBack, onDone }) {
     setSelected2(new Set());
     setSolved(false);
     setHintsUsed(0);
-    setMessage("Tap the letters that got mixed up in each word!");
+    setMessage("Tap the letters in the second word that are different!");
   }
 
   function handlePlayAgain() {
@@ -145,7 +145,7 @@ function ParrotPairsGame({ onHome, onBack, onDone }) {
     setScore(0);
     setHintsTotal(0);
     setSessionComplete(false);
-    setMessage("Tap the letters that got mixed up in each word!");
+    setMessage("Tap the letters in the second word that are different!");
   }
 
   if (sessionComplete) {
@@ -186,8 +186,8 @@ function ParrotPairsGame({ onHome, onBack, onDone }) {
         </button>
       </div>
 
-      <h1 className="parrot-game__title">Find the mixed-up letters!</h1>
-      <p className="parrot-game__subtitle">Tap the letters in each word that got swapped around.</p>
+      <h1 className="parrot-game__title">Find the different letters!</h1>
+      <p className="parrot-game__subtitle">Tap the letters in the second word that are different from the first word.</p>
 
       <div className="parrot-game__board">
         <div className="parrot-game__word-card">
@@ -204,17 +204,14 @@ function ParrotPairsGame({ onHome, onBack, onDone }) {
           )}
           <div className="parrot-game__letters" style={tileStyle}>
             {[...round.word1].map((letter, i) => (
-              <button
+              <span
                 key={i}
-                className={`parrot-game__letter${
+                className={`parrot-game__letter parrot-game__letter--fixed${
                   solved && expected1.has(i) ? " parrot-game__letter--matched" : ""
-                }${!solved && selected1.has(i) ? " parrot-game__letter--selected" : ""}${
-                  wrongFlash && selected1.has(i) ? " parrot-game__letter--wrong" : ""
                 }`}
-                onClick={() => toggle(setSelected1, selected1, i)}
               >
                 {letter}
-              </button>
+              </span>
             ))}
           </div>
         </div>
@@ -274,8 +271,8 @@ function ParrotPairsGame({ onHome, onBack, onDone }) {
       <AccessibilityToolbar />
       <GameHintBubble
         demo="parrotPairsGame"
-        instructions="Look at the two words. A few letters got mixed up between them. Tap the letters that are different in each word. Then press Check Answer. You can tap a speaker to hear a word, or tap Hint if you need help."
-        message="Can you find the letters that got mixed up? Tap the speaker to hear the word!"
+        instructions="Look at the two words. Tap the letters in the second word that are different from the letters in the first word. Then press Check Answer. You can tap a speaker to hear a word, or tap Hint if you need help."
+        message="Can you find the letters that are different? Tap the speaker to hear the word!"
       />
     </section>
   );

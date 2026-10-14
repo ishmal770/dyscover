@@ -12,7 +12,7 @@ import { Play, HelpCircle, Film, Volume2, X } from "lucide-react";
 import GameDemo from "./GameDemo";
 import GuideArt from "./GuideArt";
 import { useGuide } from "../context/GuideContext";
-import { speak, cancelSpeech, audioUnlocked } from "../audio/speech";
+import { speak, cancelSpeech } from "../audio/speech";
 import { hasHeard, markHeard } from "../audio/heard";
 import "./GameHintBubble.css";
 
@@ -86,18 +86,8 @@ function GameHintBubble({ message, character, instructions, demo, steps = [] }) 
       ([entry]) => {
         if (entry.isIntersecting) {
           setWelcoming(true);
-          // The instructions are read the first time a child reaches this game;
-          // after that it stays quiet (tap "How to play" to hear them again)
-          if (instructionsRef.current && !hasHeard(heardKey)) {
-            setShowHow(true);
-            if (audioUnlocked()) {
-              setNeedsTap(false);
-              markHeard(heardKey);
-              readInstructions(instructionsRef.current);
-            } else {
-              setNeedsTap(true);
-            }
-          }
+          // nothing is shown or spoken on arrival: "How to play" and the guide read the
+          // instructions when the child presses them
           timer = setTimeout(() => {
             setWelcoming(false);
             setAsking(false);
@@ -170,8 +160,9 @@ function GameHintBubble({ message, character, instructions, demo, steps = [] }) 
           )}
           {demo && (
             <button
-              className="game-hint-bubble__btn game-hint-bubble__btn--demo"
+              className={`game-hint-bubble__btn game-hint-bubble__btn--demo${hasHeard(`demo:${demo}`) ? "" : " is-new"}`}
               onClick={() => {
+                markHeard(`demo:${demo}`);
                 cancelSpeech();
                 setShowDemo(true);
               }}

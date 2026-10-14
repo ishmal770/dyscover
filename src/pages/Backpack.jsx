@@ -1,12 +1,12 @@
-// The child's backpack: the treasures they have found (one per finished
-// lesson) and the gems they have won (one per finished unit). Replaces the old
-// trophy room. Treasures not found yet show as dark outlines.
+// The child's backpack of jungle buddies: one animal buddy for every finished
+// lesson (they help the rainforest grow), and one gem for every finished unit. Buddies
+// not met yet show as grey photos.
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { Volume2, Share2, Star, Play, ArrowLeft, Lock } from "lucide-react";
+import { Backpack as BackpackIcon, Volume2, Share2, Star, Play, ArrowLeft, Lock } from "lucide-react";
 import AccessibilityToolbar from "../components/AccessibilityToolbar";
 import GuideBubble from "../components/GuideBubble";
-import { BackpackArt, GemArt, TreasureArt } from "../components/TreasureArt";
+import WordPicture from "../components/WordPicture";
 import { speak } from "../audio/speech";
 import { useProgress } from "../context/ProgressContext";
 import { LESSONS, UNITS } from "../data/lessons";
@@ -20,12 +20,13 @@ function Backpack() {
 
   const found = LESSONS.filter((l) => isCompleted(l.id)).length;
   const gemsWon = UNITS.filter((u) => unitDone(u.id)).length;
+  const growth = Math.round((found / LESSONS.length) * 100);
 
   async function handleShare() {
-    const summary = `I've found ${found} treasures and ${gemsWon} gems with ${stats.stars} stars on DysCover!`;
+    const summary = `I've met ${found} jungle buddies and won ${gemsWon} gems with ${stats.stars} stars on DysCover!`;
     if (navigator.share) {
       try {
-        await navigator.share({ title: "My DysCover Backpack", text: summary });
+        await navigator.share({ title: "My DysCover Jungle Buddies", text: summary });
         return;
       } catch {
         // user cancelled or share failed - fall through to clipboard
@@ -33,7 +34,7 @@ function Backpack() {
     }
     if (navigator.clipboard) {
       await navigator.clipboard.writeText(summary);
-      setShareMessage("Copied your backpack summary to the clipboard!");
+      setShareMessage("Copied your summary to the clipboard!");
       setTimeout(() => setShareMessage(""), 3000);
     } else {
       setShareMessage(summary);
@@ -46,17 +47,22 @@ function Backpack() {
         <button className="backpack__back" onClick={() => navigate("/")} aria-label="Back to game">
           <ArrowLeft size={18} />
         </button>
-        <BackpackArt size={64} />
+        <span className="backpack__icon">
+          <BackpackIcon size={34} />
+        </span>
         <div className="backpack__heading">
           <h1>
-            My Backpack
-            <button onClick={() => speak("My Backpack")} aria-label="Read aloud">
+            My Jungle Buddies
+            <button onClick={() => speak("My Jungle Buddies")} aria-label="Read aloud">
               <Volume2 size={16} />
             </button>
           </h1>
           <p>
-            {found} of {LESSONS.length} treasures &middot; {gemsWon} of {UNITS.length} gems
+            {found} of {LESSONS.length} buddies &middot; {gemsWon} of {UNITS.length} gems
           </p>
+          <div className="backpack__growth" role="progressbar" aria-valuenow={growth} aria-valuemin={0} aria-valuemax={100} aria-label="How much the rainforest has grown">
+            <div style={{ width: `${growth}%` }} />
+          </div>
         </div>
         <button className="backpack__share" onClick={handleShare}>
           <Share2 size={16} /> Share
@@ -75,16 +81,16 @@ function Backpack() {
             </h2>
             <div className="backpack__cards">
               {unit.lessons.map((lesson) => {
-                const treasure = TREASURES[lesson.id];
+                const buddy = TREASURES[lesson.id];
                 const has = isCompleted(lesson.id);
                 return (
                   <div key={lesson.id} className={`backpack__card${has ? "" : " is-locked"}`}>
                     <div className="backpack__thumb">
-                      <TreasureArt icon={treasure.icon} size={84} locked={!has} />
+                      <WordPicture word={buddy.photo} size={110} />
                       {!has && <Lock className="backpack__lock" size={18} />}
                     </div>
-                    <h3>{has ? treasure.name : "Hidden treasure"}</h3>
-                    <p>{has ? treasure.blurb : `Finish ${lesson.name} to find it.`}</p>
+                    <h3>{has ? buddy.name : "Hidden buddy"}</h3>
+                    <p>{has ? buddy.blurb : `Finish ${lesson.name} to meet this buddy.`}</p>
                     {has ? (
                       <>
                         <span className="backpack__stars" aria-label={`${stars(lesson.id)} stars`}>
@@ -93,7 +99,7 @@ function Backpack() {
                           ))}
                         </span>
                         <div className="backpack__actions">
-                          <button className="backpack__listen" onClick={() => speak(`${treasure.name}. ${treasure.blurb}`)} aria-label={`Read about the ${treasure.name}`}>
+                          <button className="backpack__listen" onClick={() => speak(`${buddy.name}. ${buddy.blurb}`)} aria-label={`Read about ${buddy.name}`}>
                             <Volume2 size={16} />
                           </button>
                           <Link className="btn btn--primary" to={`/?play=${lesson.id}`}>
@@ -103,7 +109,7 @@ function Backpack() {
                       </>
                     ) : (
                       <Link className="btn btn--outline" to={`/?play=${lesson.id}`}>
-                        <Play size={14} fill="currentColor" /> Find it
+                        <Play size={14} fill="currentColor" /> Meet them
                       </Link>
                     )}
                   </div>
@@ -111,11 +117,11 @@ function Backpack() {
               })}
               <div className={`backpack__card backpack__card--gem${gemWon ? "" : " is-locked"}`}>
                 <div className="backpack__thumb">
-                  <GemArt color={gem.color} dark={gem.dark} size={84} locked={!gemWon} glow={gemWon} />
+                  <WordPicture word={gem.photo} size={110} />
                   {!gemWon && <Lock className="backpack__lock" size={18} />}
                 </div>
                 <h3>{gemWon ? gem.name : "Hidden gem"}</h3>
-                <p>{gemWon ? "You won it by finishing every lesson in this unit!" : "Find every treasure in this unit to win it."}</p>
+                <p>{gemWon ? "You won it by finishing every lesson in this unit!" : "Meet every buddy in this unit to win it."}</p>
               </div>
             </div>
           </section>
@@ -124,8 +130,8 @@ function Backpack() {
 
       <AccessibilityToolbar />
       <GuideBubble
-        message="Look at all the treasures in your backpack! Finish lessons to find more."
-        instructions="This is your backpack. Every lesson you finish puts a new treasure inside. Finish all the lessons in a unit to win its gem. Tap Play again to practice a lesson, or tap the speaker to hear about a treasure."
+        message="Look at all your jungle buddies! Finish lessons to meet more."
+        instructions="This is your backpack of jungle buddies. Every lesson you finish brings a new animal buddy to help the rainforest grow. Finish all the lessons in a unit to win its gem. Tap Play again to practice a lesson, or tap the speaker to hear about a buddy."
       />
     </div>
   );

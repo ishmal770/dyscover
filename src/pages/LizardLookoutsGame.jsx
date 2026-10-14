@@ -131,8 +131,10 @@ function LizardLookoutsGame({ onHome, onBack, onDone }) {
     () => [...round.sentence].filter((c) => c.toLowerCase() === round.letter.toLowerCase()).length,
     [round]
   );
+  // younger readers see just one short sentence in the last step, older readers the whole paragraph
+  const paragraph = grade === "k2" ? round.paragraph.split(/(?<=[.!?])\s+/)[0] : round.paragraph;
   const paragraphTotal = useMemo(
-    () => [...round.paragraph].filter((c) => c.toLowerCase() === round.letter.toLowerCase()).length,
+    () => [...paragraph].filter((c) => c.toLowerCase() === round.letter.toLowerCase()).length,
     [round]
   );
 
@@ -312,7 +314,7 @@ function LizardLookoutsGame({ onHome, onBack, onDone }) {
                 </button>
               </div>
               <LetterHunt
-                text={round.paragraph}
+                text={paragraph}
                 letter={round.letter}
                 found={foundParagraph}
                 onFound={handleParagraphFound}

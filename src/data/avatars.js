@@ -1,5 +1,5 @@
 // The avatars a child can pick for their account, and what unlocks each one.
-// Unlocks come from levels (earned with XP), stars, or treasures found in the
+// Unlocks come from levels (earned with XP), stars, or jungle buddies met in the
 // backpack (one per finished lesson). They are checked against the saved progress,
 // so a child can never lose an avatar they have earned.
 
@@ -12,8 +12,8 @@ export function levelFor(xp) {
   return { level, into, needed: XP_PER_LEVEL, percent: Math.round((into / XP_PER_LEVEL) * 100) };
 }
 
-// Seven human explorers (drawn in components/ExplorerArt.jsx). `treasures` is
-// how many treasures (finished lessons) have gone into the backpack.
+// Seven human explorers (open-source portraits, see components/Avatar.jsx). `treasures`
+// counts the jungle buddies met so far (one per finished lesson).
 export const AVATARS = [
   { id: "zara", name: "Zara", unlock: null },
   { id: "kai", name: "Kai", unlock: null },
@@ -42,5 +42,5 @@ export function unlockText(avatar) {
   if (!u) return "";
   if (u.type === "level") return `Reach level ${u.n}`;
   if (u.type === "stars") return `Collect ${u.n} stars`;
-  return `Find ${u.n} treasures`;
+  return `Meet ${u.n} jungle buddies`;
 }

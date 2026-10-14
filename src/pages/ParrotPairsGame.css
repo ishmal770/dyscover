@@ -270,3 +270,9 @@
   justify-content: center;
   margin-bottom: 8px;
 }
+
+/* the first word is only for looking at; the second word is the one that is tapped */
+.parrot-game__letter--fixed {
+  cursor: default;
+  background: var(--green-paler);
+}

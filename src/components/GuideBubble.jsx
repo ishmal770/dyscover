@@ -55,17 +55,8 @@ function GuideBubble({ message, fixedCharacter, onAdvance, advanceHint, centered
       ([entry]) => {
         if (entry.isIntersecting) {
           setWelcoming(true);
-          // The welcome is said once; after that this page stays quiet (tap the guide to hear it again)
-          const key = `guide:${message}`;
-          if (hasHeard(key)) {
-            setNeedsTap(false);
-          } else if (audioUnlocked()) {
-            setNeedsTap(false);
-            markHeard(key);
-            speak(spokenLine(guide, message), { voice: guide.id });
-          } else {
-            setNeedsTap(true);
-          }
+          // nothing is spoken on arrival: the child taps the speaker or the guide to hear it
+          setNeedsTap(false);
           timer = setTimeout(() => setWelcoming(false), WELCOME_MS);
         } else {
           clearTimeout(timer);

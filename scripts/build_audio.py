@@ -144,7 +144,7 @@ def add(text: str, say: str | None = None, key: str | None = None, voice: str = 
 HINT_SOURCES = {
     "pages/CheetahChallengeGame.jsx": "Ready, set, go! Say the word out loud as fast as you can.",
     "pages/LionsLettersGame.jsx": "Tap the sound box to hear the letters, then trace them!",
-    "pages/ParrotPairsGame.jsx": "Can you find the letters that got mixed up? Tap the speaker to hear the word!",
+    "pages/ParrotPairsGame.jsx": "Can you find the letters that are different? Tap the speaker to hear the word!",
     "pages/SyllableSafariGame.jsx": "Tap the pieces to hear them, then build the word in order!",
     "pages/MonkeyMixUpGame.jsx": "Amazing! You found the sound. Can you find another one?",
 }
@@ -154,11 +154,11 @@ MONKEY_TRY = "Tap a vowel to try filling in the word!"
 # several, one per step; the game picks the right one for where you are.
 GAME_HELP = {
     "pages/ParrotPairsGame.jsx": [
-        "Look at the two words. A few letters got mixed up between them. Tap the letters that are different in each word. Then press Check Answer. You can tap a speaker to hear a word, or tap Hint if you need help.",
+        "Look at the two words. Tap the letters in the second word that are different from the letters in the first word. Then press Check Answer. You can tap a speaker to hear a word, or tap Hint if you need help.",
     ],
     "pages/SyllableSafariGame.jsx": [
-        "Listen to the word. Then tap in between the letters where the word splits into parts.",
-        "Now tap a piece to hear it, then tap a box to put it in. Put the pieces in order to build the word. Then press Check Word.",
+        "Look at the picture. Tap a piece to hear it, then tap a box to put it in. Put the pieces in order to build the word. Then press Check Word.",
+        "Now look at the word. Tap in between the letters where the word splits into parts.",
     ],
     "pages/MonkeyMixUpGame.jsx": [
         "A vowel is missing from the word. Listen to the sound in the clue. Then tap the vowel from the tray that makes that sound. When you get it right, press Next.",
@@ -190,13 +190,13 @@ PAGE_HELP_SLOTH = {
 }
 PAGE_HELP_ANIMALS = {
     "pages/AdventureMap.jsx": "This is your adventure map. Each circle is a lesson. Finish one to open the next. Tap the glowing circle, then press Start. Tap the logo to go back home.",
-    "pages/Backpack.jsx": "This is your backpack. Every lesson you finish puts a new treasure inside. Finish all the lessons in a unit to win its gem. Tap Play again to practice a lesson, or tap the speaker to hear about a treasure.",
+    "pages/Backpack.jsx": "This is your backpack of jungle buddies. Every lesson you finish brings a new animal buddy to help the rainforest grow. Finish all the lessons in a unit to win its gem. Tap Play again to practice a lesson, or tap the speaker to hear about a buddy.",
 }
 # What the guide says as the child moves on to the next page
 GO_LINE = "Okay, let's go on an adventure!"
 # What a guide asks after reading a game step's instructions
 ASK_MORE = "Do you want to hear the other instructions? Tap one to listen."
-TROPHY_MESSAGE = "Look at all the treasures in your backpack! Finish lessons to find more."
+TROPHY_MESSAGE = "Look at all your jungle buddies! Finish lessons to meet more."
 # Said by the game's guide on the "Lesson complete" screen (by stars earned)
 LESSON_CHEERS = [
     "Lesson complete! Amazing work, you got three stars!",

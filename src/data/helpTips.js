@@ -7,7 +7,7 @@ export const HELP_ON = "Help is on! Tap any button with a question mark to hear 
 export const HELP_FALLBACK = "Tap this button to use it.";
 
 export const HELP_RULES = [
-  [/^avatar$/, "Tap a picture to make it your avatar. Pictures with a lock need more levels, stars, or treasures."],
+  [/^avatar$/, "Tap a picture to make it your avatar. Pictures with a lock need more levels, stars, or jungle buddies."],
   [/check answer/, "Press this to check if your answer is right."],
   [/check word/, "Press this to check if you built the word right."],
   [/^hint/, "Press this to see a hint. It uses up one star."],
@@ -29,8 +29,8 @@ export const HELP_RULES = [
   [/^done$/, "Press this when you are finished."],
   [/jungle quiz/, "Press this to answer the jungle quiz questions again."],
   [/adventure map|^map$/, "Press this to open the adventure map with all your lessons."],
-  [/backpack/, "Press this to see the treasures in your backpack."],
-  [/^share/, "Press this to share how many treasures you found."],
+  [/backpack/, "Press this to see your jungle buddies in your backpack."],
+  [/^share/, "Press this to share how many jungle buddies you met."],
   [/^info$/, "Press this to learn about DysCover."],
   [/^settings$/, "Press this to change the text size, colors, and sound."],
   [/^mute|^unmute|spoken audio/, "Press this to turn the sound on or off."],

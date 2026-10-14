@@ -5,7 +5,6 @@
 export const GRADE_BANDS = [
   { id: "k2", label: "Grades K-2", short: "K-2" },
   { id: "g35", label: "Grades 3-5", short: "3-5" },
-  { id: "g68", label: "Grades 6-8", short: "6-8" },
 ];
 
 // ---- Parrot Pairs: find the letters that differ between two look-alike words
@@ -17,10 +16,6 @@ const parrot = {
   g35: [
     ["SMILE", "SLIME"], ["ANGEL", "ANGLE"], ["QUIET", "QUITE"], ["FORM", "FROM"], ["TRIAL", "TRAIL"],
     ["THEN", "THAN"], ["WORLD", "WORD"], ["STONE", "STORE"], ["BEACH", "BENCH"], ["CLAM", "CALM"],
-  ],
-  g68: [
-    ["EXPECTATIONS", "EXPLANATIONS"], ["EXCEPTIONS", "EXPRESSIONS"], ["EXCITEMENT", "EXPERIMENT"], ["DESSERT", "DESERT"], ["AFFECT", "EFFECT"],
-    ["BREATH", "BREATHE"], ["EXPLAIN", "EXPLORE"], ["PRINCIPAL", "PRINCIPLE"], ["STATIONARY", "STATIONERY"], ["ACCEPT", "EXCEPT"],
   ],
 };
 
@@ -51,18 +46,6 @@ const syllable = {
     { word: "HAMBURGER", syllables: ["HAM", "BUR", "GER"] },
     { word: "VOLCANO", syllables: ["VOL", "CA", "NO"] },
   ],
-  g68: [
-    { word: "TELEPHONE", syllables: ["TEL", "E", "PHONE"] },
-    { word: "HELICOPTER", syllables: ["HEL", "I", "COP", "TER"] },
-    { word: "ALLIGATOR", syllables: ["AL", "LI", "GA", "TOR"] },
-    { word: "WATERMELON", syllables: ["WA", "TER", "MEL", "ON"] },
-    { word: "PINEAPPLE", syllables: ["PINE", "AP", "PLE"] },
-    { word: "MICROSCOPE", syllables: ["MI", "CRO", "SCOPE"] },
-    { word: "ASTRONAUT", syllables: ["AS", "TRO", "NAUT"] },
-    { word: "CATERPILLAR", syllables: ["CAT", "ER", "PIL", "LAR"] },
-    { word: "BICYCLE", syllables: ["BI", "CY", "CLE"] },
-    { word: "SKATEBOARD", syllables: ["SKATE", "BOARD"] },
-  ],
 };
 
 // ---- Monkey Mix-Up: tap the missing vowel (`sound` is the short vowel sound)
@@ -91,18 +74,6 @@ const monkey = {
     { template: ["S", "P", null, "N", "D"], answer: "E", sound: "eh" },
     { template: ["C", "L", null, "C", "K"], answer: "O", sound: "aw" },
   ],
-  g68: [
-    { template: ["B", null, "S", "K", "E", "T"], answer: "A", sound: "aa" },
-    { template: ["F", null, "B", "R", "I", "C"], answer: "A", sound: "aa" },
-    { template: ["P", "R", null, "B", "L", "E", "M"], answer: "O", sound: "aw" },
-    { template: ["C", "O", "N", "T", null, "S", "T"], answer: "E", sound: "eh" },
-    { template: ["M", null, "T", "T", "E", "N"], answer: "I", sound: "ih" },
-    { template: ["B", null, "T", "T", "O", "N"], answer: "U", sound: "uh" },
-    { template: ["P", null, "C", "N", "I", "C"], answer: "I", sound: "ih" },
-    { template: ["D", null, "N", "T", "I", "S", "T"], answer: "E", sound: "eh" },
-    { template: ["M", null, "F", "F", "I", "N"], answer: "U", sound: "uh" },
-    { template: ["S", null, "N", "S", "E", "T"], answer: "U", sound: "uh" },
-  ],
 };
 
 // ---- Lion's Letters: 5 letters, each followed by a word to write (10 questions).
@@ -110,7 +81,6 @@ const monkey = {
 const lion = {
   k2: [["c", "cat"], ["a", "map"], ["o", "dog"], ["d", "sun"], ["g", "pen"]],
   g35: [["b", "bike"], ["h", "jump"], ["k", "frog"], ["p", "lamp"], ["y", "play"]],
-  g68: [["e", "jungle"], ["l", "planet"], ["f", "bridge"], ["j", "castle"], ["q", "rocket"]],
 };
 
 // ---- Lizard Lookouts: find the tricky letter in a sentence and a paragraph.
@@ -147,18 +117,6 @@ const lizardText = {
     ["Bobby bakes big, bubbly bread buns.", "Bobby and his brother baked bread before breakfast. The bubbling dough bounced in the bowl, and the buns browned beautifully."],
     ["The diver dived deep to find the drum.", "A daring diver dove down to the ocean floor. She discovered a drum, a dented bucket, and a dazzling school of fish."],
   ],
-  g68: [
-    ["Barbara bravely balanced on the bumpy boulder.", "Barbara and her brother hiked beyond the bamboo to a beautiful, bubbling brook. They boiled water, bandaged a blister, and bundled their belongings before dusk."],
-    ["The dedicated detective discovered a dangerous disguise.", "Deep in the dense, dark woods, the detective followed a dirt trail. Dozens of deer tracks led down a hidden ditch, and she decided to dig deeper."],
-    ["The persistent photographer captured a perfect peacock.", "Priya prepared her camera for a peaceful morning at the preserve. A proud peacock paraded past, spreading purple and green plumage, and Priya photographed every pose."],
-    ["The inquisitive queen questioned the quarrelsome squire.", "Queen Quinlan quietly inquired about the quest. The squire quivered, requested a pause, and quoted an ancient proverb about quality and courage."],
-    ["The brilliant biologist observed a rare bird.", "Beyond the boundary of the bog, the biologist spotted a rare bird. She jotted down every behavior, balanced her binoculars, and published a brief report."],
-    ["The daring drummer delivered a dazzling solo.", "The drummer had practiced for days. When the lights dimmed, she drummed a bold, dramatic beat that made the whole audience dance."],
-    ["The pilot proposed a plan to repair the propeller.", "Pilot Priya inspected the plane's propeller and spotted a deep dent. She proposed a plan, prepared the proper tools, and repaired it in plenty of time."],
-    ["The squirrel quickly acquired quite a squash.", "A squirrel squeezed through a square opening in the fence. It acquired a plump squash, quarreled with a squawking crow, and quietly scampered away."],
-    ["The bold explorer climbed above the breathtaking bluff.", "Bold and brave, the explorer climbed above the bluff. A bright rainbow bridged the valley below, and she breathed in the beauty before heading back."],
-    ["The daring dancer dazzled the delighted crowd.", "Dana had practiced her dance for dozens of days. On the day of the show, the drums started and she danced across the stage, delighting the whole crowd."],
-  ],
 };
 const lizard = Object.fromEntries(
   Object.entries(lizardText).map(([band, rows]) => [
@@ -180,7 +138,6 @@ const lizard = Object.fromEntries(
 const cheetah = {
   k2: ["FOX", "DOG", "CAT", "SUN", "TREE", "BIRD", "FISH", "FROG", "DUCK", "LION"],
   g35: ["JUNGLE", "RIVER", "PLANET", "BRIDGE", "CASTLE", "FOREST", "ROCKET", "GARDEN", "WINTER", "SILVER"],
-  g68: ["ADVENTURE", "ELEPHANT", "MOUNTAIN", "DISCOVER", "TREASURE", "EXPLORER", "CHAMPION", "WILDLIFE", "CHALLENGE", "UNDERSTAND"],
 };
 
 export const BANKS = {

@@ -1,6 +1,6 @@
 // "Me": the child's avatar, name, level and stats, with a picker to change the
 // avatar right on the page. (This used to be a separate profile page.) Avatars
-// unlock with levels, stars and treasures - rules in data/avatars.js.
+// unlock with levels, stars and jungle buddies - rules in data/avatars.js.
 import { useState } from "react";
 import { Backpack, Check, Flame, Lock, Pencil, Star, Zap } from "lucide-react";
 import Avatar from "./Avatar";
@@ -82,7 +82,7 @@ function MeCard({ headline }) {
         <span className="dash__chip dash__chip--stars" title="Stars">
           <Star size={18} fill="currentColor" /> {totalStars}/{maxStars}
         </span>
-        <span className="dash__chip dash__chip--treasure" title="Treasures">
+        <span className="dash__chip dash__chip--treasure" title="Jungle buddies">
           <Backpack size={18} /> {stats.treasures}
         </span>
         {jungle && (
@@ -129,7 +129,7 @@ function MeCard({ headline }) {
             })}
           </div>
           <p className="profile__notice" role="status">
-            {notice || "Play lessons to earn levels, stars and treasures and unlock more avatars!"}
+            {notice || "Play lessons to meet jungle buddies, earn stars and levels, and unlock more avatars!"}
           </p>
         </div>
       )}

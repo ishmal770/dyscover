@@ -9,11 +9,11 @@ import TopBar from "../components/TopBar";
 import AccessibilityToolbar from "../components/AccessibilityToolbar";
 import GuideBubble from "../components/GuideBubble";
 import SlothArt from "../components/SlothArt";
-import { speak, cancelSpeech, audioUnlocked } from "../audio/speech";
-import { hasHeard, markHeard } from "../audio/heard";
+import { speak, cancelSpeech } from "../audio/speech";
 import { useProgress } from "../context/ProgressContext";
 import { GRADE_BANDS } from "../data/questionBanks";
-import { PLACEMENT_DONE, PLACEMENT_PROMPT, QUESTION_COUNT, nextBand, pickQuestion } from "../data/placement";
+import { PLACEMENT_PROMPT, PLACEMENT_VOWEL_PROMPT, QUESTION_COUNT, VOWELS, nextBand, pickQuestion } from "../data/placement";
+import WordPicture from "../components/WordPicture";
 import "./PlacementMission.css";
 
 function PlacementMission({ onNext, onHome }) {
@@ -28,7 +28,8 @@ function PlacementMission({ onNext, onHome }) {
 
   // the placement is played only once: after it, this page just shows the finished card
   const done = placed || count >= QUESTION_COUNT;
-  const q = pickQuestion(band, asked);
+  const q = pickQuestion(band, asked, count % 2 === 0 ? "word" : "vowel"); // the two types alternate
+  const answerOf = (question) => (question.type === "vowel" ? question.answer : question.word);
 
   useEffect(() => {
     const el = rootRef.current;
@@ -43,18 +44,14 @@ function PlacementMission({ onNext, onHome }) {
       if (started) cancelSpeech();
       return;
     }
-    if (started && !done && audioUnlocked()) speak(q.word);
-    if (done && audioUnlocked() && !hasHeard("placement-done")) {
-      markHeard("placement-done");
-      speak(PLACEMENT_DONE, { voice: "sloth" });
-    }
+    // nothing is spoken automatically: "Hear it" says the word
   }, [active, started, count, done]); // eslint-disable-line react-hooks/exhaustive-deps
 
   function pick(choice) {
     if (chosen) return;
     setChosen(choice);
     setTimeout(() => {
-      const next = nextBand(band, choice === q.word);
+      const next = nextBand(band, choice === answerOf(q));
       setAsked((a) => [...a, q.word]);
       setBand(next);
       setChosen(null);
@@ -96,12 +93,24 @@ function PlacementMission({ onNext, onHome }) {
                 <span key={i} className={i < count ? "is-done" : i === count ? "is-now" : ""} />
               ))}
             </div>
-            <h2>{PLACEMENT_PROMPT}</h2>
+            <h2>{q.type === "vowel" ? PLACEMENT_VOWEL_PROMPT : PLACEMENT_PROMPT}</h2>
+            {q.type === "vowel" && (
+              <>
+                <WordPicture word={q.word} size={96} />
+                <div className="placement__puzzle" aria-label="The word with a missing vowel">
+                  {q.template.map((letter, i) => (
+                    <span key={i} className={`placement__tile${letter ? "" : " is-blank"}`}>
+                      {letter ?? "?"}
+                    </span>
+                  ))}
+                </div>
+              </>
+            )}
             <button className="placement__listen" onClick={() => speak(q.word)} aria-label="Hear the word">
               <Volume2 size={30} /> Hear it
             </button>
-            <div className="placement__choices">
-              {q.choices.map((c) => (
+            <div className={`placement__choices${q.type === "vowel" ? " placement__choices--vowels" : ""}`}>
+              {(q.type === "vowel" ? VOWELS : q.choices).map((c) => (
                 <button key={c} className={`placement__choice${chosen === c ? " is-chosen" : ""}`} onClick={() => pick(c)} disabled={Boolean(chosen)}>
                   {c}
                 </button>

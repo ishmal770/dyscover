@@ -425,11 +425,11 @@
 
 .dash__next-art {
   display: flex;
-  align-items: center;
-  justify-content: center;
   flex: none;
+  overflow: hidden;
   width: 110px;
   height: 110px;
+  border: 5px solid var(--white);
   border-radius: 50%;
   background: var(--white);
 }

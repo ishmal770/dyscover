@@ -1,8 +1,14 @@
 .game-art {
   display: inline-flex;
-  align-items: center;
-  justify-content: center;
   flex: none;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.game-art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .game-banner {

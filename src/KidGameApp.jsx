@@ -4,6 +4,7 @@
 // and avoids losing in-progress game state when peeking at another page.
 import { useRef, useEffect, useState } from "react";
 import { useProgress } from "./context/ProgressContext";
+import { LESSON_BY_ID } from "./data/lessons";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import "./App.css";
 import Homepage from "./pages/Homepage";
@@ -25,10 +26,12 @@ function KidGameApp() {
   const sectionRefs = useRef({});
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const { grade } = useProgress();
+  const { grade, isUnlocked } = useProgress();
 
   // Smoothly scrolls the horizontal strip so the named section fills the view.
   const goTo = (key) => {
+    // a locked lesson can never be opened: send the child to the map instead
+    if (LESSON_BY_ID[key] && !isUnlocked(key)) key = "map";
     sectionRefs.current[key]?.scrollIntoView({
       behavior: "smooth",
       inline: "start",
@@ -41,9 +44,10 @@ function KidGameApp() {
   useEffect(() => {
     const play = searchParams.get("play");
     if (play && sectionRefs.current[play]) {
-      sectionRefs.current[play].scrollIntoView({ behavior: "instant", inline: "start" });
+      const target = LESSON_BY_ID[play] && !isUnlocked(play) ? "map" : play;
+      sectionRefs.current[target].scrollIntoView({ behavior: "instant", inline: "start" });
     }
-  }, [searchParams]);
+  }, [searchParams]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Every "home" button goes to the dashboard (the kid's home base); the splash
   // page is only the very first screen.

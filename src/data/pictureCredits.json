@@ -691,5 +691,33 @@
   "artist": "Evelyn Simak",
   "license": "CC BY-SA 2.0",
   "source": "https://commons.wikimedia.org/wiki/File:Row_of_poplars_in_the_drizzle_-_geograph.org.uk_-_591822.jpg"
+ },
+ "lizard": {
+  "article": "Lizard",
+  "file": "Hemidactylus_platyurus_(Flat-tailed_House_Gecko)_on_white_background,_focus_stacking.jpg",
+  "artist": "Basile Morin",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Hemidactylus_platyurus_(Flat-tailed_House_Gecko)_on_white_background,_focus_stacking.jpg"
+ },
+ "cheetah": {
+  "article": "Cheetah",
+  "file": "Male_cheetah_facing_left_in_South_Africa.jpg",
+  "artist": "AfricanConservation",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Male_cheetah_facing_left_in_South_Africa.jpg"
+ },
+ "emerald": {
+  "article": "Emerald",
+  "file": "B\u00e9ryl_var._\u00e9meraude_sur_gangue_(Muzo_Mine_Boyaca_-_Colombie)_2.jpg",
+  "artist": "G\u00e9ry PARENT",
+  "license": "CC0",
+  "source": "https://commons.wikimedia.org/wiki/File:B%C3%A9ryl_var._%C3%A9meraude_sur_gangue_(Muzo_Mine_Boyaca_-_Colombie)_2.jpg"
+ },
+ "citrine": {
+  "article": "Citrine",
+  "file": "Citrine_taillee.jpg",
+  "artist": "Didier Descouens",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Citrine_taillee.jpg"
  }
 }

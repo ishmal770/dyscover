@@ -79,7 +79,7 @@ function Unit({ unit, unitIndex, currentId, onOpen }) {
                   <Lock size={36} />
                 ) : (
                   <span className="path__art">
-                    <GameArt id={lesson.id} size={78} />
+                    <GameArt id={lesson.id} size={80} />
                   </span>
                 )}
                 {state === "done" && (

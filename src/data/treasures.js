@@ -1,21 +1,22 @@
-// Treasures and gems. Finishing a lesson puts that lesson's treasure in the
-// child's backpack; finishing every lesson in a unit wins the unit's gem, and
+// Jungle buddies and gems. Finishing a lesson brings that lesson's animal buddy to
+// help the rainforest grow; finishing every lesson in a unit wins the unit's gem, and
 // putting the gem into the gate at the end of the unit opens the next world.
-// (Plain data with .js imports only, so the audio script can read it too.)
+// `photo` names a picture in data/pictures.js. (Plain data with .js imports only, so
+// the audio script can read it too.)
 import { UNITS } from "./lessons.js";
 
 export const TREASURES = {
-  parrotPairsGame: { name: "Golden Compass", icon: "compass", blurb: "It always points to your next adventure." },
-  syllableSafariGame: { name: "Glow Lantern", icon: "lantern", blurb: "It lights up the darkest part of the jungle." },
-  monkeyMixUpGame: { name: "Treasure Map", icon: "map", blurb: "X marks the spot where the best treasure hides." },
-  lionsLettersGame: { name: "Explorer Binoculars", icon: "binoculars", blurb: "See far across the whole jungle." },
-  lizardLookoutsGame: { name: "Magic Magnifier", icon: "magnifier", blurb: "It shows tiny details nobody else can see." },
-  cheetahChallengeGame: { name: "Speedy Boots", icon: "boots", blurb: "Run through the trees as fast as a cheetah." },
+  monkeyMixUpGame: { name: "Momo the Monkey", photo: "monkey", blurb: "Momo swings through the trees and helps the rainforest grow taller." },
+  lizardLookoutsGame: { name: "Lizzy the Lizard", photo: "lizard", blurb: "Lizzy spots new green leaves sprouting all over the jungle." },
+  lionsLettersGame: { name: "Leo the Lion", photo: "lion", blurb: "Leo keeps the jungle safe so every plant can grow." },
+  syllableSafariGame: { name: "Ellie the Elephant", photo: "elephant", blurb: "Ellie waters the baby plants with her long trunk." },
+  parrotPairsGame: { name: "Pip the Parrot", photo: "parrot", blurb: "Pip spreads seeds across the whole jungle." },
+  cheetahChallengeGame: { name: "Chase the Cheetah", photo: "cheetah", blurb: "Chase races to bring water to every tree." },
 };
 
 export const GEMS = {
-  jungle: { name: "Emerald Gem", color: "#2fbf71", dark: "#1c8c50" },
-  canopy: { name: "Sun Gem", color: "#f5b301", dark: "#c98f00" },
+  jungle: { name: "Emerald Gem", photo: "emerald" },
+  canopy: { name: "Sun Gem", photo: "citrine" },
 };
 
 // What is said at a unit's gate, by its state

@@ -10,35 +10,77 @@
 
 .gate__frame {
   position: relative;
-  width: min(320px, 100%);
-  padding-bottom: 86px; /* room for the gem waiting below the gate */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: min(300px, 100%);
+  padding-bottom: 92px; /* room for the gem waiting below the gate */
 }
 
-.gate__art {
-  display: block;
-  width: 100%;
-  height: auto;
-  overflow: visible;
+/* a stone arch with two wooden doors, made from plain CSS shapes */
+.gate__arch {
+  position: relative;
+  width: 260px;
+  height: 190px;
+  overflow: hidden;
+  border: 12px solid #9a9486;
+  border-bottom: 0;
+  border-radius: 130px 130px 0 0;
+  background: #3a3f38;
+  transition: background 0.6s;
+}
+
+.gate--open .gate__arch {
+  background: #fff3b8;
+}
+
+.gate__doors {
+  position: absolute;
+  inset: 0;
+  display: flex;
 }
 
 .gate__door {
+  flex: 1;
+  background: repeating-linear-gradient(90deg, #8a5a33 0 18px, #7a4d2a 18px 20px);
+  border-right: 2px solid #4d3219;
   transition: transform 0.9s ease;
 }
 
-.gate__door--left { transform-origin: 60px 0; }
-.gate__door--right { transform-origin: 240px 0; }
-.gate--open .gate__door--left { transform: scaleX(0.12); }
-.gate--open .gate__door--right { transform: scaleX(0.12); }
+.gate__door--right {
+  border-right: 0;
+  border-left: 2px solid #4d3219;
+}
+
+.gate--open .gate__door--left { transform: translateX(-100%); }
+.gate--open .gate__door--right { transform: translateX(100%); }
+
+.gate__socket {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border: 5px solid #6d675a;
+  border-radius: 50%;
+  background: #2f2c26;
+  transform: translateX(-50%);
+}
 
 .gate__gem {
   position: absolute;
   left: 50%;
   bottom: 6px;
-  width: 72px;
-  height: 72px;
+  display: flex;
   padding: 0;
   border: none;
+  border-radius: 50%;
   background: none;
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--green) 35%, transparent);
   transform: translateX(-50%);
   cursor: pointer;
   animation: gate-bob 1.4s ease-in-out infinite;
@@ -47,7 +89,7 @@
 
 .gate--placing .gate__gem {
   animation: none;
-  transform: translate(-50%, -170px) scale(0.5);
+  transform: translate(-50%, -190px) scale(0.55);
   opacity: 0;
 }
 

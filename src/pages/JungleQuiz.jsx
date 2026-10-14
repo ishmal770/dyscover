@@ -7,8 +7,7 @@ import TopBar from "../components/TopBar";
 import AccessibilityToolbar from "../components/AccessibilityToolbar";
 import SlothArt from "../components/SlothArt";
 import WordPicture from "../components/WordPicture";
-import { speak, cancelSpeech, audioUnlocked } from "../audio/speech";
-import { hasHeard, markHeard } from "../audio/heard";
+import { speak, cancelSpeech } from "../audio/speech";
 import { useProgress } from "../context/ProgressContext";
 import { JUNGLES, QUIZ, QUIZ_INTRO, resultText, sortIntoJungle } from "../data/jungleQuiz";
 import "./JungleQuiz.css";
@@ -42,12 +41,7 @@ function JungleQuiz({ onNext }) {
       return;
     }
     if (done) setJungle(jungleId);
-    // each question is read the first time only; the speaker button reads it again
-    const key = `quiz:${spoken}`;
-    if (audioUnlocked() && !hasHeard(key)) {
-      markHeard(key);
-      speak(spoken, { voice: "sloth" });
-    }
+    // nothing is read automatically; the speaker button reads the question
   }, [active, step]); // eslint-disable-line react-hooks/exhaustive-deps
 
   function pick(answer) {

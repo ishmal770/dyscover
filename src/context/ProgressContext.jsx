@@ -41,7 +41,11 @@ function offsetDay(days) {
 function load() {
   try {
     const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
-    if (saved && typeof saved === "object") return { ...EMPTY, ...saved };
+    if (saved && typeof saved === "object") {
+      const state = { ...EMPTY, ...saved };
+      if (!["k2", "g35"].includes(state.grade)) state.grade = "g35"; // the old 6-8 band was removed
+      return state;
+    }
   } catch {
     // missing or unreadable - start fresh
   }

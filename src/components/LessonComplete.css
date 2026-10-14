@@ -133,3 +133,18 @@
   gap: 10px;
   padding-block: 6px;
 }
+
+.lesson-complete__listen {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  margin-left: 10px;
+  border: none;
+  border-radius: 50%;
+  background: var(--green);
+  color: var(--white);
+  vertical-align: middle;
+  cursor: pointer;
+}
