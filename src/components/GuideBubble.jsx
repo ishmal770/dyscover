@@ -84,7 +84,7 @@ function GuideBubble({ message, fixedCharacter, onAdvance, advanceHint, centered
   }
 
   // Tapping the guide to move on: say a short "Okay, let's go" line,
-  // then move to the next page. Tapping again (or "Start without sound") skips the wait.
+  // then move to the next page. Tapping again skips the wait.
   const advanceRef = useRef(null);
   function advance() {
     if (advanceRef.current) {
@@ -176,17 +176,6 @@ function GuideBubble({ message, fixedCharacter, onAdvance, advanceHint, centered
         <GuideArt character={guide.id} waving={welcoming || asking} size={fixedCharacter === "sloth" ? 150 : 130} />
         {(advanceHint || needsTap) && <span className="guide-bubble__tap-hint">{advanceHint || "Tap me to hear!"}</span>}
       </button>
-      {onAdvance && (
-        <button
-          className="guide-bubble__skip"
-          onClick={() => {
-            cancelSpeech();
-            onAdvance(); // no need to wait for any sound
-          }}
-        >
-          Start without sound
-        </button>
-      )}
     </div>
   );
 }

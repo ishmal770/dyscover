@@ -265,16 +265,3 @@
   50% { transform: scale(1.08); }
 }
 
-/* a plain way to move on without waiting for any audio */
-.guide-bubble__skip {
-  align-self: center;
-  margin-top: 6px;
-  padding: 8px 18px;
-  border: 2px solid var(--green);
-  border-radius: var(--radius-pill);
-  background: var(--white);
-  color: var(--green-dark);
-  font-size: 0.9rem;
-  font-weight: 800;
-  cursor: pointer;
-}

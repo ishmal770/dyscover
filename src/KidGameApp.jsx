@@ -3,6 +3,7 @@
 // unmounting/remounting components. This keeps the transitions instant
 // and avoids losing in-progress game state when peeking at another page.
 import { useRef, useEffect, useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useProgress } from "./context/ProgressContext";
 import { LESSON_BY_ID } from "./data/lessons";
 import { useSearchParams, useNavigate } from "react-router-dom";
@@ -20,18 +21,29 @@ import LionsLettersGame from "./pages/LionsLettersGame";
 import CheetahChallengeGame from "./pages/CheetahChallengeGame";
 import LizardLookoutsGame from "./pages/LizardLookoutsGame";
 
+// The pages in the order they sit side by side (the games follow the map's order).
+const ORDER = [
+  "home", "login", "quiz", "placement", "dashboard", "map",
+  "monkeyMixUpGame", "lizardLookoutsGame", "lionsLettersGame", "syllableSafariGame", "parrotPairsGame", "cheetahChallengeGame",
+];
+
 function KidGameApp() {
   // Holds a live DOM node reference for every section, keyed by section name,
   // so goTo() can scroll to any of them without re-rendering.
   const sectionRefs = useRef({});
+  const scrollerRef = useRef(null);
+  const [index, setIndex] = useState(0); // which page is showing
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const { grade, isUnlocked } = useProgress();
 
+  // A lesson that is still locked can never be opened.
+  const isAllowed = (key) => !(LESSON_BY_ID[key] && !isUnlocked(key));
+
   // Smoothly scrolls the horizontal strip so the named section fills the view.
   const goTo = (key) => {
     // a locked lesson can never be opened: send the child to the map instead
-    if (LESSON_BY_ID[key] && !isUnlocked(key)) key = "map";
+    if (!isAllowed(key)) key = "map";
     sectionRefs.current[key]?.scrollIntoView({
       behavior: "smooth",
       inline: "start",
@@ -48,6 +60,23 @@ function KidGameApp() {
       sectionRefs.current[target].scrollIntoView({ behavior: "instant", inline: "start" });
     }
   }, [searchParams]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Children move through the pages at their own pace (swiping, scrolling, or the arrows),
+  // but a locked lesson never stays on screen: if one slides into view, go back to the map.
+  const settle = useRef(null);
+  function handleScroll(e) {
+    const el = e.currentTarget;
+    const i = Math.round(el.scrollLeft / el.clientWidth);
+    setIndex(i);
+    clearTimeout(settle.current);
+    settle.current = setTimeout(() => {
+      const key = ORDER[Math.round(el.scrollLeft / el.clientWidth)];
+      if (key && !isAllowed(key)) goTo("map");
+    }, 160);
+  }
+
+  const prevKey = ORDER[index - 1];
+  const nextKey = ORDER[index + 1];
 
   // Every "home" button goes to the dashboard (the kid's home base); the splash
   // page is only the very first screen.
@@ -69,7 +98,7 @@ function KidGameApp() {
   );
 
   return (
-    <div className="scroller">
+    <div className="scroller" ref={scrollerRef} onScroll={handleScroll}>
       {/* Getting started: splash -> log in -> quick placement */}
       {section("home", <Homepage onNext={() => goTo("login")} />)}
       {section("login", <Login onNext={() => goTo("quiz")} />)}
@@ -91,12 +120,25 @@ function KidGameApp() {
       {section("map", <AdventureMap onHome={toDashboard} onStartLesson={goTo} />)}
 
       {/* The lessons: Unit 1 (Jungle Games), then Unit 2 (Canopy Quest). Each one returns to the map. */}
-      {section("parrotPairsGame", <ParrotPairsGame key={`${runs.parrotPairsGame || 0}-${grade}`} onHome={toDashboard} onBack={() => goTo("map")} onDone={() => finishLesson("parrotPairsGame")} />)}
-      {section("syllableSafariGame", <SyllableSafariGame key={`${runs.syllableSafariGame || 0}-${grade}`} onHome={toDashboard} onBack={() => goTo("map")} onDone={() => finishLesson("syllableSafariGame")} />)}
       {section("monkeyMixUpGame", <MonkeyMixUpGame key={`${runs.monkeyMixUpGame || 0}-${grade}`} onHome={toDashboard} onBack={() => goTo("map")} onDone={() => finishLesson("monkeyMixUpGame")} />)}
-      {section("lionsLettersGame", <LionsLettersGame key={`${runs.lionsLettersGame || 0}-${grade}`} onHome={toDashboard} onBack={() => goTo("map")} onDone={() => finishLesson("lionsLettersGame")} />)}
       {section("lizardLookoutsGame", <LizardLookoutsGame key={`${runs.lizardLookoutsGame || 0}-${grade}`} onHome={toDashboard} onBack={() => goTo("map")} onDone={() => finishLesson("lizardLookoutsGame")} />)}
+      {section("lionsLettersGame", <LionsLettersGame key={`${runs.lionsLettersGame || 0}-${grade}`} onHome={toDashboard} onBack={() => goTo("map")} onDone={() => finishLesson("lionsLettersGame")} />)}
+      {section("syllableSafariGame", <SyllableSafariGame key={`${runs.syllableSafariGame || 0}-${grade}`} onHome={toDashboard} onBack={() => goTo("map")} onDone={() => finishLesson("syllableSafariGame")} />)}
+      {section("parrotPairsGame", <ParrotPairsGame key={`${runs.parrotPairsGame || 0}-${grade}`} onHome={toDashboard} onBack={() => goTo("map")} onDone={() => finishLesson("parrotPairsGame")} />)}
       {section("cheetahChallengeGame", <CheetahChallengeGame key={`${runs.cheetahChallengeGame || 0}-${grade}`} onHome={toDashboard} onBack={() => goTo("map")} onDone={() => finishLesson("cheetahChallengeGame")} />)}
+      {/* previous / next page arrows (the next arrow never leads to a locked lesson) */}
+      <nav className="pager" aria-label="Pages">
+        {prevKey && (
+          <button className="pager__btn pager__btn--prev" onClick={() => goTo(prevKey)} aria-label="Previous page">
+            <ChevronLeft size={26} />
+          </button>
+        )}
+        {nextKey && isAllowed(nextKey) && (
+          <button className="pager__btn pager__btn--next" onClick={() => goTo(nextKey)} aria-label="Next page">
+            <ChevronRight size={26} />
+          </button>
+        )}
+      </nav>
     </div>
   );
 }

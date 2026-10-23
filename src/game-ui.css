@@ -339,3 +339,31 @@ strong { font-weight: 800; }
   font-size: clamp(1.05rem, 2.2vw, 1.3rem);
   line-height: 1.9;
 }
+
+/* ---- previous / next page arrows ------------------------------------------ */
+.pager__btn {
+  position: fixed;
+  top: 50%;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border: 3px solid var(--white);
+  border-radius: 50%;
+  background: var(--green);
+  color: var(--white);
+  box-shadow: 0 4px 0 var(--green-edge);
+  opacity: 0.9;
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+
+.pager__btn--prev { left: 8px; }
+.pager__btn--next { right: 8px; }
+
+.pager__btn:active {
+  transform: translateY(-46%);
+  box-shadow: 0 1px 0 var(--green-edge);
+}

@@ -454,11 +454,6 @@
   "say": "Press this and say the word out loud.",
   "speed": "0.76/0.85"
  },
- "2c328d27": {
-  "key": "press this to go on right away, without any sound.",
-  "say": "Press this to go on right away, without any sound.",
-  "speed": "0.76/0.85"
- },
  "2d1428d9": {
   "key": "syl:cil",
   "say": "sill",
@@ -1472,6 +1467,11 @@
  "8c4f8303": {
   "key": "the letter e, as in egg.",
   "say": "The letter E, as in egg.",
+  "speed": "0.76/0.85"
+ },
+ "8c71fa09": {
+  "key": "press this arrow to go to the page before or after this one.",
+  "say": "Press this arrow to go to the page before or after this one.",
   "speed": "0.76/0.85"
  },
  "8d9dd6ce": {
