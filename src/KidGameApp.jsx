@@ -32,7 +32,7 @@ function KidGameApp() {
   // so goTo() can scroll to any of them without re-rendering.
   const sectionRefs = useRef({});
   const scrollerRef = useRef(null);
-  const [index, setIndex] = useState(0); // which page is showing
+  const [viewKey, setViewKey] = useState("home"); // which page is showing
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const { grade, isUnlocked } = useProgress();
@@ -61,22 +61,32 @@ function KidGameApp() {
     }
   }, [searchParams]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Children move through the pages at their own pace (swiping, scrolling, or the arrows),
-  // but a locked lesson never stays on screen: if one slides into view, go back to the map.
-  const settle = useRef(null);
+  // Locked lessons are taken out of the strip altogether, so there is nothing to swipe to and
+  // nothing to peek at. (One exception: the lesson that is on screen stays until the child
+  // leaves it, so the "Lesson complete" screen is not pulled away the moment it unlocks the next.)
+  const shown = (key) => isAllowed(key) || key === viewKey;
+  const visibleKeys = ORDER.filter(shown);
+
+  // Children move through the pages at their own pace (swiping, scrolling, or the arrows).
   function handleScroll(e) {
-    const el = e.currentTarget;
-    const i = Math.round(el.scrollLeft / el.clientWidth);
-    setIndex(i);
-    clearTimeout(settle.current);
-    settle.current = setTimeout(() => {
-      const key = ORDER[Math.round(el.scrollLeft / el.clientWidth)];
-      if (key && !isAllowed(key)) goTo("map");
-    }, 160);
+    const strip = e.currentTarget.getBoundingClientRect().left;
+    let best = viewKey;
+    let nearest = Infinity;
+    for (const key of ORDER) {
+      const sec = sectionRefs.current[key];
+      if (!sec || sec.offsetParent === null) continue; // hidden (locked) pages are skipped
+      const d = Math.abs(sec.getBoundingClientRect().left - strip);
+      if (d < nearest) {
+        nearest = d;
+        best = key;
+      }
+    }
+    setViewKey(best);
   }
 
-  const prevKey = ORDER[index - 1];
-  const nextKey = ORDER[index + 1];
+  const here = visibleKeys.indexOf(viewKey);
+  const prevKey = visibleKeys[here - 1];
+  const nextKey = visibleKeys[here + 1];
 
   // Every "home" button goes to the dashboard (the kid's home base); the splash
   // page is only the very first screen.
@@ -92,7 +102,7 @@ function KidGameApp() {
   };
 
   const section = (key, children) => (
-    <div ref={(el) => (sectionRefs.current[key] = el)} className="scroller__section">
+    <div ref={(el) => (sectionRefs.current[key] = el)} className="scroller__section" style={shown(key) ? undefined : { display: "none" }}>
       {children}
     </div>
   );
@@ -134,7 +144,7 @@ function KidGameApp() {
             <ChevronLeft size={26} />
           </button>
         )}
-        {nextKey && isAllowed(nextKey) && (
+        {nextKey && (
           <button className="pager__btn pager__btn--next" onClick={() => goTo(nextKey)} aria-label="Next page">
             <ChevronRight size={26} />
           </button>
