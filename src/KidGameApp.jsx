@@ -114,10 +114,11 @@ function KidGameApp() {
           onOpenUnit={goTo}
           onOpenBackpack={() => navigate("/backpack")}
           onQuiz={() => goTo("quiz")}
+          onPlacement={() => goTo("placement")}
           onCredits={() => navigate("/credits")}
         />
       )}
-      {section("map", <AdventureMap onHome={toDashboard} onStartLesson={goTo} />)}
+      {section("map", <AdventureMap onHome={toDashboard} onStartLesson={goTo} onPlacement={() => goTo("placement")} />)}
 
       {/* The lessons: Unit 1 (Jungle Games), then Unit 2 (Canopy Quest). Each one returns to the map. */}
       {section("monkeyMixUpGame", <MonkeyMixUpGame key={`${runs.monkeyMixUpGame || 0}-${grade}`} onHome={toDashboard} onBack={() => goTo("map")} onDone={() => finishLesson("monkeyMixUpGame")} />)}

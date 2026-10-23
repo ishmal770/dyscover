@@ -177,12 +177,16 @@ function ProgressProvider({ children }) {
     const i = UNITS.findIndex((u) => u.id === unitId);
     return i === 0 || gemPlaced(UNITS[i - 1].id);
   };
+  const allDone = LESSONS.every((l) => isCompleted(l.id));
+  // The lesson the child is on: the first one not finished, in map order, whose unit is open.
+  const currentLessonId = LESSONS.find((l) => !isCompleted(l.id) && isUnitOpen(l.unitId))?.id ?? null;
+  // Nothing opens until the placement mission is done. After it, only the current lesson is
+  // open (finished ones stay shut and the next one stays locked) until every lesson is finished;
+  // then all of them open for practice.
   const isUnlocked = (id) => {
-    const lesson = LESSONS.find((l) => l.id === id);
-    if (!lesson || !isUnitOpen(lesson.unitId)) return false;
-    if (lesson.indexInUnit === 0) return true;
-    const unit = UNITS.find((u) => u.id === lesson.unitId);
-    return isCompleted(unit.lessons[lesson.indexInUnit - 1].id);
+    if (!state.placed) return false;
+    if (allDone) return true;
+    return id === currentLessonId;
   };
   // A gem that has been won but not yet put into its gate (and has a next unit to open)
   const pendingGem = UNITS.find((u, i) => i < UNITS.length - 1 && unitDone(u.id) && !gemPlaced(u.id)) || null;
@@ -192,7 +196,7 @@ function ProgressProvider({ children }) {
   function nextLesson() {
     const open = LESSONS.find((l) => !isCompleted(l.id) && isUnlocked(l.id));
     if (open) return open;
-    return LESSONS.filter((l) => isUnlocked(l.id)).sort((a, b) => (state.lessons[a.id]?.stars || 0) - (state.lessons[b.id]?.stars || 0))[0];
+    return LESSONS.filter((l) => isUnlocked(l.id)).sort((a, b) => (state.lessons[a.id]?.stars || 0) - (state.lessons[b.id]?.stars || 0))[0] || LESSONS[0];
   }
 
   const stats = statsOf(state);
