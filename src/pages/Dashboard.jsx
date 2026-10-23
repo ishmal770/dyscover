@@ -29,9 +29,9 @@ function lastSevenDays(history) {
   return days;
 }
 
-function Dashboard({ onStartLesson, onOpenMap, onOpenBackpack, onQuiz, onCredits, onPlacement }) {
+function Dashboard({ onStartLesson, onOpenMap, onOpenBackpack, onQuiz, onCredits, onPlacement, onOpenDoor }) {
   const progress = useProgress();
-  const { placed, pendingGem, streak, todayXp, goal, history, playedToday } = progress;
+  const { placed, doorAvailable, vinesLeft, spendableXp, pendingGem, streak, todayXp, goal, history, playedToday } = progress;
   const next = LESSON_BY_ID[progress.nextLesson().id];
   const nextProgress = progress.lessons[next.id];
   const goalPercent = Math.min(100, Math.round((todayXp / goal) * 100));
@@ -58,6 +58,21 @@ function Dashboard({ onStartLesson, onOpenMap, onOpenBackpack, onQuiz, onCredits
               </div>
               <button className="dash__start" onClick={onOpenMap}>
                 <MapIcon size={18} /> TO THE GATE
+              </button>
+            </div>
+          )}
+
+          {doorAvailable && (
+            <div className="dash__door">
+              <WordPicture word="rainforest" size={72} />
+              <div>
+                <h2>The vine door is open!</h2>
+                <p>
+                  You finished a day of lessons. Use your XP ({spendableXp} to spend) to cut {vinesLeft} {vinesLeft === 1 ? "vine" : "vines"} and find a gem.
+                </p>
+              </div>
+              <button className="dash__start" onClick={onOpenDoor}>
+                OPEN THE DOOR
               </button>
             </div>
           )}

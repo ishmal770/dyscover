@@ -99,6 +99,11 @@
   "say": "blink",
   "speed": "0.76/0.85|cuts-183"
  },
+ "0776b30a": {
+  "key": "tap this vine, answer the question, and spend some xp to cut it down.",
+  "say": "Tap this vine, answer the question, and spend some XP to cut it down.",
+  "speed": "0.76/0.85"
+ },
  "079173a0": {
   "key": "lion|take your time! a 'd' can be tricky to spot.",
   "say": "Take your time! The letter dee can be tricky to spot.",
@@ -107,6 +112,11 @@
  "07b997fe": {
   "key": "press this to practice print letters, the kind in books.",
   "say": "Press this to practice print letters, the kind in books.",
+  "speed": "0.76/0.85"
+ },
+ "08b87b70": {
+  "key": "you need more xp to cut a vine. finish more lessons to earn it.",
+  "say": "You need more XP to cut a vine. Finish more lessons to earn it.",
   "speed": "0.76/0.85"
  },
  "08bdcc1f": {
@@ -278,6 +288,11 @@
   "key": "elephant|amazing! you found the sound. can you find another one?",
   "say": "Amazing! You found the sound. Can you find another one?",
   "speed": "{\"lang\": \"en-gb\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"bf_emma\", \"word\": 0.8}"
+ },
+ "19272c78": {
+  "key": "you found the amethyst! it is in your backpack.",
+  "say": "You found the Amethyst! It is in your backpack.",
+  "speed": "0.76/0.85"
  },
  "198e2667": {
   "key": "which jungle friend do you like best?",
@@ -1144,6 +1159,11 @@
   "say": "tie",
   "speed": "0.76/0.85|cuts-183"
  },
+ "6f30e01d": {
+  "key": "the door is open! tap the gem to put it in your backpack.",
+  "say": "The door is open! Tap the gem to put it in your backpack.",
+  "speed": "0.76/0.85"
+ },
  "6f4b93f0": {
   "key": "pen",
   "say": "pen",
@@ -1339,6 +1359,11 @@
   "say": "You found the Emerald Gem! Tap it to put it in the gate.",
   "speed": "0.76/0.85"
  },
+ "7c3161f0": {
+  "key": "press this to go to the vine door and cut the vines to find a gem.",
+  "say": "Press this to go to the vine door and cut the vines to find a gem.",
+  "speed": "0.76/0.85"
+ },
  "7c3641d5": {
   "key": "mimi|now find the same letter again in the paragraph. tap every one you can find.",
   "say": "Now find the same letter again in the paragraph. Tap every one you can find.",
@@ -1348,6 +1373,11 @@
   "key": "spend",
   "say": "spend",
   "speed": "0.76/0.85|cuts-183"
+ },
+ "7dd13e92": {
+  "key": "you finished a day of lessons! tap a vine, answer the question, and spend some xp to cut it down. cut every vine to get the gem.",
+  "say": "You finished a day of lessons! Tap a vine, answer the question, and spend some XP to cut it down. Cut every vine to get the gem.",
+  "speed": "0.76/0.85"
  },
  "7e6c619f": {
   "key": "my backpack",
@@ -1429,9 +1459,19 @@
   "say": "Hi, I'm Leo! Welcome to the Adventure Map! Follow the path and tap the glowing circle to start your next lesson.",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"am_onyx\", \"word\": 0.8}"
  },
+ "85a7eb3b": {
+  "key": "press the gem to put it in your backpack.",
+  "say": "Press the gem to put it in your backpack.",
+  "speed": "0.76/0.85"
+ },
  "8657cf1b": {
   "key": "look at the two words. they look almost the same.",
   "say": "Look at the two words. They look almost the same.",
+  "speed": "0.76/0.85"
+ },
+ "875f517b": {
+  "key": "you found the sapphire! it is in your backpack.",
+  "say": "You found the Sapphire! It is in your backpack.",
   "speed": "0.76/0.85"
  },
  "87c54aee": {
@@ -1477,6 +1517,11 @@
  "8d9dd6ce": {
   "key": "climb a high mountain",
   "say": "Climb a high mountain",
+  "speed": "0.76/0.85"
+ },
+ "8df379a7": {
+  "key": "you found the topaz! it is in your backpack.",
+  "say": "You found the Topaz! It is in your backpack.",
   "speed": "0.76/0.85"
  },
  "8e393228": {
@@ -1928,6 +1973,11 @@
   "key": "elephant|a vowel is missing from the word. listen to the sound in the clue. then tap the vowel from the tray that makes that sound. when you get it right, press next.",
   "say": "A vowel is missing from the word. Listen to the sound in the clue. Then tap the vowel from the tray that makes that sound. When you get it right, press Next.",
   "speed": "{\"lang\": \"en-gb\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"bf_emma\", \"word\": 0.8}"
+ },
+ "b1f54931": {
+  "key": "you found the ruby! it is in your backpack.",
+  "say": "You found the Ruby! It is in your backpack.",
+  "speed": "0.76/0.85"
  },
  "b2036c0e": {
   "key": "syl:but",
@@ -2479,6 +2529,11 @@
   "say": "This is your home base. The flame counts the days in a row that you play. The bar shows today's goal. Tap Start to begin your next lesson, or open the map to choose a world. Tap Change picture to pick a new avatar.",
   "speed": "0.76/0.85"
  },
+ "dbd560df": {
+  "key": "you found the diamond! it is in your backpack.",
+  "say": "You found the Diamond! It is in your backpack.",
+  "speed": "0.76/0.85"
+ },
  "dbd773d9": {
   "key": "the letter f, as in fish.",
   "say": "The letter F, as in fish.",
@@ -2923,6 +2978,11 @@
   "key": "cheetah|lesson complete! great job, you got two stars!",
   "say": "Lesson complete! Great job, you got two stars!",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 1.06, \"sentence\": 0.84, \"voice\": \"am_liam\", \"word\": 0.88}"
+ },
+ "fc791c9f": {
+  "key": "you found the opal! it is in your backpack.",
+  "say": "You found the Opal! It is in your backpack.",
+  "speed": "0.76/0.85"
  },
  "fc9205a5": {
   "key": "you are joining the sunny river jungle! you love sunshine, splashing, and making new friends!",

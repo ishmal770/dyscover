@@ -719,5 +719,47 @@
   "artist": "Didier Descouens",
   "license": "CC BY-SA 4.0",
   "source": "https://commons.wikimedia.org/wiki/File:Citrine_taillee.jpg"
+ },
+ "ruby": {
+  "article": "Ruby",
+  "file": "Corundum-215330.jpg",
+  "artist": "Robert M. Lavinsky",
+  "license": "CC BY-SA 3.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Corundum-215330.jpg"
+ },
+ "sapphire": {
+  "article": "Sapphire",
+  "file": "Logan_Sapphire_10956420_cropped.png",
+  "artist": "Chip Clark, Smithsonian staff",
+  "license": "Public domain",
+  "source": "https://commons.wikimedia.org/wiki/File:Logan_Sapphire_10956420_cropped.png"
+ },
+ "amethyst": {
+  "article": "Amethyst",
+  "file": "Amatista_Laye_2.jpg",
+  "artist": "Gonzalo Devia",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Amatista_Laye_2.jpg"
+ },
+ "topaz": {
+  "article": "Topaz",
+  "file": "Topaze,_quartz_fum\u00e9_1.jpg",
+  "artist": "Parent G\u00e9ry",
+  "license": "CC BY-SA 3.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Topaze,_quartz_fum%C3%A9_1.jpg"
+ },
+ "diamond": {
+  "article": "Diamond",
+  "file": "Rough_Diamond.jpg",
+  "artist": "DGPC/ADF Lu\u00edsa Oliveira",
+  "license": "CC0",
+  "source": "https://commons.wikimedia.org/wiki/File:Rough_Diamond.jpg"
+ },
+ "opal": {
+  "article": "Opal",
+  "file": "Opal-53714.jpg",
+  "artist": "Robert M. Lavinsky",
+  "license": "CC BY-SA 3.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Opal-53714.jpg"
  }
 }

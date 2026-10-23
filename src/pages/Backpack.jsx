@@ -11,12 +11,13 @@ import { speak } from "../audio/speech";
 import { useProgress } from "../context/ProgressContext";
 import { LESSONS, UNITS } from "../data/lessons";
 import { GEMS, TREASURES } from "../data/treasures";
+import { DOOR_GEMS } from "../data/vineDoor";
 import "./Backpack.css";
 
 function Backpack() {
   const navigate = useNavigate();
   const [shareMessage, setShareMessage] = useState("");
-  const { stars, isCompleted, unitDone, stats } = useProgress();
+  const { stars, isCompleted, unitDone, stats, doorGems } = useProgress();
 
   const found = LESSONS.filter((l) => isCompleted(l.id)).length;
   const gemsWon = UNITS.filter((u) => unitDone(u.id)).length;
@@ -127,6 +128,25 @@ function Backpack() {
           </section>
         );
       })}
+
+      <section className="backpack__unit">
+        <h2>Vine door gems</h2>
+        <div className="backpack__cards">
+          {DOOR_GEMS.map((gem) => {
+            const has = doorGems.includes(gem.id);
+            return (
+              <div key={gem.id} className={`backpack__card backpack__card--gem${has ? "" : " is-locked"}`}>
+                <div className="backpack__thumb">
+                  <WordPicture word={gem.id} size={110} />
+                  {!has && <Lock className="backpack__lock" size={18} />}
+                </div>
+                <h3>{has ? gem.name : "Hidden gem"}</h3>
+                <p>{has ? "Found behind a vine door!" : "Open a vine door after a day of lessons to find it."}</p>
+              </div>
+            );
+          })}
+        </div>
+      </section>
 
       <AccessibilityToolbar />
       <GuideBubble

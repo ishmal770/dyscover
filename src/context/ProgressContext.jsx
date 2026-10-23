@@ -5,6 +5,7 @@
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { UNITS, LESSONS } from "../data/lessons";
 import { TREASURES, GEMS } from "../data/treasures";
+import { VINES, VINE_COST, gemFor } from "../data/vineDoor";
 import { AVATARS, AVATAR_BY_ID, DEFAULT_AVATAR, isAvatarUnlocked, levelFor } from "../data/avatars";
 
 const STORAGE_KEY = "dyscover-progress";
@@ -22,6 +23,9 @@ const EMPTY = {
   lessons: {}, // lessonId -> { stars: 1-3 (best), plays }
   gems: [], // unit ids whose gem has been put into the gate (opens the next unit)
   grade: "g35", // grade band for the questions (see data/questionBanks.js)
+  xpSpent: 0, // XP spent on cutting vines (level still counts all the XP ever earned)
+  door: { day: null, removed: 0, collected: false }, // today's vine door
+  doorGems: [], // ids of the gems collected from vine doors
   placed: false, // true once the placement mission has been finished (it is played only once)
   jungle: null, // the jungle the child was sorted into by the quiz
 };
@@ -135,6 +139,29 @@ function ProgressProvider({ children }) {
     };
   }
 
+  // ---- the vine door (see data/vineDoor.js) ----------------------------------------------
+  const todaysDoor = (s) => (s.door.day === dayKey() ? s.door : { day: dayKey(), removed: 0, collected: false });
+  const goalReachedToday = (s) => (s.today.day === dayKey() ? s.today.xp : 0) >= DAILY_GOAL_XP;
+
+  // Cut one vine: needs the day's goal, enough unspent XP, and a vine left. Returns true if cut.
+  function cutVine() {
+    const s = stateRef.current;
+    const door = todaysDoor(s);
+    if (!goalReachedToday(s) || door.collected || door.removed >= VINES || s.xp - s.xpSpent < VINE_COST) return false;
+    commit({ ...s, xpSpent: s.xpSpent + VINE_COST, door: { ...door, removed: door.removed + 1 } });
+    return true;
+  }
+
+  // Take the gem from behind an open door and put it in the backpack. Returns the gem.
+  function collectDoorGem() {
+    const s = stateRef.current;
+    const door = todaysDoor(s);
+    if (door.removed < VINES || door.collected) return null;
+    const gem = gemFor(s.doorGems.length);
+    commit({ ...s, doorGems: [...s.doorGems, gem.id], door: { ...door, collected: true } });
+    return gem;
+  }
+
   function setAvatar(id) {
     const s = stateRef.current;
     if (AVATAR_BY_ID[id] && isAvatarUnlocked(AVATAR_BY_ID[id], statsOf(s))) commit({ ...s, avatar: id });
@@ -207,6 +234,13 @@ function ProgressProvider({ children }) {
     setName,
     grade: state.grade,
     placed: state.placed,
+    // vine door: open after the day's goal is reached, until its gem has been collected
+    doorAvailable: goalReachedToday(state) && !todaysDoor(state).collected,
+    vinesLeft: VINES - todaysDoor(state).removed,
+    spendableXp: state.xp - state.xpSpent,
+    doorGems: state.doorGems,
+    cutVine,
+    collectDoorGem,
     setGrade,
     chooseGrade,
     jungle: state.jungle,

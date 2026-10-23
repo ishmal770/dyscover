@@ -37,6 +37,7 @@ PICS = {
     "climb": "Mountaineering", "rain": "Drizzle", "mist": "Cloud forest", "sunshine": "Sunbeam", "rainforest": "Rainforest",
     "silver": "Silver", "angel": "Angel", "trunk": "Tree",
     "lizard": "Lizard", "cheetah": "Cheetah", "emerald": "Emerald", "citrine": "Citrine",
+    "ruby": "Ruby", "sapphire": "Sapphire", "amethyst": "Amethyst", "topaz": "Topaz", "diamond": "Diamond", "opal": "Opal",
 }
 
 only = set(sys.argv[2:])

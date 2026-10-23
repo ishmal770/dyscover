@@ -11,6 +11,7 @@ import "./App.css";
 import Homepage from "./pages/Homepage";
 import Login from "./pages/Login";
 import AdventureMap from "./pages/AdventureMap";
+import VineDoor from "./pages/VineDoor";
 import PlacementMission from "./pages/PlacementMission";
 import Dashboard from "./pages/Dashboard";
 import JungleQuiz from "./pages/JungleQuiz";
@@ -23,7 +24,7 @@ import LizardLookoutsGame from "./pages/LizardLookoutsGame";
 
 // The pages in the order they sit side by side (the games follow the map's order).
 const ORDER = [
-  "home", "login", "quiz", "placement", "dashboard", "map",
+  "home", "login", "quiz", "placement", "dashboard", "door", "map",
   "monkeyMixUpGame", "lizardLookoutsGame", "lionsLettersGame", "syllableSafariGame", "parrotPairsGame", "cheetahChallengeGame",
 ];
 
@@ -35,15 +36,17 @@ function KidGameApp() {
   const [viewKey, setViewKey] = useState("home"); // which page is showing
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const { grade, isUnlocked } = useProgress();
+  const { grade, isUnlocked, doorAvailable } = useProgress();
 
   // A lesson that is still locked can never be opened.
-  const isAllowed = (key) => !(LESSON_BY_ID[key] && !isUnlocked(key));
+  // (the vine door is only there after a day of lessons, until its gem has been collected)
+  const isAllowed = (key) => (key === "door" ? doorAvailable : !(LESSON_BY_ID[key] && !isUnlocked(key)));
+  const fallbackFor = (key) => (key === "door" ? "dashboard" : "map");
 
   // Smoothly scrolls the horizontal strip so the named section fills the view.
   const goTo = (key) => {
     // a locked lesson can never be opened: send the child to the map instead
-    if (!isAllowed(key)) key = "map";
+    if (!isAllowed(key)) key = fallbackFor(key);
     sectionRefs.current[key]?.scrollIntoView({
       behavior: "smooth",
       inline: "start",
@@ -56,7 +59,7 @@ function KidGameApp() {
   useEffect(() => {
     const play = searchParams.get("play");
     if (play && sectionRefs.current[play]) {
-      const target = LESSON_BY_ID[play] && !isUnlocked(play) ? "map" : play;
+      const target = isAllowed(play) ? play : fallbackFor(play);
       sectionRefs.current[target].scrollIntoView({ behavior: "instant", inline: "start" });
     }
   }, [searchParams]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -126,8 +129,10 @@ function KidGameApp() {
           onQuiz={() => goTo("quiz")}
           onPlacement={() => goTo("placement")}
           onCredits={() => navigate("/credits")}
+          onOpenDoor={() => goTo("door")}
         />
       )}
+      {section("door", <VineDoor onHome={toDashboard} />)}
       {section("map", <AdventureMap onHome={toDashboard} onStartLesson={goTo} onPlacement={() => goTo("placement")} />)}
 
       {/* The lessons: Unit 1 (Jungle Games), then Unit 2 (Canopy Quest). Each one returns to the map. */}

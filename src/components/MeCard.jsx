@@ -38,6 +38,9 @@ function MeCard({ headline }) {
         <button className="profile__avatar-wrap me__avatar-btn" onClick={() => setPicking((p) => !p)} aria-label="Change my picture" aria-expanded={picking}>
           <Avatar id={avatar} size={104} />
           <span className="profile__level-badge">Lv {levelInfo.level}</span>
+          <span className="me__pack" aria-hidden="true">
+            <Backpack size={20} />
+          </span>
         </button>
         <div className="profile__who">
           {editing ? (

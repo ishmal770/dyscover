@@ -1,0 +1,472 @@
+/* Styles for VineDoor.jsx - the bonus vine door game. The door and vines are made from plain
+   CSS shapes; the gem is a real photo. */
+.vd {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--green-pale);
+}
+
+.vd__scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 16px 16px 150px;
+}
+
+.vd__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.vd__intro {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.15rem;
+  font-weight: 800;
+  text-align: center;
+}
+
+.vd__speak {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: var(--green);
+  color: var(--white);
+  cursor: pointer;
+}
+
+.vd__status {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.vd__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border: 2px solid var(--border);
+  border-radius: var(--radius-pill);
+  background: var(--white);
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
+/* ---- the stage: avatar on the left, door on the right ---- */
+.vd__stage {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 18px;
+  width: 100%;
+  padding: 18px 8px 8px;
+}
+
+.vd__hero {
+  position: relative;
+  flex: none;
+  margin-bottom: 8px;
+  transform: translateX(calc(var(--walk, 0) * 14px));
+  transition: transform 0.8s ease;
+}
+
+/* the backpack is on the avatar's back: a pack peeking out behind the portrait, with straps */
+.vd__hero::before {
+  content: "";
+  position: absolute;
+  left: -22px;
+  bottom: 8px;
+  z-index: 0;
+  width: 62px;
+  height: 84px;
+  border: 4px solid #b9661a;
+  border-radius: 22px 22px 14px 14px;
+  background: linear-gradient(#f0a34a, #e8943a);
+}
+
+.vd__hero > .avatar {
+  position: relative;
+  z-index: 1;
+}
+
+
+.vd__hero.is-cutting {
+  animation: vd-swing 0.7s ease;
+}
+
+.vd__hero.is-wrong {
+  animation: vd-shake 0.5s ease;
+}
+
+.vd__hero.is-happy {
+  animation: vd-jump 0.7s ease 2;
+}
+
+@keyframes vd-swing {
+  0%, 100% { transform: translateX(calc(var(--walk, 0) * 14px)) rotate(0); }
+  35% { transform: translateX(calc(var(--walk, 0) * 14px + 14px)) rotate(10deg); }
+  70% { transform: translateX(calc(var(--walk, 0) * 14px + 6px)) rotate(-6deg); }
+}
+
+@keyframes vd-shake {
+  0%, 100% { transform: translateX(calc(var(--walk, 0) * 14px)); }
+  25% { transform: translateX(calc(var(--walk, 0) * 14px - 8px)); }
+  75% { transform: translateX(calc(var(--walk, 0) * 14px + 8px)); }
+}
+
+@keyframes vd-jump {
+  0%, 100% { transform: translate(calc(var(--walk, 0) * 14px), 0); }
+  50% { transform: translate(calc(var(--walk, 0) * 14px), -22px); }
+}
+
+/* the backpack your avatar is carrying */
+.vd__pack {
+  position: absolute;
+  left: -18px;
+  bottom: -6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 54px;
+  height: 54px;
+  border: 3px solid var(--white);
+  border-radius: 50%;
+  background: #e8943a;
+  color: var(--white);
+  box-shadow: var(--shadow-soft);
+}
+
+.vd__pack-count {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  height: 22px;
+  border: 2px solid var(--white);
+  border-radius: 999px;
+  background: var(--green);
+  font-size: 0.75rem;
+  font-weight: 900;
+}
+
+.vd__snip {
+  position: absolute;
+  right: -26px;
+  top: 28px;
+  color: var(--ink);
+  animation: vd-snip 0.7s ease;
+}
+
+@keyframes vd-snip {
+  0%, 100% { transform: rotate(0); }
+  30% { transform: rotate(-25deg); }
+  60% { transform: rotate(15deg); }
+}
+
+/* ---- the door ---- */
+.vd__door {
+  flex: none;
+  width: min(240px, 52vw);
+}
+
+.vd__arch {
+  position: relative;
+  height: min(310px, 66vw);
+  overflow: hidden;
+  border: 14px solid #9a9486;
+  border-bottom: 0;
+  border-radius: 120px 120px 0 0;
+  background: #3a3f38;
+  transition: background 0.8s;
+}
+
+.vd__door.is-open .vd__arch {
+  background: radial-gradient(circle at 50% 55%, #fff6c8, #ffe27a);
+}
+
+.vd__doors {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+}
+
+.vd__leaf {
+  flex: 1;
+  background: repeating-linear-gradient(90deg, #8a5a33 0 18px, #7a4d2a 18px 20px);
+  transition: transform 1s ease;
+}
+
+.vd__leaf--left { border-right: 2px solid #4d3219; }
+.vd__leaf--right { border-left: 2px solid #4d3219; }
+
+.vd__door.is-open .vd__leaf--left { transform: translateX(-100%); }
+.vd__door.is-open .vd__leaf--right { transform: translateX(100%); }
+
+/* the gem behind the door */
+.vd__gem {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  display: flex;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: none;
+  transform: translate(-50%, -50%);
+  cursor: default;
+  transition: transform 1.1s ease-in, opacity 0.3s ease 0.9s;
+}
+
+.vd__gem.is-ready {
+  z-index: 4;
+  cursor: pointer;
+  animation: vd-gem-bob 1.3s ease-in-out infinite;
+  box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.55);
+}
+
+.vd__gem.is-flying {
+  z-index: 6;
+  animation: none;
+  transform: translate(-330px, 90px) scale(0.35);
+  opacity: 0.4;
+}
+
+.vd__gem.is-gone {
+  visibility: hidden;
+}
+
+@keyframes vd-gem-bob {
+  0%, 100% { transform: translate(-50%, -50%); }
+  50% { transform: translate(-50%, calc(-50% - 8px)); }
+}
+
+/* ---- the vines: green bands with leaves, laid across the door ---- */
+.vd__vine {
+  position: absolute;
+  left: -14%;
+  z-index: 3;
+  width: 128%;
+  height: 40px;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(#5ea83a, #3d7f26);
+  box-shadow: 0 4px 0 #2d5f1c;
+  cursor: pointer;
+}
+
+.vd__vine--0 { top: 16%; transform: rotate(-9deg); }
+.vd__vine--1 { top: 44%; transform: rotate(7deg); }
+.vd__vine--2 { top: 70%; transform: rotate(-6deg); }
+
+.vd__vine:hover {
+  filter: brightness(1.12);
+}
+
+.vd__leafy {
+  position: absolute;
+  width: 34px;
+  height: 20px;
+  border-radius: 100% 0 100% 0;
+  background: #7bc752;
+}
+
+.vd__leafy--a { left: 16%; top: -12px; transform: rotate(-30deg); }
+.vd__leafy--b { left: 48%; top: 30px; transform: rotate(150deg); }
+.vd__leafy--c { left: 78%; top: -12px; transform: rotate(-10deg); }
+
+.vd__message {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 460px;
+  padding: 10px 16px;
+  border: 2px solid var(--amber);
+  border-radius: 16px;
+  background: var(--white);
+  font-weight: 800;
+  text-align: center;
+}
+
+.vd__message--good {
+  border-color: var(--green);
+}
+
+.vd__found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 18px 22px;
+  border: 4px solid var(--green);
+  border-radius: 22px;
+  background: var(--white);
+  text-align: center;
+}
+
+.vd__found h2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.4rem;
+  font-weight: 900;
+}
+
+.vd__found-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+/* ---- the question that comes up when a vine is tapped ---- */
+.vd__ask {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(30, 40, 28, 0.55);
+}
+
+.vd__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  width: min(520px, 100%);
+  max-height: 100%;
+  overflow-y: auto;
+  padding: 20px;
+  border: 4px solid var(--green);
+  border-radius: 24px;
+  background: var(--white);
+  text-align: center;
+}
+
+.vd__card h2 {
+  font-size: 1.25rem;
+  font-weight: 900;
+}
+
+.vd__hear {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 18px;
+  background: var(--green);
+  color: var(--white);
+  font-size: 1.05rem;
+  font-weight: 800;
+  box-shadow: 0 5px 0 var(--green-dark);
+  cursor: pointer;
+}
+
+.vd__puzzle {
+  display: flex;
+  gap: 6px;
+}
+
+.vd__tile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 54px;
+  border: 3px solid var(--border);
+  border-radius: 12px;
+  font-size: 1.5rem;
+  font-weight: 900;
+}
+
+.vd__tile.is-blank {
+  border-style: dashed;
+  color: var(--ink-soft);
+}
+
+.vd__choices {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 10px;
+  width: 100%;
+}
+
+.vd__choices--vowels {
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.vd__choice {
+  padding: 14px 6px;
+  border: 3px solid var(--border);
+  border-radius: 16px;
+  background: var(--white);
+  color: var(--ink);
+  font-size: clamp(1.05rem, 4vw, 1.5rem);
+  font-weight: 800;
+  box-shadow: 0 4px 0 var(--border);
+  cursor: pointer;
+  overflow-wrap: anywhere;
+}
+
+.vd__choice.is-right {
+  border-color: var(--green);
+  background: var(--green-pale);
+  box-shadow: 0 4px 0 var(--green);
+}
+
+.vd__choice.is-wrong {
+  border-color: #e05555;
+  background: #fdecec;
+  box-shadow: 0 4px 0 #e05555;
+  animation: vd-shake-choice 0.4s;
+}
+
+@keyframes vd-shake-choice {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+.vd__cancel {
+  border: none;
+  background: none;
+  color: var(--ink-soft);
+  font-weight: 700;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+@media (max-width: 560px) {
+  .vd__stage {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .vd__gem.is-flying {
+    transform: translate(-120px, 200px) scale(0.35);
+  }
+}
