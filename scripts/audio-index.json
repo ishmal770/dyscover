@@ -454,6 +454,11 @@
   "say": "Press this and say the word out loud.",
   "speed": "0.76/0.85"
  },
+ "2c328d27": {
+  "key": "press this to go on right away, without any sound.",
+  "say": "Press this to go on right away, without any sound.",
+  "speed": "0.76/0.85"
+ },
  "2d1428d9": {
   "key": "syl:cil",
   "say": "sill",

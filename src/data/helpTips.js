@@ -28,6 +28,7 @@ export const HELP_RULES = [
   [/back to|go to homepage|^games$/, "Press this to go back."],
   [/change my picture|change picture/, "Press this to pick a new avatar picture."],
   [/^grades/, "Press this to say which grades you are in. A quick game will check your level."],
+  [/without sound/, "Press this to go on right away, without any sound."],
   [/^done$/, "Press this when you are finished."],
   [/jungle quiz/, "Press this to answer the jungle quiz questions again."],
   [/adventure map|^map$/, "Press this to open the adventure map with all your lessons."],

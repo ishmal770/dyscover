@@ -83,9 +83,8 @@ function GuideBubble({ message, fixedCharacter, onAdvance, advanceHint, centered
     setTimeout(() => setAsking(false), 3500);
   }
 
-  // Tapping the guide to move on: say the welcome first if it has not been heard
-  // yet, then "Let's go!", and only then move to the next page (so the next
-  // page's welcome never cuts the guide off). Tapping again skips the wait.
+  // Tapping the guide to move on: say a short "Okay, let's go" line,
+  // then move to the next page. Tapping again (or "Start without sound") skips the wait.
   const advanceRef = useRef(null);
   function advance() {
     if (advanceRef.current) {
@@ -105,14 +104,8 @@ function GuideBubble({ message, fixedCharacter, onAdvance, advanceHint, centered
     const failsafe = setTimeout(go, 15000); // never leave the child stuck if audio fails
     advanceRef.current = go;
     const sayGo = () => speak(GO_LINE, { voice: guide.id, onEnd: go });
-    const key = `guide:${message}`;
     setNeedsTap(false);
-    if (!hasHeard(key)) {
-      markHeard(key);
-      speak(spokenLine(guide, message), { voice: guide.id, onEnd: sayGo });
-    } else {
-      sayGo();
-    }
+    sayGo(); // the welcome is read with the speaker button, so moving on is quick
   }
 
   function replay() {
@@ -183,6 +176,17 @@ function GuideBubble({ message, fixedCharacter, onAdvance, advanceHint, centered
         <GuideArt character={guide.id} waving={welcoming || asking} size={fixedCharacter === "sloth" ? 150 : 130} />
         {(advanceHint || needsTap) && <span className="guide-bubble__tap-hint">{advanceHint || "Tap me to hear!"}</span>}
       </button>
+      {onAdvance && (
+        <button
+          className="guide-bubble__skip"
+          onClick={() => {
+            cancelSpeech();
+            onAdvance(); // no need to wait for any sound
+          }}
+        >
+          Start without sound
+        </button>
+      )}
     </div>
   );
 }

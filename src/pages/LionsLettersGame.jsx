@@ -25,8 +25,6 @@ function LionsLettersGame({ onHome, onBack, onDone }) {
   const { grade } = useProgress();
   const rounds = BANKS.lion[grade];
   const [roundIndex, setRoundIndex] = useState(0);
-  const [heardSound, setHeardSound] = useState(false);
-  const [revealed, setRevealed] = useState(() => new Set());
   const [wordPhase, setWordPhase] = useState("letters");
   const [sessionComplete, setSessionComplete] = useState(false);
   const [cursive, setCursive] = useState(() => {
@@ -50,8 +48,6 @@ function LionsLettersGame({ onHome, onBack, onDone }) {
   const isLastRound = roundIndex + 1 >= rounds.length;
 
   function resetRoundState() {
-    setHeardSound(false);
-    setRevealed(new Set());
     setWordPhase("letters");
   }
 
@@ -70,9 +66,8 @@ function LionsLettersGame({ onHome, onBack, onDone }) {
     setSessionComplete(false);
   }
 
-  function handleLetterHeard(letter, index) {
-    speak(letterName(letter));
-    setRevealed((prev) => new Set([...prev, index]));
+  function handleLetterHeard(letter) {
+    speak(letterName(letter)); // hearing a letter is optional - the box is already there to trace
   }
 
   if (sessionComplete) {
@@ -111,14 +106,13 @@ function LionsLettersGame({ onHome, onBack, onDone }) {
             className="lions-game__sound-box"
             onClick={() => {
               speak(letterIntro(round.value));
-              setHeardSound(true);
             }}
           >
             <Volume2 size={28} />
             <span>Tap to hear the letter</span>
           </button>
           <LetterTraceCanvas guideText={round.value} cursive={cursive} />
-          <button className="btn btn--primary" onClick={handleContinue} disabled={!heardSound}>
+          <button className="btn btn--primary" onClick={handleContinue}>
             {isLastRound ? "Finish" : "Continue"} <ArrowRight size={16} />
           </button>
         </div>
@@ -127,25 +121,20 @@ function LionsLettersGame({ onHome, onBack, onDone }) {
           <WordPicture word={round.value} size={88} />
           {wordPhase === "letters" ? (
             <>
-              <h1>Spell it out: listen to each letter</h1>
+              <h1>Spell it out: trace each letter</h1>
               <div className="lions-game__letter-slots" style={{ "--slots": round.value.length }}>
                 {[...round.value].map((letter, i) => (
                   <div key={i} className="lions-game__letter-slot">
-                    <button className="lions-game__number-btn" onClick={() => handleLetterHeard(letter, i)}>
+                    <button className="lions-game__number-btn" onClick={() => handleLetterHeard(letter)}>
                       {i + 1}
                     </button>
-                    {revealed.has(i) ? (
-                      <LetterTraceCanvas guideText={letter} height={110} cursive={cursive} />
-                    ) : (
-                      <div className="lions-game__slot-placeholder">Tap to hear</div>
-                    )}
+                    <LetterTraceCanvas guideText={letter} height={110} cursive={cursive} />
                   </div>
                 ))}
               </div>
               <button
                 className="btn btn--primary"
                 onClick={() => setWordPhase("fullword")}
-                disabled={revealed.size < round.value.length}
               >
                 Continue to full word <ArrowRight size={16} />
               </button>
