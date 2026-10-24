@@ -37,6 +37,7 @@ PICS = {
     "climb": "Mountaineering", "rain": "Drizzle", "mist": "Cloud forest", "sunshine": "Sunbeam", "rainforest": "Rainforest",
     "silver": "Silver", "angel": "Angel", "trunk": "Tree",
     "lizard": "Lizard", "cheetah": "Cheetah", "emerald": "Emerald", "citrine": "Citrine",
+    "crown": "Crown (headgear)", "gold": "Gold",
     "ruby": "Ruby", "sapphire": "Sapphire", "amethyst": "Amethyst", "topaz": "Topaz", "diamond": "Diamond", "opal": "Opal",
 }
 

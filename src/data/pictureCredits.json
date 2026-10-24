@@ -761,5 +761,19 @@
   "artist": "Robert M. Lavinsky",
   "license": "CC BY-SA 3.0",
   "source": "https://commons.wikimedia.org/wiki/File:Opal-53714.jpg"
+ },
+ "crown": {
+  "article": "Crown (headgear)",
+  "file": "Saint_Edward's_Crown.jpg",
+  "artist": "Firebrace",
+  "license": "Public domain",
+  "source": "https://commons.wikimedia.org/wiki/File:Saint_Edward%27s_Crown.jpg"
+ },
+ "gold": {
+  "article": "Gold",
+  "file": "Gold-crystals.jpg",
+  "artist": "Alchemist-hp (talk) www.pse-mendelejew.de",
+  "license": "CC BY-SA 3.0 de",
+  "source": "https://commons.wikimedia.org/wiki/File:Gold-crystals.jpg"
  }
 }

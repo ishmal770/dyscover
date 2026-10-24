@@ -14,6 +14,11 @@
   "say": "Lesson complete! Amazing work, you got three stars!",
   "speed": "{\"lang\": \"en-gb\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"bf_emma\", \"word\": 0.8}"
  },
+ "02d24a24": {
+  "key": "you finished a day of lessons! spend your xp to cut the vines on today's door and find a gem. or save your xp for the golden door and an even better prize.",
+  "say": "You finished a day of lessons! Spend your XP to cut the vines on today's door and find a gem. Or save your XP for the golden door and an even better prize.",
+  "speed": "0.76/0.85"
+ },
  "02d2b8aa": {
   "key": "hit",
   "say": "hit",
@@ -59,6 +64,11 @@
   "say": "Tap me to start your adventure. Tap the speaker to hear me again. Grown-ups can use the links at the bottom of the page.",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 1.0, \"sentence\": 0.74, \"voice\": \"af_heart\", \"word\": 0.82}"
  },
+ "05f5950e": {
+  "key": "the door is open! tap the prize to put it in your backpack.",
+  "say": "The door is open! Tap the prize to put it in your backpack.",
+  "speed": "0.76/0.85"
+ },
  "0612151c": {
   "key": "gorilla|lesson complete! amazing work, you got three stars!",
   "say": "Lesson complete! Amazing work, you got three stars!",
@@ -98,11 +108,6 @@
   "key": "blink",
   "say": "blink",
   "speed": "0.76/0.85|cuts-183"
- },
- "0776b30a": {
-  "key": "tap this vine, answer the question, and spend some xp to cut it down.",
-  "say": "Tap this vine, answer the question, and spend some XP to cut it down.",
-  "speed": "0.76/0.85"
  },
  "079173a0": {
   "key": "lion|take your time! a 'd' can be tricky to spot.",
@@ -448,6 +453,11 @@
   "key": "roach",
   "say": "roach",
   "speed": "0.76/0.85|cuts-183"
+ },
+ "2a627cb0": {
+  "key": "you found the gold crystals! it is in your backpack.",
+  "say": "You found the Gold Crystals! It is in your backpack.",
+  "speed": "0.76/0.85"
  },
  "2a6659fb": {
   "key": "look at the picture. it is a tiger.",
@@ -824,6 +834,11 @@
   "say": "Press this to turn the sound on or off.",
   "speed": "0.76/0.85"
  },
+ "4cb45754": {
+  "key": "you found the treasure hoard! it is in your backpack.",
+  "say": "You found the Treasure Hoard! It is in your backpack.",
+  "speed": "0.76/0.85"
+ },
  "4cdb9146": {
   "key": "monkey|tap the pieces to hear them, then build the word in order!",
   "say": "Tap the pieces to hear them, then build the word in order!",
@@ -978,6 +993,11 @@
   "key": "mimi|look at the picture. tap a piece to hear it, then tap a box to put it in. put the pieces in order to build the word. then press check word.",
   "say": "Look at the picture. Tap a piece to hear it, then tap a box to put it in. Put the pieces in order to build the word. Then press Check Word.",
   "speed": "{\"lang\": \"en-gb\", \"pitch\": 1.2, \"sentence\": 0.78, \"voice\": \"bf_lily\", \"word\": 0.85}"
+ },
+ "5f051e25": {
+  "key": "tap this vine to cut it down by spending some xp, or save your xp for the golden door.",
+  "say": "Tap this vine to cut it down by spending some XP, or save your XP for the golden door.",
+  "speed": "0.76/0.85"
  },
  "5f47fab0": {
   "key": "syl:dy",
@@ -1158,11 +1178,6 @@
   "key": "syl:ti",
   "say": "tie",
   "speed": "0.76/0.85|cuts-183"
- },
- "6f30e01d": {
-  "key": "the door is open! tap the gem to put it in your backpack.",
-  "say": "The door is open! Tap the gem to put it in your backpack.",
-  "speed": "0.76/0.85"
  },
  "6f4b93f0": {
   "key": "pen",
@@ -1359,11 +1374,6 @@
   "say": "You found the Emerald Gem! Tap it to put it in the gate.",
   "speed": "0.76/0.85"
  },
- "7c3161f0": {
-  "key": "press this to go to the vine door and cut the vines to find a gem.",
-  "say": "Press this to go to the vine door and cut the vines to find a gem.",
-  "speed": "0.76/0.85"
- },
  "7c3641d5": {
   "key": "mimi|now find the same letter again in the paragraph. tap every one you can find.",
   "say": "Now find the same letter again in the paragraph. Tap every one you can find.",
@@ -1373,11 +1383,6 @@
   "key": "spend",
   "say": "spend",
   "speed": "0.76/0.85|cuts-183"
- },
- "7dd13e92": {
-  "key": "you finished a day of lessons! tap a vine, answer the question, and spend some xp to cut it down. cut every vine to get the gem.",
-  "say": "You finished a day of lessons! Tap a vine, answer the question, and spend some XP to cut it down. Cut every vine to get the gem.",
-  "speed": "0.76/0.85"
  },
  "7e6c619f": {
   "key": "my backpack",
@@ -1664,6 +1669,11 @@
   "say": "volcano",
   "speed": "0.76/0.85|cuts-183"
  },
+ "9881408c": {
+  "key": "spend 10 xp to cut this vine, or save your xp for the golden door?",
+  "say": "Spend 10 XP to cut this vine, or save your XP for the golden door?",
+  "speed": "0.76/0.85"
+ },
  "9a26eadd": {
   "key": "this is your backpack of jungle buddies. every lesson you finish brings a new animal buddy to help the rainforest grow. finish all the lessons in a unit to win its gem. tap play again to practice a lesson, or tap the speaker to hear about a buddy.",
   "say": "This is your backpack of jungle buddies. Every lesson you finish brings a new animal buddy to help the rainforest grow. Finish all the lessons in a unit to win its gem. Tap Play again to practice a lesson, or tap the speaker to hear about a buddy.",
@@ -1929,6 +1939,11 @@
   "say": "Type your explorer name and your secret code. Then tap Log In. If you are new, tap Create Account.",
   "speed": "0.76/0.85"
  },
+ "ae32e65d": {
+  "key": "press this to switch between today's door and the golden door.",
+  "say": "Press this to switch between today's door and the golden door.",
+  "speed": "0.76/0.85"
+ },
  "ae908114": {
   "key": "gorilla|hi, i'm gus! welcome to the adventure map! follow the path and tap the glowing circle to start your next lesson.",
   "say": "Hi, I'm Gus! Welcome to the Adventure Map! Follow the path and tap the glowing circle to start your next lesson.",
@@ -2189,6 +2204,11 @@
   "say": "Now write the whole word with your finger on the lines. Then press Continue.",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"am_onyx\", \"word\": 0.8}"
  },
+ "c0620f6e": {
+  "key": "press this to keep your xp for the golden door.",
+  "say": "Press this to keep your XP for the golden door.",
+  "speed": "0.76/0.85"
+ },
  "c180cd76": {
   "key": "mimi|can you find the letters that are different? tap the speaker to hear the word!",
   "say": "Can you find the letters that are different? Tap the speaker to hear the word!",
@@ -2394,6 +2414,11 @@
   "say": "flower",
   "speed": "0.76/0.85|cuts-183"
  },
+ "d27b28f7": {
+  "key": "you found the golden crown! it is in your backpack.",
+  "say": "You found the Golden Crown! It is in your backpack.",
+  "speed": "0.76/0.85"
+ },
  "d2835972": {
   "key": "monkey|this is your backpack of jungle buddies. every lesson you finish brings a new animal buddy to help the rainforest grow. finish all the lessons in a unit to win its gem. tap play again to practice a lesson, or tap the speaker to hear about a buddy.",
   "say": "This is your backpack of jungle buddies. Every lesson you finish brings a new animal buddy to help the rainforest grow. Finish all the lessons in a unit to win its gem. Tap Play again to practice a lesson, or tap the speaker to hear about a buddy.",
@@ -2547,6 +2572,11 @@
  "dc88e121": {
   "key": "trace the letter with your finger on the lines. then press continue.",
   "say": "Trace the letter with your finger on the lines. Then press Continue.",
+  "speed": "0.76/0.85"
+ },
+ "dd24c56b": {
+  "key": "press this to spend xp and cut the vine.",
+  "say": "Press this to spend XP and cut the vine.",
   "speed": "0.76/0.85"
  },
  "dd5e6e7d": {
@@ -2872,6 +2902,11 @@
  "f40aa333": {
   "key": "press the gem to put it in the gate and open the next world.",
   "say": "Press the gem to put it in the gate and open the next world.",
+  "speed": "0.76/0.85"
+ },
+ "f45734d9": {
+  "key": "press this to go to the vine doors and cut the vines to find a gem.",
+  "say": "Press this to go to the vine doors and cut the vines to find a gem.",
   "speed": "0.76/0.85"
  },
  "f4b2c848": {

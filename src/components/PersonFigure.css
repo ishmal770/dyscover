@@ -1,0 +1,46 @@
+.fig {
+  display: block;
+  overflow: visible;
+}
+
+.fig__shadow {
+  fill: rgba(0, 0, 0, 0.14);
+}
+
+/* the scissors only show while cutting */
+.fig__scissors {
+  opacity: 0;
+}
+
+.fig--cutting .fig__scissors {
+  opacity: 1;
+}
+
+.fig--cutting .fig__arm {
+  animation: fig-cut 0.7s ease;
+}
+
+@keyframes fig-cut {
+  0%, 100% { transform: rotate(0); }
+  30% { transform: rotate(-70deg); }
+  60% { transform: rotate(-35deg); }
+}
+
+.fig--happy {
+  animation: fig-jump 0.7s ease 2;
+}
+
+@keyframes fig-jump {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-16px); }
+}
+
+.fig--sad {
+  animation: fig-shake 0.5s ease;
+}
+
+@keyframes fig-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  75% { transform: translateX(6px); }
+}

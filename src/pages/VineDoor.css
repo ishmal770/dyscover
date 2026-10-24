@@ -1,14 +1,24 @@
-/* Styles for VineDoor.jsx - the bonus vine door game. The door and vines are made from plain
-   CSS shapes; the gem is a real photo. */
+/* Styles for VineDoor.jsx - the vine doors. The doors are built from plain CSS shapes, the vines
+   are thin SVG drawings (components/VineArt.jsx), and the prizes are real photos. */
 .vd {
   position: relative;
   display: flex;
   flex-direction: column;
   height: 100%;
-  background: var(--green-pale);
+  background-color: var(--green-pale);
+}
+
+/* a soft light from above, behind everything */
+.vd::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(255, 255, 255, 0.95), transparent 62%);
+  pointer-events: none;
 }
 
 .vd__scroll {
+  position: relative;
   flex: 1;
   min-height: 0;
   overflow-y: auto;
@@ -20,7 +30,7 @@
   flex-direction: column;
   align-items: center;
   gap: 14px;
-  max-width: 720px;
+  max-width: 760px;
   margin: 0 auto;
 }
 
@@ -47,6 +57,51 @@
   cursor: pointer;
 }
 
+/* ---- today's door / golden door ---- */
+.vd__tabs {
+  display: flex;
+  gap: 8px;
+  padding: 5px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.vd__tabs button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px 18px;
+  border: none;
+  border-radius: 16px;
+  background: transparent;
+  color: var(--ink);
+  font-size: 1rem;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.vd__tabs small {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+
+.vd__tabs .is-on {
+  background: var(--green);
+  color: var(--white);
+  box-shadow: 0 3px 0 var(--green-edge);
+}
+
+.vd__tabs .is-on small {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.vd__tabs .vd__tab--gold.is-on {
+  background: linear-gradient(#f5c84a, #d9a21b);
+  box-shadow: 0 3px 0 #a87a10;
+}
+
 .vd__status {
   display: flex;
   flex-wrap: wrap;
@@ -58,169 +113,117 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 6px 14px;
+  padding: 5px 14px;
   border: 2px solid var(--border);
   border-radius: var(--radius-pill);
   background: var(--white);
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   font-weight: 800;
 }
 
-/* ---- the stage: avatar on the left, door on the right ---- */
+/* ---- the stage: the avatar on the left, the door on the right ---- */
 .vd__stage {
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  gap: 18px;
+  gap: 8px;
   width: 100%;
-  padding: 18px 8px 8px;
+  padding: 10px 8px 0;
 }
 
 .vd__hero {
-  position: relative;
   flex: none;
-  margin-bottom: 8px;
-  transform: translateX(calc(var(--walk, 0) * 14px));
-  transition: transform 0.8s ease;
+  transform: translateX(calc(var(--walk, 0) * 18px));
+  transition: transform 0.9s ease;
 }
 
-/* the backpack is on the avatar's back: a pack peeking out behind the portrait, with straps */
-.vd__hero::before {
-  content: "";
-  position: absolute;
-  left: -22px;
-  bottom: 8px;
-  z-index: 0;
-  width: 62px;
-  height: 84px;
-  border: 4px solid #b9661a;
-  border-radius: 22px 22px 14px 14px;
-  background: linear-gradient(#f0a34a, #e8943a);
-}
-
-.vd__hero > .avatar {
-  position: relative;
-  z-index: 1;
-}
-
-
-.vd__hero.is-cutting {
-  animation: vd-swing 0.7s ease;
-}
-
-.vd__hero.is-wrong {
-  animation: vd-shake 0.5s ease;
-}
-
-.vd__hero.is-happy {
-  animation: vd-jump 0.7s ease 2;
-}
-
-@keyframes vd-swing {
-  0%, 100% { transform: translateX(calc(var(--walk, 0) * 14px)) rotate(0); }
-  35% { transform: translateX(calc(var(--walk, 0) * 14px + 14px)) rotate(10deg); }
-  70% { transform: translateX(calc(var(--walk, 0) * 14px + 6px)) rotate(-6deg); }
-}
-
-@keyframes vd-shake {
-  0%, 100% { transform: translateX(calc(var(--walk, 0) * 14px)); }
-  25% { transform: translateX(calc(var(--walk, 0) * 14px - 8px)); }
-  75% { transform: translateX(calc(var(--walk, 0) * 14px + 8px)); }
-}
-
-@keyframes vd-jump {
-  0%, 100% { transform: translate(calc(var(--walk, 0) * 14px), 0); }
-  50% { transform: translate(calc(var(--walk, 0) * 14px), -22px); }
-}
-
-/* the backpack your avatar is carrying */
-.vd__pack {
-  position: absolute;
-  left: -18px;
-  bottom: -6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 54px;
-  height: 54px;
-  border: 3px solid var(--white);
-  border-radius: 50%;
-  background: #e8943a;
-  color: var(--white);
-  box-shadow: var(--shadow-soft);
-}
-
-.vd__pack-count {
-  position: absolute;
-  top: -6px;
-  right: -6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 22px;
-  height: 22px;
-  border: 2px solid var(--white);
-  border-radius: 999px;
-  background: var(--green);
-  font-size: 0.75rem;
-  font-weight: 900;
-}
-
-.vd__snip {
-  position: absolute;
-  right: -26px;
-  top: 28px;
-  color: var(--ink);
-  animation: vd-snip 0.7s ease;
-}
-
-@keyframes vd-snip {
-  0%, 100% { transform: rotate(0); }
-  30% { transform: rotate(-25deg); }
-  60% { transform: rotate(15deg); }
-}
-
-/* ---- the door ---- */
 .vd__door {
+  position: relative;
   flex: none;
-  width: min(240px, 52vw);
+  width: min(250px, 52vw);
 }
 
 .vd__arch {
   position: relative;
-  height: min(310px, 66vw);
+  height: min(330px, 70vw);
   overflow: hidden;
-  border: 14px solid #9a9486;
+  border: 16px solid #8d8778;
   border-bottom: 0;
-  border-radius: 120px 120px 0 0;
+  border-radius: 125px 125px 0 0;
   background: #3a3f38;
+  box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.18), 0 10px 0 rgba(0, 0, 0, 0.1);
   transition: background 0.8s;
 }
 
 .vd__door.is-open .vd__arch {
-  background: radial-gradient(circle at 50% 55%, #fff6c8, #ffe27a);
+  background: radial-gradient(circle at 50% 52%, #fffbe0, #ffe486 70%);
 }
 
-.vd__doors {
+/* the golden door: a gold frame and gold bands */
+.vd__door--golden .vd__arch {
+  border-color: #cf9f2b;
+  box-shadow: inset 0 0 0 2px rgba(120, 80, 0, 0.35), 0 0 22px rgba(245, 200, 74, 0.7), 0 10px 0 rgba(0, 0, 0, 0.1);
+}
+
+/* ---- the wooden doors: planks, iron bands and a ring ---- */
+.vd__planks {
   position: absolute;
   inset: 0;
   z-index: 2;
-  display: flex;
 }
 
-.vd__leaf {
-  flex: 1;
-  background: repeating-linear-gradient(90deg, #8a5a33 0 18px, #7a4d2a 18px 20px);
+.vd__plank {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  background:
+    repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.16) 0 2px, transparent 2px 24px),
+    linear-gradient(90deg, #94643a, #7a4d2a 60%, #6b4324);
   transition: transform 1s ease;
 }
 
-.vd__leaf--left { border-right: 2px solid #4d3219; }
-.vd__leaf--right { border-left: 2px solid #4d3219; }
+.vd__plank--left { left: 0; border-right: 2px solid #3d2814; }
+.vd__plank--right { right: 0; border-left: 2px solid #3d2814; }
 
-.vd__door.is-open .vd__leaf--left { transform: translateX(-100%); }
-.vd__door.is-open .vd__leaf--right { transform: translateX(100%); }
+.vd__door.is-open .vd__plank--left { transform: translateX(-102%); }
+.vd__door.is-open .vd__plank--right { transform: translateX(102%); }
 
-/* the gem behind the door */
+.vd__band {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 14px;
+  background: repeating-linear-gradient(90deg, #4a4f57 0 12px, #5c626b 12px 14px);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.3);
+  transition: opacity 0.4s;
+}
+
+.vd__band--top { top: 30%; }
+.vd__band--bottom { top: 72%; }
+
+.vd__door--golden .vd__band {
+  background: repeating-linear-gradient(90deg, #d9a21b 0 12px, #f0c64e 12px 14px);
+}
+
+.vd__ring {
+  position: absolute;
+  top: 52%;
+  left: 50%;
+  width: 26px;
+  height: 26px;
+  border: 4px solid #4a4f57;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.4s;
+}
+
+.vd__door.is-open .vd__band,
+.vd__door.is-open .vd__ring {
+  opacity: 0;
+}
+
+/* ---- the prize behind the door ---- */
 .vd__gem {
   position: absolute;
   left: 50%;
@@ -240,13 +243,13 @@
   z-index: 4;
   cursor: pointer;
   animation: vd-gem-bob 1.3s ease-in-out infinite;
-  box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.55);
+  box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.6), 0 0 26px rgba(255, 220, 90, 0.9);
 }
 
 .vd__gem.is-flying {
   z-index: 6;
   animation: none;
-  transform: translate(-330px, 90px) scale(0.35);
+  transform: translate(-340px, 110px) scale(0.35);
   opacity: 0.4;
 }
 
@@ -259,56 +262,103 @@
   50% { transform: translate(-50%, calc(-50% - 8px)); }
 }
 
-/* ---- the vines: green bands with leaves, laid across the door ---- */
+/* ---- the vines: thin drawings laid across the door ---- */
 .vd__vine {
   position: absolute;
   left: -14%;
   z-index: 3;
   width: 128%;
-  height: 40px;
+  height: 56px;
   padding: 0;
   border: none;
-  border-radius: 999px;
-  background: linear-gradient(#5ea83a, #3d7f26);
-  box-shadow: 0 4px 0 #2d5f1c;
+  background: none;
   cursor: pointer;
+  transform: rotate(var(--tilt, 0deg));
+  filter: drop-shadow(0 2px 1px rgba(0, 0, 0, 0.35));
 }
 
-.vd__vine--0 { top: 16%; transform: rotate(-9deg); }
-.vd__vine--1 { top: 44%; transform: rotate(7deg); }
-.vd__vine--2 { top: 70%; transform: rotate(-6deg); }
-
-.vd__vine:hover {
-  filter: brightness(1.12);
+.vd__vine:hover,
+.vd__vine:focus-visible {
+  animation: vd-wiggle 0.5s ease;
+  outline: none;
 }
 
-.vd__leafy {
-  position: absolute;
-  width: 34px;
-  height: 20px;
-  border-radius: 100% 0 100% 0;
-  background: #7bc752;
+.vd__vine.is-falling {
+  pointer-events: none;
+  animation: vd-fall 0.75s ease-in forwards;
 }
 
-.vd__leafy--a { left: 16%; top: -12px; transform: rotate(-30deg); }
-.vd__leafy--b { left: 48%; top: 30px; transform: rotate(150deg); }
-.vd__leafy--c { left: 78%; top: -12px; transform: rotate(-10deg); }
+.vine-art {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+@keyframes vd-wiggle {
+  0%, 100% { transform: rotate(var(--tilt, 0deg)); }
+  30% { transform: rotate(calc(var(--tilt, 0deg) - 2deg)) translateY(-2px); }
+  70% { transform: rotate(calc(var(--tilt, 0deg) + 2deg)) translateY(2px); }
+}
+
+@keyframes vd-fall {
+  to {
+    transform: translateY(260px) rotate(calc(var(--tilt, 0deg) + 25deg));
+    opacity: 0;
+  }
+}
+
+/* ---- messages ---- */
+.vd__message,
+.vd__confirm,
+.vd__found,
+.vd__note {
+  max-width: 480px;
+  text-align: center;
+}
 
 .vd__message {
   display: flex;
   align-items: center;
   gap: 10px;
-  max-width: 460px;
   padding: 10px 16px;
-  border: 2px solid var(--amber);
+  border: 2px solid var(--green);
   border-radius: 16px;
   background: var(--white);
   font-weight: 800;
-  text-align: center;
 }
 
-.vd__message--good {
-  border-color: var(--green);
+.vd__note {
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+
+.vd__confirm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 18px;
+  border: 3px solid var(--amber);
+  border-radius: 20px;
+  background: var(--white);
+  box-shadow: var(--shadow-card);
+}
+
+.vd__confirm p {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+
+.vd__confirm-actions,
+.vd__found-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
 }
 
 .vd__found {
@@ -320,7 +370,7 @@
   border: 4px solid var(--green);
   border-radius: 22px;
   background: var(--white);
-  text-align: center;
+  box-shadow: var(--shadow-card);
 }
 
 .vd__found h2 {
@@ -331,135 +381,6 @@
   font-weight: 900;
 }
 
-.vd__found-actions {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 6px;
-}
-
-/* ---- the question that comes up when a vine is tapped ---- */
-.vd__ask {
-  position: fixed;
-  inset: 0;
-  z-index: 60;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 16px;
-  background: rgba(30, 40, 28, 0.55);
-}
-
-.vd__card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 14px;
-  width: min(520px, 100%);
-  max-height: 100%;
-  overflow-y: auto;
-  padding: 20px;
-  border: 4px solid var(--green);
-  border-radius: 24px;
-  background: var(--white);
-  text-align: center;
-}
-
-.vd__card h2 {
-  font-size: 1.25rem;
-  font-weight: 900;
-}
-
-.vd__hear {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 24px;
-  border: none;
-  border-radius: 18px;
-  background: var(--green);
-  color: var(--white);
-  font-size: 1.05rem;
-  font-weight: 800;
-  box-shadow: 0 5px 0 var(--green-dark);
-  cursor: pointer;
-}
-
-.vd__puzzle {
-  display: flex;
-  gap: 6px;
-}
-
-.vd__tile {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 46px;
-  height: 54px;
-  border: 3px solid var(--border);
-  border-radius: 12px;
-  font-size: 1.5rem;
-  font-weight: 900;
-}
-
-.vd__tile.is-blank {
-  border-style: dashed;
-  color: var(--ink-soft);
-}
-
-.vd__choices {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
-  gap: 10px;
-  width: 100%;
-}
-
-.vd__choices--vowels {
-  grid-template-columns: repeat(5, 1fr);
-}
-
-.vd__choice {
-  padding: 14px 6px;
-  border: 3px solid var(--border);
-  border-radius: 16px;
-  background: var(--white);
-  color: var(--ink);
-  font-size: clamp(1.05rem, 4vw, 1.5rem);
-  font-weight: 800;
-  box-shadow: 0 4px 0 var(--border);
-  cursor: pointer;
-  overflow-wrap: anywhere;
-}
-
-.vd__choice.is-right {
-  border-color: var(--green);
-  background: var(--green-pale);
-  box-shadow: 0 4px 0 var(--green);
-}
-
-.vd__choice.is-wrong {
-  border-color: #e05555;
-  background: #fdecec;
-  box-shadow: 0 4px 0 #e05555;
-  animation: vd-shake-choice 0.4s;
-}
-
-@keyframes vd-shake-choice {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-5px); }
-  75% { transform: translateX(5px); }
-}
-
-.vd__cancel {
-  border: none;
-  background: none;
-  color: var(--ink-soft);
-  font-weight: 700;
-  text-decoration: underline;
-  cursor: pointer;
-}
-
 @media (max-width: 560px) {
   .vd__stage {
     flex-direction: column;
@@ -467,6 +388,6 @@
   }
 
   .vd__gem.is-flying {
-    transform: translate(-120px, 200px) scale(0.35);
+    transform: translate(-120px, 220px) scale(0.35);
   }
 }

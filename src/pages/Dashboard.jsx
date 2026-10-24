@@ -31,7 +31,7 @@ function lastSevenDays(history) {
 
 function Dashboard({ onStartLesson, onOpenMap, onOpenBackpack, onQuiz, onCredits, onPlacement, onOpenDoor }) {
   const progress = useProgress();
-  const { placed, doorAvailable, vinesLeft, spendableXp, pendingGem, streak, todayXp, goal, history, playedToday } = progress;
+  const { placed, doorAvailable, dailyLeft, dailyCollected, spendableXp, pendingGem, streak, todayXp, goal, history, playedToday } = progress;
   const next = LESSON_BY_ID[progress.nextLesson().id];
   const nextProgress = progress.lessons[next.id];
   const goalPercent = Math.min(100, Math.round((todayXp / goal) * 100));
@@ -66,13 +66,16 @@ function Dashboard({ onStartLesson, onOpenMap, onOpenBackpack, onQuiz, onCredits
             <div className="dash__door">
               <WordPicture word="rainforest" size={72} />
               <div>
-                <h2>The vine door is open!</h2>
+                <h2>The vine doors are open!</h2>
                 <p>
-                  You finished a day of lessons. Use your XP ({spendableXp} to spend) to cut {vinesLeft} {vinesLeft === 1 ? "vine" : "vines"} and find a gem.
+                  You finished a day of lessons and have {spendableXp} XP to spend.{" "}
+                  {dailyCollected
+                    ? "Save it for the golden door and an even better prize."
+                    : `Cut ${dailyLeft} ${dailyLeft === 1 ? "vine" : "vines"} for a gem, or save your XP for the golden door.`}
                 </p>
               </div>
               <button className="dash__start" onClick={onOpenDoor}>
-                OPEN THE DOOR
+                OPEN THE DOORS
               </button>
             </div>
           )}

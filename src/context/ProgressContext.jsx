@@ -5,10 +5,22 @@
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { UNITS, LESSONS } from "../data/lessons";
 import { TREASURES, GEMS } from "../data/treasures";
-import { VINES, VINE_COST, gemFor } from "../data/vineDoor";
+import { DOORS, prizeFor } from "../data/vineDoor";
 import { AVATARS, AVATAR_BY_ID, DEFAULT_AVATAR, isAvatarUnlocked, levelFor } from "../data/avatars";
 
 const STORAGE_KEY = "dyscover-progress";
+
+// demo mode: ?dev=1 turns it on (and remembers it), ?dev=0 turns it off
+const DEV = (() => {
+  try {
+    const q = new URLSearchParams(window.location.search).get("dev");
+    if (q === "1") localStorage.setItem("dyscover-dev", "1");
+    if (q === "0") localStorage.removeItem("dyscover-dev");
+    return localStorage.getItem("dyscover-dev") === "1";
+  } catch {
+    return false;
+  }
+})();
 const DAILY_GOAL_XP = 30;
 
 const EMPTY = {
@@ -25,7 +37,9 @@ const EMPTY = {
   grade: "g35", // grade band for the questions (see data/questionBanks.js)
   xpSpent: 0, // XP spent on cutting vines (level still counts all the XP ever earned)
   door: { day: null, removed: 0, collected: false }, // today's vine door
-  doorGems: [], // ids of the gems collected from vine doors
+  golden: { removed: 0 }, // the golden door (saved up over days)
+  doorGems: [], // ids of the gems collected from today's door
+  goldenPrizes: [], // ids of the prizes collected from the golden door
   placed: false, // true once the placement mission has been finished (it is played only once)
   jungle: null, // the jungle the child was sorted into by the quiz
 };
@@ -139,27 +153,56 @@ function ProgressProvider({ children }) {
     };
   }
 
-  // ---- the vine door (see data/vineDoor.js) ----------------------------------------------
+  // ---- demo mode ---------------------------------------------------------------------
+  // Open the app with ?dev=1 to unlock every game and the vine doors for a demo (?dev=0 turns it off).
+  // Nothing is blocked and cutting vines is free; the floating DEV panel can add XP or reset the doors.
+  const dev = DEV;
+
+  // ---- the vine doors (see data/vineDoor.js) -----------------------------------------------
   const todaysDoor = (s) => (s.door.day === dayKey() ? s.door : { day: dayKey(), removed: 0, collected: false });
   const goalReachedToday = (s) => (s.today.day === dayKey() ? s.today.xp : 0) >= DAILY_GOAL_XP;
 
-  // Cut one vine: needs the day's goal, enough unspent XP, and a vine left. Returns true if cut.
-  function cutVine() {
+  // Cut one vine ("daily" or "golden") by spending XP. Returns true if it was cut.
+  function cutVine(kind = "daily") {
     const s = stateRef.current;
-    const door = todaysDoor(s);
-    if (!goalReachedToday(s) || door.collected || door.removed >= VINES || s.xp - s.xpSpent < VINE_COST) return false;
-    commit({ ...s, xpSpent: s.xpSpent + VINE_COST, door: { ...door, removed: door.removed + 1 } });
+    const { vines, cost } = DOORS[kind];
+    if (!dev && (!goalReachedToday(s) || s.xp - s.xpSpent < cost)) return false;
+    if (kind === "daily") {
+      const door = todaysDoor(s);
+      if (door.removed >= vines || (door.collected && !dev)) return false;
+      commit({ ...s, xpSpent: s.xpSpent + (dev ? 0 : cost), door: { ...door, removed: door.removed + 1, collected: false } });
+    } else {
+      if (s.golden.removed >= vines) return false;
+      commit({ ...s, xpSpent: s.xpSpent + (dev ? 0 : cost), golden: { removed: s.golden.removed + 1 } });
+    }
     return true;
   }
 
-  // Take the gem from behind an open door and put it in the backpack. Returns the gem.
-  function collectDoorGem() {
+  // Take the prize from behind an open door and put it in the backpack. Returns the prize.
+  function collectDoorGem(kind = "daily") {
     const s = stateRef.current;
-    const door = todaysDoor(s);
-    if (door.removed < VINES || door.collected) return null;
-    const gem = gemFor(s.doorGems.length);
-    commit({ ...s, doorGems: [...s.doorGems, gem.id], door: { ...door, collected: true } });
-    return gem;
+    if (kind === "daily") {
+      const door = todaysDoor(s);
+      if (door.removed < DOORS.daily.vines || (door.collected && !dev)) return null;
+      const prize = prizeFor("daily", s.doorGems.length);
+      commit({ ...s, doorGems: [...s.doorGems, prize.id], door: { ...door, collected: true } });
+      return prize;
+    }
+    if (s.golden.removed < DOORS.golden.vines) return null;
+    const prize = prizeFor("golden", s.goldenPrizes.length);
+    commit({ ...s, goldenPrizes: [...s.goldenPrizes, prize.id], golden: { removed: 0 } });
+    return prize;
+  }
+
+  // demo helpers (the DEV panel)
+  function devAddXp(amount) {
+    const s = stateRef.current;
+    const day = dayKey();
+    const todayXp = (s.today.day === day ? s.today.xp : 0) + amount;
+    commit({ ...s, xp: s.xp + amount, today: { day, xp: todayXp }, lastDay: day, history: { ...s.history, [day]: (s.history[day] || 0) + amount } });
+  }
+  function devResetDoors() {
+    commit({ ...stateRef.current, door: { day: dayKey(), removed: 0, collected: false }, golden: { removed: 0 } });
   }
 
   function setAvatar(id) {
@@ -211,6 +254,7 @@ function ProgressProvider({ children }) {
   // open (finished ones stay shut and the next one stays locked) until every lesson is finished;
   // then all of them open for practice.
   const isUnlocked = (id) => {
+    if (dev) return true; // demo mode: every game is open
     if (!state.placed) return false;
     if (allDone) return true;
     return id === currentLessonId;
@@ -235,10 +279,17 @@ function ProgressProvider({ children }) {
     grade: state.grade,
     placed: state.placed,
     // vine door: open after the day's goal is reached, until its gem has been collected
-    doorAvailable: goalReachedToday(state) && !todaysDoor(state).collected,
-    vinesLeft: VINES - todaysDoor(state).removed,
-    spendableXp: state.xp - state.xpSpent,
+    dev,
+    devAddXp,
+    devResetDoors,
+    // the vine doors open after the day's goal is reached
+    doorAvailable: dev || goalReachedToday(state),
+    dailyLeft: DOORS.daily.vines - todaysDoor(state).removed,
+    dailyCollected: todaysDoor(state).collected,
+    goldenLeft: DOORS.golden.vines - state.golden.removed,
+    spendableXp: dev ? Math.max(200, state.xp - state.xpSpent) : state.xp - state.xpSpent,
     doorGems: state.doorGems,
+    goldenPrizes: state.goldenPrizes,
     cutVine,
     collectDoorGem,
     setGrade,

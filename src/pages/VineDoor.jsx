@@ -1,159 +1,177 @@
-// The vine door: a bonus game that opens after a day of lessons. A door is covered in vines.
-// Tap a vine, answer a question, and spend XP from your lessons to cut it down. Cut them all
-// and the gem behind the door goes into the backpack your avatar is carrying.
+// The vine doors: a bonus game that opens after a day of lessons. Your avatar, a whole person
+// carrying a backpack, walks up to a door covered in thin, curling vines. Spend XP from your
+// lessons to cut the vines on today's door and find a gem - or save the XP for the golden door,
+// which has more vines and an even better prize. There are no questions: the choice is the game.
 import { useState } from "react";
-import { Backpack, Scissors, Volume2, Zap } from "lucide-react";
+import { Backpack, Check, PiggyBank, Volume2, Zap } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import TopBar from "../components/TopBar";
 import AccessibilityToolbar from "../components/AccessibilityToolbar";
-import Avatar from "../components/Avatar";
+import PersonFigure from "../components/PersonFigure";
 import WordPicture from "../components/WordPicture";
+import VineArt from "../components/VineArt";
 import { speak } from "../audio/speech";
-import { useProgress, dayKey } from "../context/ProgressContext";
-import { PLACEMENT_PROMPT, PLACEMENT_VOWEL_PROMPT, VOWELS } from "../data/placement";
-import { DOOR_INTRO, DOOR_NEED_XP, DOOR_OPEN, VINES, VINE_COST, gemFoundLine, gemFor, vineQuestion } from "../data/vineDoor";
+import { useProgress } from "../context/ProgressContext";
+import { DOORS, DOOR_CONFIRM, DOOR_INTRO, DOOR_NEED_XP, DOOR_OPEN, prizeFor, prizeFoundLine } from "../data/vineDoor";
 import "./VineDoor.css";
-
-// which day of the year it is, to spread the questions out from day to day
-const dayNumber = () => Math.floor(new Date(dayKey()).getTime() / 86400000);
 
 function VineDoor({ onHome }) {
   const navigate = useNavigate();
-  const { avatar, grade, vinesLeft, spendableXp, doorGems, cutVine, collectDoorGem } = useProgress();
-  const [asking, setAsking] = useState(null); // the question being answered, or null
-  const [chosen, setChosen] = useState(null);
-  const [wrong, setWrong] = useState(false);
-  const [message, setMessage] = useState("");
-  const [cutting, setCutting] = useState(false); // the avatar is swinging
-  const [flying, setFlying] = useState(false); // the gem is on its way into the backpack
-  const [found, setFound] = useState(null); // the gem that went in the backpack
+  const { avatar, dailyLeft, goldenLeft, spendableXp, doorGems, goldenPrizes, dailyCollected, cutVine, collectDoorGem } = useProgress();
+  const [kind, setKind] = useState("daily"); // which door is showing: "daily" or "golden"
+  const [pending, setPending] = useState(false); // a vine was tapped: spend XP or save it?
+  const [pose, setPose] = useState("idle");
+  const [falling, setFalling] = useState(null); // the vine that was just cut (falls before it disappears)
+  const [flying, setFlying] = useState(false);
+  const [found, setFound] = useState(null);
 
-  const removed = VINES - vinesLeft;
-  const open = vinesLeft === 0;
-  const nextGem = gemFor(doorGems.length);
+  const door = DOORS[kind];
+  const left = kind === "daily" ? dailyLeft : goldenLeft;
+  const removed = door.vines - left;
+  const open = left === 0;
+  const prize = prizeFor(kind, kind === "daily" ? doorGems.length : goldenPrizes.length);
+  const enough = spendableXp >= door.cost;
+
+  function switchDoor(next) {
+    setKind(next);
+    setPending(false);
+    setFound(null);
+    setFlying(false);
+  }
 
   function tapVine() {
-    if (asking || open) return;
-    if (spendableXp < VINE_COST) {
-      setMessage(DOOR_NEED_XP);
-      return;
-    }
-    setMessage("");
-    setChosen(null);
-    setWrong(false);
-    setAsking(vineQuestion(grade, removed, dayNumber()));
+    if (open || found) return;
+    setPending(true);
   }
 
-  function answer(choice) {
-    if (!asking || chosen) return;
-    const right = choice === (asking.type === "vowel" ? asking.answer : asking.word);
-    setChosen(choice);
-    if (!right) {
-      setWrong(true);
-      setTimeout(() => {
-        setChosen(null);
-        setWrong(false);
-      }, 700);
-      return;
+  function spend() {
+    setPending(false);
+    const index = removed; // the vine that will fall
+    if (cutVine(kind)) {
+      setFalling(index);
+      setPose("cutting");
+      setTimeout(() => setFalling(null), 750);
+      setTimeout(() => setPose("idle"), 750);
     }
-    setTimeout(() => {
-      setAsking(null);
-      if (cutVine()) {
-        setCutting(true);
-        setTimeout(() => setCutting(false), 700);
-      }
-    }, 600);
   }
 
-  function takeGem() {
+  function takePrize() {
     if (!open || flying || found) return;
     setFlying(true);
     setTimeout(() => {
-      const gem = collectDoorGem();
-      setFound(gem);
+      setFound(collectDoorGem(kind));
       setFlying(false);
+      setPose("happy");
+      setTimeout(() => setPose("idle"), 1500);
     }, 1100);
   }
 
-  // the avatar walks toward the door as vines come down
-  const walk = Math.min(1, removed / VINES);
+  // everything is "looking" at the door: the avatar steps closer as vines come down
+  const walk = Math.min(1, removed / door.vines);
 
   return (
     <section className="page vd">
-      <TopBar label="VINE DOOR" />
+      <TopBar label="VINE DOORS" />
       <div className="vd__scroll">
         <div className="vd__inner">
           <p className="vd__intro">
             <button className="vd__speak" onClick={() => speak(DOOR_INTRO)} aria-label="Read aloud">
               <Volume2 size={18} />
             </button>
-            Cut every vine to get the gem behind the door!
+            Spend your XP to cut vines, or save it for the golden door!
           </p>
+
+          <div className="vd__tabs" role="tablist">
+            <button role="tab" aria-selected={kind === "daily"} className={kind === "daily" ? "is-on" : ""} onClick={() => switchDoor("daily")}>
+              Today&rsquo;s door
+              <small>{DOORS.daily.vines} vines</small>
+            </button>
+            <button role="tab" aria-selected={kind === "golden"} className={`vd__tab--gold${kind === "golden" ? " is-on" : ""}`} onClick={() => switchDoor("golden")}>
+              Golden door
+              <small>{DOORS.golden.vines} vines &middot; rare prize</small>
+            </button>
+          </div>
 
           <div className="vd__status">
             <span className="vd__chip">
               <Zap size={16} fill="currentColor" /> {spendableXp} XP to spend
             </span>
+            <span className="vd__chip">{door.cost} XP per vine</span>
             <span className="vd__chip">
-              <Scissors size={16} /> Each vine costs {VINE_COST} XP
-            </span>
-            <span className="vd__chip">
-              Vines left: {vinesLeft} of {VINES}
+              {left} of {door.vines} vines left
             </span>
           </div>
 
           <div className="vd__stage">
-            {/* your avatar, carrying the backpack, walks up to the door */}
-            <div className={`vd__hero${cutting ? " is-cutting" : ""}${wrong ? " is-wrong" : ""}${found ? " is-happy" : ""}`} style={{ "--walk": walk }}>
-              <Avatar id={avatar} size={110} />
-              <span className="vd__pack" aria-label="Your backpack">
-                <Backpack size={30} />
-                <span className="vd__pack-count">{doorGems.length}</span>
-              </span>
-              {cutting && (
-                <span className="vd__snip" aria-hidden="true">
-                  <Scissors size={30} />
-                </span>
-              )}
+            <div className="vd__hero" style={{ "--walk": walk }}>
+              <PersonFigure id={avatar} height={230} pose={pose} packCount={doorGems.length + goldenPrizes.length} />
             </div>
 
-            <div className={`vd__door${open ? " is-open" : ""}`}>
+            <div className={`vd__door vd__door--${kind}${open ? " is-open" : ""}`}>
               <div className="vd__arch">
-                {/* the gem hides behind the door */}
-                <button className={`vd__gem${open ? " is-ready" : ""}${flying ? " is-flying" : ""}${found ? " is-gone" : ""}`} onClick={takeGem} disabled={!open} aria-label={`Take the ${nextGem.name}`}>
-                  <WordPicture word={nextGem.id} size={92} />
+                <button className={`vd__gem${open ? " is-ready" : ""}${flying ? " is-flying" : ""}${found ? " is-gone" : ""}`} onClick={takePrize} disabled={!open} aria-label={`Take the ${prize.name}`}>
+                  <WordPicture word={prize.id} size={kind === "golden" ? 104 : 92} />
                 </button>
-                <span className="vd__doors" aria-hidden="true">
-                  <span className="vd__leaf vd__leaf--left" />
-                  <span className="vd__leaf vd__leaf--right" />
+                <span className="vd__planks" aria-hidden="true">
+                  <span className="vd__plank vd__plank--left" />
+                  <span className="vd__plank vd__plank--right" />
+                  <span className="vd__band vd__band--top" />
+                  <span className="vd__band vd__band--bottom" />
+                  <span className="vd__ring" />
                 </span>
-                {/* the vines */}
-                {Array.from({ length: VINES }, (_, i) => i >= removed && (
-                  <button key={i} className={`vd__vine vd__vine--${i}`} onClick={tapVine} aria-label={`Vine ${i + 1}: tap to cut it`}>
-                    <span className="vd__leafy vd__leafy--a" />
-                    <span className="vd__leafy vd__leafy--b" />
-                    <span className="vd__leafy vd__leafy--c" />
-                  </button>
-                ))}
+                {Array.from({ length: door.vines }, (_, i) => {
+                  const isFalling = falling === i;
+                  if (i < removed && !isFalling) return null;
+                  return (
+                    <button
+                      key={`${kind}-${i}`}
+                      className={`vd__vine${isFalling ? " is-falling" : ""}`}
+                      style={{ top: `${6 + (i * 84) / Math.max(1, door.vines - 1)}%`, "--tilt": `${i % 2 ? 5 : -6}deg` }}
+                      onClick={tapVine}
+                      aria-label={`Vine ${i + 1}: tap to cut it`}
+                    >
+                      <VineArt seed={i} />
+                    </button>
+                  );
+                })}
               </div>
             </div>
           </div>
 
-          {message && <p className="vd__message">{message}</p>}
+          {pending && (
+            <div className="vd__confirm" role="dialog" aria-label="Spend your XP?">
+              <p>
+                <button className="vd__speak" onClick={() => speak(enough ? DOOR_CONFIRM : DOOR_NEED_XP)} aria-label="Read aloud">
+                  <Volume2 size={18} />
+                </button>
+                {enough ? `Spend ${door.cost} XP to cut this vine, or save your XP for ${kind === "daily" ? "the golden door" : "later"}?` : "You need more XP to cut a vine. Finish more lessons to earn it."}
+              </p>
+              <div className="vd__confirm-actions">
+                {enough && (
+                  <button className="btn btn--primary" onClick={spend}>
+                    <Check size={18} /> Cut it (&minus;{door.cost} XP)
+                  </button>
+                )}
+                <button className="btn btn--outline" onClick={() => setPending(false)}>
+                  <PiggyBank size={18} /> Save my XP
+                </button>
+              </div>
+            </div>
+          )}
 
           {open && !found && (
-            <p className="vd__message vd__message--good">
+            <p className="vd__message">
               <button className="vd__speak" onClick={() => speak(DOOR_OPEN)} aria-label="Read aloud">
                 <Volume2 size={18} />
               </button>
-              The door is open! Tap the gem to put it in your backpack.
+              The door is open! Tap the prize to put it in your backpack.
             </p>
           )}
 
           {found && (
             <div className="vd__found">
               <h2>
-                <button className="vd__speak" onClick={() => speak(gemFoundLine(found))} aria-label="Read aloud">
+                <button className="vd__speak" onClick={() => speak(prizeFoundLine(found))} aria-label="Read aloud">
                   <Volume2 size={18} />
                 </button>
                 You found the {found.name}!
@@ -163,48 +181,23 @@ function VineDoor({ onHome }) {
                 <button className="btn btn--primary" onClick={() => navigate("/backpack")}>
                   <Backpack size={18} /> See my backpack
                 </button>
+                {kind === "daily" && (
+                  <button className="btn btn--outline" onClick={() => switchDoor("golden")}>
+                    Try the golden door
+                  </button>
+                )}
                 <button className="btn btn--outline" onClick={onHome}>
                   Back home
                 </button>
               </div>
             </div>
           )}
+
+          {kind === "daily" && dailyCollected && !found && (
+            <p className="vd__note">You already found today&rsquo;s gem. Save your XP for the golden door!</p>
+          )}
         </div>
       </div>
-
-      {asking && (
-        <div className="vd__ask" role="dialog" aria-label="Answer to cut the vine">
-          <div className="vd__card">
-            <h2>{asking.type === "vowel" ? PLACEMENT_VOWEL_PROMPT : PLACEMENT_PROMPT}</h2>
-            {asking.type === "vowel" && (
-              <>
-                <WordPicture word={asking.word} size={84} />
-                <div className="vd__puzzle" aria-label="The word with a missing vowel">
-                  {asking.template.map((letter, i) => (
-                    <span key={i} className={`vd__tile${letter ? "" : " is-blank"}`}>
-                      {letter ?? "?"}
-                    </span>
-                  ))}
-                </div>
-              </>
-            )}
-            <button className="vd__hear" onClick={() => speak(asking.word)} aria-label="Hear the word">
-              <Volume2 size={26} /> Hear it
-            </button>
-            <div className={`vd__choices${asking.type === "vowel" ? " vd__choices--vowels" : ""}`}>
-              {(asking.type === "vowel" ? VOWELS : asking.choices).map((c) => (
-                <button key={c} className={`vd__choice${chosen === c ? (wrong ? " is-wrong" : " is-right") : ""}`} onClick={() => answer(c)} disabled={Boolean(chosen)}>
-                  {c}
-                </button>
-              ))}
-            </div>
-            <button className="vd__cancel" onClick={() => setAsking(null)}>
-              Not now
-            </button>
-          </div>
-        </div>
-      )}
-
       <AccessibilityToolbar />
     </section>
   );

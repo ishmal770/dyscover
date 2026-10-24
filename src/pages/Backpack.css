@@ -224,3 +224,8 @@
   filter: grayscale(1) brightness(0.75);
   opacity: 0.55;
 }
+
+.backpack__card--gold {
+  border-color: #e6c25a;
+  background: #fff9e6;
+}

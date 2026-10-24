@@ -5,6 +5,7 @@ import { AccessibilityProvider } from "./context/AccessibilityContext";
 import { GuideProvider } from "./context/GuideContext";
 import { ProgressProvider } from "./context/ProgressContext";
 import HelpMode from "./components/HelpMode";
+import DevTools from "./components/DevTools";
 import KidGameApp from "./KidGameApp"; // the horizontal-scroll game experience
 import Backpack from "./pages/Backpack";
 import Credits from "./pages/Credits";
@@ -19,6 +20,7 @@ function App() {
       <ProgressProvider>
       <BrowserRouter>
         <HelpMode />
+        <DevTools />
         <Routes>
           {/* Main kid app: onboarding, worlds, and all mini-games */}
           <Route path="/" element={<KidGameApp />} />

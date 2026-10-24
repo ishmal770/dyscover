@@ -1,13 +1,16 @@
-// The vine door: a bonus game that opens after a day of lessons (the daily goal is reached).
-// A door is covered in VINES. To cut a vine the child answers a question and spends VINE_COST
-// of the XP they earned in their lessons. Cut every vine and the gem behind the door goes into
-// their backpack. One door a day. Plain data (the audio script reads it too).
-import { POOL } from "./placement.js";
+// The vine doors: a bonus game that opens after a day of lessons (the daily goal is reached).
+// There are two doors. TODAY'S DOOR has a few vines; spending XP cuts them (10 XP a vine) and
+// the gem behind it goes into the backpack. The GOLDEN DOOR has more vines and a rarer prize, so
+// the child chooses: spend XP now on today's door, or save it for the golden door.
+// No questions - the choice is what to do with the XP. Plain data (the audio script reads it too).
 
-export const VINES = 3;
-export const VINE_COST = 10; // XP spent per vine (a day's goal is 30 XP, so one day pays for one door)
+export const DOORS = {
+  daily: { name: "Today's door", vines: 3, cost: 10 },
+  golden: { name: "Golden door", vines: 8, cost: 10 },
+};
+export const VINE_COST = 10;
 
-// the gems behind the doors, in order
+// the gems behind today's door, one a day, in order
 export const DOOR_GEMS = [
   { id: "ruby", name: "Ruby" },
   { id: "sapphire", name: "Sapphire" },
@@ -16,19 +19,29 @@ export const DOOR_GEMS = [
   { id: "diamond", name: "Diamond" },
   { id: "opal", name: "Opal" },
 ];
-export const gemFor = (count) => DOOR_GEMS[count % DOOR_GEMS.length];
+// the better prizes behind the golden door
+export const GOLDEN_PRIZES = [
+  { id: "crown", name: "Golden Crown" },
+  { id: "gold", name: "Gold Crystals" },
+  { id: "treasure", name: "Treasure Hoard" },
+];
 
-// A vine's question: they alternate between "hear the word" and "missing vowel", taken from
-// the child's grade band and spread out so a day's three questions are different.
-export function vineQuestion(band, step, seed) {
-  const type = step % 2 === 0 ? "word" : "vowel";
-  const pool = POOL[band].filter((q) => q.type === type);
-  return pool[(seed + step) % pool.length];
-}
+export const prizeFor = (kind, count) => {
+  const list = kind === "golden" ? GOLDEN_PRIZES : DOOR_GEMS;
+  return list[count % list.length];
+};
 
-export const DOOR_INTRO = "You finished a day of lessons! Tap a vine, answer the question, and spend some XP to cut it down. Cut every vine to get the gem.";
+export const DOOR_INTRO = "You finished a day of lessons! Spend your XP to cut the vines on today's door and find a gem. Or save your XP for the golden door and an even better prize.";
+export const DOOR_CONFIRM = "Spend 10 XP to cut this vine, or save your XP for the golden door?";
 export const DOOR_NEED_XP = "You need more XP to cut a vine. Finish more lessons to earn it.";
-export const DOOR_OPEN = "The door is open! Tap the gem to put it in your backpack.";
-export const gemFoundLine = (gem) => `You found the ${gem.name}! It is in your backpack.`;
+export const DOOR_OPEN = "The door is open! Tap the prize to put it in your backpack.";
+export const prizeFoundLine = (prize) => `You found the ${prize.name}! It is in your backpack.`;
 
-export const DOOR_LINES = [DOOR_INTRO, DOOR_NEED_XP, DOOR_OPEN, ...DOOR_GEMS.map(gemFoundLine)];
+export const DOOR_LINES = [
+  DOOR_INTRO,
+  DOOR_CONFIRM,
+  DOOR_NEED_XP,
+  DOOR_OPEN,
+  ...DOOR_GEMS.map(prizeFoundLine),
+  ...GOLDEN_PRIZES.map(prizeFoundLine),
+];
