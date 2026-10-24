@@ -10,6 +10,23 @@ import { AVATARS, AVATAR_BY_ID, DEFAULT_AVATAR, isAvatarUnlocked, levelFor } fro
 
 const STORAGE_KEY = "dyscover-progress";
 
+// ?reset=1 starts over: it clears everything the app saved (progress, settings, what was heard),
+// then drops itself from the address so a reload does not wipe again.
+(() => {
+  try {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("reset") !== "1") return;
+    Object.keys(localStorage)
+      .filter((k) => k.startsWith("dyscover"))
+      .forEach((k) => localStorage.removeItem(k));
+    params.delete("reset");
+    const rest = params.toString();
+    window.history.replaceState(null, "", `${window.location.pathname}${rest ? `?${rest}` : ""}${window.location.hash}`);
+  } catch {
+    // storage blocked: nothing to clear
+  }
+})();
+
 // demo mode: ?dev=1 turns it on (and remembers it), ?dev=0 turns it off
 const DEV = (() => {
   try {
