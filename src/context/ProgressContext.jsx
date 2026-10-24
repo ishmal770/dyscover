@@ -172,25 +172,28 @@ function ProgressProvider({ children }) {
 
   // ---- demo mode ---------------------------------------------------------------------
   // Open the app with ?dev=1 to unlock every game and the vine doors for a demo (?dev=0 turns it off).
-  // Nothing is blocked and cutting vines is free; the floating DEV panel can add XP or reset the doors.
+  // Nothing is blocked and you start with 200 XP to spend on vines; the DEV panel (Shift+D) can add XP or refill the doors.
   const dev = DEV;
 
   // ---- the vine doors (see data/vineDoor.js) -----------------------------------------------
   const todaysDoor = (s) => (s.door.day === dayKey() ? s.door : { day: dayKey(), removed: 0, collected: false });
   const goalReachedToday = (s) => (s.today.day === dayKey() ? s.today.xp : 0) >= DAILY_GOAL_XP;
 
+  // In demo mode there is a 200 XP starter balance on top of any XP earned, and cutting vines spends it for real.
+  const spendableOf = (s) => Math.max(0, (dev ? 200 : 0) + s.xp - s.xpSpent);
+
   // Cut one vine ("daily" or "golden") by spending XP. Returns true if it was cut.
   function cutVine(kind = "daily") {
     const s = stateRef.current;
     const { vines, cost } = DOORS[kind];
-    if (!dev && (!goalReachedToday(s) || s.xp - s.xpSpent < cost)) return false;
+    if ((!dev && !goalReachedToday(s)) || spendableOf(s) < cost) return false;
     if (kind === "daily") {
       const door = todaysDoor(s);
       if (door.removed >= vines || (door.collected && !dev)) return false;
-      commit({ ...s, xpSpent: s.xpSpent + (dev ? 0 : cost), door: { ...door, removed: door.removed + 1, collected: false } });
+      commit({ ...s, xpSpent: s.xpSpent + cost, door: { ...door, removed: door.removed + 1, collected: false } });
     } else {
       if (s.golden.removed >= vines) return false;
-      commit({ ...s, xpSpent: s.xpSpent + (dev ? 0 : cost), golden: { removed: s.golden.removed + 1 } });
+      commit({ ...s, xpSpent: s.xpSpent + cost, golden: { removed: s.golden.removed + 1 } });
     }
     return true;
   }
@@ -219,7 +222,7 @@ function ProgressProvider({ children }) {
     commit({ ...s, xp: s.xp + amount, today: { day, xp: todayXp }, lastDay: day, history: { ...s.history, [day]: (s.history[day] || 0) + amount } });
   }
   function devResetDoors() {
-    commit({ ...stateRef.current, door: { day: dayKey(), removed: 0, collected: false }, golden: { removed: 0 } });
+    commit({ ...stateRef.current, xpSpent: 0, door: { day: dayKey(), removed: 0, collected: false }, golden: { removed: 0 } });
   }
 
   function setAvatar(id) {
@@ -304,7 +307,7 @@ function ProgressProvider({ children }) {
     dailyLeft: DOORS.daily.vines - todaysDoor(state).removed,
     dailyCollected: todaysDoor(state).collected,
     goldenLeft: DOORS.golden.vines - state.golden.removed,
-    spendableXp: dev ? Math.max(200, state.xp - state.xpSpent) : state.xp - state.xpSpent,
+    spendableXp: spendableOf(state),
     doorGems: state.doorGems,
     goldenPrizes: state.goldenPrizes,
     cutVine,
