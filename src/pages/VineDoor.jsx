@@ -24,6 +24,7 @@ function VineDoor({ onHome }) {
   const [falling, setFalling] = useState(null); // the vine that was just cut (falls before it disappears)
   const [flying, setFlying] = useState(false);
   const [found, setFound] = useState(null);
+  const [popup, setPopup] = useState(null); // the "-10 XP" that floats up when a vine is cut
 
   const door = DOORS[kind];
   const left = kind === "daily" ? dailyLeft : goldenLeft;
@@ -31,12 +32,14 @@ function VineDoor({ onHome }) {
   const open = left === 0;
   const prize = prizeFor(kind, kind === "daily" ? doorGems.length : goldenPrizes.length);
   const enough = spendableXp >= door.cost;
+  const spent = removed * door.cost; // XP given up so far on this door
 
   function switchDoor(next) {
     setKind(next);
     setPending(false);
     setFound(null);
     setFlying(false);
+    setPopup(null);
   }
 
   function tapVine() {
@@ -49,6 +52,8 @@ function VineDoor({ onHome }) {
     const index = removed; // the vine that will fall
     if (cutVine(kind)) {
       setFalling(index);
+      setPopup({ id: Date.now(), amount: door.cost });
+      setTimeout(() => setPopup(null), 1600);
       setPose("cutting");
       setTimeout(() => setFalling(null), 750);
       setTimeout(() => setPose("idle"), 750);
@@ -100,9 +105,17 @@ function VineDoor({ onHome }) {
             <span className="vd__chip">
               {left} of {door.vines} vines left
             </span>
+            <span className="vd__chip vd__chip--lost">
+              <Zap size={16} /> {spent} XP spent on this door
+            </span>
           </div>
 
           <div className="vd__stage">
+            {popup && (
+              <span key={popup.id} className="vd__lost-popup" aria-live="polite">
+                &minus;{popup.amount} XP
+              </span>
+            )}
             <div className="vd__hero" style={{ "--walk": walk }}>
               <PersonFigure id={avatar} height={230} pose={pose} packCount={doorGems.length + goldenPrizes.length} />
             </div>
@@ -164,7 +177,7 @@ function VineDoor({ onHome }) {
               <button className="vd__speak" onClick={() => speak(DOOR_OPEN)} aria-label="Read aloud">
                 <Volume2 size={18} />
               </button>
-              The door is open! Tap the prize to put it in your backpack.
+              The door is open! You spent {spent} XP. Tap the prize to put it in your backpack.
             </p>
           )}
 
@@ -176,7 +189,9 @@ function VineDoor({ onHome }) {
                 </button>
                 You found the {found.name}!
               </h2>
-              <p>It is in your backpack.</p>
+              <p>
+                It is in your backpack. You spent {spent} XP on this door.
+              </p>
               <div className="vd__found-actions">
                 <button className="btn btn--primary" onClick={() => navigate("/backpack")}>
                   <Backpack size={18} /> See my backpack

@@ -121,8 +121,41 @@
   font-weight: 800;
 }
 
+/* how much XP the vines cost so far */
+.vd__chip--lost {
+  border-color: #e8b4a8;
+  background: #fdf0ec;
+  color: #b4472f;
+}
+
+/* the "-10 XP" that floats up from the door when a vine is cut */
+.vd__lost-popup {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  z-index: 8;
+  padding: 6px 16px;
+  border-radius: var(--radius-pill);
+  background: #c0453a;
+  color: var(--white);
+  font-size: 1.3rem;
+  font-weight: 900;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  pointer-events: none;
+  transform: translateX(-50%);
+  animation: vd-lost 1.6s ease-out forwards;
+}
+
+@keyframes vd-lost {
+  0% { opacity: 0; transform: translate(-50%, 20px) scale(0.8); }
+  15% { opacity: 1; transform: translate(-50%, 0) scale(1.1); }
+  70% { opacity: 1; transform: translate(-50%, -26px) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -48px) scale(1); }
+}
+
 /* ---- the stage: the avatar on the left, the door on the right ---- */
 .vd__stage {
+  position: relative;
   display: flex;
   align-items: flex-end;
   justify-content: center;
