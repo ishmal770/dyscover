@@ -28,12 +28,16 @@ const ORDER = [
   "monkeyMixUpGame", "lizardLookoutsGame", "lionsLettersGame", "syllableSafariGame", "parrotPairsGame", "cheetahChallengeGame",
 ];
 
+// The page the child was on when they left for the backpack, credits or a dashboard, so the
+// back button there brings them back to it (it resets only when the site is reloaded).
+let lastPage = "home";
+
 function KidGameApp() {
   // Holds a live DOM node reference for every section, keyed by section name,
   // so goTo() can scroll to any of them without re-rendering.
   const sectionRefs = useRef({});
   const scrollerRef = useRef(null);
-  const [viewKey, setViewKey] = useState("home"); // which page is showing
+  const [viewKey, setViewKey] = useState(lastPage); // which page is showing
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const { grade, isUnlocked, doorAvailable } = useProgress();
@@ -47,6 +51,7 @@ function KidGameApp() {
   const goTo = (key) => {
     // a locked lesson can never be opened: send the child to the map instead
     if (!isAllowed(key)) key = fallbackFor(key);
+    lastPage = key;
     sectionRefs.current[key]?.scrollIntoView({
       behavior: "smooth",
       inline: "start",
@@ -58,8 +63,12 @@ function KidGameApp() {
   // Room and Expert Dashboard) by jumping straight to that section on load.
   useEffect(() => {
     const play = searchParams.get("play");
-    if (play && sectionRefs.current[play]) {
-      const target = isAllowed(play) ? play : fallbackFor(play);
+    // coming back from the backpack (or another screen): reopen the page that was showing
+    const wanted = play || lastPage;
+    if (sectionRefs.current[wanted]) {
+      const target = isAllowed(wanted) ? wanted : fallbackFor(wanted);
+      lastPage = target;
+      setViewKey(target);
       sectionRefs.current[target].scrollIntoView({ behavior: "instant", inline: "start" });
     }
   }, [searchParams]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -84,21 +93,9 @@ function KidGameApp() {
         best = key;
       }
     }
+    lastPage = best;
     setViewKey(best);
   }
-
-  // Once every page that is open has been visited, glide back to the page the visit started on.
-  const startKey = useRef(searchParams.get("play") || "home");
-  const visited = useRef(new Set([startKey.current]));
-  useEffect(() => {
-    visited.current.add(viewKey);
-    if (!visibleKeys.every((k) => visited.current.has(k))) return undefined;
-    const timer = setTimeout(() => {
-      visited.current = new Set([startKey.current]);
-      goTo(startKey.current);
-    }, 1500);
-    return () => clearTimeout(timer);
-  }, [viewKey]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const here = visibleKeys.indexOf(viewKey);
   const prevKey = visibleKeys[here - 1];
