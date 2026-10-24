@@ -36,7 +36,7 @@ function KidGameApp() {
   const [viewKey, setViewKey] = useState("home"); // which page is showing
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const { grade, isUnlocked, doorAvailable, dev } = useProgress();
+  const { grade, isUnlocked, doorAvailable } = useProgress();
 
   // A lesson that is still locked can never be opened.
   // (the vine door is only there after a day of lessons, until its gem has been collected)
@@ -87,19 +87,19 @@ function KidGameApp() {
     setViewKey(best);
   }
 
-  // Demo mode: once every page has been visited, glide back to the page the demo started on.
+  // Once every page that is open has been visited, glide back to the page the visit started on.
   const startKey = useRef(searchParams.get("play") || "home");
   const visited = useRef(new Set([startKey.current]));
   useEffect(() => {
-    if (!dev) return undefined;
     visited.current.add(viewKey);
+    console.log('DBG', viewKey, [...visited.current].join(), visibleKeys.join());
     if (!visibleKeys.every((k) => visited.current.has(k))) return undefined;
     const timer = setTimeout(() => {
       visited.current = new Set([startKey.current]);
       goTo(startKey.current);
     }, 1500);
     return () => clearTimeout(timer);
-  }, [viewKey, dev]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [viewKey]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const here = visibleKeys.indexOf(viewKey);
   const prevKey = visibleKeys[here - 1];
