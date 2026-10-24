@@ -539,6 +539,11 @@
   "say": "Parrot Pairs",
   "speed": "0.76/0.85"
  },
+ "334cc4e3": {
+  "key": "find the vowel that sounds like the one in this word to complete the word! tap a vowel from the tray to complete the word.",
+  "say": "Find the vowel that sounds like the one in this word to complete the word! Tap a vowel from the tray to complete the word.",
+  "speed": "0.76/0.85"
+ },
  "33f80408": {
   "key": "syl:vol",
   "say": "vol",
@@ -1504,11 +1509,6 @@
   "say": "Let's play a few quick games so I can build your perfect map. Tap me when you are ready!",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 1.0, \"sentence\": 0.74, \"voice\": \"af_heart\", \"word\": 0.82}"
  },
- "8c345779": {
-  "key": "find the vowel that sounds like the one in \"dog\" to complete the word! tap a vowel from the tray to complete the word.",
-  "say": "Find the vowel that sounds like the one in \"dog\" to complete the word! Tap a vowel from the tray to complete the word.",
-  "speed": "0.76/0.85"
- },
  "8c4f8303": {
   "key": "the letter e, as in egg.",
   "say": "The letter E, as in egg.",
@@ -2034,11 +2034,6 @@
   "say": "Lesson complete! Great job, you got two stars!",
   "speed": "{\"lang\": \"en-gb\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"bf_emma\", \"word\": 0.8}"
  },
- "b53f4f1f": {
-  "key": "find the vowel that sounds like the one in \"pig\" to complete the word! tap a vowel from the tray to complete the word.",
-  "say": "Find the vowel that sounds like the one in \"pig\" to complete the word! Tap a vowel from the tray to complete the word.",
-  "speed": "0.76/0.85"
- },
  "b554f920": {
   "key": "silver",
   "say": "silver",
@@ -2529,11 +2524,6 @@
   "say": "Press this to turn help on or off.",
   "speed": "0.76/0.85"
  },
- "d92bb9de": {
-  "key": "find the vowel that sounds like the one in \"bed\" to complete the word! tap a vowel from the tray to complete the word.",
-  "say": "Find the vowel that sounds like the one in \"bed\" to complete the word! Tap a vowel from the tray to complete the word.",
-  "speed": "0.76/0.85"
- },
  "d9889f50": {
   "key": "banana",
   "say": "banana",
@@ -2562,11 +2552,6 @@
  "dbd773d9": {
   "key": "the letter f, as in fish.",
   "say": "The letter F, as in fish.",
-  "speed": "0.76/0.85"
- },
- "dc7cdf97": {
-  "key": "find the vowel that sounds like the one in \"cat\" to complete the word! tap a vowel from the tray to complete the word.",
-  "say": "Find the vowel that sounds like the one in \"cat\" to complete the word! Tap a vowel from the tray to complete the word.",
   "speed": "0.76/0.85"
  },
  "dc88e121": {
@@ -2773,11 +2758,6 @@
   "key": "sloth|bright sunshine",
   "say": "Bright sunshine",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 1.0, \"sentence\": 0.74, \"voice\": \"af_heart\", \"word\": 0.82}"
- },
- "ec8cef17": {
-  "key": "find the vowel that sounds like the one in \"cup\" to complete the word! tap a vowel from the tray to complete the word.",
-  "say": "Find the vowel that sounds like the one in \"cup\" to complete the word! Tap a vowel from the tray to complete the word.",
-  "speed": "0.76/0.85"
  },
  "ed463ea9": {
   "key": "what is your favorite weather?",

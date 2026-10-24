@@ -311,9 +311,6 @@ def collect() -> None:
     words = set(spoken["WORDS"])
     monkey = read("pages/MonkeyMixUpGame.jsx")
     words |= set(w.lower() for w in re.findall(r'"(\w+)"', re.search(r"const BONUS_WORDS = \[(.*?)\]", monkey, re.S).group(1)))
-    examples = re.search(r"const SOUND_EXAMPLES = \{(.*?)\}", monkey, re.S).group(1)
-    sound_words = re.findall(r'\w+: "(\w+)"', examples)
-    words |= set(sound_words)
     for w in sorted(words):
         add(w.lower())
 
@@ -326,8 +323,7 @@ def collect() -> None:
         add(p, say=SYLLABLE_SAY[p], key=f"syl:{p}")
 
     # ---- game instructions and hint-bubble messages ------------------------
-    for sound_word in sound_words:
-        add(f'Find the vowel that sounds like the one in "{sound_word}" to complete the word! Tap a vowel from the tray to complete the word.')
+    add("Find the vowel that sounds like the one in this word to complete the word! Tap a vowel from the tray to complete the word.")
     for rel, texts in GAME_HELP.items():
         for text in texts:
             require_in_source(rel, text)
