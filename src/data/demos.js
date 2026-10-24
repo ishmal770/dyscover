@@ -80,13 +80,14 @@ export const DEMOS = {
     title: "How to play Lizard Lookouts",
     rows: [
       { items: [{ id: "find", kind: "label", text: "Find every b" }] },
-      { items: [...tiles("abigbed", "t")] },
+      { items: tiles("big", "t") },
+      { items: tiles("bed", "u") },
     ],
     steps: [
       { caption: "Look for the tricky letter. Today it is b." },
-      { caption: "Tap every b you can find.", cursor: "t1", set: { t1: "correct" } },
-      { caption: "Keep going until you find them all.", cursor: "t4", set: { t4: "correct" } },
-      { caption: "If you tap a different letter, it shakes. Just try again.", cursor: "t2", set: { t2: "wrong" } },
+      { caption: "Tap every b you can find.", cursor: "t0", set: { t0: "correct" } },
+      { caption: "Keep going until you find them all.", cursor: "u0", set: { u0: "correct" } },
+      { caption: "If you tap a different letter, it shakes. Just try again.", cursor: "u1", set: { u1: "wrong" } },
       { caption: "Then trace the letter and find it in the paragraph too." },
     ],
   },

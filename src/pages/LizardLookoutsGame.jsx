@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { Star, Info, ArrowRight, Volume2, Minus, Circle } from "lucide-react";
+import { Star, Info, ArrowRight, Volume2, Minus, Circle, Check } from "lucide-react";
 import GameTopBar from "../components/GameTopBar";
 import GameBanner from "../components/GameBanner";
 import LessonComplete from "../components/LessonComplete";
@@ -194,22 +194,16 @@ function LizardLookoutsGame({ onHome, onBack, onDone }) {
       <GameBanner game="lizardLookoutsGame" />
 
       <div className="lizard-game__topline">
-        <div>
-          <h1>
-            Practice: {round.pairLabel}
-            <span className="lizard-game__round-pill">
-              Letter {roundIndex + 1} of {rounds.length}
-            </span>
-          </h1>
-          <p>Let&rsquo;s learn how to tell these tricky letters apart!</p>
-        </div>
-        <div className="lizard-game__progress">
-          <span>LEVEL PROGRESS</span>
-          <div className="lizard-game__stars">
-            {[0, 1, 2].map((i) => (
-              <Star key={i} size={14} fill={i < stars ? "currentColor" : "none"} />
-            ))}
-          </div>
+        <h1>
+          Practice: {round.pairLabel}
+          <span className="lizard-game__round-pill">
+            Letter {roundIndex + 1} of {rounds.length}
+          </span>
+        </h1>
+        <div className="lizard-game__stars" aria-label={`${stars} out of 3 stars`}>
+          {[0, 1, 2].map((i) => (
+            <Star key={i} size={20} fill={i < stars ? "currentColor" : "none"} />
+          ))}
         </div>
       </div>
 
@@ -217,12 +211,14 @@ function LizardLookoutsGame({ onHome, onBack, onDone }) {
         <LessonComplete lessonId="lizardLookoutsGame" stars={stars} onPlayAgain={handlePlayAgain} onBack={onDone ?? onBack} />
       ) : (
         <div className="lizard-game__steps">
-          <div className="lizard-game__step-tabs">
-            <span className={stepIndex === 0 ? "active" : ""}>1 Find the &lsquo;{round.letter}&rsquo;s</span>
-            <span className={stepIndex === 1 ? "active" : ""}>2 Explore the Shape</span>
-            <span className={stepIndex === 2 ? "active" : ""}>3 Trace It</span>
-            <span className={stepIndex === 3 ? "active" : ""}>4 Find It Again</span>
-          </div>
+          <ol className="lizard-game__step-tabs" aria-label="Steps">
+            {[`Find the ${round.letter}\u2019s`, "Explore the shape", "Trace it", "Find it again"].map((label, i) => (
+              <li key={label} className={i === stepIndex ? "is-now" : i < stepIndex ? "is-done" : ""}>
+                <span className="lizard-game__step-num">{i < stepIndex ? <Check size={14} strokeWidth={3} /> : i + 1}</span>
+                <span className="lizard-game__step-label">{label}</span>
+              </li>
+            ))}
+          </ol>
 
           {step === "find" && (
             <div className="lizard-game__card">
@@ -246,7 +242,7 @@ function LizardLookoutsGame({ onHome, onBack, onDone }) {
                 onWrong={handleWrongClick}
               />
               <p className="lizard-game__found-count">
-                Found {foundSentence.size} / {sentenceTotal}
+                Found {foundSentence.size} of {sentenceTotal}
               </p>
             </div>
           )}
@@ -321,7 +317,7 @@ function LizardLookoutsGame({ onHome, onBack, onDone }) {
                 onWrong={handleWrongClick}
               />
               <p className="lizard-game__found-count">
-                Found {foundParagraph.size} / {paragraphTotal}
+                Found {foundParagraph.size} of {paragraphTotal}
               </p>
             </div>
           )}

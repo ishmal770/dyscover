@@ -183,6 +183,11 @@ strong { font-weight: 800; }
     max-height: 20vh;
     font-size: 0.82rem;
   }
+
+  .game-hint-bubble__btn {
+    padding: 5px 9px;
+    font-size: 0.78rem;
+  }
 }
 
 /* pages whose content can be taller than a small screen scroll instead of clipping */
@@ -284,22 +289,6 @@ strong { font-weight: 800; }
 }
 
 /* ---- clean, centered game pages ------------------------------------------ */
-.lizard-game__topline {
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  text-align: center;
-}
-
-.lizard-game__topline h1 {
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.lizard-game__progress {
-  align-items: center;
-  align-self: center;
-}
 
 .monkey-game__topline {
   justify-content: center;
@@ -317,8 +306,7 @@ strong { font-weight: 800; }
 /* consistent soft cards */
 .parrot-game__word-card,
 .syllable-game__word-box,
-.monkey-game__sloth-box,
-.lizard-game__card {
+.monkey-game__sloth-box {
   border-radius: 22px;
 }
 
@@ -327,18 +315,6 @@ strong { font-weight: 800; }
 :root[data-band="k2"] { --band-scale: 1.22; }
 :root[data-band="g35"] { --band-scale: 1; }
 
-/* the sentence the youngest readers hunt through is very large; older readers get a paragraph in smaller type */
-:root[data-band="k2"] .lizard-game__hunt-text {
-  max-width: 640px;
-  font-size: clamp(1.9rem, 4.2vw, 2.6rem);
-  line-height: 2.1;
-}
-
-:root[data-band="g35"] .lizard-game__hunt-text {
-  max-width: 640px;
-  font-size: clamp(1.05rem, 2.2vw, 1.3rem);
-  line-height: 1.9;
-}
 
 /* ---- previous / next page arrows ------------------------------------------ */
 .pager__btn {
@@ -368,28 +344,28 @@ strong { font-weight: 800; }
   box-shadow: 0 1px 0 var(--green-edge);
 }
 
+@media (max-width: 480px) {
+  .pager__btn {
+    width: 34px;
+    height: 34px;
+    border-width: 2px;
+    opacity: 0.75;
+  }
+
+  .pager__btn--prev { left: 3px; }
+  .pager__btn--next { right: 3px; }
+}
+
 /* ======================= visual polish ======================= */
 /* More depth and texture so the app feels like a game world, not a plain web page. */
 
-/* soft light from above on every page */
+/* soft light from above on every page (drawn into the page background, so nothing sits on top of the content) */
 .scroller__section > .page {
-  background-blend-mode: normal;
-}
-
-.scroller__section > .page::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background:
+  background-image:
+    var(--leaf-pattern),
     radial-gradient(ellipse 70% 38% at 50% -6%, rgba(255, 255, 255, 0.85), transparent 70%),
     radial-gradient(ellipse 60% 30% at 100% 100%, color-mix(in srgb, var(--green) 14%, transparent), transparent 70%);
-  pointer-events: none;
-}
-
-.scroller__section > .page > * {
-  position: relative;
-  z-index: 1;
+  background-size: 220px 220px, auto, auto;
 }
 
 /* the green banner cards (next lesson, "me", unit banner) get a sheen and a leafy corner */
