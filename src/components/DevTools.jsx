@@ -1,15 +1,25 @@
-// A small floating panel for demos. It only shows in demo mode (open the app with ?dev=1):
+// A small floating panel for demos. Demo mode (open the app with ?dev=1) has no visible tag; press Shift+D for this panel:
 // every game is unlocked, vines cost nothing, and these buttons add XP, refill the vine doors, or
 // leave demo mode.
-import { useState } from "react";
-import { FlaskConical } from "lucide-react";
+import { useEffect, useState } from "react";
 import { useProgress } from "../context/ProgressContext";
 import "./DevTools.css";
 
 function DevTools() {
   const { dev, devAddXp, devResetDoors } = useProgress();
   const [open, setOpen] = useState(false);
-  if (!dev) return null;
+
+  // no visible tag: Shift+D opens or closes the panel
+  useEffect(() => {
+    if (!dev) return undefined;
+    const onKey = (e) => {
+      if (e.shiftKey && e.key === "D" && !/INPUT|TEXTAREA/.test(document.activeElement?.tagName)) setOpen((o) => !o);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [dev]);
+
+  if (!dev || !open) return null;
 
   function leave() {
     try {
@@ -22,18 +32,14 @@ function DevTools() {
 
   return (
     <div className="devtools">
-      {open && (
-        <div className="devtools__panel">
-          <strong>Demo mode</strong>
-          <p>Every game is open. Vines are free.</p>
-          <button onClick={() => devAddXp(35)}>+35 XP (a day&rsquo;s goal)</button>
-          <button onClick={devResetDoors}>Refill the vine doors</button>
-          <button onClick={leave}>Leave demo mode</button>
-        </div>
-      )}
-      <button className="devtools__toggle" onClick={() => setOpen((o) => !o)} aria-label="Demo mode tools">
-        <FlaskConical size={16} /> DEMO
-      </button>
+      <div className="devtools__panel">
+        <strong>Demo mode</strong>
+        <p>Every game is open. Vines are free.</p>
+        <button onClick={() => devAddXp(35)}>+35 XP (a day&rsquo;s goal)</button>
+        <button onClick={devResetDoors}>Refill the vine doors</button>
+        <button onClick={leave}>Leave demo mode</button>
+        <button onClick={() => setOpen(false)}>Close</button>
+      </div>
     </div>
   );
 }
