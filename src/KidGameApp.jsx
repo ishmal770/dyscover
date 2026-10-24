@@ -92,7 +92,6 @@ function KidGameApp() {
   const visited = useRef(new Set([startKey.current]));
   useEffect(() => {
     visited.current.add(viewKey);
-    console.log('DBG', viewKey, [...visited.current].join(), visibleKeys.join());
     if (!visibleKeys.every((k) => visited.current.has(k))) return undefined;
     const timer = setTimeout(() => {
       visited.current = new Set([startKey.current]);
