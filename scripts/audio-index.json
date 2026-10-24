@@ -1149,11 +1149,6 @@
   "say": "A colorful parrot",
   "speed": "0.76/0.85"
  },
- "6a98e9fd": {
-  "key": "word",
-  "say": "word",
-  "speed": "0.76/0.85|cuts-183"
- },
  "6ba763b0": {
   "key": "press check answer.",
   "say": "Press Check Answer.",
@@ -1363,6 +1358,11 @@
   "key": "press this to see a hint. it uses up one star.",
   "say": "Press this to see a hint. It uses up one star.",
   "speed": "0.76/0.85"
+ },
+ "7ac4d962": {
+  "key": "would",
+  "say": "would",
+  "speed": "0.76/0.85|cuts-183"
  },
  "7b8a8031": {
   "key": "jungle games. letters and sounds",

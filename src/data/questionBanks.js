@@ -15,7 +15,7 @@ const parrot = {
   ],
   g35: [
     ["SMILE", "SLIME"], ["ANGEL", "ANGLE"], ["QUIET", "QUITE"], ["FORM", "FROM"], ["TRIAL", "TRAIL"],
-    ["THEN", "THAN"], ["WORLD", "WORD"], ["STONE", "STORE"], ["BEACH", "BENCH"], ["CLAM", "CALM"],
+    ["THEN", "THAN"], ["WORLD", "WOULD"], ["STONE", "STORE"], ["BEACH", "BENCH"], ["CLAM", "CALM"],
   ],
 };
 
@@ -153,6 +153,14 @@ export const BANKS = {
   lizard,
   cheetah,
 };
+
+// Sanity check at load: a Parrot Pairs pair must be the same length and differ, so there is always
+// a letter to tap in the second word.
+for (const rows of Object.values(parrot)) {
+  for (const [a, b] of rows) {
+    if (a.length !== b.length || a === b) throw new Error(`Parrot pair ${a}/${b} needs the same length and a different letter`);
+  }
+}
 
 // Sanity check at load: every game has exactly 10 questions in every band
 for (const [game, bands] of Object.entries(BANKS)) {

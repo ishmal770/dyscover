@@ -3,6 +3,7 @@
 // unmounting/remounting components. This keeps the transitions instant
 // and avoids losing in-progress game state when peeking at another page.
 import { useRef, useEffect, useState } from "react";
+import { PageNavContext } from "./context/PageNavContext";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useProgress } from "./context/ProgressContext";
 import { LESSON_BY_ID } from "./data/lessons";
@@ -121,6 +122,7 @@ function KidGameApp() {
   );
 
   return (
+    <PageNavContext.Provider value={{ goTo }}>
     <div className="scroller" ref={scrollerRef} onScroll={handleScroll}>
       {/* Getting started: splash -> log in -> quick placement */}
       {section("home", <Homepage onNext={() => goTo("login")} />)}
@@ -166,6 +168,7 @@ function KidGameApp() {
         )}
       </nav>
     </div>
+    </PageNavContext.Provider>
   );
 }
 
