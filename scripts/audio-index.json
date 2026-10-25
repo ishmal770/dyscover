@@ -14,11 +14,6 @@
   "say": "Lesson complete! Amazing work, you got three stars!",
   "speed": "{\"lang\": \"en-gb\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"bf_emma\", \"word\": 0.8}"
  },
- "02d24a24": {
-  "key": "you finished a day of lessons! spend your xp to cut the vines on today's door and find a gem. or save your xp for the golden door and an even better prize.",
-  "say": "You finished a day of lessons! Spend your XP to cut the vines on today's door and find a gem. Or save your XP for the golden door and an even better prize.",
-  "speed": "0.76/0.85"
- },
  "02d2b8aa": {
   "key": "hit",
   "say": "hit",
@@ -279,6 +274,11 @@
   "say": "Pip the Parrot. Pip spreads seeds across the whole jungle.",
   "speed": "0.76/0.85"
  },
+ "181d1446": {
+  "key": "tap the vines you want to cut. each one costs 10 xp. you can choose as many as you like!",
+  "say": "Tap the vines you want to cut. Each one costs 10 XP. You can choose as many as you like!",
+  "speed": "0.76/0.85"
+ },
  "18240566": {
   "key": "elephant|this is your backpack of jungle buddies. every lesson you finish brings a new animal buddy to help the rainforest grow. finish all the lessons in a unit to win its gem. tap play again to practice a lesson, or tap the speaker to hear about a buddy.",
   "say": "This is your backpack of jungle buddies. Every lesson you finish brings a new animal buddy to help the rainforest grow. Finish all the lessons in a unit to win its gem. Tap Play again to practice a lesson, or tap the speaker to hear about a buddy.",
@@ -383,6 +383,11 @@
   "key": "lion|take your time! a 'p' can be tricky to spot.",
   "say": "Take your time! The letter pee can be tricky to spot.",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"am_onyx\", \"word\": 0.8}"
+ },
+ "1e407903": {
+  "key": "press this to spend xp and cut the vines you chose.",
+  "say": "Press this to spend XP and cut the vines you chose.",
+  "speed": "0.76/0.85"
  },
  "1fa5c8a5": {
   "key": "what would you like to find?",
@@ -999,11 +1004,6 @@
   "say": "Look at the picture. Tap a piece to hear it, then tap a box to put it in. Put the pieces in order to build the word. Then press Check Word.",
   "speed": "{\"lang\": \"en-gb\", \"pitch\": 1.2, \"sentence\": 0.78, \"voice\": \"bf_lily\", \"word\": 0.85}"
  },
- "5f051e25": {
-  "key": "tap this vine to cut it down by spending some xp, or save your xp for the golden door.",
-  "say": "Tap this vine to cut it down by spending some XP, or save your XP for the golden door.",
-  "speed": "0.76/0.85"
- },
  "5f47fab0": {
   "key": "syl:dy",
   "say": "dee",
@@ -1139,6 +1139,11 @@
   "say": "Press this to play the lesson once more.",
   "speed": "0.76/0.85"
  },
+ "69b2cd80": {
+  "key": "tap this vine to choose it. tap it again to change your mind. then press the cut button.",
+  "say": "Tap this vine to choose it. Tap it again to change your mind. Then press the cut button.",
+  "speed": "0.76/0.85"
+ },
  "6a164f08": {
   "key": "monkey",
   "say": "monkey",
@@ -1183,6 +1188,11 @@
   "key": "pen",
   "say": "pen",
   "speed": "0.76/0.85|cuts-183"
+ },
+ "6fb66599": {
+  "key": "you finished a day of lessons! tap the vines you want to cut. each one costs 10 xp, and you can choose as many as you like. or save your xp for the golden door and an even better prize.",
+  "say": "You finished a day of lessons! Tap the vines you want to cut. Each one costs 10 XP, and you can choose as many as you like. Or save your XP for the golden door and an even better prize.",
+  "speed": "0.76/0.85"
  },
  "70e68d4e": {
   "key": "lion|lesson complete! good try, you got one star. practice makes you stronger!",
@@ -1668,11 +1678,6 @@
   "key": "volcano",
   "say": "volcano",
   "speed": "0.76/0.85|cuts-183"
- },
- "9881408c": {
-  "key": "spend 10 xp to cut this vine, or save your xp for the golden door?",
-  "say": "Spend 10 XP to cut this vine, or save your XP for the golden door?",
-  "speed": "0.76/0.85"
  },
  "9a26eadd": {
   "key": "this is your backpack of jungle buddies. every lesson you finish brings a new animal buddy to help the rainforest grow. finish all the lessons in a unit to win its gem. tap play again to practice a lesson, or tap the speaker to hear about a buddy.",
@@ -2557,11 +2562,6 @@
  "dc88e121": {
   "key": "trace the letter with your finger on the lines. then press continue.",
   "say": "Trace the letter with your finger on the lines. Then press Continue.",
-  "speed": "0.76/0.85"
- },
- "dd24c56b": {
-  "key": "press this to spend xp and cut the vine.",
-  "say": "Press this to spend XP and cut the vine.",
   "speed": "0.76/0.85"
  },
  "dd5e6e7d": {

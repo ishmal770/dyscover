@@ -1,7 +1,7 @@
 // The vine doors: a bonus game that opens after a day of lessons. Your avatar, a whole person
-// carrying a backpack, walks up to a door covered in thin, curling vines. Spend XP from your
-// lessons to cut the vines on today's door and find a gem - or save the XP for the golden door,
-// which has more vines and an even better prize. There are no questions: the choice is the game.
+// carrying a backpack, walks up to a door covered in painted, curling vines. YOU choose which vines
+// to cut and how many: each one costs 10 XP from your lessons, and any XP you don't spend is saved
+// (for today's door, or for the golden door with its better prize). No questions - the choice is the game.
 import { useState } from "react";
 import { Backpack, Check, PiggyBank, Volume2, Zap } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -12,51 +12,62 @@ import WordPicture from "../components/WordPicture";
 import VineArt from "../components/VineArt";
 import { speak } from "../audio/speech";
 import { useProgress } from "../context/ProgressContext";
-import { DOORS, DOOR_CONFIRM, DOOR_INTRO, DOOR_NEED_XP, DOOR_OPEN, prizeFor, prizeFoundLine } from "../data/vineDoor";
+import { DOORS, DOOR_CHOOSE, DOOR_INTRO, DOOR_NEED_XP, DOOR_OPEN, prizeFor, prizeFoundLine } from "../data/vineDoor";
 import "./VineDoor.css";
 
 function VineDoor({ onHome }) {
   const navigate = useNavigate();
   const { avatar, dailyLeft, goldenLeft, spendableXp, doorGems, goldenPrizes, dailyCollected, cutVine, collectDoorGem } = useProgress();
   const [kind, setKind] = useState("daily"); // which door is showing: "daily" or "golden"
-  const [pending, setPending] = useState(false); // a vine was tapped: spend XP or save it?
+  const [picked, setPicked] = useState([]); // the vines chosen to cut (their numbers)
+  const [gone, setGone] = useState({ daily: [], golden: [] }); // which vines have been cut, per door
+  const [falling, setFalling] = useState([]); // vines that were just cut (they fall before disappearing)
+  const [message, setMessage] = useState("");
   const [pose, setPose] = useState("idle");
-  const [falling, setFalling] = useState(null); // the vine that was just cut (falls before it disappears)
   const [flying, setFlying] = useState(false);
   const [found, setFound] = useState(null);
-  const [popup, setPopup] = useState(null); // the "-10 XP" that floats up when a vine is cut
 
   const door = DOORS[kind];
   const left = kind === "daily" ? dailyLeft : goldenLeft;
   const removed = door.vines - left;
   const open = left === 0;
   const prize = prizeFor(kind, kind === "daily" ? doorGems.length : goldenPrizes.length);
-  const enough = spendableXp >= door.cost;
-  const spent = removed * door.cost; // XP given up so far on this door
+  const canAfford = Math.floor(spendableXp / door.cost); // how many vines their XP can cut
+
+  // which vines are gone: the ones cut this visit, or (after a reload) the first few
+  const goneNow = gone[kind].length === removed ? gone[kind] : Array.from({ length: removed }, (_, i) => i);
 
   function switchDoor(next) {
     setKind(next);
-    setPending(false);
+    setPicked([]);
+    setMessage("");
     setFound(null);
     setFlying(false);
-    setPopup(null);
   }
 
-  function tapVine() {
+  // tap a vine to choose it (tap again to un-choose it), as long as there is XP for it
+  function toggleVine(i) {
     if (open || found) return;
-    setPending(true);
+    setMessage("");
+    if (picked.includes(i)) {
+      setPicked(picked.filter((p) => p !== i));
+    } else if (picked.length + 1 > canAfford) {
+      setMessage(DOOR_NEED_XP);
+    } else {
+      setPicked([...picked, i]);
+    }
   }
 
-  function spend() {
-    setPending(false);
-    const index = removed; // the vine that will fall
-    if (cutVine(kind)) {
-      setFalling(index);
-      setPopup({ id: Date.now(), amount: door.cost });
-      setTimeout(() => setPopup(null), 1600);
+  function cutChosen() {
+    if (!picked.length) return;
+    const chosen = picked;
+    if (cutVine(kind, chosen.length)) {
+      setGone((g) => ({ ...g, [kind]: [...goneNow, ...chosen] }));
+      setFalling(chosen);
+      setPicked([]);
       setPose("cutting");
-      setTimeout(() => setFalling(null), 750);
-      setTimeout(() => setPose("idle"), 750);
+      setTimeout(() => setFalling([]), 1100);
+      setTimeout(() => setPose("idle"), 800);
     }
   }
 
@@ -71,7 +82,7 @@ function VineDoor({ onHome }) {
     }, 1100);
   }
 
-  // everything is "looking" at the door: the avatar steps closer as vines come down
+  // the avatar steps closer as vines come down
   const walk = Math.min(1, removed / door.vines);
 
   return (
@@ -83,7 +94,7 @@ function VineDoor({ onHome }) {
             <button className="vd__speak" onClick={() => speak(DOOR_INTRO)} aria-label="Read aloud">
               <Volume2 size={18} />
             </button>
-            Spend your XP to cut vines, or save it for the golden door!
+            Choose the vines to cut, or save your XP for the golden door!
           </p>
 
           <div className="vd__tabs" role="tablist">
@@ -105,17 +116,9 @@ function VineDoor({ onHome }) {
             <span className="vd__chip">
               {left} of {door.vines} vines left
             </span>
-            <span className="vd__chip vd__chip--lost">
-              <Zap size={16} /> {spent} XP spent on this door
-            </span>
           </div>
 
           <div className="vd__stage">
-            {popup && (
-              <span key={popup.id} className="vd__lost-popup" aria-live="polite">
-                &minus;{popup.amount} XP
-              </span>
-            )}
             <div className="vd__hero" style={{ "--walk": walk }}>
               <PersonFigure id={avatar} height={230} pose={pose} packCount={doorGems.length + goldenPrizes.length} />
             </div>
@@ -133,15 +136,17 @@ function VineDoor({ onHome }) {
                   <span className="vd__ring" />
                 </span>
                 {Array.from({ length: door.vines }, (_, i) => {
-                  const isFalling = falling === i;
-                  if (i < removed && !isFalling) return null;
+                  const isFalling = falling.includes(i);
+                  if (goneNow.includes(i) && !isFalling) return null;
+                  const isPicked = picked.includes(i);
                   return (
                     <button
                       key={`${kind}-${i}`}
-                      className={`vd__vine${isFalling ? " is-falling" : ""}`}
-                      style={{ top: `${6 + (i * 84) / Math.max(1, door.vines - 1)}%`, "--tilt": `${i % 2 ? 5 : -6}deg` }}
-                      onClick={tapVine}
-                      aria-label={`Vine ${i + 1}: tap to cut it`}
+                      className={`vd__vine${isPicked ? " is-picked" : ""}${isFalling ? " is-falling" : ""}`}
+                      style={{ top: `${3 + (i * 88) / Math.max(1, door.vines - 1)}%`, "--tilt": `${i % 2 ? 4 : -5}deg`, "--sway": `${i % 2 ? 1 : -1}` }}
+                      onClick={() => toggleVine(i)}
+                      aria-pressed={isPicked}
+                      aria-label={`Vine ${i + 1}: ${isPicked ? "chosen, tap to un-choose" : "tap to choose it"}`}
                     >
                       <VineArt seed={i} />
                     </button>
@@ -151,21 +156,28 @@ function VineDoor({ onHome }) {
             </div>
           </div>
 
-          {pending && (
-            <div className="vd__confirm" role="dialog" aria-label="Spend your XP?">
+          {!open && !found && picked.length === 0 && (
+            <p className="vd__message vd__message--hint">
+              <button className="vd__speak" onClick={() => speak(DOOR_CHOOSE)} aria-label="Read aloud">
+                <Volume2 size={18} />
+              </button>
+              Tap the vines you want to cut. You can choose as many as you like!
+            </p>
+          )}
+
+          {message && <p className="vd__message">{message}</p>}
+
+          {picked.length > 0 && !open && (
+            <div className="vd__confirm" role="group" aria-label="Spend your XP?">
               <p>
-                <button className="vd__speak" onClick={() => speak(enough ? DOOR_CONFIRM : DOOR_NEED_XP)} aria-label="Read aloud">
-                  <Volume2 size={18} />
-                </button>
-                {enough ? `Spend ${door.cost} XP to cut this vine, or save your XP for ${kind === "daily" ? "the golden door" : "later"}?` : "You need more XP to cut a vine. Finish more lessons to earn it."}
+                You chose {picked.length} {picked.length === 1 ? "vine" : "vines"}: that costs {picked.length * door.cost} XP.
+                {" "}You will have {spendableXp - picked.length * door.cost} XP left.
               </p>
               <div className="vd__confirm-actions">
-                {enough && (
-                  <button className="btn btn--primary" onClick={spend}>
-                    <Check size={18} /> Cut it (&minus;{door.cost} XP)
-                  </button>
-                )}
-                <button className="btn btn--outline" onClick={() => setPending(false)}>
+                <button className="btn btn--primary" onClick={cutChosen}>
+                  <Check size={18} /> Cut them (&minus;{picked.length * door.cost} XP)
+                </button>
+                <button className="btn btn--outline" onClick={() => setPicked([])}>
                   <PiggyBank size={18} /> Save my XP
                 </button>
               </div>
@@ -177,7 +189,7 @@ function VineDoor({ onHome }) {
               <button className="vd__speak" onClick={() => speak(DOOR_OPEN)} aria-label="Read aloud">
                 <Volume2 size={18} />
               </button>
-              The door is open! You spent {spent} XP. Tap the prize to put it in your backpack.
+              The door is open! Tap the prize to put it in your backpack.
             </p>
           )}
 
@@ -189,9 +201,7 @@ function VineDoor({ onHome }) {
                 </button>
                 You found the {found.name}!
               </h2>
-              <p>
-                It is in your backpack. You spent {spent} XP on this door.
-              </p>
+              <p>It is in your backpack.</p>
               <div className="vd__found-actions">
                 <button className="btn btn--primary" onClick={() => navigate("/backpack")}>
                   <Backpack size={18} /> See my backpack

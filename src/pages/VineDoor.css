@@ -295,19 +295,22 @@
   50% { transform: translate(-50%, calc(-50% - 8px)); }
 }
 
-/* ---- the vines: thin drawings laid across the door ---- */
+/* ---- the vines: painted, thin and many. Tap to choose; chosen vines glow ---- */
 .vd__vine {
   position: absolute;
   left: -14%;
   z-index: 3;
   width: 128%;
-  height: 56px;
+  height: 44px;
   padding: 0;
   border: none;
   background: none;
   cursor: pointer;
   transform: rotate(var(--tilt, 0deg));
-  filter: drop-shadow(0 2px 1px rgba(0, 0, 0, 0.35));
+  /* watercolor sits on the wood like pigment, not like a sticker */
+  mix-blend-mode: multiply;
+  filter: drop-shadow(0 1px 1px rgba(20, 40, 20, 0.25));
+  transition: filter 0.25s;
 }
 
 .vd__vine:hover,
@@ -316,9 +319,17 @@
   outline: none;
 }
 
+/* a chosen vine glows gold so it is clear which ones will be cut */
+.vd__vine.is-picked {
+  mix-blend-mode: normal;
+  filter: drop-shadow(0 0 5px #ffd24a) drop-shadow(0 0 2px #fff3b0);
+}
+
+/* a cut vine lets go and drifts down, swaying and fading, like a falling ribbon */
 .vd__vine.is-falling {
   pointer-events: none;
-  animation: vd-fall 0.75s ease-in forwards;
+  mix-blend-mode: normal;
+  animation: vd-fall 1.1s cubic-bezier(0.35, 0.05, 0.6, 1) forwards;
 }
 
 .vine-art {
@@ -330,15 +341,15 @@
 
 @keyframes vd-wiggle {
   0%, 100% { transform: rotate(var(--tilt, 0deg)); }
-  30% { transform: rotate(calc(var(--tilt, 0deg) - 2deg)) translateY(-2px); }
-  70% { transform: rotate(calc(var(--tilt, 0deg) + 2deg)) translateY(2px); }
+  30% { transform: rotate(calc(var(--tilt, 0deg) - 1.5deg)) translateY(-2px); }
+  70% { transform: rotate(calc(var(--tilt, 0deg) + 1.5deg)) translateY(2px); }
 }
 
 @keyframes vd-fall {
-  to {
-    transform: translateY(260px) rotate(calc(var(--tilt, 0deg) + 25deg));
-    opacity: 0;
-  }
+  0% { transform: translate(0, 0) rotate(var(--tilt, 0deg)); opacity: 1; }
+  30% { transform: translate(calc(var(--sway, 1) * 14px), 50px) rotate(calc(var(--tilt, 0deg) + var(--sway, 1) * 8deg)); opacity: 1; }
+  60% { transform: translate(calc(var(--sway, 1) * -10px), 140px) rotate(calc(var(--tilt, 0deg) - var(--sway, 1) * 10deg)); opacity: 0.7; }
+  100% { transform: translate(calc(var(--sway, 1) * 12px), 280px) rotate(calc(var(--tilt, 0deg) + var(--sway, 1) * 14deg)); opacity: 0; }
 }
 
 /* ---- messages ---- */
@@ -348,6 +359,11 @@
 .vd__note {
   max-width: 480px;
   text-align: center;
+}
+
+.vd__message--hint {
+  border-color: var(--border);
+  color: var(--ink-soft);
 }
 
 .vd__message {

@@ -176,24 +176,27 @@ function ProgressProvider({ children }) {
   const dev = DEV;
 
   // ---- the vine doors (see data/vineDoor.js) -----------------------------------------------
-  const todaysDoor = (s) => (s.door.day === dayKey() ? s.door : { day: dayKey(), removed: 0, collected: false });
+  // a door keeps the vines already cut until its gem is collected; a new door starts the next day
+  const todaysDoor = (s) => (s.door.collected && s.door.day !== dayKey() ? { day: dayKey(), removed: 0, collected: false } : s.door);
   const goalReachedToday = (s) => (s.today.day === dayKey() ? s.today.xp : 0) >= DAILY_GOAL_XP;
 
   // In demo mode there is a 200 XP starter balance on top of any XP earned, and cutting vines spends it for real.
   const spendableOf = (s) => Math.max(0, (dev ? 200 : 0) + s.xp - s.xpSpent);
 
-  // Cut one vine ("daily" or "golden") by spending XP. Returns true if it was cut.
-  function cutVine(kind = "daily") {
+  // Cut `count` vines ("daily" or "golden") by spending 10 XP each. Returns true if they were cut.
+  function cutVine(kind = "daily", count = 1) {
     const s = stateRef.current;
     const { vines, cost } = DOORS[kind];
-    if ((!dev && !goalReachedToday(s)) || spendableOf(s) < cost) return false;
+    if (count < 1) return false;
+    if (!dev && (!goalReachedToday(s) || s.xp - s.xpSpent < cost * count)) return false;
+    const spent = dev ? 0 : cost * count;
     if (kind === "daily") {
       const door = todaysDoor(s);
-      if (door.removed >= vines || (door.collected && !dev)) return false;
-      commit({ ...s, xpSpent: s.xpSpent + cost, door: { ...door, removed: door.removed + 1, collected: false } });
+      if (door.removed + count > vines || (door.collected && !dev)) return false;
+      commit({ ...s, xpSpent: s.xpSpent + spent, door: { ...door, removed: door.removed + count, collected: false } });
     } else {
-      if (s.golden.removed >= vines) return false;
-      commit({ ...s, xpSpent: s.xpSpent + cost, golden: { removed: s.golden.removed + 1 } });
+      if (s.golden.removed + count > vines) return false;
+      commit({ ...s, xpSpent: s.xpSpent + spent, golden: { removed: s.golden.removed + count } });
     }
     return true;
   }
@@ -205,7 +208,7 @@ function ProgressProvider({ children }) {
       const door = todaysDoor(s);
       if (door.removed < DOORS.daily.vines || (door.collected && !dev)) return null;
       const prize = prizeFor("daily", s.doorGems.length);
-      commit({ ...s, doorGems: [...s.doorGems, prize.id], door: { ...door, collected: true } });
+      commit({ ...s, doorGems: [...s.doorGems, prize.id], door: { ...door, day: dayKey(), collected: true } });
       return prize;
     }
     if (s.golden.removed < DOORS.golden.vines) return null;

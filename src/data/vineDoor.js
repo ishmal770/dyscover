@@ -1,12 +1,12 @@
 // The vine doors: a bonus game that opens after a day of lessons (the daily goal is reached).
-// There are two doors. TODAY'S DOOR has a few vines; spending XP cuts them (10 XP a vine) and
-// the gem behind it goes into the backpack. The GOLDEN DOOR has more vines and a rarer prize, so
-// the child chooses: spend XP now on today's door, or save it for the golden door.
-// No questions - the choice is what to do with the XP. Plain data (the audio script reads it too).
+// There are two doors covered in vines. The child CHOOSES which vines to cut, and how many: every vine
+// costs 10 XP, and any XP they do not spend is saved. Cut every vine on TODAY'S DOOR and the gem behind
+// it goes into the backpack. The GOLDEN DOOR has more vines and a rarer prize, so they can spend now or
+// save up. Progress on a door is kept between visits. No questions - the choice is the game. Plain data (the audio script reads it too).
 
 export const DOORS = {
-  daily: { name: "Today's door", vines: 3, cost: 10 },
-  golden: { name: "Golden door", vines: 8, cost: 10 },
+  daily: { name: "Today's door", vines: 5, cost: 10 },
+  golden: { name: "Golden door", vines: 10, cost: 10 },
 };
 export const VINE_COST = 10;
 
@@ -31,15 +31,15 @@ export const prizeFor = (kind, count) => {
   return list[count % list.length];
 };
 
-export const DOOR_INTRO = "You finished a day of lessons! Spend your XP to cut the vines on today's door and find a gem. Or save your XP for the golden door and an even better prize.";
-export const DOOR_CONFIRM = "Spend 10 XP to cut this vine, or save your XP for the golden door?";
+export const DOOR_INTRO = "You finished a day of lessons! Tap the vines you want to cut. Each one costs 10 XP, and you can choose as many as you like. Or save your XP for the golden door and an even better prize.";
+export const DOOR_CHOOSE = "Tap the vines you want to cut. Each one costs 10 XP. You can choose as many as you like!";
 export const DOOR_NEED_XP = "You need more XP to cut a vine. Finish more lessons to earn it.";
 export const DOOR_OPEN = "The door is open! Tap the prize to put it in your backpack.";
 export const prizeFoundLine = (prize) => `You found the ${prize.name}! It is in your backpack.`;
 
 export const DOOR_LINES = [
   DOOR_INTRO,
-  DOOR_CONFIRM,
+  DOOR_CHOOSE,
   DOOR_NEED_XP,
   DOOR_OPEN,
   ...DOOR_GEMS.map(prizeFoundLine),
