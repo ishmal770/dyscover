@@ -1,0 +1,39 @@
+.feedback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 2.4em;
+  margin: 16px auto 0;
+  padding: 8px 16px;
+  max-width: 640px;
+  border-radius: 16px;
+  text-align: center;
+  font-size: 1.35rem;
+  font-weight: 800;
+  line-height: 1.25;
+  color: var(--ink);
+}
+
+.feedback--good {
+  background: #e6f6dc;
+  color: #2c6a1c;
+}
+
+.feedback--try {
+  background: #fff1d9;
+  color: #8a4f0c;
+}
+
+.feedback__speak {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--green);
+  color: #fff;
+  cursor: pointer;
+}

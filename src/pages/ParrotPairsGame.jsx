@@ -4,6 +4,7 @@
 // between them, rather than just spotting that the words differ.
 import { useState } from "react";
 import { Star, Search, Volume2, RotateCcw, Check } from "lucide-react";
+import FeedbackLine from "../components/FeedbackLine";
 import GameTopBar from "../components/GameTopBar";
 import GameBanner from "../components/GameBanner";
 import WordPicture from "../components/WordPicture";
@@ -251,7 +252,7 @@ function ParrotPairsGame({ onHome, onBack, onDone }) {
         </div>
       </div>
 
-      <p className="parrot-game__message">{message}</p>
+      <FeedbackLine text={message} />
 
       <div className="parrot-game__controls">
         <button className="parrot-game__reset" onClick={handleReset} aria-label="Reset">

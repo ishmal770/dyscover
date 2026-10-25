@@ -1,3 +1,4 @@
+import FeedbackLine from "../components/FeedbackLine";
 import { useState, useEffect, useRef } from "react";
 import { Trophy, Star, Clock, Flame, Volume2, Play, RotateCcw, Mic } from "lucide-react";
 import GameTopBar from "../components/GameTopBar";
@@ -271,9 +272,11 @@ function CheetahChallengeGame({ onHome, onBack, onDone }) {
               >
                 <Mic size={18} /> {listening ? "Listening..." : "Tap and say the word!"}
               </button>
-              <p className="cheetah-game__hint-text">
-                {micFeedback || "Or tap the card once you've read it."}
-              </p>
+              {micFeedback ? (
+                <FeedbackLine text={micFeedback} say={micFeedback.startsWith("Heard") ? "Try again!" : undefined} />
+              ) : (
+                <p className="cheetah-game__hint-text">Or tap the card once you've read it.</p>
+              )}
             </>
           ) : (
             <p className="cheetah-game__hint-text">Tap the card once you've read it!</p>

@@ -9,6 +9,7 @@ import { QUIZ_LINES } from "./jungleQuiz.js";
 import { BANKS } from "./questionBanks.js";
 import { LETTER_LINES } from "./letters.js";
 import { DOOR_LINES } from "./vineDoor.js";
+import { FEEDBACK_LINES } from "./feedbackLines.js";
 import { PLACEMENT_WORDS, PLACEMENT_DONE, PLACEMENT_PROMPT, PLACEMENT_VOWEL_PROMPT } from "./placement.js";
 
 // read in the neutral voice
@@ -26,6 +27,7 @@ export const NEUTRAL_LINES = [
   PLACEMENT_DONE,
   ...LETTER_LINES,
   ...DOOR_LINES,
+  ...FEEDBACK_LINES,
   ...PLACEMENT_WORDS,
 ];
 

@@ -10,8 +10,8 @@ import { rev } from "../data/audioRev.json";
 
 const clips = new Set(manifest);
 
-// everything is played at double speed (the recordings themselves stay slow and clear)
-const SPEED = 2;
+// everything is played a little faster than recorded (the recordings themselves stay slow and clear)
+const SPEED = 1.25;
 
 // speak() is a plain function imported all over the app (not a component),
 // so the mute toggle can't reach it through React context/props - this

@@ -274,6 +274,11 @@
   "say": "Pip the Parrot. Pip spreads seeds across the whole jungle.",
   "speed": "0.76/0.85"
  },
+ "17b41490": {
+  "key": "not quite the right order - tap a piece to swap it back.",
+  "say": "Not quite the right order - tap a piece to swap it back.",
+  "speed": "0.76/0.85"
+ },
  "181d1446": {
   "key": "tap the vines you want to cut. each one costs 10 xp. you can choose as many as you like!",
   "say": "Tap the vines you want to cut. Each one costs 10 XP. You can choose as many as you like!",
@@ -402,6 +407,11 @@
  "223fef79": {
   "key": "this page shows how all students are doing. the cards at the top give totals. the charts show accuracy over time and each skill's strength. tap a student's name in the table to see their full report.",
   "say": "This page shows how all students are doing. The cards at the top give totals. The charts show accuracy over time and each skill's strength. Tap a student's name in the table to see their full report.",
+  "speed": "0.76/0.85"
+ },
+ "235c25ba": {
+  "key": "here's a hint - the different letters are highlighted.",
+  "say": "Here's a hint - the different letters are highlighted.",
   "speed": "0.76/0.85"
  },
  "23d2e85c": {
@@ -704,6 +714,11 @@
   "say": "A vowel is missing from the word. Listen to the sound in the clue. Then tap the vowel from the tray that makes that sound. When you get it right, press Next.",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 0.84, \"sentence\": 0.68, \"voice\": \"am_fenrir\", \"word\": 0.78}"
  },
+ "42333f41": {
+  "key": "perfect split!",
+  "say": "Perfect split!",
+  "speed": "0.76/0.85"
+ },
  "42400b7f": {
   "key": "what do you love to do most?",
   "say": "What do you love to do most?",
@@ -787,6 +802,11 @@
  "47758926": {
   "key": "the letter q, as in queen.",
   "say": "The letter Q, as in queen.",
+  "speed": "0.76/0.85"
+ },
+ "479eda3f": {
+  "key": "couldn't hear you - try again or tap the card.",
+  "say": "Couldn't hear you - try again or tap the card.",
   "speed": "0.76/0.85"
  },
  "47e610af": {
@@ -873,6 +893,11 @@
   "key": "lion|tap each number to hear a letter. then trace that letter. when every letter is done, press continue.",
   "say": "Tap each number to hear a letter. Then trace that letter. When every letter is done, press Continue.",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"am_onyx\", \"word\": 0.8}"
+ },
+ "4fbf7acf": {
+  "key": "not quite - slide the breaks to where the word splits into parts.",
+  "say": "Not quite - slide the breaks to where the word splits into parts.",
+  "speed": "0.76/0.85"
  },
  "50526ed7": {
   "key": "gorilla|trace the letter with your finger on the lines. then press continue.",
@@ -1914,6 +1939,11 @@
   "say": "Ellie the Elephant. Ellie waters the baby plants with her long trunk.",
   "speed": "0.76/0.85"
  },
+ "ac720a9a": {
+  "key": "great job! those are the different letters.",
+  "say": "Great job! Those are the different letters.",
+  "speed": "0.76/0.85"
+ },
  "acd357f3": {
   "key": "take your time! a 'q' can be tricky to spot.",
   "say": "Take your time! The letter cue can be tricky to spot.",
@@ -2062,6 +2092,11 @@
  "b680409e": {
   "key": "you're playing lion's letters! tap any speaker icon to hear words read aloud, and use the buttons on screen to answer.",
   "say": "You're playing Lion's Letters! Tap any speaker icon to hear words read aloud, and use the buttons on screen to answer.",
+  "speed": "0.76/0.85"
+ },
+ "b69a276c": {
+  "key": "you built the word!",
+  "say": "You built the word!",
   "speed": "0.76/0.85"
  },
  "b6adb06b": {
@@ -2534,10 +2569,20 @@
   "say": "banana",
   "speed": "0.76/0.85|cuts-183"
  },
+ "d9ad1290": {
+  "key": "place all the pieces first!",
+  "say": "Place all the pieces first!",
+  "speed": "0.76/0.85"
+ },
  "da4f4edb": {
   "key": "monkey|take your time! a 'b' can be tricky to spot.",
   "say": "Take your time! The letter bee can be tricky to spot.",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 1.08, \"sentence\": 0.8, \"voice\": \"am_puck\", \"word\": 0.85}"
+ },
+ "da51fde1": {
+  "key": "not quite - try again!",
+  "say": "Not quite - try again!",
+  "speed": "0.76/0.85"
  },
  "db0e676e": {
   "key": "lion|welcome to the adventure map! follow the path and tap the glowing circle to start your next lesson.",
@@ -2714,6 +2759,11 @@
   "say": "The letter Y, as in yellow.",
   "speed": "0.76/0.85"
  },
+ "e9aa4f7d": {
+  "key": "tap the letters in the second word that are different!",
+  "say": "Tap the letters in the second word that are different!",
+  "speed": "0.76/0.85"
+ },
  "e9e4f4ac": {
   "key": "the letter u, as in umbrella.",
   "say": "The letter U, as in umbrella.",
@@ -2807,6 +2857,11 @@
  "efea4472": {
   "key": "tap the vowel that makes that sound.",
   "say": "Tap the vowel that makes that sound.",
+  "speed": "0.76/0.85"
+ },
+ "f008a9a1": {
+  "key": "try again!",
+  "say": "Try again!",
   "speed": "0.76/0.85"
  },
  "f0a319b8": {

@@ -1,3 +1,4 @@
+import FeedbackLine from "../components/FeedbackLine";
 import { useState } from "react";
 import { Star, Volume2, Check } from "lucide-react";
 import GameTopBar from "../components/GameTopBar";
@@ -272,7 +273,7 @@ function SyllableSafariGame({ onHome, onBack, onDone }) {
         </>
       )}
 
-      <p className="syllable-game__feedback">{feedback}</p>
+      <FeedbackLine text={feedback} />
 
       {phase === "build" && (
         <div className="syllable-game__controls">
