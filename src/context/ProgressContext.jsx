@@ -274,6 +274,11 @@ function ProgressProvider({ children }) {
     commit({ ...stateRef.current, xpSpent: 0, door: { day: dayKey(), removed: 0, collected: false }, golden: { removed: 0 } });
   }
 
+  function devResetPlacement() {
+    if (!DEV) return;
+    commit({ ...stateRef.current, placed: false, placement: null, currentWorld: 1, plannedLessons: [] });
+  }
+
   function setAvatar(id) {
     const s = stateRef.current;
     if (AVATAR_BY_ID[id] && isAvatarUnlocked(AVATAR_BY_ID[id], statsOf(s))) commit({ ...s, avatar: id });
@@ -411,6 +416,7 @@ function ProgressProvider({ children }) {
     dev,
     devAddXp,
     devResetDoors,
+    devResetPlacement,
     // the vine doors open after the day's goal is reached
     doorAvailable: dev || goalReachedToday(state),
     dailyLeft: DOORS.daily.vines - todaysDoor(state).removed,

@@ -34,6 +34,10 @@ export async function startPlacementDiagnostic(gradeTier) {
   return callPythonApi("/api/placement", { action: "start", grade_tier: gradeTier });
 }
 
+export async function resetPlacementDiagnostic() {
+  return callPythonApi("/api/placement", { action: "reset" });
+}
+
 export async function answerPlacementDiagnostic(history) {
   return callPythonApi("/api/placement", { action: "answer", history });
 }

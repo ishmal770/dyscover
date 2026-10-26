@@ -11,14 +11,14 @@ import { useProgress } from "../context/ProgressContext";
 import { GRADE_BANDS } from "../data/questionBanks";
 import { LESSON_BY_ID } from "../data/lessons";
 import { PLACEMENT_PROMPT, PLACEMENT_VOWEL_PROMPT, QUESTION_COUNT, VOWELS, nextBand, pickQuestion } from "../data/placement";
-import { answerPlacementDiagnostic, startPlacementDiagnostic } from "../learningApi";
+import { answerPlacementDiagnostic, resetPlacementDiagnostic, startPlacementDiagnostic } from "../learningApi";
 import { supabase } from "../supabase";
 import { clockNow } from "../learningSessionClock";
 import WordPicture from "../components/WordPicture";
 import "./PlacementMission.css";
 
 function PlacementMission({ onNext, onHome }) {
-  const { completePlacement, placed, grade, placement } = useProgress();
+  const { completePlacement, dev, devResetPlacement, placed, grade, placement } = useProgress();
   const rootRef = useRef(null);
   const correctRef = useRef(0);
   const historyRef = useRef([]);
@@ -32,6 +32,7 @@ function PlacementMission({ onNext, onHome }) {
   const [question, setQuestion] = useState(null);
   const [remote, setRemote] = useState(false);
   const [busy, setBusy] = useState(false);
+  const [resetting, setResetting] = useState(false);
   const [error, setError] = useState("");
 
   const done = placed || count >= QUESTION_COUNT;
@@ -72,6 +73,29 @@ function PlacementMission({ onNext, onHome }) {
       setStarted(true);
     } catch (err) {
       setError(err.message || "Could not connect to the learning service. Try again.");
+    }
+  }
+
+  async function redoPlacement() {
+    setError("");
+    setResetting(true);
+    try {
+      const { data } = await supabase.auth.getSession();
+      if (data.session?.user) await resetPlacementDiagnostic();
+      devResetPlacement();
+      setStarted(false);
+      setCount(0);
+      setBand(grade);
+      setAsked([]);
+      setChosen(null);
+      setQuestion(null);
+      setRemote(false);
+      correctRef.current = 0;
+      historyRef.current = [];
+    } catch (err) {
+      setError(err.message || "Could not reset the diagnostic. Check the local dev API and try again.");
+    } finally {
+      setResetting(false);
     }
   }
 
@@ -191,6 +215,8 @@ function PlacementMission({ onNext, onHome }) {
             <h2>All done! Your adventure is ready.</h2>
             <p>Your level: {levelLabel}.{startName ? ` First game: ${startName}.` : " I picked the perfect games for you."}</p>
             <button className="btn btn--primary" onClick={onNext}>Open my map! <ArrowRight size={16} /></button>
+            {dev && <button className="btn btn--outline" onClick={redoPlacement} disabled={resetting}>{resetting ? "RESETTING…" : "REDO PLACEMENT (DEV)"}</button>}
+            {error && <p role="alert" className="placement__error">{error}</p>}
           </div>
         )}
       </div>
