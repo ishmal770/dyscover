@@ -59,6 +59,11 @@
   "say": "Tap me to start your adventure. Tap the speaker to hear me again. Grown-ups can use the links at the bottom of the page.",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 1.0, \"sentence\": 0.74, \"voice\": \"af_heart\", \"word\": 0.82}"
  },
+ "05f5950e": {
+  "key": "the door is open! tap the prize to put it in your backpack.",
+  "say": "The door is open! Tap the prize to put it in your backpack.",
+  "speed": "0.76/0.85"
+ },
  "0612151c": {
   "key": "gorilla|lesson complete! amazing work, you got three stars!",
   "say": "Lesson complete! Amazing work, you got three stars!",
@@ -107,6 +112,11 @@
  "07b997fe": {
   "key": "press this to practice print letters, the kind in books.",
   "say": "Press this to practice print letters, the kind in books.",
+  "speed": "0.76/0.85"
+ },
+ "08b87b70": {
+  "key": "you need more xp to cut a vine. finish more lessons to earn it.",
+  "say": "You need more XP to cut a vine. Finish more lessons to earn it.",
   "speed": "0.76/0.85"
  },
  "08bdcc1f": {
@@ -264,6 +274,16 @@
   "say": "Pip the Parrot. Pip spreads seeds across the whole jungle.",
   "speed": "0.76/0.85"
  },
+ "17b41490": {
+  "key": "not quite the right order - tap a piece to swap it back.",
+  "say": "Not quite the right order - tap a piece to swap it back.",
+  "speed": "0.76/0.85"
+ },
+ "181d1446": {
+  "key": "tap the vines you want to cut. each one costs 10 xp. you can choose as many as you like!",
+  "say": "Tap the vines you want to cut. Each one costs 10 XP. You can choose as many as you like!",
+  "speed": "0.76/0.85"
+ },
  "18240566": {
   "key": "elephant|this is your backpack of jungle buddies. every lesson you finish brings a new animal buddy to help the rainforest grow. finish all the lessons in a unit to win its gem. tap play again to practice a lesson, or tap the speaker to hear about a buddy.",
   "say": "This is your backpack of jungle buddies. Every lesson you finish brings a new animal buddy to help the rainforest grow. Finish all the lessons in a unit to win its gem. Tap Play again to practice a lesson, or tap the speaker to hear about a buddy.",
@@ -278,6 +298,11 @@
   "key": "elephant|amazing! you found the sound. can you find another one?",
   "say": "Amazing! You found the sound. Can you find another one?",
   "speed": "{\"lang\": \"en-gb\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"bf_emma\", \"word\": 0.8}"
+ },
+ "19272c78": {
+  "key": "you found the amethyst! it is in your backpack.",
+  "say": "You found the Amethyst! It is in your backpack.",
+  "speed": "0.76/0.85"
  },
  "198e2667": {
   "key": "which jungle friend do you like best?",
@@ -364,6 +389,11 @@
   "say": "Take your time! The letter pee can be tricky to spot.",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"am_onyx\", \"word\": 0.8}"
  },
+ "1e407903": {
+  "key": "press this to spend xp and cut the vines you chose.",
+  "say": "Press this to spend XP and cut the vines you chose.",
+  "speed": "0.76/0.85"
+ },
  "1fa5c8a5": {
   "key": "what would you like to find?",
   "say": "What would you like to find?",
@@ -377,6 +407,11 @@
  "223fef79": {
   "key": "this page shows how all students are doing. the cards at the top give totals. the charts show accuracy over time and each skill's strength. tap a student's name in the table to see their full report.",
   "say": "This page shows how all students are doing. The cards at the top give totals. The charts show accuracy over time and each skill's strength. Tap a student's name in the table to see their full report.",
+  "speed": "0.76/0.85"
+ },
+ "235c25ba": {
+  "key": "here's a hint - the different letters are highlighted.",
+  "say": "Here's a hint - the different letters are highlighted.",
   "speed": "0.76/0.85"
  },
  "23d2e85c": {
@@ -433,6 +468,11 @@
   "key": "roach",
   "say": "roach",
   "speed": "0.76/0.85|cuts-183"
+ },
+ "2a627cb0": {
+  "key": "you found the gold crystals! it is in your backpack.",
+  "say": "You found the Gold Crystals! It is in your backpack.",
+  "speed": "0.76/0.85"
  },
  "2a6659fb": {
   "key": "look at the picture. it is a tiger.",
@@ -512,6 +552,11 @@
  "32b1f694": {
   "key": "parrot pairs",
   "say": "Parrot Pairs",
+  "speed": "0.76/0.85"
+ },
+ "334cc4e3": {
+  "key": "find the vowel that sounds like the one in this word to complete the word! tap a vowel from the tray to complete the word.",
+  "say": "Find the vowel that sounds like the one in this word to complete the word! Tap a vowel from the tray to complete the word.",
   "speed": "0.76/0.85"
  },
  "33f80408": {
@@ -669,6 +714,11 @@
   "say": "A vowel is missing from the word. Listen to the sound in the clue. Then tap the vowel from the tray that makes that sound. When you get it right, press Next.",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 0.84, \"sentence\": 0.68, \"voice\": \"am_fenrir\", \"word\": 0.78}"
  },
+ "42333f41": {
+  "key": "perfect split!",
+  "say": "Perfect split!",
+  "speed": "0.76/0.85"
+ },
  "42400b7f": {
   "key": "what do you love to do most?",
   "say": "What do you love to do most?",
@@ -754,6 +804,11 @@
   "say": "The letter Q, as in queen.",
   "speed": "0.76/0.85"
  },
+ "479eda3f": {
+  "key": "couldn't hear you - try again or tap the card.",
+  "say": "Couldn't hear you - try again or tap the card.",
+  "speed": "0.76/0.85"
+ },
  "47e610af": {
   "key": "the vowel fills the word. it spells sun!",
   "say": "The vowel fills the word. It spells sun!",
@@ -809,6 +864,11 @@
   "say": "Press this to turn the sound on or off.",
   "speed": "0.76/0.85"
  },
+ "4cb45754": {
+  "key": "you found the treasure hoard! it is in your backpack.",
+  "say": "You found the Treasure Hoard! It is in your backpack.",
+  "speed": "0.76/0.85"
+ },
  "4cdb9146": {
   "key": "monkey|tap the pieces to hear them, then build the word in order!",
   "say": "Tap the pieces to hear them, then build the word in order!",
@@ -833,6 +893,11 @@
   "key": "lion|tap each number to hear a letter. then trace that letter. when every letter is done, press continue.",
   "say": "Tap each number to hear a letter. Then trace that letter. When every letter is done, press Continue.",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"am_onyx\", \"word\": 0.8}"
+ },
+ "4fbf7acf": {
+  "key": "not quite - slide the breaks to where the word splits into parts.",
+  "say": "Not quite - slide the breaks to where the word splits into parts.",
+  "speed": "0.76/0.85"
  },
  "50526ed7": {
   "key": "gorilla|trace the letter with your finger on the lines. then press continue.",
@@ -1099,6 +1164,11 @@
   "say": "Press this to play the lesson once more.",
   "speed": "0.76/0.85"
  },
+ "69b2cd80": {
+  "key": "tap this vine to choose it. tap it again to change your mind. then press the cut button.",
+  "say": "Tap this vine to choose it. Tap it again to change your mind. Then press the cut button.",
+  "speed": "0.76/0.85"
+ },
  "6a164f08": {
   "key": "monkey",
   "say": "monkey",
@@ -1108,11 +1178,6 @@
   "key": "a colorful parrot",
   "say": "A colorful parrot",
   "speed": "0.76/0.85"
- },
- "6a98e9fd": {
-  "key": "word",
-  "say": "word",
-  "speed": "0.76/0.85|cuts-183"
  },
  "6ba763b0": {
   "key": "press check answer.",
@@ -1148,6 +1213,11 @@
   "key": "pen",
   "say": "pen",
   "speed": "0.76/0.85|cuts-183"
+ },
+ "6fb66599": {
+  "key": "you finished a day of lessons! tap the vines you want to cut. each one costs 10 xp, and you can choose as many as you like. or save your xp for the golden door and an even better prize.",
+  "say": "You finished a day of lessons! Tap the vines you want to cut. Each one costs 10 XP, and you can choose as many as you like. Or save your XP for the golden door and an even better prize.",
+  "speed": "0.76/0.85"
  },
  "70e68d4e": {
   "key": "lion|lesson complete! good try, you got one star. practice makes you stronger!",
@@ -1324,6 +1394,11 @@
   "say": "Press this to see a hint. It uses up one star.",
   "speed": "0.76/0.85"
  },
+ "7ac4d962": {
+  "key": "would",
+  "say": "would",
+  "speed": "0.76/0.85|cuts-183"
+ },
  "7b8a8031": {
   "key": "jungle games. letters and sounds",
   "say": "Jungle Games. Letters and sounds",
@@ -1429,9 +1504,19 @@
   "say": "Hi, I'm Leo! Welcome to the Adventure Map! Follow the path and tap the glowing circle to start your next lesson.",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"am_onyx\", \"word\": 0.8}"
  },
+ "85a7eb3b": {
+  "key": "press the gem to put it in your backpack.",
+  "say": "Press the gem to put it in your backpack.",
+  "speed": "0.76/0.85"
+ },
  "8657cf1b": {
   "key": "look at the two words. they look almost the same.",
   "say": "Look at the two words. They look almost the same.",
+  "speed": "0.76/0.85"
+ },
+ "875f517b": {
+  "key": "you found the sapphire! it is in your backpack.",
+  "say": "You found the Sapphire! It is in your backpack.",
   "speed": "0.76/0.85"
  },
  "87c54aee": {
@@ -1459,19 +1544,24 @@
   "say": "Let's play a few quick games so I can build your perfect map. Tap me when you are ready!",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 1.0, \"sentence\": 0.74, \"voice\": \"af_heart\", \"word\": 0.82}"
  },
- "8c345779": {
-  "key": "find the vowel that sounds like the one in \"dog\" to complete the word! tap a vowel from the tray to complete the word.",
-  "say": "Find the vowel that sounds like the one in \"dog\" to complete the word! Tap a vowel from the tray to complete the word.",
-  "speed": "0.76/0.85"
- },
  "8c4f8303": {
   "key": "the letter e, as in egg.",
   "say": "The letter E, as in egg.",
   "speed": "0.76/0.85"
  },
+ "8c71fa09": {
+  "key": "press this arrow to go to the page before or after this one.",
+  "say": "Press this arrow to go to the page before or after this one.",
+  "speed": "0.76/0.85"
+ },
  "8d9dd6ce": {
   "key": "climb a high mountain",
   "say": "Climb a high mountain",
+  "speed": "0.76/0.85"
+ },
+ "8df379a7": {
+  "key": "you found the topaz! it is in your backpack.",
+  "say": "You found the Topaz! It is in your backpack.",
   "speed": "0.76/0.85"
  },
  "8e393228": {
@@ -1849,6 +1939,11 @@
   "say": "Ellie the Elephant. Ellie waters the baby plants with her long trunk.",
   "speed": "0.76/0.85"
  },
+ "ac720a9a": {
+  "key": "great job! those are the different letters.",
+  "say": "Great job! Those are the different letters.",
+  "speed": "0.76/0.85"
+ },
  "acd357f3": {
   "key": "take your time! a 'q' can be tricky to spot.",
   "say": "Take your time! The letter cue can be tricky to spot.",
@@ -1877,6 +1972,11 @@
  "ad8f2880": {
   "key": "type your explorer name and your secret code. then tap log in. if you are new, tap create account.",
   "say": "Type your explorer name and your secret code. Then tap Log In. If you are new, tap Create Account.",
+  "speed": "0.76/0.85"
+ },
+ "ae32e65d": {
+  "key": "press this to switch between today's door and the golden door.",
+  "say": "Press this to switch between today's door and the golden door.",
   "speed": "0.76/0.85"
  },
  "ae908114": {
@@ -1924,6 +2024,11 @@
   "say": "A vowel is missing from the word. Listen to the sound in the clue. Then tap the vowel from the tray that makes that sound. When you get it right, press Next.",
   "speed": "{\"lang\": \"en-gb\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"bf_emma\", \"word\": 0.8}"
  },
+ "b1f54931": {
+  "key": "you found the ruby! it is in your backpack.",
+  "say": "You found the Ruby! It is in your backpack.",
+  "speed": "0.76/0.85"
+ },
  "b2036c0e": {
   "key": "syl:but",
   "say": "but",
@@ -1964,11 +2069,6 @@
   "say": "Lesson complete! Great job, you got two stars!",
   "speed": "{\"lang\": \"en-gb\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"bf_emma\", \"word\": 0.8}"
  },
- "b53f4f1f": {
-  "key": "find the vowel that sounds like the one in \"pig\" to complete the word! tap a vowel from the tray to complete the word.",
-  "say": "Find the vowel that sounds like the one in \"pig\" to complete the word! Tap a vowel from the tray to complete the word.",
-  "speed": "0.76/0.85"
- },
  "b554f920": {
   "key": "silver",
   "say": "silver",
@@ -1992,6 +2092,11 @@
  "b680409e": {
   "key": "you're playing lion's letters! tap any speaker icon to hear words read aloud, and use the buttons on screen to answer.",
   "say": "You're playing Lion's Letters! Tap any speaker icon to hear words read aloud, and use the buttons on screen to answer.",
+  "speed": "0.76/0.85"
+ },
+ "b69a276c": {
+  "key": "you built the word!",
+  "say": "You built the word!",
   "speed": "0.76/0.85"
  },
  "b6adb06b": {
@@ -2133,6 +2238,11 @@
   "key": "lion|now write the whole word with your finger on the lines. then press continue.",
   "say": "Now write the whole word with your finger on the lines. Then press Continue.",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 0.9, \"sentence\": 0.72, \"voice\": \"am_onyx\", \"word\": 0.8}"
+ },
+ "c0620f6e": {
+  "key": "press this to keep your xp for the golden door.",
+  "say": "Press this to keep your XP for the golden door.",
+  "speed": "0.76/0.85"
  },
  "c180cd76": {
   "key": "mimi|can you find the letters that are different? tap the speaker to hear the word!",
@@ -2339,6 +2449,11 @@
   "say": "flower",
   "speed": "0.76/0.85|cuts-183"
  },
+ "d27b28f7": {
+  "key": "you found the golden crown! it is in your backpack.",
+  "say": "You found the Golden Crown! It is in your backpack.",
+  "speed": "0.76/0.85"
+ },
  "d2835972": {
   "key": "monkey|this is your backpack of jungle buddies. every lesson you finish brings a new animal buddy to help the rainforest grow. finish all the lessons in a unit to win its gem. tap play again to practice a lesson, or tap the speaker to hear about a buddy.",
   "say": "This is your backpack of jungle buddies. Every lesson you finish brings a new animal buddy to help the rainforest grow. Finish all the lessons in a unit to win its gem. Tap Play again to practice a lesson, or tap the speaker to hear about a buddy.",
@@ -2449,20 +2564,25 @@
   "say": "Press this to turn help on or off.",
   "speed": "0.76/0.85"
  },
- "d92bb9de": {
-  "key": "find the vowel that sounds like the one in \"bed\" to complete the word! tap a vowel from the tray to complete the word.",
-  "say": "Find the vowel that sounds like the one in \"bed\" to complete the word! Tap a vowel from the tray to complete the word.",
-  "speed": "0.76/0.85"
- },
  "d9889f50": {
   "key": "banana",
   "say": "banana",
   "speed": "0.76/0.85|cuts-183"
  },
+ "d9ad1290": {
+  "key": "place all the pieces first!",
+  "say": "Place all the pieces first!",
+  "speed": "0.76/0.85"
+ },
  "da4f4edb": {
   "key": "monkey|take your time! a 'b' can be tricky to spot.",
   "say": "Take your time! The letter bee can be tricky to spot.",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 1.08, \"sentence\": 0.8, \"voice\": \"am_puck\", \"word\": 0.85}"
+ },
+ "da51fde1": {
+  "key": "not quite - try again!",
+  "say": "Not quite - try again!",
+  "speed": "0.76/0.85"
  },
  "db0e676e": {
   "key": "lion|welcome to the adventure map! follow the path and tap the glowing circle to start your next lesson.",
@@ -2474,14 +2594,14 @@
   "say": "This is your home base. The flame counts the days in a row that you play. The bar shows today's goal. Tap Start to begin your next lesson, or open the map to choose a world. Tap Change picture to pick a new avatar.",
   "speed": "0.76/0.85"
  },
+ "dbd560df": {
+  "key": "you found the diamond! it is in your backpack.",
+  "say": "You found the Diamond! It is in your backpack.",
+  "speed": "0.76/0.85"
+ },
  "dbd773d9": {
   "key": "the letter f, as in fish.",
   "say": "The letter F, as in fish.",
-  "speed": "0.76/0.85"
- },
- "dc7cdf97": {
-  "key": "find the vowel that sounds like the one in \"cat\" to complete the word! tap a vowel from the tray to complete the word.",
-  "say": "Find the vowel that sounds like the one in \"cat\" to complete the word! Tap a vowel from the tray to complete the word.",
   "speed": "0.76/0.85"
  },
  "dc88e121": {
@@ -2639,6 +2759,11 @@
   "say": "The letter Y, as in yellow.",
   "speed": "0.76/0.85"
  },
+ "e9aa4f7d": {
+  "key": "tap the letters in the second word that are different!",
+  "say": "Tap the letters in the second word that are different!",
+  "speed": "0.76/0.85"
+ },
  "e9e4f4ac": {
   "key": "the letter u, as in umbrella.",
   "say": "The letter U, as in umbrella.",
@@ -2683,11 +2808,6 @@
   "key": "sloth|bright sunshine",
   "say": "Bright sunshine",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 1.0, \"sentence\": 0.74, \"voice\": \"af_heart\", \"word\": 0.82}"
- },
- "ec8cef17": {
-  "key": "find the vowel that sounds like the one in \"cup\" to complete the word! tap a vowel from the tray to complete the word.",
-  "say": "Find the vowel that sounds like the one in \"cup\" to complete the word! Tap a vowel from the tray to complete the word.",
-  "speed": "0.76/0.85"
  },
  "ed463ea9": {
   "key": "what is your favorite weather?",
@@ -2737,6 +2857,11 @@
  "efea4472": {
   "key": "tap the vowel that makes that sound.",
   "say": "Tap the vowel that makes that sound.",
+  "speed": "0.76/0.85"
+ },
+ "f008a9a1": {
+  "key": "try again!",
+  "say": "Try again!",
   "speed": "0.76/0.85"
  },
  "f0a319b8": {
@@ -2812,6 +2937,11 @@
  "f40aa333": {
   "key": "press the gem to put it in the gate and open the next world.",
   "say": "Press the gem to put it in the gate and open the next world.",
+  "speed": "0.76/0.85"
+ },
+ "f45734d9": {
+  "key": "press this to go to the vine doors and cut the vines to find a gem.",
+  "say": "Press this to go to the vine doors and cut the vines to find a gem.",
   "speed": "0.76/0.85"
  },
  "f4b2c848": {
@@ -2918,6 +3048,11 @@
   "key": "cheetah|lesson complete! great job, you got two stars!",
   "say": "Lesson complete! Great job, you got two stars!",
   "speed": "{\"lang\": \"en-us\", \"pitch\": 1.06, \"sentence\": 0.84, \"voice\": \"am_liam\", \"word\": 0.88}"
+ },
+ "fc791c9f": {
+  "key": "you found the opal! it is in your backpack.",
+  "say": "You found the Opal! It is in your backpack.",
+  "speed": "0.76/0.85"
  },
  "fc9205a5": {
   "key": "you are joining the sunny river jungle! you love sunshine, splashing, and making new friends!",

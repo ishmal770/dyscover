@@ -106,8 +106,8 @@ function Unit({ unit, unitIndex, currentId, onOpen }) {
   );
 }
 
-function LessonPath({ onHome, onStartLesson, guideMessage, guideInstructions }) {
-  const { isCompleted, isUnlocked, stars, pendingGem } = useProgress();
+function LessonPath({ onHome, onStartLesson, onPlacement, guideMessage, guideInstructions }) {
+  const { isCompleted, isUnlocked, stars, pendingGem, placed } = useProgress();
   const [openId, setOpenId] = useState(null);
   const [demoId, setDemoId] = useState(null);
   const scrollRef = useRef(null);
@@ -133,6 +133,14 @@ function LessonPath({ onHome, onStartLesson, guideMessage, guideInstructions }) 
 
       <div className="path__scroll" ref={scrollRef}>
         <div className="path__inner">
+          {!placed && (
+            <div className="path__placement">
+              <p>Play the placement games first. Then your lessons open, one at a time.</p>
+              <button className="btn btn--primary" onClick={onPlacement}>
+                Play placement games
+              </button>
+            </div>
+          )}
           {UNITS.map((unit, i) => (
             <Unit key={unit.id} unit={unit} unitIndex={i} currentId={currentId} onOpen={setOpenId} />
           ))}
@@ -177,7 +185,12 @@ function LessonPath({ onHome, onStartLesson, guideMessage, guideInstructions }) 
               </>
             ) : (
               <p className="path__sheet-locked">
-                <Lock size={14} /> Finish the lesson before this one to open it.
+                <Lock size={14} />{" "}
+                {!placed
+                  ? "Play the placement games first to open your lessons."
+                  : isCompleted(open.id)
+                  ? "You finished this one! Finish every lesson to play it again."
+                  : "Finish the lesson before this one to open it."}
               </p>
             )}
           </div>

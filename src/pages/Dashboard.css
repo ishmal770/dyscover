@@ -462,3 +462,37 @@
 .dash__links {
   justify-content: center;
 }
+
+/* the vine door card (after a day of lessons) */
+.dash__door {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+  border: 3px solid #e8943a;
+  border-radius: 20px;
+  background: #fff6e8;
+}
+
+.dash__door > div {
+  flex: 1;
+  min-width: 180px;
+}
+
+.dash__door h2 {
+  font-size: 1.25rem;
+  font-weight: 900;
+}
+
+.dash__door p {
+  margin-top: 2px;
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+
+.dash__door .dash__start {
+  background: #e8943a;
+  color: var(--white);
+  box-shadow: 0 4px 0 #b9661a;
+}

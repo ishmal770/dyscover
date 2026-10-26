@@ -24,7 +24,7 @@ const WELCOME_MS = 4500;
 export const ASK_MORE = "Do you want to hear the other instructions? Tap one to listen.";
 
 // roughly how long a line takes to say aloud
-const readMs = (text) => 2200 + text.length * 55;
+const readMs = (text) => 1500 + text.length * 28;
 
 // `character` pins this game's own mascot (e.g. the lion in Lion's Letters);
 // otherwise the child's chosen guide is shown. `instructions` is the how-to-play

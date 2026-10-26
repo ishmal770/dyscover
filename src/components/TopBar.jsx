@@ -2,8 +2,9 @@
 // AdventureMap, PlacementMission). Games use the similar GameTopBar instead.
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Backpack, Info, Settings, Volume2, VolumeX } from "lucide-react";
+import { Backpack, Info, LayoutDashboard, Map as MapIcon, Settings, Volume2, VolumeX } from "lucide-react";
 import logo from "../assets/dyscover-logo.png";
+import { usePageNav } from "../context/PageNavContext";
 import { useAccessibility } from "../context/AccessibilityContext";
 import InfoPopover from "./InfoPopover";
 import SettingsPopover from "./SettingsPopover";
@@ -11,6 +12,7 @@ import "./TopBar.css";
 
 function TopBar({ label, showLogo = false, onLogoClick, infoText }) {
   const navigate = useNavigate();
+  const pageNav = usePageNav();
   const { muted, toggleMuted } = useAccessibility();
   const [openPanel, setOpenPanel] = useState(null); // null | "info" | "settings"
 
@@ -39,6 +41,14 @@ function TopBar({ label, showLogo = false, onLogoClick, infoText }) {
           onClick={() => setOpenPanel(openPanel === "settings" ? null : "settings")}
         >
           <Settings size={16} />
+        </button>
+        {/* the Dashboard (home base) is always one tap away too */}
+        <button className="topbar__icon-btn" aria-label="Dashboard" title="Dashboard" onClick={() => (pageNav ? pageNav.goTo("dashboard") : navigate("/?play=dashboard"))}>
+          <LayoutDashboard size={16} />
+        </button>
+        {/* the Adventure Map is always one tap away */}
+        <button className="topbar__icon-btn" aria-label="Adventure map" title="Adventure map" onClick={() => (pageNav ? pageNav.goTo("map") : navigate("/?play=map"))}>
+          <MapIcon size={16} />
         </button>
         {/* Backpack icon jumps to the kid-facing treasures page */}
         <button className="topbar__icon-btn" aria-label="My backpack" onClick={() => navigate("/backpack")}>

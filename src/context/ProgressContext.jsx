@@ -5,9 +5,39 @@
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { UNITS, LESSONS } from "../data/lessons";
 import { TREASURES, GEMS } from "../data/treasures";
+import { DOORS, prizeFor } from "../data/vineDoor";
 import { AVATARS, AVATAR_BY_ID, DEFAULT_AVATAR, isAvatarUnlocked, levelFor } from "../data/avatars";
 
 const STORAGE_KEY = "dyscover-progress";
+
+// ?reset=1 starts over: it clears everything the app saved (progress, settings, what was heard),
+// then drops itself from the address so a reload does not wipe again.
+(() => {
+  try {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("reset") !== "1") return;
+    Object.keys(localStorage)
+      .filter((k) => k.startsWith("dyscover"))
+      .forEach((k) => localStorage.removeItem(k));
+    params.delete("reset");
+    const rest = params.toString();
+    window.history.replaceState(null, "", `${window.location.pathname}${rest ? `?${rest}` : ""}${window.location.hash}`);
+  } catch {
+    // storage blocked: nothing to clear
+  }
+})();
+
+// demo mode: ?dev=1 turns it on (and remembers it), ?dev=0 turns it off
+const DEV = (() => {
+  try {
+    const q = new URLSearchParams(window.location.search).get("dev");
+    if (q === "1") localStorage.setItem("dyscover-dev", "1");
+    if (q === "0") localStorage.removeItem("dyscover-dev");
+    return localStorage.getItem("dyscover-dev") === "1";
+  } catch {
+    return false;
+  }
+})();
 const DAILY_GOAL_XP = 30;
 
 const EMPTY = {
@@ -22,6 +52,11 @@ const EMPTY = {
   lessons: {}, // lessonId -> { stars: 1-3 (best), plays }
   gems: [], // unit ids whose gem has been put into the gate (opens the next unit)
   grade: "g35", // grade band for the questions (see data/questionBanks.js)
+  xpSpent: 0, // XP spent on cutting vines (level still counts all the XP ever earned)
+  door: { day: null, removed: 0, collected: false }, // today's vine door
+  golden: { removed: 0 }, // the golden door (saved up over days)
+  doorGems: [], // ids of the gems collected from today's door
+  goldenPrizes: [], // ids of the prizes collected from the golden door
   placed: false, // true once the placement mission has been finished (it is played only once)
   jungle: null, // the jungle the child was sorted into by the quiz
 };
@@ -135,6 +170,64 @@ function ProgressProvider({ children }) {
     };
   }
 
+  // ---- demo mode ---------------------------------------------------------------------
+  // Open the app with ?dev=1 to unlock every game and the vine doors for a demo (?dev=0 turns it off).
+  // Nothing is blocked and you start with 200 XP to spend on vines; the DEV panel (Shift+D) can add XP or refill the doors.
+  const dev = DEV;
+
+  // ---- the vine doors (see data/vineDoor.js) -----------------------------------------------
+  // a door keeps the vines already cut until its gem is collected; a new door starts the next day
+  const todaysDoor = (s) => (s.door.collected && s.door.day !== dayKey() ? { day: dayKey(), removed: 0, collected: false } : s.door);
+  const goalReachedToday = (s) => (s.today.day === dayKey() ? s.today.xp : 0) >= DAILY_GOAL_XP;
+
+  // In demo mode there is a 200 XP starter balance on top of any XP earned, and cutting vines spends it for real.
+  const spendableOf = (s) => Math.max(0, (dev ? 200 : 0) + s.xp - s.xpSpent);
+
+  // Cut `count` vines ("daily" or "golden") by spending 10 XP each. Returns true if they were cut.
+  function cutVine(kind = "daily", count = 1) {
+    const s = stateRef.current;
+    const { vines, cost } = DOORS[kind];
+    if (count < 1) return false;
+    if (!dev && (!goalReachedToday(s) || s.xp - s.xpSpent < cost * count)) return false;
+    const spent = dev ? 0 : cost * count;
+    if (kind === "daily") {
+      const door = todaysDoor(s);
+      if (door.removed + count > vines || (door.collected && !dev)) return false;
+      commit({ ...s, xpSpent: s.xpSpent + spent, door: { ...door, removed: door.removed + count, collected: false } });
+    } else {
+      if (s.golden.removed + count > vines) return false;
+      commit({ ...s, xpSpent: s.xpSpent + spent, golden: { removed: s.golden.removed + count } });
+    }
+    return true;
+  }
+
+  // Take the prize from behind an open door and put it in the backpack. Returns the prize.
+  function collectDoorGem(kind = "daily") {
+    const s = stateRef.current;
+    if (kind === "daily") {
+      const door = todaysDoor(s);
+      if (door.removed < DOORS.daily.vines || (door.collected && !dev)) return null;
+      const prize = prizeFor("daily", s.doorGems.length);
+      commit({ ...s, doorGems: [...s.doorGems, prize.id], door: { ...door, day: dayKey(), collected: true } });
+      return prize;
+    }
+    if (s.golden.removed < DOORS.golden.vines) return null;
+    const prize = prizeFor("golden", s.goldenPrizes.length);
+    commit({ ...s, goldenPrizes: [...s.goldenPrizes, prize.id], golden: { removed: 0 } });
+    return prize;
+  }
+
+  // demo helpers (the DEV panel)
+  function devAddXp(amount) {
+    const s = stateRef.current;
+    const day = dayKey();
+    const todayXp = (s.today.day === day ? s.today.xp : 0) + amount;
+    commit({ ...s, xp: s.xp + amount, today: { day, xp: todayXp }, lastDay: day, history: { ...s.history, [day]: (s.history[day] || 0) + amount } });
+  }
+  function devResetDoors() {
+    commit({ ...stateRef.current, xpSpent: 0, door: { day: dayKey(), removed: 0, collected: false }, golden: { removed: 0 } });
+  }
+
   function setAvatar(id) {
     const s = stateRef.current;
     if (AVATAR_BY_ID[id] && isAvatarUnlocked(AVATAR_BY_ID[id], statsOf(s))) commit({ ...s, avatar: id });
@@ -177,12 +270,17 @@ function ProgressProvider({ children }) {
     const i = UNITS.findIndex((u) => u.id === unitId);
     return i === 0 || gemPlaced(UNITS[i - 1].id);
   };
+  const allDone = LESSONS.every((l) => isCompleted(l.id));
+  // The lesson the child is on: the first one not finished, in map order, whose unit is open.
+  const currentLessonId = LESSONS.find((l) => !isCompleted(l.id) && isUnitOpen(l.unitId))?.id ?? null;
+  // Nothing opens until the placement mission is done. After it, only the current lesson is
+  // open (finished ones stay shut and the next one stays locked) until every lesson is finished;
+  // then all of them open for practice.
   const isUnlocked = (id) => {
-    const lesson = LESSONS.find((l) => l.id === id);
-    if (!lesson || !isUnitOpen(lesson.unitId)) return false;
-    if (lesson.indexInUnit === 0) return true;
-    const unit = UNITS.find((u) => u.id === lesson.unitId);
-    return isCompleted(unit.lessons[lesson.indexInUnit - 1].id);
+    if (dev) return true; // demo mode: every game is open
+    if (!state.placed) return false;
+    if (allDone) return true;
+    return id === currentLessonId;
   };
   // A gem that has been won but not yet put into its gate (and has a next unit to open)
   const pendingGem = UNITS.find((u, i) => i < UNITS.length - 1 && unitDone(u.id) && !gemPlaced(u.id)) || null;
@@ -192,7 +290,7 @@ function ProgressProvider({ children }) {
   function nextLesson() {
     const open = LESSONS.find((l) => !isCompleted(l.id) && isUnlocked(l.id));
     if (open) return open;
-    return LESSONS.filter((l) => isUnlocked(l.id)).sort((a, b) => (state.lessons[a.id]?.stars || 0) - (state.lessons[b.id]?.stars || 0))[0];
+    return LESSONS.filter((l) => isUnlocked(l.id)).sort((a, b) => (state.lessons[a.id]?.stars || 0) - (state.lessons[b.id]?.stars || 0))[0] || LESSONS[0];
   }
 
   const stats = statsOf(state);
@@ -203,6 +301,20 @@ function ProgressProvider({ children }) {
     setName,
     grade: state.grade,
     placed: state.placed,
+    // vine door: open after the day's goal is reached, until its gem has been collected
+    dev,
+    devAddXp,
+    devResetDoors,
+    // the vine doors open after the day's goal is reached
+    doorAvailable: dev || goalReachedToday(state),
+    dailyLeft: DOORS.daily.vines - todaysDoor(state).removed,
+    dailyCollected: todaysDoor(state).collected,
+    goldenLeft: DOORS.golden.vines - state.golden.removed,
+    spendableXp: spendableOf(state),
+    doorGems: state.doorGems,
+    goldenPrizes: state.goldenPrizes,
+    cutVine,
+    collectDoorGem,
     setGrade,
     chooseGrade,
     jungle: state.jungle,

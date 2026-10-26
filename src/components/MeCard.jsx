@@ -4,6 +4,7 @@
 import { useState } from "react";
 import { Backpack, Check, Flame, Lock, Pencil, Star, Zap } from "lucide-react";
 import Avatar from "./Avatar";
+import PersonFigure from "./PersonFigure";
 import { useProgress } from "../context/ProgressContext";
 import { AVATARS, unlockText } from "../data/avatars";
 import { JUNGLES } from "../data/jungleQuiz";
@@ -36,7 +37,7 @@ function MeCard({ headline }) {
     <section className="me">
       <div className="profile__hero">
         <button className="profile__avatar-wrap me__avatar-btn" onClick={() => setPicking((p) => !p)} aria-label="Change my picture" aria-expanded={picking}>
-          <Avatar id={avatar} size={104} />
+          <PersonFigure id={avatar} height={150} />
           <span className="profile__level-badge">Lv {levelInfo.level}</span>
         </button>
         <div className="profile__who">

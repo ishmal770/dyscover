@@ -10,6 +10,9 @@ import { rev } from "../data/audioRev.json";
 
 const clips = new Set(manifest);
 
+// everything is played a little faster than recorded (the recordings themselves stay slow and clear)
+const SPEED = 1.25;
+
 // speak() is a plain function imported all over the app (not a component),
 // so the mute toggle can't reach it through React context/props - this
 // module-level flag lets AccessibilityContext turn audio on/off everywhere.
@@ -91,7 +94,7 @@ function speakWithBrowserVoice(text, onEnd) {
       ? cleaned[0] + cleaned.slice(1).toLowerCase()
       : cleaned;
   const utterance = new SpeechSynthesisUtterance(normalized);
-  utterance.rate = 0.9;
+  utterance.rate = 0.9 * SPEED;
   utterance.lang = "en-US";
   const voice = pickFallbackVoice();
   if (voice) utterance.voice = voice;
@@ -150,6 +153,7 @@ function speak(text, options = {}) {
 
   const el = new Audio(`${import.meta.env.BASE_URL}audio/${id}.m4a?v=${rev}`);
   audio = el;
+  el.playbackRate = SPEED;
   el.addEventListener("ended", finish);
   el.addEventListener("error", () => {
     if (audio === el) speakWithBrowserVoice(text, options.onEnd ? finish : undefined);

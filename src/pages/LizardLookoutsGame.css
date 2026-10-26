@@ -1,56 +1,44 @@
+/* Styles for LizardLookoutsGame.jsx */
 .lizard-game {
   position: relative;
   display: flex;
   flex-direction: column;
   height: 100%;
-  background: var(--white);
+  background-color: var(--green-pale);
   overflow-y: auto;
-  padding-bottom: 100px;
+  padding-bottom: 130px;
 }
 
+/* ---- header: one tidy row ---- */
 .lizard-game__topline {
   display: flex;
-  align-items: flex-start;
+  flex-wrap: wrap;
+  align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  padding: 24px 32px 0;
+  gap: 8px 16px;
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 18px 20px 0;
 }
 
 .lizard-game__topline h1 {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 10px;
-  font-size: 1.2rem;
-  font-weight: 800;
+  font-size: 1.3rem;
+  font-weight: 900;
 }
 
 .lizard-game__round-pill {
-  padding: 3px 10px;
+  padding: 3px 12px;
   border-radius: var(--radius-pill);
-  background: var(--green-pale);
+  background: var(--white);
   color: var(--green-dark);
-  font-size: 0.65rem;
-  font-weight: 700;
-}
-
-.lizard-game__topline p {
-  margin-top: 4px;
-  font-size: 0.8rem;
-  color: var(--ink-soft);
-}
-
-.lizard-game__progress {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 4px;
-}
-
-.lizard-game__progress span {
-  font-size: 0.6rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  color: var(--ink-soft);
+  font-size: 0.75rem;
+  font-weight: 800;
+  box-shadow: inset 0 0 0 2px var(--green-soft);
 }
 
 .lizard-game__stars {
@@ -59,57 +47,100 @@
   color: var(--amber);
 }
 
+/* ---- the 4 steps ---- */
 .lizard-game__steps {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 24px;
-  padding: 0 24px;
-}
-
-.lizard-game__step-tabs {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 16px;
-  margin-bottom: 20px;
-}
-
-.lizard-game__step-tabs span {
-  font-size: 0.7rem;
-  font-weight: 700;
-  color: var(--ink-soft);
-  padding-bottom: 4px;
-  border-bottom: 2px solid transparent;
-}
-
-.lizard-game__step-tabs span.active {
-  color: var(--green-dark);
-  border-color: var(--green);
-}
-
-.lizard-game__card {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 16px;
   width: 100%;
-  max-width: 560px;
-  padding: 28px;
-  background: var(--green-paler);
-  border-radius: 20px;
+  margin-top: 14px;
+  padding: 0 16px;
+}
+
+.lizard-game__step-tabs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  width: 100%;
+  max-width: 640px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lizard-game__step-tabs li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 4px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.6);
+  color: var(--ink-soft);
+  text-align: center;
+}
+
+.lizard-game__step-num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--border);
+  color: var(--white);
+  font-size: 0.8rem;
+  font-weight: 900;
+}
+
+.lizard-game__step-label {
+  font-size: 0.72rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.lizard-game__step-tabs .is-now {
+  background: var(--white);
+  color: var(--green-dark);
+  box-shadow: 0 3px 0 var(--green-soft);
+}
+
+.lizard-game__step-tabs .is-now .lizard-game__step-num {
+  background: var(--green);
+}
+
+.lizard-game__step-tabs .is-done .lizard-game__step-num {
+  background: var(--green-soft);
+  color: var(--green-dark);
+}
+
+/* ---- the working card ---- */
+.lizard-game__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  width: 100%;
+  max-width: 640px;
+  padding: 26px 24px;
+  border: 2px solid var(--green-soft);
+  border-radius: 26px;
+  background: var(--white);
+  box-shadow: 0 6px 0 var(--green-soft), 0 16px 28px rgba(30, 50, 30, 0.08);
   text-align: center;
 }
 
 .lizard-game__instructions-row {
   display: flex;
   align-items: center;
-  gap: 8px;
+  justify-content: center;
+  gap: 10px;
 }
 
 .lizard-game__instructions {
-  font-size: 0.95rem;
-  font-weight: 700;
+  font-size: 1.05rem;
+  font-weight: 800;
 }
 
 .lizard-game__inline-speaker {
@@ -117,21 +148,37 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 26px;
-  height: 26px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   border: none;
-  background: var(--white);
-  color: var(--green-dark);
+  background: var(--green);
+  color: var(--white);
   cursor: pointer;
 }
 
+/* ---- the sentence / paragraph to hunt through ---- */
 .lizard-game__hunt-text {
-  max-width: 460px;
-  font-size: 1.05rem;
-  line-height: 1.9;
-  text-align: center;
+  width: 100%;
+  margin: 0;
+  padding: 18px 16px;
+  border-radius: 18px;
+  background: var(--green-paler);
   color: var(--ink);
+  text-align: center;
+  letter-spacing: 0.01em;
+}
+
+/* K-2: big and short.  3-5: smaller, and a whole paragraph reads left to right. */
+:root[data-band="k2"] .lizard-game__hunt-text {
+  font-size: clamp(1.7rem, 4.6vw, 2.3rem);
+  line-height: 1.6;
+}
+
+:root[data-band="g35"] .lizard-game__hunt-text {
+  font-size: clamp(1.1rem, 2.6vw, 1.3rem);
+  line-height: 1.75;
+  text-align: left;
 }
 
 .lizard-game__hunt-word {
@@ -141,59 +188,67 @@
 
 .lizard-game__hunt-letter {
   display: inline;
+  margin: 0;
+  padding: 0 3px;
   border: none;
+  border-radius: 8px;
   background: none;
-  color: var(--ink);
+  color: inherit;
   font: inherit;
   cursor: pointer;
-  padding: 0;
-  margin: 0;
-  text-decoration: underline;
-  text-decoration-color: var(--border);
-  text-decoration-thickness: 2px;
-  text-underline-offset: 3px;
-  transition: color 0.15s, text-decoration-color 0.15s;
+  transition: background 0.15s, color 0.15s;
 }
 
 .lizard-game__hunt-letter:hover {
-  color: var(--green-dark);
-  text-decoration-color: var(--green);
+  background: color-mix(in srgb, var(--green) 18%, transparent);
 }
 
-.lizard-game__hunt-letter--found {
-  color: var(--green-dark);
-  font-weight: 800;
-  text-decoration-color: var(--green);
-}
-
+/* a letter you found lights up */
+.lizard-game__hunt-letter--found,
 .lizard-game__hunt-letter--found:hover {
-  color: var(--green-dark);
-  text-decoration-color: var(--green);
+  background: linear-gradient(var(--green), var(--green)) center / 100% 78% no-repeat;
+  color: var(--white);
+  font-weight: 900;
 }
 
 .lizard-game__hunt-letter--wrong {
-  color: #e05555;
-  text-decoration-color: #e05555;
+  background: #fdecec;
+  color: #c0392b;
+  animation: lizard-shake 0.4s;
+}
+
+@keyframes lizard-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-3px); }
+  75% { transform: translateX(3px); }
 }
 
 .lizard-game__found-count {
-  font-size: 0.8rem;
-  color: var(--ink-soft);
+  padding: 4px 16px;
+  border-radius: var(--radius-pill);
+  background: var(--green-pale);
+  color: var(--green-dark);
+  font-size: 0.9rem;
+  font-weight: 800;
 }
 
+/* ---- step 2: the shape of the letter ---- */
 .lizard-game__card--shape {
   gap: 20px;
 }
 
 .lizard-game__anatomy-svg {
-  width: 140px;
-  height: 196px;
+  width: 150px;
+  height: 210px;
+  padding: 10px;
+  border-radius: 20px;
+  background: var(--green-paler);
 }
 
 .lizard-game__anatomy-stick,
 .lizard-game__anatomy-bowl {
   stroke: var(--ink);
-  transition: stroke 0.2s ease, fill 0.2s ease, opacity 0.2s ease;
+  transition: stroke 0.2s ease, opacity 0.2s ease;
 }
 
 .lizard-game__anatomy-bowl {
@@ -216,20 +271,20 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 .lizard-game__shape-controls button {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 8px 16px;
-  border: 1px solid var(--border);
+  gap: 8px;
+  padding: 10px 18px;
+  border: 2px solid var(--border);
   border-radius: var(--radius-pill);
   background: var(--white);
   color: var(--ink);
-  font-size: 0.75rem;
-  font-weight: 700;
+  font-size: 0.9rem;
+  font-weight: 800;
   cursor: pointer;
 }
 
@@ -239,15 +294,17 @@
   color: var(--green-dark);
 }
 
+/* ---- step 3: trace ---- */
 .lizard-game__reminder {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 8px 14px;
-  background: var(--white);
+  gap: 8px;
+  padding: 8px 16px;
   border-radius: var(--radius-pill);
-  font-size: 0.72rem;
-  color: var(--ink-soft);
+  background: var(--amber-bg);
+  color: var(--ink);
+  font-size: 0.85rem;
+  font-weight: 700;
 }
 
 .lizard-game__finished {
@@ -274,21 +331,12 @@
   margin-top: 12px;
 }
 
-/* bigger reading text, and found letters light up so they are easy to see */
-.lizard-game__hunt-text {
-  max-width: 560px;
-  font-size: clamp(1.35rem, 3.2vw, 1.9rem);
-  line-height: 2;
-}
+@media (max-width: 480px) {
+  .lizard-game__card {
+    padding: 20px 14px;
+  }
 
-.lizard-game__hunt-letter--found {
-  padding: 0 4px;
-  border-radius: 8px;
-  background: var(--green);
-  color: var(--white);
-  text-decoration: none;
-}
-
-.lizard-game__hunt-letter--found:hover {
-  color: var(--white);
+  .lizard-game__step-label {
+    font-size: 0.66rem;
+  }
 }

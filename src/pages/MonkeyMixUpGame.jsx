@@ -15,11 +15,10 @@ const VOWELS = ["A", "E", "I", "O", "U"];
 
 const BONUS_WORDS = ["Sun", "Bug", "Cup", "Rays", "Roach"];
 
-// TTS engines can't reliably pronounce isolated phonetic spellings like
-// "uh" or "ih" - they read them as if they were misspelled words. Speaking
-// a clear real word that contains the target sound instead is far more
-// reliable and is standard phonics-teaching practice.
-const SOUND_EXAMPLES = { uh: "cup", aa: "cat", ih: "pig", aw: "dog", eh: "bed" };
+// The sound button says the puzzle's own word (sun, cat, ...). TTS engines can't reliably say
+// isolated phonetic spellings like "uh" or "ih", and a whole real word is how phonics is taught.
+const SOUND_INSTRUCTIONS =
+  "Find the vowel that sounds like the one in this word to complete the word! Tap a vowel from the tray to complete the word.";
 
 function MonkeyMixUpGame({ onHome, onBack, onDone }) {
   const { grade } = useProgress();
@@ -108,7 +107,7 @@ function MonkeyMixUpGame({ onHome, onBack, onDone }) {
                 Find the vowel that makes the{" "}
                 <button
                   className="monkey-game__sound-chip"
-                  onClick={() => speak(SOUND_EXAMPLES[round.sound])}
+                  onClick={() => speak(word.toLowerCase())}
                 >
                   &lsquo;{round.sound}&rsquo; <Volume2 size={10} />
                 </button>{" "}
@@ -117,11 +116,7 @@ function MonkeyMixUpGame({ onHome, onBack, onDone }) {
             </div>
             <button
               className="monkey-game__speaker"
-              onClick={() =>
-                speak(
-                  `Find the vowel that sounds like the one in "${SOUND_EXAMPLES[round.sound]}" to complete the word! Tap a vowel from the tray to complete the word.`
-                )
-              }
+              onClick={() => speak(SOUND_INSTRUCTIONS)}
               aria-label="Read instructions aloud"
             >
               <Volume2 size={13} />

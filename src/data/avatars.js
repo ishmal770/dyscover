@@ -12,16 +12,17 @@ export function levelFor(xp) {
   return { level, into, needed: XP_PER_LEVEL, percent: Math.round((into / XP_PER_LEVEL) * 100) };
 }
 
-// Seven human explorers (open-source portraits, see components/Avatar.jsx). `treasures`
+// Seven human explorers (open-source portraits, see components/Avatar.jsx). `shirt` and `pants`
+// are the colors of the outfit their full-body figure wears (components/PersonFigure.jsx). `treasures`
 // counts the jungle buddies met so far (one per finished lesson).
 export const AVATARS = [
-  { id: "zara", name: "Zara", unlock: null },
-  { id: "kai", name: "Kai", unlock: null },
-  { id: "maya", name: "Maya", unlock: { type: "level", n: 2 } },
-  { id: "leo", name: "Leo", unlock: { type: "stars", n: 3 } },
-  { id: "amara", name: "Amara", unlock: { type: "level", n: 3 } },
-  { id: "sam", name: "Sam", unlock: { type: "treasures", n: 4 } },
-  { id: "noor", name: "Noor", unlock: { type: "level", n: 5 } },
+  { id: "zara", name: "Zara", shirt: "#e8a33d", pants: "#5b4636", unlock: null },
+  { id: "kai", name: "Kai", shirt: "#4a90d9", pants: "#2f3e5c", unlock: null },
+  { id: "maya", name: "Maya", shirt: "#7ccf4a", pants: "#3f5b3a", unlock: { type: "level", n: 2 } },
+  { id: "leo", name: "Leo", shirt: "#d9d0b8", pants: "#6b5b3e", unlock: { type: "stars", n: 3 } },
+  { id: "amara", name: "Amara", shirt: "#e8574f", pants: "#3a3a4a", unlock: { type: "level", n: 3 } },
+  { id: "sam", name: "Sam", shirt: "#9b6fd6", pants: "#34405f", unlock: { type: "treasures", n: 4 } },
+  { id: "noor", name: "Noor", shirt: "#2fb3a3", pants: "#46506b", unlock: { type: "level", n: 5 } },
 ];
 
 export const AVATAR_BY_ID = Object.fromEntries(AVATARS.map((a) => [a.id, a]));

@@ -1,0 +1,83 @@
+.fig {
+  position: relative;
+  display: inline-block;
+}
+
+.fig img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  /* a soft shadow, as if the figure stands on the page */
+  filter: drop-shadow(0 4px 3px rgba(40, 60, 30, 0.18));
+}
+
+/* how many prizes are in the backpack */
+.fig__count {
+  position: absolute;
+  left: 4%;
+  top: 36%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 5px;
+  border: 2px solid #fff;
+  border-radius: 999px;
+  background: var(--green);
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+/* the scissors only show while cutting, at the avatar's hand */
+.fig__scissors {
+  position: absolute;
+  right: -2%;
+  top: 56%;
+  color: #5c626b;
+  opacity: 0;
+  transform-origin: 20% 80%;
+}
+
+.fig--cutting .fig__scissors {
+  opacity: 1;
+  animation: fig-snip 0.7s ease;
+}
+
+.fig--cutting img {
+  animation: fig-lean 0.7s ease;
+  transform-origin: 50% 100%;
+}
+
+@keyframes fig-snip {
+  0%, 100% { transform: rotate(0); }
+  30% { transform: rotate(-35deg) translate(8px, -10px); }
+  60% { transform: rotate(14deg) translate(4px, -4px); }
+}
+
+@keyframes fig-lean {
+  0%, 100% { transform: rotate(0); }
+  35% { transform: rotate(5deg); }
+  70% { transform: rotate(-2deg); }
+}
+
+.fig--happy {
+  animation: fig-jump 0.7s ease 2;
+}
+
+@keyframes fig-jump {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-16px); }
+}
+
+.fig--sad {
+  animation: fig-shake 0.5s ease;
+}
+
+@keyframes fig-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  75% { transform: translateX(6px); }
+}

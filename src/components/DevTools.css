@@ -1,0 +1,57 @@
+.devtools {
+  position: fixed;
+  left: 50%;
+  bottom: 8px;
+  z-index: 200;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  gap: 6px;
+  transform: translateX(-50%);
+}
+
+.devtools__toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 999px;
+  background: #1f2a1f;
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  opacity: 0.85;
+  cursor: pointer;
+}
+
+.devtools__panel {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 210px;
+  padding: 12px;
+  border-radius: 14px;
+  background: #1f2a1f;
+  color: #fff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.devtools__panel p {
+  margin: 0;
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+.devtools__panel button {
+  padding: 8px 10px;
+  border: none;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}

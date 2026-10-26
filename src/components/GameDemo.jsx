@@ -9,7 +9,7 @@ import { DEMOS } from "../data/demos";
 import "./GameDemo.css";
 
 // how long a step stays up: time to read it aloud, plus a pause
-const stepMs = (caption) => 2200 + caption.length * 55;
+const stepMs = (caption) => 1500 + caption.length * 28;
 
 function GameDemo({ demoId, onClose }) {
   const demo = DEMOS[demoId];

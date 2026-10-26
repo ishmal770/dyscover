@@ -29,9 +29,9 @@ function lastSevenDays(history) {
   return days;
 }
 
-function Dashboard({ onStartLesson, onOpenMap, onOpenBackpack, onQuiz, onCredits }) {
+function Dashboard({ onStartLesson, onOpenMap, onOpenBackpack, onQuiz, onCredits, onPlacement, onOpenDoor }) {
   const progress = useProgress();
-  const { pendingGem, streak, todayXp, goal, history, playedToday } = progress;
+  const { placed, doorAvailable, dailyLeft, dailyCollected, spendableXp, pendingGem, streak, todayXp, goal, history, playedToday } = progress;
   const next = LESSON_BY_ID[progress.nextLesson().id];
   const nextProgress = progress.lessons[next.id];
   const goalPercent = Math.min(100, Math.round((todayXp / goal) * 100));
@@ -62,24 +62,55 @@ function Dashboard({ onStartLesson, onOpenMap, onOpenBackpack, onQuiz, onCredits
             </div>
           )}
 
-          <div className="dash__next">
-            <span className="dash__next-art">
-              <GameArt id={next.id} size={100} />
-            </span>
-            <div>
-              <span className="dash__next-unit">{next.unitTitle.toUpperCase()}</span>
-              <h2>
-                {next.name}
-                <button className="dash__speak" onClick={() => speak(`${next.name}. ${next.blurb}`)} aria-label="Read aloud">
-                  <Volume2 size={18} />
-                </button>
-              </h2>
-              <p>{next.blurb}</p>
+          {doorAvailable && (
+            <div className="dash__door">
+              <WordPicture word="rainforest" size={72} />
+              <div>
+                <h2>The vine doors are open!</h2>
+                <p>
+                  You finished a day of lessons and have {spendableXp} XP to spend.{" "}
+                  {dailyCollected
+                    ? "Save it for the golden door and an even better prize."
+                    : `Cut ${dailyLeft} ${dailyLeft === 1 ? "vine" : "vines"} for a gem, or save your XP for the golden door.`}
+                </p>
+              </div>
+              <button className="dash__start" onClick={onOpenDoor}>
+                OPEN THE DOORS
+              </button>
             </div>
-            <button className="dash__start" onClick={() => onStartLesson(next.id)}>
-              <Play size={18} fill="currentColor" /> {nextProgress ? "PRACTICE" : "START"}
-            </button>
-          </div>
+          )}
+
+          {!placed ? (
+            <div className="dash__next">
+              <div>
+                <span className="dash__next-unit">FIRST STEP</span>
+                <h2>Placement games</h2>
+                <p>Play a few quick games so we can find the right lessons for you. Your lessons open after this.</p>
+              </div>
+              <button className="dash__start" onClick={onPlacement}>
+                <Play size={18} fill="currentColor" /> PLAY
+              </button>
+            </div>
+          ) : (
+          <div className="dash__next">
+              <span className="dash__next-art">
+                <GameArt id={next.id} size={100} />
+              </span>
+              <div>
+                <span className="dash__next-unit">{next.unitTitle.toUpperCase()}</span>
+                <h2>
+                  {next.name}
+                  <button className="dash__speak" onClick={() => speak(`${next.name}. ${next.blurb}`)} aria-label="Read aloud">
+                    <Volume2 size={18} />
+                  </button>
+                </h2>
+                <p>{next.blurb}</p>
+              </div>
+              <button className="dash__start" onClick={() => onStartLesson(next.id)}>
+                <Play size={18} fill="currentColor" /> {nextProgress ? "PRACTICE" : "START"}
+              </button>
+            </div>
+          )}
 
           <div className="dash__row">
             <section className="dash__card">

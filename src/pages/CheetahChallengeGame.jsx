@@ -1,3 +1,4 @@
+import FeedbackLine from "../components/FeedbackLine";
 import { useState, useEffect, useRef } from "react";
 import { Trophy, Star, Clock, Flame, Volume2, Play, RotateCcw, Mic } from "lucide-react";
 import GameTopBar from "../components/GameTopBar";
@@ -13,6 +14,45 @@ import "./CheetahChallengeGame.css";
 const ROUND_MS = 6000;
 const TICK_MS = 100;
 
+// ---- deciding whether what the microphone heard is the word ----------------------------
+// Speech recognition rarely returns a word exactly: it adds punctuation ("Fox."), extra words
+// ("the fox"), plurals, or a near sound-alike ("son" for "sun"). So a word counts if ANY of the
+// guesses the browser offers has the word in it, is a known sound-alike, or is one letter off.
+const SOUND_ALIKES = { sun: ["son"], tree: ["three", "tea"], fox: ["fax", "focks", "box"], duck: ["dock", "dark"], bird: ["bud", "burd"], fish: ["fishes", "fist"], frog: ["frock", "frogs"], lion: ["line", "lying", "lyin"] };
+
+const clean = (text) => text.toLowerCase().replace(/[^a-z' ]+/g, " ").replace(/\s+/g, " ").trim();
+
+function editDistance(a, b) {
+  const row = Array.from({ length: b.length + 1 }, (_, i) => i);
+  for (let i = 1; i <= a.length; i++) {
+    let prev = row[0];
+    row[0] = i;
+    for (let j = 1; j <= b.length; j++) {
+      const tmp = row[j];
+      row[j] = Math.min(row[j] + 1, row[j - 1] + 1, prev + (a[i - 1] === b[j - 1] ? 0 : 1));
+      prev = tmp;
+    }
+  }
+  return row[b.length];
+}
+
+function heardTheWord(guesses, target) {
+  const want = target.toLowerCase();
+  const alikes = SOUND_ALIKES[want] || [];
+  return guesses.some((guess) => {
+    const heard = clean(guess);
+    if (!heard) return false;
+    const tokens = heard.split(" ");
+    const squashed = heard.replace(/ /g, "");
+    return (
+      squashed === want ||
+      tokens.some((t) => t === want || t === `${want}s` || alikes.includes(t)) ||
+      (want.length >= 4 && tokens.some((t) => editDistance(t, want) <= 1)) ||
+      (want.length >= 6 && tokens.some((t) => editDistance(t, want) <= 2))
+    );
+  });
+}
+
 const SpeechRecognitionApi =
   typeof window !== "undefined" && (window.SpeechRecognition || window.webkitSpeechRecognition);
 
@@ -26,9 +66,14 @@ function CheetahChallengeGame({ onHome, onBack, onDone }) {
   const [timeLeft, setTimeLeft] = useState(100);
   const [finished, setFinished] = useState(false);
   const [isActive, setIsActive] = useState(false);
-  const [listening, setListening] = useState(false);
+  const [listening, setListeningState] = useState(false);
+  const setListening = (value) => {
+    listeningRef.current = value;
+    setListeningState(value);
+  };
   const [micFeedback, setMicFeedback] = useState("");
   const advancingRef = useRef(false);
+  const listeningRef = useRef(false); // the round timer pauses while the microphone is listening
   const remainingRef = useRef(ROUND_MS);
   const sectionRef = useRef(null);
   const recognitionRef = useRef(null);
@@ -51,6 +96,7 @@ function CheetahChallengeGame({ onHome, onBack, onDone }) {
     const recognition = new SpeechRecognitionApi();
     recognition.continuous = false;
     recognition.interimResults = false;
+    recognition.maxAlternatives = 5; // look at every guess, not just the first
     recognition.lang = "en-US";
     recognitionRef.current = recognition;
     return () => recognition.abort();
@@ -69,6 +115,7 @@ function CheetahChallengeGame({ onHome, onBack, onDone }) {
   useEffect(() => {
     if (finished || !isActive) return;
     const interval = setInterval(() => {
+      if (listeningRef.current) return; // give the microphone time to hear and answer
       remainingRef.current = Math.max(0, remainingRef.current - TICK_MS);
       const pct = (remainingRef.current / ROUND_MS) * 100;
       setTimeLeft(pct);
@@ -110,12 +157,12 @@ function CheetahChallengeGame({ onHome, onBack, onDone }) {
     setListening(true);
 
     recognition.onresult = (event) => {
-      const transcript = event.results[0][0].transcript.trim().toLowerCase();
+      const guesses = [...event.results[0]].map((alt) => alt.transcript);
       setListening(false);
-      if (transcript === word.toLowerCase()) {
+      if (heardTheWord(guesses, word)) {
         handleGotIt();
       } else {
-        setMicFeedback(`Heard "${transcript}" - try again!`);
+        setMicFeedback(`Heard "${guesses[0].trim().toLowerCase()}" - try again!`);
       }
     };
     recognition.onerror = () => {
@@ -225,9 +272,11 @@ function CheetahChallengeGame({ onHome, onBack, onDone }) {
               >
                 <Mic size={18} /> {listening ? "Listening..." : "Tap and say the word!"}
               </button>
-              <p className="cheetah-game__hint-text">
-                {micFeedback || "Or tap the card once you've read it."}
-              </p>
+              {micFeedback ? (
+                <FeedbackLine text={micFeedback} say={micFeedback.startsWith("Heard") ? "Try again!" : undefined} />
+              ) : (
+                <p className="cheetah-game__hint-text">Or tap the card once you've read it.</p>
+              )}
             </>
           ) : (
             <p className="cheetah-game__hint-text">Tap the card once you've read it!</p>
