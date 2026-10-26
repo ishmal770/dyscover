@@ -37,6 +37,7 @@ function Dashboard({ onStartLesson, onOpenMap, onOpenBackpack, onQuiz, onCredits
   const [learning, setLearning] = useState(null);
   const [learningError, setLearningError] = useState("");
   const [needsSignIn, setNeedsSignIn] = useState(false);
+  const [planLoading, setPlanLoading] = useState(false);
   useEffect(() => {
     let cancelled = false;
     async function loadPlan() {
@@ -44,8 +45,10 @@ function Dashboard({ onStartLesson, onOpenMap, onOpenBackpack, onQuiz, onCredits
         setLearning(null);
         setNeedsSignIn(false);
         setLearningError("");
+        setPlanLoading(false);
         return;
       }
+      setPlanLoading(true);
       try {
         const user = await getSignedInUser();
         if (!user) {
@@ -53,6 +56,7 @@ function Dashboard({ onStartLesson, onOpenMap, onOpenBackpack, onQuiz, onCredits
           progress.setAdaptivePlan([]);
           setNeedsSignIn(true);
           setLearningError("Sign in with Google to save your placement results and receive a daily adaptive lesson plan.");
+          setPlanLoading(false);
           return;
         }
         const result = await invokeLearningFunction({ action: "daily_plan" });
@@ -68,6 +72,8 @@ function Dashboard({ onStartLesson, onOpenMap, onOpenBackpack, onQuiz, onCredits
           setNeedsSignIn(false);
           setLearningError(error.message || "Today's plan could not load.");
         }
+      } finally {
+        if (!cancelled) setPlanLoading(false);
       }
     }
     loadPlan();
@@ -178,6 +184,19 @@ function Dashboard({ onStartLesson, onOpenMap, onOpenBackpack, onQuiz, onCredits
                   </li>
                 ))}
               </ol>
+            </section>
+          )}
+          {planLoading && !learning?.plan && (
+            <section className="dash__adaptive-plan" aria-live="polite">
+              <span className="dash__next-unit">DAILY ADAPTIVE PLAN</span>
+              <h2>Loading today’s learning path…</h2>
+            </section>
+          )}
+          {!placed && (
+            <section className="dash__adaptive-plan" aria-label="Daily adaptive lesson plan">
+              <span className="dash__next-unit">DAILY ADAPTIVE PLAN</span>
+              <h2>Your learning path will appear here</h2>
+              <p>Finish the placement games to create your personalized daily lesson plan.</p>
             </section>
           )}
           {learningError && (
