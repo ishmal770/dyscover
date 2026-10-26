@@ -535,5 +535,5 @@
 .dash__adaptive-items li span { font-size: .7rem; color: var(--ink-soft); }
 .dash__adaptive-items li button { border: 0; border-radius: 999px; padding: 7px 10px; background: var(--green); color: white; font-size: .65rem; font-weight: 800; cursor: pointer; }
 .dash__adaptive-items li button:disabled { background: #d7e3dc; color: var(--green-dark); cursor: default; }
-.dash__adaptive-error { color: #a33; font-size: .78rem; }
+.dash__adaptive-error { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; color: #a33; font-size: .78rem; }
 @media (max-width: 600px) { .dash__adaptive-heading { align-items: flex-start; flex-direction: column; } }

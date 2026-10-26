@@ -15,6 +15,7 @@ import { useProgress, dayKey } from "../context/ProgressContext";
 import { LESSON_BY_ID } from "../data/lessons";
 import { GEMS } from "../data/treasures";
 import { getSignedInUser, invokeLearningFunction } from "../learningApi";
+import { signInWithGoogle } from "../supabase";
 import "./Dashboard.css";
 
 const DAY_LETTERS = ["S", "M", "T", "W", "T", "F", "S"];
@@ -35,22 +36,38 @@ function Dashboard({ onStartLesson, onOpenMap, onOpenBackpack, onQuiz, onCredits
   const progress = useProgress();
   const [learning, setLearning] = useState(null);
   const [learningError, setLearningError] = useState("");
+  const [needsSignIn, setNeedsSignIn] = useState(false);
   useEffect(() => {
     let cancelled = false;
     async function loadPlan() {
-      if (!progress.placed) { setLearning(null); return; }
+      if (!progress.placed) {
+        setLearning(null);
+        setNeedsSignIn(false);
+        setLearningError("");
+        return;
+      }
       try {
         const user = await getSignedInUser();
-        if (!user) { setLearning(null); progress.setAdaptivePlan([]); return; }
+        if (!user) {
+          setLearning(null);
+          progress.setAdaptivePlan([]);
+          setNeedsSignIn(true);
+          setLearningError("Sign in with Google to save your placement results and receive a daily adaptive lesson plan.");
+          return;
+        }
         const result = await invokeLearningFunction({ action: "daily_plan" });
         if (!cancelled) {
           setLearning(result);
           progress.setAdaptivePlan(result.plan?.items || []);
           progress.setCurrentWorld(result.profile?.current_world || 1);
+          setNeedsSignIn(false);
           setLearningError("");
         }
       } catch (error) {
-        if (!cancelled) setLearningError(error.message || "Today's plan could not load.");
+        if (!cancelled) {
+          setNeedsSignIn(false);
+          setLearningError(error.message || "Today's plan could not load.");
+        }
       }
     }
     loadPlan();
@@ -163,7 +180,12 @@ function Dashboard({ onStartLesson, onOpenMap, onOpenBackpack, onQuiz, onCredits
               </ol>
             </section>
           )}
-          {learningError && <p className="dash__adaptive-error" role="status">{learningError}</p>}
+          {learningError && (
+            <div className="dash__adaptive-error" role="status">
+              <p>{learningError}</p>
+              {needsSignIn && <button className="btn btn--outline" onClick={signInWithGoogle}>SIGN IN WITH GOOGLE</button>}
+            </div>
+          )}
           <div className="dash__next">
             <span className="dash__next-art">
               <GameArt id={next.id} size={100} />

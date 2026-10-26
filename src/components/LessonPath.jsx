@@ -108,8 +108,8 @@ function Unit({ unit, unitIndex, currentId, onOpen }) {
 }
 
 
-function LessonPath({ onHome, onStartLesson, guideMessage, guideInstructions }) {
-  const { isCompleted, isUnlocked, stars, pendingGem, nextLesson, grade, recommendedLessonId } = useProgress();
+function LessonPath({ onHome, onStartLesson, onPlacement, guideMessage, guideInstructions }) {
+  const { isCompleted, isUnlocked, stars, pendingGem, nextLesson, grade, recommendedLessonId, placed } = useProgress();
   const [openId, setOpenId] = useState(null);
   const [demoId, setDemoId] = useState(null);
   const scrollRef = useRef(null);

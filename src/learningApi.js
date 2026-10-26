@@ -23,9 +23,11 @@ export async function invokeLearningFunction(body) {
 }
 
 export async function getSignedInUser() {
-  const { data, error } = await supabase.auth.getUser();
+  // getUser() rejects with "Auth session missing!" for guest play. A missing
+  // session is an expected state in this app, so inspect the local session.
+  const { data, error } = await supabase.auth.getSession();
   if (error) throw error;
-  return data.user;
+  return data.session?.user || null;
 }
 
 export async function startPlacementDiagnostic(gradeTier) {
