@@ -77,6 +77,7 @@ function CheetahChallengeGame({ onHome, onBack, onDone }) {
   const remainingRef = useRef(ROUND_MS);
   const sectionRef = useRef(null);
   const recognitionRef = useRef(null);
+  const recognitionResultRef = useRef(false);
 
   const stars = Math.min(3, Math.floor(streak / 3));
   const word = words[roundIndex];
@@ -153,10 +154,16 @@ function CheetahChallengeGame({ onHome, onBack, onDone }) {
   function handleMicClick() {
     const recognition = recognitionRef.current;
     if (!recognition || listening || advancingRef.current) return;
+    if (typeof window !== "undefined" && !window.isSecureContext) {
+      setMicFeedback("Microphone access needs a secure page. Open Dyscover on localhost or its https website.");
+      return;
+    }
     setMicFeedback("");
+    recognitionResultRef.current = false;
     setListening(true);
 
     recognition.onresult = (event) => {
+      recognitionResultRef.current = true;
       const guesses = [...event.results[0]].map((alt) => alt.transcript);
       setListening(false);
       if (heardTheWord(guesses, word)) {
@@ -165,16 +172,32 @@ function CheetahChallengeGame({ onHome, onBack, onDone }) {
         setMicFeedback(`Heard "${guesses[0].trim().toLowerCase()}" - try again!`);
       }
     };
-    recognition.onerror = () => {
+    recognition.onerror = (event) => {
       setListening(false);
-      setMicFeedback("Couldn't hear you - try again or tap the card.");
+      const message = {
+        "not-allowed": "Microphone access is blocked. Allow microphone access for this site in your browser settings, then try again.",
+        "service-not-allowed": "Speech recognition is blocked by the browser. Check microphone and speech permissions.",
+        "audio-capture": "No microphone was found. Connect or enable a microphone, then try again.",
+        "no-speech": "I didn't hear speech. Move closer to the microphone and try again.",
+        network: "Speech recognition needs an internet connection. Check your connection and try again.",
+        aborted: "Listening stopped. Tap the microphone to try again.",
+      }[event.error] || "I couldn't hear that. Check your microphone permission and try again, or tap the card.";
+      setMicFeedback(message);
     };
-    recognition.onend = () => setListening(false);
+    recognition.onend = () => {
+      if (listeningRef.current && !recognitionResultRef.current) {
+        setMicFeedback("I didn't hear speech. Check your microphone permission, then tap and try again.");
+      }
+      setListening(false);
+    };
 
     try {
       recognition.start();
-    } catch {
+    } catch (error) {
       setListening(false);
+      setMicFeedback(error?.name === "NotAllowedError"
+        ? "Microphone access is blocked. Allow microphone access for this site in your browser settings, then try again."
+        : "The microphone could not start. Tap again, or check microphone permission in your browser settings.");
     }
   }
 
@@ -279,7 +302,7 @@ function CheetahChallengeGame({ onHome, onBack, onDone }) {
               )}
             </>
           ) : (
-            <p className="cheetah-game__hint-text">Tap the card once you've read it!</p>
+            <p className="cheetah-game__hint-text">Voice recognition is unavailable in this browser. Try Chrome or Edge, or tap the card once you&apos;ve read it.</p>
           )}
 
           <button

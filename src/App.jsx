@@ -9,8 +9,6 @@ import DevTools from "./components/DevTools";
 import KidGameApp from "./KidGameApp"; // the horizontal-scroll game experience
 import Backpack from "./pages/Backpack";
 import Credits from "./pages/Credits";
-import ClinicalOverview from "./pages/ClinicalOverview";
-import ClinicalStudentDetail from "./pages/ClinicalStudentDetail";
 import ExpertDashboard from "./pages/ExpertDashboard";
 
 function App() {
@@ -28,11 +26,9 @@ function App() {
           <Route path="/backpack" element={<Backpack />} />
           <Route path="/credits" element={<Credits />} />
           <Route path="/trophy-room" element={<Navigate to="/backpack" replace />} />
-          {/* Aggregate progress dashboard for parents/clinicians */}
-          <Route path="/clinical" element={<ClinicalOverview />} />
-          {/* Per-student deep dive, linked from the Clinical Overview table */}
-          <Route path="/clinical/:studentId" element={<ClinicalStudentDetail />} />
-          {/* Restricted diagnostics view for learning specialists */}
+          {/* Personal progress dashboard; backend scopes it to the signed-in user. */}
+          <Route path="/clinical" element={<Navigate to="/expert" replace />} />
+          <Route path="/clinical/:studentId" element={<Navigate to="/expert" replace />} />
           <Route path="/expert" element={<ExpertDashboard />} />
         </Routes>
       </BrowserRouter>

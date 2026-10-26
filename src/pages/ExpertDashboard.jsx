@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, LineChart, Line, Cell } from "recharts";
-import { ArrowLeft, ShieldAlert, Search, Play, RefreshCw, Send, AlertTriangle } from "lucide-react";
+import { ArrowLeft, ShieldAlert, Play, RefreshCw, AlertTriangle } from "lucide-react";
 import HelpButton from "../components/HelpButton";
 import { invokeLearningFunction } from "../learningApi";
 import "./ExpertDashboard.css";
@@ -24,13 +24,9 @@ function ExpertDashboard() {
   const navigate = useNavigate();
   const [dashboard, setDashboard] = useState(null);
   const [selectedId, setSelectedId] = useState("");
-  const [query, setQuery] = useState("");
   const [activeTab, setActiveTab] = useState(TABS[0]);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
-  const [notes, setNotes] = useState("");
-  const [focus, setFocus] = useState("");
-  const [saved, setSaved] = useState("");
 
   async function loadDashboard(studentId) {
     setBusy(true);
@@ -40,7 +36,7 @@ function ExpertDashboard() {
       setDashboard(result);
       setSelectedId(studentId || result.students?.[0]?.id || "");
     } catch (err) {
-      setError(err.message || "Could not load assigned students.");
+      setError(err.message || "Could not load your progress.");
     } finally {
       setBusy(false);
     }
@@ -49,9 +45,6 @@ function ExpertDashboard() {
   useEffect(() => { loadDashboard(); }, []);
 
   const students = dashboard?.students || [];
-  const visibleStudents = students.filter((student) =>
-    (student.full_name || "Student").toLowerCase().includes(query.toLowerCase())
-  );
   const student = students.find((item) => item.id === selectedId) || students[0] || null;
   const currentPlan = student?.plans?.find((plan) => plan.plan_date === new Date().toISOString().slice(0, 10)) || student?.plans?.[0];
   const sortedSkills = useMemo(
@@ -73,60 +66,21 @@ function ExpertDashboard() {
       .map((row) => ({ week: weekLabel(row.date), accuracy: Math.round(100 * row.sum / row.count) }));
   }, [student]);
 
-  async function submitFeedback(event) {
-    event.preventDefault();
-    if (!student || !notes.trim()) return;
-    setBusy(true);
-    setError("");
-    setSaved("");
-    try {
-      await invokeLearningFunction({
-        action: "expert_feedback",
-        student_id: student.id,
-        notes: notes.trim(),
-        focus_skill: focus || null,
-      });
-      setNotes("");
-      setSaved("Saved. This focus skill now leads the student's daily plan for seven days.");
-      await loadDashboard(student.id);
-    } catch (err) {
-      setError(err.message || "Could not save this expert note.");
-      setBusy(false);
-    }
-  }
-
   return (
     <div className="expert-dash">
       <div className="expert-dash__banner">
         <ShieldAlert size={16} />
-        <p>Student records are visible only to experts assigned to those students. Adaptive recommendations use recent game accuracy and skill ratings.</p>
+        <p>This private view shows only the learning progress saved to your signed-in account. Adaptive recommendations use your skill ratings and game results.</p>
       </div>
       <header className="expert-dash__header">
         <button className="expert-dash__back" onClick={() => navigate("/")} aria-label="Exit expert dashboard"><ArrowLeft size={16} /></button>
         <h1>Expert Dashboard</h1>
-        <span className="expert-dash__restricted">ASSIGNED STUDENTS</span>
-        <HelpButton text="Choose an assigned student to see their skill levels, recent game results, daily lesson plan, and any active focus from an expert." />
+        <span className="expert-dash__restricted">YOUR PROGRESS</span>
+        <HelpButton text="See your skill levels, daily lesson plan, game results, accuracy trends, and practice recommendations." />
         <button className="expert-dash__refresh" onClick={() => loadDashboard(selectedId)} disabled={busy}><RefreshCw size={14} /> Refresh</button>
       </header>
 
       <div className="expert-dash__body">
-        <aside className="expert-dash__roster">
-          <div className="expert-dash__search"><Search size={14} /><input placeholder="Search students..." value={query} onChange={(event) => setQuery(event.target.value)} /></div>
-          {busy && !dashboard && <p className="expert-dash__state">Loading assigned students…</p>}
-          {dashboard && students.length === 0 && <p className="expert-dash__state">No students are assigned to this expert account yet.</p>}
-          <ul>
-            {visibleStudents.map((item) => (
-              <li key={item.id}>
-                <button className={"expert-dash__roster-item" + (item.id === student?.id ? " is-active" : "")} onClick={() => { setSelectedId(item.id); setSaved(""); }}>
-                  <span className="expert-dash__avatar">{(item.full_name || "S")[0].toUpperCase()}</span>
-                  <span className="expert-dash__roster-info"><strong>{item.full_name || "Student"}</strong><span>{item.grade_tier === "k2" ? "Grades K–2" : "Grades 3–5"} · World {item.current_world}</span></span>
-                  <span className="expert-dash__roster-mastery">{mastery(item)}%</span>
-                </button>
-              </li>
-            ))}
-          </ul>
-        </aside>
-
         <main className="expert-dash__main">
           {error && <div className="expert-dash__error" role="alert"><AlertTriangle size={16} />{error}</div>}
           {student ? (
@@ -219,24 +173,14 @@ function ExpertDashboard() {
               {activeTab === "Settings & Practice" && (
                 <>
                   <div className="expert-dash__card">
-                    <h3>Adaptive Recommendations</h3>
-                    <p className="expert-dash__card-sub">The weakest current skills are suggested first. Expert focus overrides the automatic rotation.</p>
+                    <h3>Your Adaptive Practice</h3>
+                    <p className="expert-dash__card-sub">These activities target your lowest current skill ratings. The daily plan is refreshed as your results change.</p>
                     <div className="expert-dash__game-suggestions">
                       {sortedSkills.slice(0, 3).map((skill) => <Link key={skill.game_type} className="expert-dash__game-chip" to={"/?play=" + skill.game_type}>
                         <Play size={11} fill="currentColor" /> {GAME_META[skill.game_type]?.title || skill.game_type} · {skill.mastery_percent}%
                       </Link>)}
                     </div>
-                    <form className="expert-dash__feedback-form" onSubmit={submitFeedback}>
-                      <label htmlFor="focus-skill">Prioritize a skill for the next 7 days</label>
-                      <select id="focus-skill" value={focus} onChange={(event) => setFocus(event.target.value)}>
-                        <option value="">Automatic plan only</option>
-                        {Object.entries(GAME_META).map(([id, game]) => <option key={id} value={id}>{game.skill} · {game.title}</option>)}
-                      </select>
-                      <label htmlFor="expert-note">Expert note for this student</label>
-                      <textarea id="expert-note" value={notes} onChange={(event) => setNotes(event.target.value)} maxLength={2000} rows={4} required />
-                      <button className="btn btn--primary" type="submit" disabled={busy || !notes.trim()}><Send size={14} /> Save expert feedback</button>
-                      {saved && <p role="status" className="expert-dash__saved">{saved}</p>}
-                    </form>
+                    {!sortedSkills.length && <p>Complete the placement diagnostic to unlock skill-matched practice recommendations.</p>}
                   </div>
                   <div className="expert-dash__card">
                     <h3>Recent Expert Feedback</h3>
@@ -247,7 +191,7 @@ function ExpertDashboard() {
                 </>
               )}
             </>
-          ) : !busy && !error ? <div className="expert-dash__card"><h2>No assigned students yet</h2><p>Ask the project administrator to set this account as a teacher, therapist, or parent and add a student assignment.</p></div> : null}
+          ) : !busy && !error ? <div className="expert-dash__card"><h2>Your progress will appear here</h2><p>Sign in and complete the placement diagnostic or a game to start building your learning dashboard.</p></div> : null}
         </main>
       </div>
     </div>
