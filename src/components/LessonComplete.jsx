@@ -10,6 +10,8 @@ import WordPicture from "./WordPicture";
 import { speak } from "../audio/speech";
 import { useGuide } from "../context/GuideContext";
 import { useProgress } from "../context/ProgressContext";
+import { getSignedInUser, invokeLearningFunction } from "../learningApi";
+import { activeLearningDuration } from "../learningSessionClock";
 import { LESSON_BY_ID, UNITS } from "../data/lessons";
 import "./LessonComplete.css";
 
@@ -21,7 +23,7 @@ const CHEER = {
 };
 
 function LessonComplete({ lessonId, stars, character, onPlayAgain, onBack }) {
-  const { completeLesson } = useProgress();
+  const { completeLesson, setCurrentWorld, setAdaptivePlan } = useProgress();
   const { guide } = useGuide();
   const guideId = character || guide.id;
   const lesson = LESSON_BY_ID[lessonId];
@@ -33,6 +35,19 @@ function LessonComplete({ lessonId, stars, character, onPlayAgain, onBack }) {
     if (recorded.current) return;
     recorded.current = true;
     setResult(completeLesson(lessonId, earned));
+    getSignedInUser().then((user) => user && invokeLearningFunction({
+      action: "record_session",
+      game_type: lessonId,
+      accuracy: Number((earned / 3).toFixed(2)),
+      completion_time_ms: activeLearningDuration(lessonId),
+      attempt_count: Math.max(1, 4 - earned),
+      error_type: earned < 3 ? "star_rating_proxy" : null,
+    })).then((response) => {
+      if (response) {
+        setCurrentWorld(response.current_world);
+        setAdaptivePlan(response.daily_plan?.items || []);
+      }
+    }).catch((error) => console.warn("Could not sync learning progress:", error.message));
     // the cheer is read when the speaker button is pressed, not automatically
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 

@@ -324,3 +324,33 @@
     grid-template-columns: 1fr;
   }
 }
+
+.expert-dash__refresh { display: inline-flex; align-items: center; gap: 6px; margin-left: auto; border: 1px solid var(--border); border-radius: 999px; background: var(--white); padding: 8px 12px; color: var(--ink); font-size: .72rem; cursor: pointer; }
+.expert-dash__refresh:disabled { opacity: .55; cursor: wait; }
+.expert-dash__state { padding: 10px 4px; color: var(--ink-soft); font-size: .78rem; }
+.expert-dash__error { display: flex; align-items: center; gap: 8px; padding: 12px 14px; color: #9d3030; background: #fff0ef; border-radius: 12px; font-size: .8rem; }
+.expert-dash__plan { display: grid; gap: 8px; margin: 12px 0 0; padding: 0; list-style: none; }
+.expert-dash__plan li { display: flex; align-items: center; gap: 10px; padding: 10px; background: var(--green-paler); border-radius: 10px; }
+.expert-dash__plan li.is-complete { opacity: .65; }
+.expert-dash__plan li > span { display: grid; place-items: center; width: 26px; height: 26px; flex: none; background: var(--green-pale); border-radius: 50%; color: var(--green-dark); font-weight: 800; }
+.expert-dash__plan li div { display: grid; gap: 3px; flex: 1; }
+.expert-dash__plan li strong { font-size: .8rem; }
+.expert-dash__plan li small { color: var(--ink-soft); font-size: .7rem; }
+.expert-dash__plan li b { font-size: .7rem; white-space: nowrap; }
+.expert-dash__table-wrap { overflow-x: auto; }
+.expert-dash__feedback-form { display: grid; gap: 8px; margin-top: 18px; }
+.expert-dash__feedback-form label { margin-top: 5px; font-size: .75rem; font-weight: 700; }
+.expert-dash__feedback-form select, .expert-dash__feedback-form textarea { width: 100%; border: 1px solid var(--border); border-radius: 10px; padding: 10px; color: var(--ink); background: white; font: inherit; font-size: .8rem; }
+.expert-dash__feedback-form .btn { justify-self: start; display: inline-flex; align-items: center; gap: 7px; }
+.expert-dash__saved { color: var(--green-dark); font-size: .75rem; }
+.expert-dash__note { padding: 12px 0; border-top: 1px solid var(--border); }
+.expert-dash__note p { font-size: .8rem; line-height: 1.45; }
+.expert-dash__note small { display: block; margin-top: 4px; color: var(--ink-soft); font-size: .68rem; }
+@media (max-width: 650px) {
+  .expert-dash__header { flex-wrap: wrap; padding: 16px; }
+  .expert-dash__body { padding: 0 16px 36px; }
+  .expert-dash__banner { padding: 10px 16px; }
+  .expert-dash__tabs { width: 100%; overflow-x: auto; }
+  .expert-dash__tabs button { flex: none; padding: 8px 10px; }
+}
+

@@ -1,0 +1,21 @@
+-- Run only after the expert and student have each signed in once.
+-- Replace both email addresses below with the exact sign-in emails.
+-- This gives the expert read access only to the assigned student and allows
+-- the Edge Function to validate the expert role before saving feedback.
+
+update public.profiles p
+set role = 'teacher'
+from auth.users u
+where p.id = u.id
+  and u.email = 'EXPERT_EMAIL_HERE';
+
+insert into public.expert_students (expert_id, student_id)
+select expert.id, student.id
+from auth.users expert_auth
+join public.profiles expert on expert.id = expert_auth.id
+join auth.users student_auth on student_auth.email = 'STUDENT_EMAIL_HERE'
+join public.profiles student on student.id = student_auth.id
+where expert_auth.email = 'EXPERT_EMAIL_HERE'
+  and expert.role in ('teacher', 'therapist', 'parent')
+on conflict (expert_id, student_id) do nothing;
+

@@ -9,6 +9,7 @@ import { useProgress } from "./context/ProgressContext";
 import { LESSON_BY_ID } from "./data/lessons";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { supabase, consumeProfileRedirect, getGoogleProfile } from "./supabase";
+import { markLearningPage } from "./learningSessionClock";
 import "./App.css";
 import Homepage from "./pages/Homepage";
 import Login from "./pages/Login";
@@ -35,6 +36,7 @@ const ORDER = [
 let lastPage = "home";
 
 function KidGameApp() {
+  const { grade, isUnlocked, doorAvailable, setName, setEmail } = useProgress();
   // Holds a live DOM node reference for every section, keyed by section name,
   // so goTo() can scroll to any of them without re-rendering.
   const sectionRefs = useRef({});
@@ -55,6 +57,7 @@ function KidGameApp() {
     // a locked lesson can never be opened: send the child to the map instead
     if (!isAllowed(key)) key = fallbackFor(key);
     lastPage = key;
+    markLearningPage(key);
     sectionRefs.current[key]?.scrollIntoView({
       behavior: "smooth",
       inline: "start",
@@ -66,12 +69,16 @@ function KidGameApp() {
   // name/email and open the adventure map. If the diagnostic has not been done
   // yet, send them to that first so the map can be personalized.
   useEffect(() => {
-    const openAfterAuth = (user) => {
+    const openAfterAuth = async (user) => {
       const profile = getGoogleProfile(user);
       if (profile.name) setName(profile.name);
       if (profile.email) setEmail(profile.email);
+      const { data: cloudProfile } = await supabase.from("profiles")
+        .select("diagnostic_completed")
+        .eq("id", user.id)
+        .maybeSingle();
       requestAnimationFrame(() => {
-        const target = placed ? "map" : "placement";
+        const target = cloudProfile?.diagnostic_completed ? "map" : "placement";
         sectionRefs.current[target]?.scrollIntoView({
           behavior: "instant",
           inline: "start",
@@ -100,6 +107,7 @@ function KidGameApp() {
     if (sectionRefs.current[wanted]) {
       const target = isAllowed(wanted) ? wanted : fallbackFor(wanted);
       lastPage = target;
+      markLearningPage(target);
       setViewKey(target);
       sectionRefs.current[target].scrollIntoView({ behavior: "instant", inline: "start" });
     }
@@ -126,6 +134,7 @@ function KidGameApp() {
       }
     }
     lastPage = best;
+    markLearningPage(best);
     setViewKey(best);
   }
 

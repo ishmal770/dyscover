@@ -8,6 +8,7 @@ import { pickStartLesson } from "../data/placement";
 import { TREASURES, GEMS } from "../data/treasures";
 import { DOORS, prizeFor } from "../data/vineDoor";
 import { AVATARS, AVATAR_BY_ID, DEFAULT_AVATAR, isAvatarUnlocked, levelFor } from "../data/avatars";
+import { supabase } from "../supabase";
 
 const STORAGE_KEY = "dyscover-progress";
 
@@ -60,6 +61,8 @@ const EMPTY = {
   doorGems: [], // ids of the gems collected from today's door
   goldenPrizes: [], // ids of the prizes collected from the golden door
   placed: false, // true once the placement mission has been finished (it is played only once)
+  currentWorld: 1,
+  plannedLessons: [],
   placement: null, // { grade, correct, total, startLessonId, startUnitId }
   jungle: null, // the jungle the child was sorted into by the quiz
 };
@@ -129,6 +132,43 @@ function ProgressProvider({ children }) {
       // progress just won't persist
     }
   }
+
+  useEffect(() => {
+    async function syncCloudProfile(user) {
+      if (!user) return;
+      const { data: profile, error } = await supabase.from("profiles")
+        .select("grade_tier, diagnostic_completed, current_world")
+        .eq("id", user.id)
+        .maybeSingle();
+      if (error || !profile) return;
+      const current = stateRef.current;
+      if (profile.diagnostic_completed) {
+        let placement = current.placement;
+        if (!placement) {
+          const { data: plans } = await supabase.from("daily_lesson_plans")
+            .select("items")
+            .eq("student_id", user.id)
+            .order("plan_date", { ascending: false })
+            .limit(1);
+          const suggested = plans?.[0]?.items?.[0]?.lesson_id;
+          const start = LESSON_BY_ID[suggested] || LESSON_BY_ID.monkeyMixUpGame;
+          placement = { grade: profile.grade_tier, correct: 0, total: 0, startLessonId: start.id, startUnitId: start.unitId };
+        }
+        commit({ ...current, grade: profile.grade_tier, placed: true, placement, currentWorld: profile.current_world || 1 });
+      } else if (current.placed) {
+        // Old device-only placement results cannot seed the cloud diagnostic skills.
+        commit({ ...current, placed: false, placement: null, currentWorld: profile.current_world || 1 });
+      } else if (current.grade !== profile.grade_tier) {
+        commit({ ...current, grade: profile.grade_tier });
+      }
+    }
+
+    supabase.auth.getUser().then(({ data }) => syncCloudProfile(data.user));
+    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
+      syncCloudProfile(session?.user);
+    });
+    return () => listener.subscription.unsubscribe();
+  }, []);
 
   // Called once when a lesson (game session) is finished. Returns what the
   // "lesson complete" screen shows.
@@ -251,15 +291,18 @@ function ProgressProvider({ children }) {
   function chooseGrade(grade) {
     commit({ ...stateRef.current, grade });
   }
+  const setGrade = chooseGrade;
 
   // the level the placement mission found: this is what every game uses, and it
   // also chooses the first game on the adventure map. It is played only once.
-  function completePlacement({ grade, correct, total }) {
-    const start = pickStartLesson(correct, total);
+  function completePlacement({ grade, correct, total, startLessonId: backendStartLessonId }) {
+    const start = backendStartLessonId ? LESSON_BY_ID[backendStartLessonId] : pickStartLesson(correct, total);
+    if (!start) return;
     commit({
       ...stateRef.current,
       grade,
       placed: true,
+      currentWorld: 1,
       placement: {
         grade,
         correct,
@@ -268,6 +311,20 @@ function ProgressProvider({ children }) {
         startUnitId: start.unitId,
       },
     });
+  }
+
+  function setCurrentWorld(world) {
+    const nextWorld = Math.max(1, Math.min(2, Number(world) || 1));
+    if (nextWorld !== stateRef.current.currentWorld) commit({ ...stateRef.current, currentWorld: nextWorld });
+  }
+
+  function setAdaptivePlan(items) {
+    const plannedLessons = Array.isArray(items)
+      ? [...new Set(items.filter((item) => item.status !== "completed").map((item) => item.lesson_id).filter((id) => LESSON_BY_ID[id]))]
+      : [];
+    if (JSON.stringify(plannedLessons) !== JSON.stringify(stateRef.current.plannedLessons || [])) {
+      commit({ ...stateRef.current, plannedLessons });
+    }
   }
 
   function setJungle(jungle) {
@@ -304,8 +361,8 @@ function ProgressProvider({ children }) {
   const isUnlocked = (id) => {
     if (dev) return true; // demo mode: every game is open
     if (!state.placed) return false;
+    if (state.plannedLessons?.includes(id)) return true;
     if (allDone) return true;
-    return id === currentLessonId;
     const lesson = LESSONS.find((l) => l.id === id);
     if (!lesson || !isUnitOpen(lesson.unitId)) return false;
     // the diagnostic's recommended first game is open even when it is not the
@@ -313,7 +370,7 @@ function ProgressProvider({ children }) {
     if (state.placement?.startLessonId === id) return true;
     if (lesson.indexInUnit === 0) return true;
     const unit = UNITS.find((u) => u.id === lesson.unitId);
-    return isCompleted(unit.lessons[lesson.indexInUnit - 1].id);
+    return id === currentLessonId || isCompleted(unit.lessons[lesson.indexInUnit - 1].id);
   };
   // A gem that has been won but not yet put into its gate (and has a next unit to open)
   const pendingGem = UNITS.find((u, i) => i < UNITS.length - 1 && unitDone(u.id) && !gemPlaced(u.id)) || null;
@@ -347,6 +404,9 @@ function ProgressProvider({ children }) {
     setEmail,
     grade: state.grade,
     placed: state.placed,
+    currentWorld: state.currentWorld || 1,
+    setCurrentWorld,
+    setAdaptivePlan,
     // vine door: open after the day's goal is reached, until its gem has been collected
     dev,
     devAddXp,

@@ -2,6 +2,7 @@
 // level and stats (with a picker to change the avatar), today's goal, this
 // week, and one big "next lesson" button so there is always an obvious thing to
 // do. All of it is real saved progress (ProgressContext).
+import { useEffect, useState } from "react";
 import { Target, Play, Map as MapIcon, Backpack, Check, Flame, Volume2 } from "lucide-react";
 import TopBar from "../components/TopBar";
 import AccessibilityToolbar from "../components/AccessibilityToolbar";
@@ -13,6 +14,7 @@ import { speak } from "../audio/speech";
 import { useProgress, dayKey } from "../context/ProgressContext";
 import { LESSON_BY_ID } from "../data/lessons";
 import { GEMS } from "../data/treasures";
+import { getSignedInUser, invokeLearningFunction } from "../learningApi";
 import "./Dashboard.css";
 
 const DAY_LETTERS = ["S", "M", "T", "W", "T", "F", "S"];
@@ -31,6 +33,29 @@ function lastSevenDays(history) {
 
 function Dashboard({ onStartLesson, onOpenMap, onOpenBackpack, onQuiz, onCredits, onPlacement, onOpenDoor }) {
   const progress = useProgress();
+  const [learning, setLearning] = useState(null);
+  const [learningError, setLearningError] = useState("");
+  useEffect(() => {
+    let cancelled = false;
+    async function loadPlan() {
+      if (!progress.placed) { setLearning(null); return; }
+      try {
+        const user = await getSignedInUser();
+        if (!user) { setLearning(null); progress.setAdaptivePlan([]); return; }
+        const result = await invokeLearningFunction({ action: "daily_plan" });
+        if (!cancelled) {
+          setLearning(result);
+          progress.setAdaptivePlan(result.plan?.items || []);
+          progress.setCurrentWorld(result.profile?.current_world || 1);
+          setLearningError("");
+        }
+      } catch (error) {
+        if (!cancelled) setLearningError(error.message || "Today's plan could not load.");
+      }
+    }
+    loadPlan();
+    return () => { cancelled = true; };
+  }, [progress.placed, progress.lessons]);
   const { placed, doorAvailable, dailyLeft, dailyCollected, spendableXp, pendingGem, streak, todayXp, goal, history, playedToday } = progress;
   const next = LESSON_BY_ID[progress.nextLesson().id];
   const nextProgress = progress.lessons[next.id];
@@ -92,7 +117,7 @@ function Dashboard({ onStartLesson, onOpenMap, onOpenBackpack, onQuiz, onCredits
               </button>
             </div>
           ) : (
-          <div className="dash__next">
+            <div className="dash__next">
               <span className="dash__next-art">
                 <GameArt id={next.id} size={100} />
               </span>
@@ -111,6 +136,34 @@ function Dashboard({ onStartLesson, onOpenMap, onOpenBackpack, onQuiz, onCredits
               </button>
             </div>
           )}
+          {learning?.plan && (
+            <section className="dash__adaptive-plan" aria-label="Today's adaptive lesson plan">
+              <div className="dash__adaptive-heading">
+                <div>
+                  <span className="dash__next-unit">YOUR PERSONAL PLAN · WORLD {learning.plan.world}</span>
+                  <h2>Today’s learning path</h2>
+                  <p>{learning.plan.target_minutes} minutes picked from your current skill levels.</p>
+                </div>
+                {learning.recommendation && (
+                  <button className="dash__start" onClick={() => onStartLesson(learning.recommendation.game_type)}>
+                    <Play size={16} fill="currentColor" /> START NEXT
+                  </button>
+                )}
+              </div>
+              <ol className="dash__adaptive-items">
+                {learning.plan.items.map((item) => (
+                  <li key={item.order + item.game_type} className={item.status === "completed" ? "is-complete" : ""}>
+                    <span className="dash__adaptive-order">{item.status === "completed" ? <Check size={15} /> : item.order}</span>
+                    <div><strong>{item.title}</strong><span>{item.reason}</span></div>
+                    <button onClick={() => onStartLesson(item.lesson_id)} disabled={item.status === "completed"}>
+                      {item.status === "completed" ? "DONE" : `${item.target_minutes} MIN`}
+                    </button>
+                  </li>
+                ))}
+              </ol>
+            </section>
+          )}
+          {learningError && <p className="dash__adaptive-error" role="status">{learningError}</p>}
           <div className="dash__next">
             <span className="dash__next-art">
               <GameArt id={next.id} size={100} />
