@@ -168,17 +168,15 @@ def _world_progression(db: Client, student_id: str, profile: dict[str, Any]) -> 
 
 
 def _expert_dashboard(db: Client, expert_id: str, target_id: str | None) -> dict[str, Any]:
-    expert = _profile(db, expert_id)
-    if expert.get("role") not in EXPERT_ROLES:
-        raise HTTPException(403, "This account is not set up as a teacher, therapist, or parent.")
-    assigned = _rows(db.table("expert_students").select("student_id").eq("expert_id", expert_id).execute())
-    ids = list({row["student_id"] for row in assigned})
-    if target_id:
-        if target_id not in ids:
-            raise HTTPException(403, "You can only view students assigned to your account.")
-        ids = [target_id]
-    if not ids:
-        return {"students": [], "selected": None}
+    # This dashboard is intentionally scoped to the signed-in user's own
+    # progress. It is available to student accounts without granting access
+    # to other students' records or requiring an expert role.
+    if target_id and target_id != expert_id:
+        raise HTTPException(403, "You can only view your own learning progress.")
+    profile = _profile(db, expert_id)
+    ids = [expert_id]
+    if profile.get("diagnostic_completed"):
+        _make_plan(db, expert_id, profile)
     profiles = _rows(db.table("profiles").select(
         "id, full_name, grade_tier, current_world, diagnostic_completed, flagged_for_review"
     ).in_("id", ids).execute())
@@ -200,7 +198,7 @@ def _expert_dashboard(db: Client, expert_id: str, target_id: str | None) -> dict
         "summaries": [row for row in summaries if row["student_id"] == profile["id"]],
         "errors": [row for row in errors if row["student_id"] == profile["id"]],
     } for profile in profiles]
-    return {"students": students, "selected": next((s for s in students if s["id"] == target_id), None)}
+    return {"students": students, "selected": students[0] if students else None}
 
 
 @router.post("/learning")
