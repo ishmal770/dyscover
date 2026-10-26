@@ -14,7 +14,8 @@ import { speak } from "../audio/speech";
 import AccessibilityToolbar from "./AccessibilityToolbar";
 import GuideBubble from "./GuideBubble";
 import { useProgress } from "../context/ProgressContext";
-import { UNITS } from "../data/lessons";
+import { UNITS, LESSON_BY_ID } from "../data/lessons";
+import { GRADE_BANDS } from "../data/questionBanks";
 import "./LessonPath.css";
 
 const STEP = 190; // vertical distance between circles
@@ -106,16 +107,21 @@ function Unit({ unit, unitIndex, currentId, onOpen }) {
   );
 }
 
-function LessonPath({ onHome, onStartLesson, onPlacement, guideMessage, guideInstructions }) {
-  const { isCompleted, isUnlocked, stars, pendingGem, placed } = useProgress();
+
+function LessonPath({ onHome, onStartLesson, guideMessage, guideInstructions }) {
+  const { isCompleted, isUnlocked, stars, pendingGem, nextLesson, grade, recommendedLessonId } = useProgress();
   const [openId, setOpenId] = useState(null);
   const [demoId, setDemoId] = useState(null);
   const scrollRef = useRef(null);
 
   const allLessons = UNITS.flatMap((u) => u.lessons);
   const open = allLessons.find((l) => l.id === openId);
-  const currentId = allLessons.find((l) => !isCompleted(l.id) && isUnlocked(l.id))?.id;
+  const suggested = nextLesson();
+  const currentId = suggested && !isCompleted(suggested.id) ? suggested.id : undefined;
   const allDone = !currentId && !pendingGem;
+  const levelLabel = GRADE_BANDS.find((b) => b.id === grade)?.label;
+  const recommended = recommendedLessonId ? LESSON_BY_ID[recommendedLessonId] : null;
+  const showRecommendation = recommended && !isCompleted(recommended.id);
 
   // Bring the glowing lesson into view (scroll only this list, never the page)
   useEffect(() => {
@@ -140,6 +146,11 @@ function LessonPath({ onHome, onStartLesson, onPlacement, guideMessage, guideIns
                 Play placement games
               </button>
             </div>
+          )}
+          {showRecommendation && (
+            <p className="path__coach">
+              Your level: <strong>{levelLabel}</strong>. Start with <strong>{recommended.name}</strong>.
+            </p>
           )}
           {UNITS.map((unit, i) => (
             <Unit key={unit.id} unit={unit} unitIndex={i} currentId={currentId} onOpen={setOpenId} />

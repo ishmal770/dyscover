@@ -78,6 +78,9 @@
 }
 
 .dash__next-unit {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   font-size: 0.72rem;
   font-weight: 800;
   letter-spacing: 0.08em;
@@ -124,6 +127,23 @@
 .dash__start:active {
   transform: translateY(3px);
   box-shadow: 0 1px 0 var(--green-soft);
+}
+
+.dash__next-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.dash__start--ghost {
+  background: transparent;
+  color: var(--white);
+  border: 2px solid rgba(255, 255, 255, 0.65);
+  box-shadow: none;
+}
+
+.dash__start--ghost:active {
+  box-shadow: none;
 }
 
 .dash__row {

@@ -3,7 +3,8 @@
 // survives reloads on this device. Used by the dashboard, the map, the lesson
 // path, the "lesson complete" screen and the backpack.
 import { createContext, useContext, useEffect, useRef, useState } from "react";
-import { UNITS, LESSONS } from "../data/lessons";
+import { UNITS, LESSONS, LESSON_BY_ID } from "../data/lessons";
+import { pickStartLesson } from "../data/placement";
 import { TREASURES, GEMS } from "../data/treasures";
 import { DOORS, prizeFor } from "../data/vineDoor";
 import { AVATARS, AVATAR_BY_ID, DEFAULT_AVATAR, isAvatarUnlocked, levelFor } from "../data/avatars";
@@ -42,6 +43,7 @@ const DAILY_GOAL_XP = 30;
 
 const EMPTY = {
   name: "Explorer",
+  email: "",
   avatar: DEFAULT_AVATAR, // the picture on the child's account (see data/avatars.js)
   xp: 0,
   streak: 0, // consecutive days played, as of `lastDay`
@@ -58,6 +60,7 @@ const EMPTY = {
   doorGems: [], // ids of the gems collected from today's door
   goldenPrizes: [], // ids of the prizes collected from the golden door
   placed: false, // true once the placement mission has been finished (it is played only once)
+  placement: null, // { grade, correct, total, startLessonId, startUnitId }
   jungle: null, // the jungle the child was sorted into by the quiz
 };
 
@@ -79,6 +82,9 @@ function load() {
     if (saved && typeof saved === "object") {
       const state = { ...EMPTY, ...saved };
       if (!["k2", "g35"].includes(state.grade)) state.grade = "g35"; // the old 6-8 band was removed
+      // older saves finished placement before it chose a starting game, so ask
+      // them to do the quick diagnostic once more
+      if (state.placed && !state.placement) state.placed = false;
       return state;
     }
   } catch {
@@ -246,10 +252,22 @@ function ProgressProvider({ children }) {
     commit({ ...stateRef.current, grade });
   }
 
-  // the level the placement mission found: this is what every game uses, and it can
-  // only be done once
-  function setGrade(grade) {
-    commit({ ...stateRef.current, grade, placed: true });
+  // the level the placement mission found: this is what every game uses, and it
+  // also chooses the first game on the adventure map. It is played only once.
+  function completePlacement({ grade, correct, total }) {
+    const start = pickStartLesson(correct, total);
+    commit({
+      ...stateRef.current,
+      grade,
+      placed: true,
+      placement: {
+        grade,
+        correct,
+        total,
+        startLessonId: start.id,
+        startUnitId: start.unitId,
+      },
+    });
   }
 
   function setJungle(jungle) {
@@ -261,12 +279,19 @@ function ProgressProvider({ children }) {
     if (clean) commit({ ...stateRef.current, name: clean });
   }
 
+  function setEmail(email) {
+    const clean = String(email || "").trim();
+    if (clean) commit({ ...stateRef.current, email: clean });
+  }
+
   const today = dayKey();
   const isCompleted = (id) => Boolean(state.lessons[id]);
   // A unit is open if it is the first, or the unit before it has its gem in the gate
   const unitDone = (unitId) => UNITS.find((u) => u.id === unitId).lessons.every((l) => isCompleted(l.id));
   const gemPlaced = (unitId) => state.gems.includes(unitId);
   const isUnitOpen = (unitId) => {
+    // the unit the diagnostic picked is always open for this child
+    if (state.placement?.startUnitId === unitId) return true;
     const i = UNITS.findIndex((u) => u.id === unitId);
     return i === 0 || gemPlaced(UNITS[i - 1].id);
   };
@@ -281,24 +306,45 @@ function ProgressProvider({ children }) {
     if (!state.placed) return false;
     if (allDone) return true;
     return id === currentLessonId;
+    const lesson = LESSONS.find((l) => l.id === id);
+    if (!lesson || !isUnitOpen(lesson.unitId)) return false;
+    // the diagnostic's recommended first game is open even when it is not the
+    // first lesson in its unit
+    if (state.placement?.startLessonId === id) return true;
+    if (lesson.indexInUnit === 0) return true;
+    const unit = UNITS.find((u) => u.id === lesson.unitId);
+    return isCompleted(unit.lessons[lesson.indexInUnit - 1].id);
   };
   // A gem that has been won but not yet put into its gate (and has a next unit to open)
   const pendingGem = UNITS.find((u, i) => i < UNITS.length - 1 && unitDone(u.id) && !gemPlaced(u.id)) || null;
 
-  // The lesson to suggest next: the first one not finished yet (earliest unit
-  // first); once everything is done, the one with the fewest stars.
+  // The diagnostic rotates the lesson order so the recommended first game comes
+  // first; the rest of the path follows from there.
+  function lessonOrder() {
+    const startId = state.placement?.startLessonId;
+    const startIndex = startId ? LESSONS.findIndex((l) => l.id === startId) : -1;
+    if (startIndex < 0) return LESSONS;
+    return [...LESSONS.slice(startIndex), ...LESSONS.slice(0, startIndex)];
+  }
+
+  // The lesson to suggest next: the first one not finished yet in the child's
+  // personalized order; once everything is done, the one with the fewest stars.
   function nextLesson() {
-    const open = LESSONS.find((l) => !isCompleted(l.id) && isUnlocked(l.id));
+    const order = lessonOrder();
+    const open = order.find((l) => !isCompleted(l.id) && isUnlocked(l.id));
     if (open) return open;
-    return LESSONS.filter((l) => isUnlocked(l.id)).sort((a, b) => (state.lessons[a.id]?.stars || 0) - (state.lessons[b.id]?.stars || 0))[0] || LESSONS[0];
+    
+    return order.filter((l) => isUnlocked(l.id)).sort((a, b) => (state.lessons[a.id]?.stars || 0) - (state.lessons[b.id]?.stars || 0))[0] || order[0];
   }
 
   const stats = statsOf(state);
   const value = {
     name: state.name,
+    email: state.email,
     avatar: AVATAR_BY_ID[state.avatar] ? state.avatar : DEFAULT_AVATAR,
     setAvatar,
     setName,
+    setEmail,
     grade: state.grade,
     placed: state.placed,
     // vine door: open after the day's goal is reached, until its gem has been collected
@@ -316,6 +362,9 @@ function ProgressProvider({ children }) {
     cutVine,
     collectDoorGem,
     setGrade,
+    placement: state.placement,
+    recommendedLessonId: state.placement?.startLessonId || null,
+    completePlacement,
     chooseGrade,
     jungle: state.jungle,
     setJungle,

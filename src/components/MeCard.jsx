@@ -12,7 +12,7 @@ import { GRADE_BANDS } from "../data/questionBanks";
 import "./MeCard.css";
 
 function MeCard({ headline }) {
-  const { name, setName, avatar, setAvatar, levelInfo, jungle, grade, isAvatarUnlocked, xp, streak, totalStars, maxStars, stats } = useProgress();
+  const { name, email, setName, avatar, setAvatar, levelInfo, jungle, grade, isAvatarUnlocked, xp, streak, totalStars, maxStars, stats } = useProgress();
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState(name);
   const [picking, setPicking] = useState(false);
@@ -64,6 +64,7 @@ function MeCard({ headline }) {
             </h1>
           )}
           <p className="me__headline">{headline}</p>
+          {email && <p className="me__email">{email}</p>}
           <div className="profile__level" role="progressbar" aria-valuenow={levelInfo.into} aria-valuemin={0} aria-valuemax={levelInfo.needed}>
             <div style={{ width: `${levelInfo.percent}%` }} />
           </div>

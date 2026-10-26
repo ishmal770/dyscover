@@ -12,13 +12,15 @@ import SlothArt from "../components/SlothArt";
 import { speak, cancelSpeech } from "../audio/speech";
 import { useProgress } from "../context/ProgressContext";
 import { GRADE_BANDS } from "../data/questionBanks";
+import { LESSON_BY_ID } from "../data/lessons";
 import { PLACEMENT_PROMPT, PLACEMENT_VOWEL_PROMPT, QUESTION_COUNT, VOWELS, nextBand, pickQuestion } from "../data/placement";
 import WordPicture from "../components/WordPicture";
 import "./PlacementMission.css";
 
 function PlacementMission({ onNext, onHome }) {
-  const { setGrade, placed, grade } = useProgress();
+  const { completePlacement, placed, grade, placement } = useProgress();
   const rootRef = useRef(null);
+  const correctRef = useRef(0);
   const [active, setActive] = useState(false);
   const [started, setStarted] = useState(false);
   const [count, setCount] = useState(0); // questions answered so far
@@ -49,19 +51,26 @@ function PlacementMission({ onNext, onHome }) {
 
   function pick(choice) {
     if (chosen) return;
+    const correct = choice === answerOf(q);
+    if (correct) correctRef.current += 1;
     setChosen(choice);
     setTimeout(() => {
-      const next = nextBand(band, choice === answerOf(q));
+      const next = nextBand(band, correct);
       setAsked((a) => [...a, q.word]);
       setBand(next);
       setChosen(null);
-      if (count + 1 >= QUESTION_COUNT) setGrade(next); // where it lands is the child's level
+      if (count + 1 >= QUESTION_COUNT) {
+        // the landing band is the adaptive level; the score also picks the
+        // first game on the adventure map
+        completePlacement({ grade: next, correct: correctRef.current, total: QUESTION_COUNT });
+      }
       setCount((c) => c + 1);
     }, 700);
   }
 
   function begin() {
     setStarted(true);
+    correctRef.current = 0;
     setCount(0);
     setBand(grade);
     setAsked([]);
@@ -69,6 +78,8 @@ function PlacementMission({ onNext, onHome }) {
   }
 
   const startLabel = GRADE_BANDS.find((b) => b.id === grade)?.label;
+  const levelLabel = GRADE_BANDS.find((b) => b.id === (placement?.grade || grade))?.label;
+  const startName = placement?.startLessonId ? LESSON_BY_ID[placement.startLessonId]?.name : null;
 
   return (
     <section className="page placement" ref={rootRef}>
@@ -121,9 +132,12 @@ function PlacementMission({ onNext, onHome }) {
           <div className="placement__card">
             <SlothArt size={90} waving />
             <h2>All done! Your adventure is ready.</h2>
-            <p>I picked the perfect games for you.</p>
+            <p>
+              Your level: {levelLabel}.
+              {startName ? ` First game: ${startName}.` : " I picked the perfect games for you."}
+            </p>
             <button className="btn btn--primary" onClick={onNext}>
-              Start! <ArrowRight size={16} />
+              Open my map! <ArrowRight size={16} />
             </button>
           </div>
         )}

@@ -6,6 +6,7 @@
 // Plain data, read by the audio script too.
 
 import { BANKS } from "./questionBanks.js";
+import { LESSON_BY_ID } from "./lessons.js";
 
 export const BANDS = ["k2", "g35"];
 export const QUESTION_COUNT = 6;
@@ -51,4 +52,14 @@ export function pickQuestion(band, askedWords, type) {
 export function nextBand(band, correct) {
   const i = BANDS.indexOf(band) + (correct ? 1 : -1);
   return BANDS[Math.max(0, Math.min(BANDS.length - 1, i))];
+}
+
+// Where the child should begin on the adventure map. A stronger diagnostic
+// starts them further along the reading sequence; the adaptive level (grade
+// band) still controls how hard the questions are inside every game.
+export function pickStartLesson(correct, total) {
+  const accuracy = total > 0 ? correct / total : 0;
+  if (accuracy < 0.4) return LESSON_BY_ID.monkeyMixUpGame; // vowel sounds
+  if (accuracy < 0.7) return LESSON_BY_ID.lizardLookoutsGame; // letter recognition
+  return LESSON_BY_ID.syllableSafariGame; // syllables and reading
 }

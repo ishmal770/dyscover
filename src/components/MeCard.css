@@ -314,6 +314,14 @@
   opacity: 0.95;
 }
 
+.me__email {
+  margin-top: 2px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  opacity: 0.75;
+  overflow-wrap: anywhere;
+}
+
 .me__chips {
   display: flex;
   flex-wrap: wrap;

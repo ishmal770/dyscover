@@ -6,6 +6,7 @@ import GuideBubble from "../components/GuideBubble";
 import GradePicker from "../components/GradePicker";
 import { useProgress } from "../context/ProgressContext";
 import "./Login.css";
+import { signInWithGoogle } from "../supabase";
 
 function Login({ onNext }) {
   const { setName } = useProgress();
@@ -46,6 +47,13 @@ function Login({ onNext }) {
             like Log In does - it's no longer a dead click either way. */}
         <button type="button" className="btn btn--outline btn--block" onClick={proceed}>
           Create Account
+        </button>
+        <button
+          type="button"
+          className="btn btn--outline btn--block"
+          onClick={signInWithGoogle}
+        >
+        Continue with Google
         </button>
       </form>
       <GuideBubble

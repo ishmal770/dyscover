@@ -111,6 +111,31 @@ function Dashboard({ onStartLesson, onOpenMap, onOpenBackpack, onQuiz, onCredits
               </button>
             </div>
           )}
+          <div className="dash__next">
+            <span className="dash__next-art">
+              <GameArt id={next.id} size={100} />
+            </span>
+            <div>
+              <span className="dash__next-unit">
+                <MapIcon size={14} /> YOUR ADVENTURE MAP
+              </span>
+              <h2>
+                {next.name}
+                <button className="dash__speak" onClick={() => speak(`${next.name}. ${next.blurb}`)} aria-label="Read aloud">
+                  <Volume2 size={18} />
+                </button>
+              </h2>
+              <p>Next game: {next.blurb}</p>
+            </div>
+            <div className="dash__next-actions">
+              <button className="dash__start" onClick={onOpenMap}>
+                <MapIcon size={18} /> OPEN MAP
+              </button>
+              <button className="dash__start dash__start--ghost" onClick={() => onStartLesson(next.id)}>
+                <Play size={18} fill="currentColor" /> {nextProgress ? "PRACTICE" : "START"}
+              </button>
+            </div>
+          </div>
 
           <div className="dash__row">
             <section className="dash__card">

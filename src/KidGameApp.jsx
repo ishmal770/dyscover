@@ -8,6 +8,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useProgress } from "./context/ProgressContext";
 import { LESSON_BY_ID } from "./data/lessons";
 import { useSearchParams, useNavigate } from "react-router-dom";
+import { supabase, consumeProfileRedirect, getGoogleProfile } from "./supabase";
 import "./App.css";
 import Homepage from "./pages/Homepage";
 import Login from "./pages/Login";
@@ -41,7 +42,8 @@ function KidGameApp() {
   const [viewKey, setViewKey] = useState(lastPage); // which page is showing
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const { grade, isUnlocked, doorAvailable } = useProgress();
+  
+ 
 
   // A lesson that is still locked can never be opened.
   // (the vine door is only there after a day of lessons, until its gem has been collected)
@@ -59,6 +61,35 @@ function KidGameApp() {
       block: "nearest",
     });
   };
+
+  // After Google sends the child back, fill their profile with the Google
+  // name/email and open the adventure map. If the diagnostic has not been done
+  // yet, send them to that first so the map can be personalized.
+  useEffect(() => {
+    const openAfterAuth = (user) => {
+      const profile = getGoogleProfile(user);
+      if (profile.name) setName(profile.name);
+      if (profile.email) setEmail(profile.email);
+      requestAnimationFrame(() => {
+        const target = placed ? "map" : "placement";
+        sectionRefs.current[target]?.scrollIntoView({
+          behavior: "instant",
+          inline: "start",
+        });
+      });
+    };
+
+    const handleSession = (session) => {
+      if (session?.user && consumeProfileRedirect()) openAfterAuth(session.user);
+    };
+
+    supabase.auth.getSession().then(({ data }) => handleSession(data.session));
+    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === "SIGNED_IN") handleSession(session);
+    });
+
+    return () => authListener.subscription.unsubscribe();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Supports deep links like /?play=parrotPairsGame (used by the Trophy
   // Room and Expert Dashboard) by jumping straight to that section on load.
@@ -105,6 +136,7 @@ function KidGameApp() {
   // Every "home" button goes to the dashboard (the kid's home base); the splash
   // page is only the very first screen.
   const toDashboard = () => goTo("dashboard");
+  const toMap = () => goTo("map");
 
   // Finishing a lesson sends the child back to the map and then starts that
   // game fresh (a new `key`), so reopening it shows the game, not the old
@@ -128,7 +160,7 @@ function KidGameApp() {
       {section("home", <Homepage onNext={() => goTo("login")} />)}
       {section("login", <Login onNext={() => goTo("quiz")} />)}
       {section("quiz", <JungleQuiz onNext={() => goTo("placement")} />)}
-      {section("placement", <PlacementMission onNext={toDashboard} onHome={toDashboard} />)}
+      {section("placement", <PlacementMission onNext={toMap} onHome={toMap} />)}
 
       {/* Home base, then the world map. The map is one lesson path; each lesson is a game. */}
       {section(
