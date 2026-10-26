@@ -1,13 +1,17 @@
 let activePage = "home";
-let enteredAt = Date.now();
+let enteredAt = clockNow();
+
+export function clockNow() {
+  return Date.now();
+}
 
 export function markLearningPage(page) {
   if (activePage === page) return;
   activePage = page;
-  enteredAt = Date.now();
+  enteredAt = clockNow();
 }
 
 export function activeLearningDuration(page) {
-  return activePage === page ? Math.max(0, Date.now() - enteredAt) : 0;
+  return activePage === page ? Math.max(0, clockNow() - enteredAt) : 0;
 }
 

@@ -1,19 +1,25 @@
 import { supabase } from "./supabase";
 
-export async function invokeLearningFunction(body) {
-  const { data, error } = await supabase.functions.invoke("adaptive-session", { body });
-  if (error) {
-    let message = error.message || "The learning service could not be reached.";
-    try {
-      const details = await error.context?.json();
-      if (details?.error) message = details.error;
-    } catch {
-      // The response may not contain JSON.
-    }
-    throw new Error(message);
+const API_URL = (import.meta.env.VITE_DYSCOVER_API_URL || "").replace(/\/$/, "");
+
+async function callPythonApi(path, body) {
+  if (!API_URL) {
+    throw new Error("The Python learning API is not configured. Set VITE_DYSCOVER_API_URL to your Dyscover backend URL.");
   }
-  if (data?.error) throw new Error(data.error);
+  const { data: { session } } = await supabase.auth.getSession();
+  if (!session?.access_token) throw new Error("Please sign in first.");
+  const response = await fetch(`${API_URL}${path}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Authorization: `Bearer ${session.access_token}` },
+    body: JSON.stringify(body),
+  });
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok) throw new Error(data.detail || "The Dyscover learning service could not complete this request.");
   return data;
+}
+
+export async function invokeLearningFunction(body) {
+  return callPythonApi("/api/learning", body);
 }
 
 export async function getSignedInUser() {
@@ -23,20 +29,10 @@ export async function getSignedInUser() {
 }
 
 export async function startPlacementDiagnostic(gradeTier) {
-  const { data, error } = await supabase.functions.invoke("placement-diagnostic", {
-    body: { action: "start", grade_tier: gradeTier },
-  });
-  if (error) throw new Error(error.message || "Could not start the diagnostic.");
-  if (data?.error) throw new Error(data.error);
-  return data;
+  return callPythonApi("/api/placement", { action: "start", grade_tier: gradeTier });
 }
 
 export async function answerPlacementDiagnostic(history) {
-  const { data, error } = await supabase.functions.invoke("placement-diagnostic", {
-    body: { action: "answer", history },
-  });
-  if (error) throw new Error(error.message || "Could not save this answer.");
-  if (data?.error) throw new Error(data.error);
-  return data;
+  return callPythonApi("/api/placement", { action: "answer", history });
 }
 

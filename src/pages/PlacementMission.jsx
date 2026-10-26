@@ -13,6 +13,7 @@ import { LESSON_BY_ID } from "../data/lessons";
 import { PLACEMENT_PROMPT, PLACEMENT_VOWEL_PROMPT, QUESTION_COUNT, VOWELS, nextBand, pickQuestion } from "../data/placement";
 import { answerPlacementDiagnostic, startPlacementDiagnostic } from "../learningApi";
 import { supabase } from "../supabase";
+import { clockNow } from "../learningSessionClock";
 import WordPicture from "../components/WordPicture";
 import "./PlacementMission.css";
 
@@ -21,7 +22,7 @@ function PlacementMission({ onNext, onHome }) {
   const rootRef = useRef(null);
   const correctRef = useRef(0);
   const historyRef = useRef([]);
-  const questionStartedAt = useRef(Date.now());
+  const questionStartedAt = useRef(0);
   const [active, setActive] = useState(false);
   const [started, setStarted] = useState(false);
   const [count, setCount] = useState(0);
@@ -53,7 +54,7 @@ function PlacementMission({ onNext, onHome }) {
     setError("");
     correctRef.current = 0;
     historyRef.current = [];
-    questionStartedAt.current = Date.now();
+    questionStartedAt.current = clockNow();
     setCount(0);
     setBand(grade);
     setAsked([]);
@@ -84,7 +85,7 @@ function PlacementMission({ onNext, onHome }) {
       const nextHistory = [...historyRef.current, {
         question_id: q.id,
         answer: choice,
-        duration_ms: Math.max(0, Date.now() - questionStartedAt.current),
+        duration_ms: Math.max(0, clockNow() - questionStartedAt.current),
       }];
       try {
         const result = await answerPlacementDiagnostic(nextHistory);
@@ -107,7 +108,7 @@ function PlacementMission({ onNext, onHome }) {
           setBand(result.current_band);
           setCount(result.question_number - 1);
           setAsked((items) => [...items, q.word]);
-          questionStartedAt.current = Date.now();
+          questionStartedAt.current = clockNow();
           setChosen(null);
         }
       } catch (err) {
