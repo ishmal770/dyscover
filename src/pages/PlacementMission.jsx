@@ -70,6 +70,7 @@ function PlacementMission({ onNext, onHome }) {
       } else {
         setRemote(false);
       }
+      setError("");
       setStarted(true);
     } catch (err) {
       setError(err.message || "Could not connect to the learning service. Try again.");
@@ -113,6 +114,8 @@ function PlacementMission({ onNext, onHome }) {
       }];
       try {
         const result = await answerPlacementDiagnostic(nextHistory);
+        // Clear a previous transient network error after the backend responds.
+        setError("");
         historyRef.current = nextHistory;
         if (result.complete) {
           correctRef.current = result.correct;
